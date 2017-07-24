@@ -5,12 +5,17 @@ import java.sql.*;
 public class DBConnection {
     private Connection conn = null;
 
+    public DBConnection ()
+    {
+        conn = getConnection();
+    }
+
     private Connection getConnection(){
         try {
-            PropertiesReader pr = new PropertiesReader();
-            String database = pr.get("database");
-            String user = pr.get("user");
-            String password = pr.get("password");
+            //PropertiesReader pr = new PropertiesReader();
+            String database = "ecommerce";
+            String user = "root";
+            String password = "";
             String timezone_fix = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             Class.forName("com.mysql.jdbc.Driver");
             this.conn = DriverManager.getConnection(
