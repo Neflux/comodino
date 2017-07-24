@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <script>
+    var distanceLimit = 5000; //in meters
+    var numberRandomPoints = 10;
+    var mapZoomLevel = 12;
+    var locationindex = 0;
+    var locations = [
+        {'name': 'Trento, Italy', 'latitude': 46.0747793, 'longitude': 11.1217486},
+        {'name': 'Roma, Italy', 'latitude': 41.9027835, 'longitude': 12.4963655},
+        {'name': 'Milano, Italy', 'latitude': 45.4642035, 'longitude': 9.18998199},
+        {'name': 'Torino, Italy', 'latitude': 45.0703393, 'longitude': 7.68686400},
+        {'name': 'Napoli, Italy', 'latitude': 40.8517746, 'longitude': 14.2681244},
+        {'name': 'Parigi, Francia', 'latitude': 48.856614, 'longitude': 2.35222190},
+        {'name': 'Digione, Francia', 'latitude': 47.322047, 'longitude': 5.04147999},
+        {'name': 'Nizza, Francia', 'latitude': 43.7101728, 'longitude': 7.26195319},
+        {'name': 'Bordeaux, Francia', 'latitude': 44.837789, 'longitude': -0.5791799},
+        {'name': 'Montpellier, Francia', 'latitude': 43.610769, 'longitude': 3.87671599},
+        {'name': 'Barcellona, Spagna', 'latitude': 41.3850639, 'longitude': 2.17340349},
+        {'name': 'Valencia, Spagna', 'latitude': 39.4699075, 'longitude': -0.3762881},
+        {'name': 'Madrid, Spagna', 'latitude': 40.4167754, 'longitude': -3.7037901},
+        {'name': 'Siviglia, Spagna', 'latitude': 37.3890924, 'longitude': -5.9844588},
+        {'name': 'Granada, Spagna', 'latitude': 37.1773363, 'longitude': -3.5985570},
+        {'name': 'Londra, UK', 'latitude': 51.5073509, 'longitude': -0.1277582},
+        {'name': 'Manchester, UK', 'latitude': 53.4807593, 'longitude': -2.2426305},
+        {'name': 'Liverpool, UK', 'latitude': 53.4083714, 'longitude': -2.9915726},
+        {'name': 'Brighton, UK', 'latitude': 50.82253000000001, 'longitude': -0.1371629},
+        {'name': 'Edimburgh, UK', 'latitude': 55.953252, 'longitude': -3.1882669}
+    ];
+    </script>
+</head>
+<body>
+<div id="topbar">
+    <select id="location_switch">
+    <script>
+        for (i=0; i<locations.length; i++) {
+            document.write('<option value="' + i + '">' + locations[i].name + '</option>');
+        }
+    </script>
+    </select>
+    <img src="http://google.com/mapfiles/ms/micons/ylw-pushpin.png" style="height:15px;"> = Center
+    <img src="https://maps.gstatic.com/mapfiles/ms2/micons/red.png" style="height:15px;"> = No Longitude Adjustment
+    <img src="https://maps.gstatic.com/mapfiles/ms2/micons/pink.png" style="height:15px;"> = With Longitude Adjustment (var xp = x / Math.cos(y0);)
+</div>
+
+<div id="map_canvas" style="position:absolute; top:30px; left:0px; height:100%; height:calc(100% - 30px); width:100%;overflow:hidden;"></div>
+
+<script>
+var markers = [];
+var mappoints = [];
+var currentcircle;
+
+function initMap() {
+	var geocoder = new google.maps.Geocoder;
+	//Create the default map
+	var mapcenter = new google.maps.LatLng(locations[locationindex].latitude, locations[locationindex].longitude);
+	var myOptions = {
+		zoom: mapZoomLevel,
+		scaleControl: true,
+		center: mapcenter
+	};
+	var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+		 //Draw default items
+	var centermarker = addCenterMarker(map, mapcenter, locations[locationindex].name + '<br>' + locations[locationindex].latitude + ', ' + locations[locationindex].longitude);
+	mappoints = generateMapPoints(locations[locationindex], distanceLimit, numberRandomPoints, geocoder);
+	drawRadiusCircle(map, centermarker, distanceLimit);
+	createRandomMapMarkers(map);
+	
+	$('#location_switch').change(function() {
+		var newlocation = $(this).val();
+
+		clearMarkers();
+
+		mapcenter = new google.maps.LatLng(locations[newlocation].latitude, locations[newlocation].longitude);
+		map.panTo(mapcenter);
+		centermarker = addCenterMarker(mapcenter, locations[newlocation].name + '<br>' + locations[newlocation].latitude + ', ' + locations[newlocation].longitude);
+		mappoints = generateMapPoints(locations[newlocation], distanceLimit, numberRandomPoints, geocoder);
+
+		//Draw default items
+		currentcircle.setMap(null);
+		drawRadiusCircle(map, centermarker, distanceLimit);
+		createRandomMapMarkers(map, mappoints);
+	});
+}
+
+//Create random lat/long coordinates in a specified radius around a center point
+function randomGeo(center, radius) {
+    var y0 = center.latitude;
+    var x0 = center.longitude;
+    var rd = radius / 111300; //about 111300 meters in one degree
+
+    var u = Math.random();
+    var v = Math.random();
+
+    var w = rd * Math.sqrt(u);
+    var t = 2 * Math.PI * v;
+    var x = w * Math.cos(t);
+    var y = w * Math.sin(t);
+
+    //Adjust the x-coordinate for the shrinking of the east-west distances
+    var xp = x / Math.cos(y0);
+
+    var newlat = y + y0;
+    var newlon = x + x0;
+    var newlon2 = xp + x0;
+
+    return {
+        'latitude': newlat.toFixed(5),
+        'longitude': newlon.toFixed(5),
+        'longitude2': newlon2.toFixed(5),
+        'distance': distance(center.latitude, center.longitude, newlat, newlon).toFixed(2),
+        'distance2': distance(center.latitude, center.longitude, newlat, newlon2).toFixed(2),
+    };
+}
+
+//Calc the distance between 2 coordinates as the crow flies
+function distance(lat1, lon1, lat2, lon2) {
+    var R = 6371000;
+    var a = 0.5 - Math.cos((lat2 - lat1) * Math.PI / 180) / 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * (1 - Math.cos((lon2 - lon1) * Math.PI / 180)) / 2;
+    return R * 2 * Math.asin(Math.sqrt(a));
+}
+
+//Generate a number of mappoints
+function generateMapPoints(centerpoint, distance, amount, geocoder) {
+    
+	var i = 0;
+	var _this = this;
+    _this.interval = setInterval(function() {
+		var mappoint = randomGeo(centerpoint, distance);
+		//console.log(mappoint.latitude + " " + mappoint.longitude);
+        mappoints.push(mappoint);
+		
+		var _latlng = {lat: parseFloat(mappoint.latitude), lng: parseFloat(mappoint.longitude)};
+        geocoder.geocode({ location: _latlng }, function(results, status) {
+		if (status === 'OK') {
+			i++;
+		  if (results[1]) {
+			
+			console.log(results[1].formatted_address);
+			
+			/*const url = '//router.project-osrm.org/nearest/v1/driving/';
+			fetch(url + _latlng.lng + ',' + _latlng.lat).then(function(response) { 
+			  return response.json();
+			}).then(function(json) {
+			  if (json.code === 'Ok') {
+				console.info(json.waypoints[0].location);
+			  }
+			});*/
+			
+		  } else {
+			window.alert('No results found');
+		  }
+		} else {
+		  console.log('Geocoder failed due to: ' + status);
+		  i--;
+		  
+		}
+		});
+
+        if (i >= amount) {
+            clearInterval(_this.interval);
+        }
+    }, 1500);	
+	
+    return mappoints;
+}
+
+//Add a unique center marker
+function addCenterMarker(map, centerposition, title) {
+    
+    var infowindow = new google.maps.InfoWindow({
+        content: title
+    });
+    
+    var newmarker = new google.maps.Marker({
+        icon: 'http://google.com/mapfiles/ms/micons/ylw-pushpin.png',
+        position: centerposition,
+        map: map,
+        title: title,
+        zIndex: 3
+    });
+    
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+        infowindow.open(map,newmarker);
+    });
+    
+    markers.push(newmarker);
+    return newmarker;
+}
+
+//Draw a circle on the map
+function drawRadiusCircle (map, marker, distance) {
+    currentcircle = new google.maps.Circle({
+        map: map,
+        radius: distance
+    });
+    currentcircle.bindTo('center', marker, 'position');
+}
+
+//Create markers for the randomly generated points
+function createRandomMapMarkers(map) {
+    for (var i = 0; i < mappoints.length; i++) {
+        //Map points without the east/west adjustment
+        var newmappoint = new google.maps.LatLng(mappoints[i].latitude, mappoints[i].longitude);
+        var marker = new google.maps.Marker({
+            position:newmappoint,
+            map: map,
+            title: mappoints[i].latitude + ', ' + mappoints[i].longitude + ' | ' + mappoints[i].distance + 'm',
+            zIndex: 2
+        });
+        markers.push(marker);
+
+        //Map points with the east/west adjustment
+        var newmappoint = new google.maps.LatLng(mappoints[i].latitude, mappoints[i].longitude2);
+        var marker = new google.maps.Marker({
+            icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/pink.png',
+            position:newmappoint,
+            map: map,
+            title: mappoints[i].latitude + ', ' + mappoints[i].longitude2 + ' | ' + mappoints[i].distance2 + 'm',
+            zIndex: 1
+        });
+        markers.push(marker);
+    }
+}
+
+//Destroy all markers
+function clearMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
+}
+
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1TVB5_xqwquZQPWz8m1MKn3gUGc9AU7Y&callback=initMap"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+Latitude,Longitude,Address,City,State,ZIP,OpeningHours,ShopID
+46.0864577,11.1186555,"Via del Brennero, 260",Trento,Italia,38122,7-20,1
+46.0586575,11.130224,"Via Bolghera, 25",Trento,Italia,38122,8-18,2
+46.0606031,11.1189007,"Via Giusti, 34",Trento,Italia,38122,8-17,3
+46.0982084,11.1024028,"Via Caneppele, 31",Trento,Italia,38122,10-19,4
+46.0914159,11.117707,"Via Zambra, 22",Trento,Italia,38122,10-17,5
+46.04862,11.13225,"Viale Verona, 165",Trento,Italia,38122,8-19,6
+46.0379528,11.1247965,"Via Fersina, 2",Trento,Italia,38122,8-18,7
+46.0702639,11.112008,"Via Papiria, 5",Trento,Italia,38122,10-19,8
+46.077765,11.1238266,"Via della Malvasia, 14",Trento,Italia,38122,9-19,9
+46.1037823,11.1130495,"Via IV Novembre, 37",Trento,Italia,38122,8-19,10
+41.9142723,12.4568972,"Via Emilio Faà di Bruno, 10",Roma,Italia,195,10-19,11
+41.9153571,12.4426326,"Viale delle Medaglie d'Oro, 163",Roma,Italia,136,10-20,12
+41.8895857,12.4247446,"Via Aurelia Antica, 428",Roma,Italia,164,8-18,13
+41.9529796,12.5292272,"Via Giovanni Conti, 360",Roma,Italia,139,7-18,14
+41.954524,12.5180586,"Via Suvereto, 241",Roma,Italia,139,10-17,15
+41.9536781,12.4839755,"Via Flaminia, 1100",Roma,Italia,191,7-18,16
+41.9515334,12.4467666,"Viale Cortina d'Ampezzo, 105",Roma,Italia,135,8-17,17
+41.9353495,12.4218044,"Via di Torrevecchia, 85",Roma,Italia,168,7-17,18
+41.9105067,12.5361005,"Via Vacuna, 32",Roma,Italia,157,8-19,19
+41.8421357,12.4256997,"Via di Vigna Gireli, 62",Roma,Italia,148,8-19,20
+45.4537154,9.164146,"Via Borgognone, 31",Milano,Italia,20144,8-20,21
+45.5191817,9.1532231,"Via Bovisasca, 84",Milano,Italia,20161,8-17,22
+45.4309172,9.2066589,"Via Bottoni, 5",Milano,Italia,20141,7-18,23
+45.4547854,9.1667415,"Via Cerano, 15",Milano,Italia,20144,7-18,24
+45.487128,9.1301996,"Via Antonio Sant’Elia, 36",Milano,Italia,20148,7-17,25
+45.4546511,9.2011234,"Via Orti, 14",Milano,Italia,20122,10-20,26
+45.4618732,9.1546699,"Via Washington, 60",Milano,Italia,20146,10-19,27
+45.4835959,9.1581488,"Via Leon Battista Alberti, 5",Milano,Italia,20149,10-17,28
+45.4877232,9.2307994,"Via Wildt, 4",Milano,Italia,20131,10-17,29
+45.4651854,9.1699945,"Via Zenale, 4",Milano,Italia,20123,10-20,30
+45.0725671,7.6572948,"Via Cavalli, 36",Torino,Italia,10138,10-17,31
+45.0930319,7.6713494,"Via Orvieto, 26",Torino,Italia,10149,8-17,32
+45.06377,7.6308,"Corso Monte Cucco, 119",Torino,Italia,10141,8-18,33
+45.0561405,7.6660922,"Via Lamarmora, 59",Torino,Italia,10128,7-17,34
+45.0584924,7.6852862,"Via Galliari, 30",Torino,Italia,10125,8-19,35
+45.0722666,7.6370529,"Via Bardonecchia, 87",Torino,Italia,10139,9-17,36
+45.0333095,7.6336492,"Corso Tazzoli, 78",Torino,Italia,10135,8-18,37
+45.0523059,7.640908,"Via Negri, 22",Torino,Italia,10136,9-18,38
+45.0798267,7.6951045,"Via Perugia, 34",Torino,Italia,10152,10-20,39
+45.0381287,7.6568138,"Via Filadelfia, 42",Torino,Italia,10134,10-18,40
+40.8601946,14.2688348,"Via Cantelmo, 36",Napoli,Italia,80141,9-19,41
+40.8524764,14.2655658,"Via Maddalena, 40",Napoli,Italia,80139,7-17,42
+40.8577287,14.256004,"Via Miracoli, 48",Napoli,Italia,80137,10-20,43
+40.8385283,14.3024289,"Via Ferrante Imparato, 35",Napoli,Italia,80146,8-17,44
+40.8363407,14.3069133,"Corso Protopisani, 82",Napoli,Italia,80146,10-17,45
+40.8717969,14.2354291,"Via Nicolardi, 148",Napoli,Italia,80131,10-17,46
+40.8328177,14.2116329,"Via Manzoni, 50",Napoli,Italia,80123,10-20,47
+40.850838,14.3305401,"Via Volpicella, 30",Napoli,Italia,80147,8-18,48
+40.8961999,14.2612568,"Strada Comunale Cupa dell’Arco, 51",Napoli,Italia,80144,9-17,49
+40.8879302,14.2793342,"Via Nuovo Tempio, 75",Napoli,Italia,80144,10-20,50
+48.8685199,2.3564518,54 Rue Meslay,Parigi,Francia,75003,9-17,51
+48.8752592,2.3113414,154 Boulevard Haussman,Parigi,Francia,75008,10-19,52
+48.8599107,2.3151674,61 Rue Saint-Dominique,Parigi,Francia,75007,9-18,53
+48.8840097,2.3813223,20 Rue du Rhin,Parigi,Francia,75019,7-18,54
+48.8478038,2.2942709,41 Rue Fondary,Parigi,Francia,75015,8-18,55
+48.8257302,2.3459519,221 Rue de Tolbiac,Parigi,Francia,75013,8-17,56
+48.8397678,2.2925292,236 Rue Lecourbe,Parigi,Francia,75015,7-18,57
+48.857946,2.3867408,6 Rue Gerbier,Parigi,Francia,75011,7-19,58
+48.8908703,2.3218387,23 Rue des Apennins,Parigi,Francia,75017,8-17,59
+48.8814994,2.3876124,70 Rue de Crimée,Parigi,Francia,75019,9-20,60
+47.3096903,5.0431387,22 Rue du Midi,Digione,Francia,21000,7-19,61
+47.3251772,5.0156642,18 Boulevard de l’Ouest,Digione,Francia,21000,10-17,62
+47.3205868,5.0537952,11 Impasse du Clos Verrières,Digione,Francia,21000,9-17,63
+47.3011557,5.0403613,36 Rue Claude Debussy,Digione,Francia,21000,7-18,64
+47.3331911,5.0549496,12 Rue Général Delaborde,Digione,Francia,21000,8-19,65
+47.3321012,5.0307862,28 Rue Villebois Mareuil,Digione,Francia,21000,9-20,66
+47.3284328,5.0260157,55 Avenue Victor Hugo,Digione,Francia,21000,10-17,67
+47.3261111,5.0467921,2 Rue de Mulhouse,Digione,Francia,21000,8-19,68
+47.3129655,5.0806848,31 Rue Pierre de Coubertin,Digione,Francia,21000,9-18,69
+47.3045799,5.0406627,50 Rue des Moulins,Digione,Francia,21000,7-17,70
+43.6963731,7.2863443,50 Rue des Moulins,Nizza,Francia,6000,10-18,71
+43.6959643,7.2428766,20 Rue de la Tour de Magnan,Nizza,Francia,6000,8-18,72
+43.7179899,7.2937442,17 Rue Louis Genari,Nizza,Francia,6300,9-20,73
+43.7147338,7.2637324,98h Petit Chemin de Valrose,Nizza,Francia,6100,8-19,74
+43.7146479,7.2561381,3 Avenue Grignan,Nizza,Francia,6100,9-20,75
+43.7050531,7.2645486,1 Avenue Thiers,Nizza,Francia,6000,8-18,76
+43.6973677,7.2520697,45 Rue des Potiers,Nizza,Francia,6000,9-18,77
+43.7102334,7.2652258,47 Avenue Raymond Comboul,Nizza,Francia,6100,9-17,78
+43.7260899,7.2563515,8 Place Fontaine du Temple,Nizza,Francia,6100,8-19,79
+43.7238264,7.2478125,149B Avenue Cyrille Besset,Nizza,Francia,6100,9-20,80
+44.8557382,-0.6021266,5 Rue Godard,Bordeaux,Francia,33200,7-17,81
+44.848966,-0.6120789,185 Rue de l'École Normale,Bordeaux,Francia,33200,7-19,82
+44.8746166,-0.5637798,9 Rue Francis Garnier,Bordeaux,Francia,33300,7-17,83
+44.8522195,-0.5800091,20 Rue Lacour,Bordeaux,Francia,33300,8-20,84
+44.8564082,-0.578267,22 Rue Lucien Duffau,Bordeaux,Francia,33300,7-20,85
+44.8604358,-0.6001874,184 Avenue de la Libération Charles de Gaulle,Bordeaux,Francia,33110,10-18,86
+44.8418774,-0.5874946,34 Rue Segalier,Bordeaux,Francia,33000,9-20,87
+44.8249602,-0.5860364,48 Rue de Ségur,Bordeaux,Francia,33000,10-17,88
+44.8225481,-0.5619815,75 Rue Pelleport,Bordeaux,Francia,33800,7-20,89
+44.8523595,-0.6171227,150 Avenue Louis Barthou,Bordeaux,Francia,33200,8-18,90
+43.598493,3.8767233,13 Impasse des Marrescals,Montpellier,Francia,34000,8-18,91
+43.5943724,3.8592126,235 Rue de Bugarel,Montpellier,Francia,34070,9-20,92
+43.6190952,3.8916417,25 Boulevard des Sports,Montpellier,Francia,34000,7-18,93
+43.6170206,3.91093,1211 Rue de la Vieille Poste,Montpellier,Francia,34000,9-18,94
+43.6010724,3.914128,194 Avenue Nina Simone,Montpellier,Francia,34000,7-19,95
+43.5860515,3.8866818,"65 Rue de la Restanque,",Montpellier,Francia,34000,8-19,96
+43.5998542,3.8373505,46 Rue du Mas de Perrette,Montpellier,Francia,34070,9-18,97
+43.6171889,3.919046,1130 Rue des Marels,Montpellier,Francia,34000,8-18,98
+43.5900303,3.8867016,18 Rue de l'Abrivado,Montpellier,Francia,34000,7-19,99
+43.5747167,3.8667663,"1026 Rue François Joseph Gossec,",Montpellier,Francia,34070,10-18,100
+41.4099077,2.1643881,"Carrer de Pi i Margall, 90",Barcellona,Spagna,8025,10-18,101
+41.369739,2.1360692,"Carrer de la Constitució, 51",Barcellona,Spagna,8014,10-20,102
+41.4043663,2.2064098,"Carrer de Llull, 259",Barcellona,Spagna,8005,7-20,103
+41.4066492,2.1562844,"Carrer de l'Alzina, 22",Barcellona,Spagna,8024,7-20,104
+41.4187662,2.2146629,"Carrer dels Germans Serra, 25",Barcellona,Spagna,8019,8-20,105
+41.4017187,2.1286999,"Carrer de Rosales, 11",Barcellona,Spagna,8017,9-17,106
+41.3563067,2.1044621,"Rambla de la Marina, 480",Barcellona,Spagna,8907,10-20,107
+41.4341542,2.1591634,"Carrer d'Eduard Toda, 19",Barcellona,Spagna,8031,7-20,108
+41.4003313,2.1410691,"Carrer de Muntaner, 417",Barcellona,Spagna,8021,7-19,109
+41.4373873,2.191782,"Carrer d'En Paixalet, 8",Barcellona,Spagna,8030,7-20,110
+39.4641895,-0.4090852,"Plaça de la Colònia Espanyola de Mèxic, 14",Valencia,Spagna,46014,8-17,111
+39.451916,-0.3702612,"Carrer de Sollana, 3",Valencia,Spagna,46013,9-17,112
+39.4954194,-0.3920348,"Av. de l'Equador, 60",Valencia,Spagna,46025,10-19,113
+39.4586018,-0.3355506,"Carrer de Bello, 22",Valencia,Spagna,46024,10-19,114
+39.4984928,-0.3919119,"Carrer de Salvador Cerveró, 41",Valencia,Spagna,46025,9-18,115
+39.495139,-0.3645962,"Carrer de Sant Vicent de Paül, 2",Valencia,Spagna,46019,8-20,116
+39.4572264,-0.3942876,"Carrer de Xera, 15",Valencia,Spagna,46017,8-19,117
+39.4503396,-0.3600085,"Carrer d'Antonio Ferrandis, 10",Valencia,Spagna,46013,9-17,118
+39.4971677,-0.3902359,"Carrer de Manuel Melià i Fuster, 14",Valencia,Spagna,46025,8-19,119
+39.489912,-0.3557009,"Carrer del Poeta Ricard Sanmartí, 25",Valencia,Spagna,46020,10-17,120
+40.4318937,-3.6855392,"Calle de Claudio Coello, 92",Madrid,Spagna,28006,10-20,121
+40.4503875,-3.6992695,"Calle Jaén, 35",Madrid,Spagna,28020,8-17,122
+40.4540833,-3.6782426,"Calle de Serrano, 236",Madrid,Spagna,28016,9-18,123
+40.4286437,-3.6759643,"Calle de Don Ramón de la Cruz, 64",Madrid,Spagna,28001,9-17,124
+40.426489,-3.6545369,"Calle del Apóstol Santiago, 34",Madrid,Spagna,28017,7-20,125
+40.4356558,-3.6256427,"Calle de Julian Camarillo, 35",Madrid,Spagna,28037,8-17,126
+40.4528707,-3.7045373,"Calle de Castilla, 9",Madrid,Spagna,28039,8-20,127
+40.3966676,-3.7443478,"Calle de la Alhambra, 84",Madrid,Spagna,28047,9-20,128
+40.371381,-3.7435564,"Calle Reus, 10",Madrid,Spagna,28044,9-19,129
+40.4039007,-3.6048964,"Calle de S. Cipriano, 42",Madrid,Spagna,28032,7-18,130
+37.35493,-5.9718,"Ctra. Su Eminencia, 71",Siviglia,Spagna,41013,9-19,131
+37.3623876,-5.9859212,"Av. de la Reina Mercedes, 15",Siviglia,Spagna,41012,9-18,132
+37.3723127,-5.9548844,"Calle Puerto de Piedrafita, 3",Siviglia,Spagna,41003,8-17,133
+37.4045566,-5.9109534,"Calle Prof. Manuel Olivencia Ruiz, 25",Siviglia,Spagna,41020,8-17,134
+37.4327944,-5.9562489,"Camino de la Reina, 41",Siviglia,Spagna,41020,7-19,135
+37.4078982,-5.9874766,"Calle Dr. Marañón, 5",Siviglia,Spagna,41009,7-17,136
+37.3717332,-6.0057797,"Av. Alfredo Kraus, 7",Siviglia,Spagna,41011,10-19,137
+37.3942761,-5.9234441,"Calle Telémaco, 6",Siviglia,Spagna,41020,8-18,138
+37.4275722,-5.9841226,"Calle Corvina, 15",Siviglia,Spagna,41015,8-19,139
+37.4483716,-5.9412839,"Calle Penta, 29",Siviglia,Spagna,41015,9-20,140
+37.180671,-3.6147016,"Calle Fray Luis de León, 2",Granada,Spagna,18004,9-19,141
+37.1938398,-3.6059122,"Calle San Leandro, 33",Granada,Spagna,18003,8-20,142
+37.2032522,-3.6217386,"Av. Federico García Lorca, 31",Granada,Spagna,18014,9-17,143
+37.2065305,-3.6044613,"Calle Fray Juan Sánchez Cotán, 153",Granada,Spagna,18011,8-17,144
+37.1602787,-3.5941366,"Av. de América, 66,",Granada,Spagna,18006,7-19,145
+37.1450067,-3.5910139,"Carr. de la Zubia, 89",Granada,Spagna,18007,9-17,146
+37.1927349,-3.6236697,"Av. de Andalucía, 81",Granada,Spagna,18014,8-20,147
+37.1591034,-3.6044223,"Calle María Auxiliadora, 8",Granada,Spagna,18006,8-20,148
+37.20238,-3.62558,"Av. de Maracena, 126",Granada,Spagna,18014,9-19,149
+37.1910551,-3.6382172,"Calle Escritor Jose España, 31",Granada,Spagna,18015,7-20,150
+51.4765491,-0.0618025,20 Willowdene,Londra,Inghilterra,SE15 2UQ,7-19,151
+51.5298301,0.039703,7 Imperial Mews,Londra,Inghilterra,E6 3DD,9-18,152
+51.461607,-0.0577619,32 Limes Walk,Londra,Inghilterra,SE15 3LJ,10-20,153
+51.4460573,-0.097126,42 Turney Rd,Londra,Inghilterra,SE21 8LU,10-17,154
+51.3800109,0.1091144,43 Court Rd,Londra,Inghilterra,SE9 5AF,7-17,155
+51.5606697,-0.2100775,11 Gillingham Rd,Londra,Inghilterra,NW2 1RL,7-19,156
+51.4435219,-0.2032535,27 Brookwood Rd,Londra,Inghilterra,SW18 5BQ,8-17,157
+51.6031338,-0.1349716,72 Bidwell Gardens,Londra,Inghilterra,N11 2AU,8-20,158
+51.6167578,-0.0195942,27 Lower Hall Ln,Londra,Inghilterra,E4 8JG,8-17,159
+51.5324252,-0.2464848,28 Station Approach,Londra,Inghilterra,NW10 4UY,10-20,160
+53.4574042,-2.2576955,8 Garthorne Cl,Manchester,Inghilterra,M16 7EY,8-19,161
+53.4922552,-2.1656305,2 Shaldon Dr,Manchester,Inghilterra,M40 1GS,8-17,162
+53.5140298,-2.2381133,57 Moss Bank,Manchester,Inghilterra,M8 5FN,10-18,163
+53.4758549,-2.2335403,4 Granby Row,Manchester,Inghilterra,M60 7LH,8-17,164
+53.454509,-2.2371884,16 Fred Tilson Cl,Manchester,Inghilterra,M14 4JR,10-20,165
+53.4871119,-2.2119955,66 Ridgway St,Manchester,Inghilterra,M40 7DR,9-19,166
+53.4548,-2.2503226,23 Claremont Rd,Manchester,Inghilterra,M16 7BS,9-19,167
+53.5226245,-2.2075656,81 Charlestown Rd,Manchester,Inghilterra,M9 7AD,10-17,168
+53.4942683,-2.1669818,2 Berry Brow,Manchester,Inghilterra,M40 1GG,7-20,169
+53.4486284,-2.2570747,181 Withington Rd,Manchester,Inghilterra,M16 8HF,10-20,170
+53.4205184,-2.9639387,58 Dobson St,Liverpool,Inghilterra,L6 2JG,9-17,171
+53.3957605,-2.9662213,3 Upper Hampton St,Liverpool,Inghilterra,L8,9-18,172
+53.4445733,-2.9267787,32 Abbotsford Rd,Liverpool,Inghilterra,L11 5BA,9-17,173
+53.4132107,-2.9086918,40 Munster Rd,Liverpool,Inghilterra,L13 5ST,8-20,174
+53.3977259,-2.9163705,18 Waterloo St,Liverpool,Inghilterra,L15 8JW,10-17,175
+53.4367347,-2.97943,3 Garnett Ave,Liverpool,Inghilterra,L4 1TS,9-17,176
+53.4368991,-2.9085685,32 Glentrees Rd,Liverpool,Inghilterra,L12 5EU,9-18,177
+53.4641153,-2.9704512,9 Albert Dr,Liverpool,Inghilterra,L9 8BG,7-17,178
+53.3942897,-2.8924915,120 Dunbabin Rd,Liverpool,Inghilterra,L16 7QJ,7-17,179
+53.4272046,-2.8794241,17 Fulford Cl,Liverpool,Inghilterra,L12 9ND,9-20,180
+50.8277107,-0.1283196,1 Scotland St,Brighton,Inghilterra,BN2,10-17,181
+50.8329858,-0.16988,46 Denmark Villas,Brighton,Inghilterra,BN3 3TE,8-20,182
+50.8331002,-0.1207489,54 Brading Rd,Brighton,Inghilterra,BN2 3PD,8-19,183
+50.816473,-0.1094761,45 Arundel Pl,Brighton,Inghilterra,BN2,7-19,184
+50.8438665,-0.1118008,46 Hillside,Brighton,Inghilterra,BN2 4TA,9-17,185
+50.8227512,-0.1095109,51 Manor Rd,Brighton,Inghilterra,BN2 5EE,7-18,186
+50.8290493,-0.1508085,1 Windlesham Ave,Brighton,Inghilterra,BN1 3AH,8-19,187
+50.8375759,-0.1193937,135 Bear Rd,Brighton,Inghilterra,BN2 4DB,7-20,188
+50.8417767,-0.1365806,81 Stanford Ave,Brighton,Inghilterra,BN1 6FA,8-18,189
+50.861085,-0.1060861,37 Coldean Ln,Brighton,Inghilterra,BN1 9GE,9-20,190
+55.9559737,-3.1552054,143 London Rd,Edimburgo,Inghilterra,EH7,8-19,191
+55.9632886,-3.196312,7 Broughton Rd,Edimburgo,Inghilterra,EH7 4EW,8-17,192
+55.9409678,-3.2090196,71 Gilmore Pl,Edimburgo,Inghilterra,EH3 9NU,7-17,193
+55.9355348,-3.1888301,20 Mansionhouse Rd,Edimburgo,Inghilterra,EH9 1TZ,8-17,194
+55.9620132,-3.1964485,25 Rodney St,Edimburgo,Inghilterra,EH7 4EL,7-20,195
+55.9433928,-3.2327317,18 Russell Rd,Edimburgo,Inghilterra,EH11 3YT,9-20,196
+55.9338728,-3.1981136,7 Strathearn Rd,Edimburgo,Inghilterra,EH9 2AH,10-20,197
+55.9285906,-3.1721019,6 Suffolk Rd,Edimburgo,Inghilterra,EH16 5NR,9-17,198
+55.9289056,-3.265185,28 Calder Rd,Edimburgo,Inghilterra,EH11 3PD,10-19,199
+55.9156607,-3.1568124,34 Mount Vernon Rd,Edimburgo,Inghilterra,EH16 6BY,7-19,200

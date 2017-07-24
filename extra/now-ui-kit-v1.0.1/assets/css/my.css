@@ -1,0 +1,16 @@
+.form-group.form-group-no-border .form-control + .input-group-addon, .input-group.form-group-no-border .form-control + .input-group-addon {
+    padding: 11px 19px;
+    color: #dddddd;
+}
+.nav-item .btn {
+    font-size: 1.2em;
+}
+.dropdown-menu-middle {
+    right: 0;
+    left: auto;
+    text-align: center;
+}
+.dropdown-menu.dropdown-menu-middle:before {
+    left: auto;
+    right: auto;
+}
