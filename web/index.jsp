@@ -27,15 +27,17 @@
         DBConnection dbc = new DBConnection();
         try {
           ResultSet rs = dbc.select("select * from shopphoto");
-          rs.next();
-          Blob imgData = rs.getBlob("Image");
-          imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1,(int)imgData.length())));
-          imgData.free();
+          while(rs.next()){
+            Blob imgData = rs.getBlob("Image");
+            imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1,(int)imgData.length())));
+            imgData.free();
+            out.println("<img src='data:image/gif;base64,"+imgDataBase64+"' alt='images Here' width='130px' height='90px'/>");
+
+      }
         } catch(Exception e){
           e.printStackTrace();
         }
       %>
-      <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="images Here" width="130px" height="90px"/>
       <p><c:out value = "${'FUNZIONA!'}"/></p>
       <p>This is another text.</p>
     </div>

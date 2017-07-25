@@ -1,6 +1,5 @@
 package utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -27,8 +26,10 @@ public class PropertiesReader {
         InputStream input = null;
 
         try {
-            input = new FileInputStream(filename);
-            //input = utils.PropertiesReader.class.getClassLoader().getResourceAsStream(filename)
+
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            input = classLoader.getResourceAsStream("config.properties");
+
             if(input == null){
                 System.out.println("Sorry, unable to find " + filename);
                 return;
