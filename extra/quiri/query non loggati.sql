@@ -2,7 +2,7 @@ set-- LOGIN
 
 convertire @PASSWORD@ in md5 prima
 
-SELECT COUNT(*) 
+SELECT *
 FROM User U
 WHERE U.Email = @EMAIL@ AND U.password = @PASSWORD@;
 

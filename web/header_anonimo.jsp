@@ -64,7 +64,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="row">
         <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-            <form class="form" method="POST" action="LoginServlet">
+            <form class="form" method="POST" action="/LoginServlet" id="form">
                 <div class="header header-primary text-center">
                     <h4 class="title title-up" id="card_titolo">Sign Up</h4>
                 </div>
@@ -73,19 +73,19 @@
                       <span class="input-group-addon">
                           <i class="fa fa-user-o green" aria-hidden="true"></i>
                       </span>
-                        <input type="text" class="form-control" placeholder="First Name...">
+                        <input type="text" class="form-control" name="FirstName" placeholder="First Name...">
                     </div>
                     <div class="input-group form-group-no-border login">
                       <span class="input-group-addon">
                           <i class="fa fa-envelope-o green" aria-hidden="true"></i>
                       </span>
-                        <input type="text" class="form-control" placeholder="Email...">
+                        <input type="text" class="form-control" name="email" placeholder="Email...">
                     </div>
                     <div class="input-group form-group-no-border">
                       <span class="input-group-addon">
                           <i class="fa fa-key green" aria-hidden="true"></i>
                       </span>
-                        <input type="password" placeholder="Password..." class="form-control" />
+                        <input type="password" placeholder="Password..." name="password" class="form-control" />
                     </div>
                     <div class="row text-center">
                         <span class="white" id="card_change_button">Want to <a href="#" onclick="show_login();">login?</a></span>
@@ -99,7 +99,7 @@
                           </div> -->
                 </div>
                 <div class="footer text-center">
-                    <a href="#pablo" class="btn btn-default">Get Started</a>
+                    <a href="#" class="btn btn-default" onclick="$('#form').submit();"(>Get Started</a>
                 </div>
             </form>
         </div>
