@@ -1,6 +1,4 @@
 <%@ page import="utils.DBConnection" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.Blob" %>
 <%@ page import="java.util.Base64" %>
@@ -18,7 +16,7 @@
   <body>
     <div class="jumbotron">
       <h1>Bootstrap Tutorial</h1>
-      <p>Bootstrapciao is the , and JS framework for developing responsive,
+      <p>Bootstrap is the , and JS framework for developing responsive,
         mobile-first projects on the web.</p>
     </div>
     <div class="container">
@@ -32,7 +30,6 @@
             imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1,(int)imgData.length())));
             imgData.free();
             out.println("<img src='data:image/gif;base64,"+imgDataBase64+"' alt='images Here' width='130px' height='90px'/>");
-
       }
         } catch(Exception e){
           e.printStackTrace();

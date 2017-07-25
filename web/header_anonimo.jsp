@@ -64,7 +64,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="row">
         <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-            <form class="form" method="" action="">
+            <form class="form" method="POST" action="LoginServlet">
                 <div class="header header-primary text-center">
                     <h4 class="title title-up" id="card_titolo">Sign Up</h4>
                 </div>
