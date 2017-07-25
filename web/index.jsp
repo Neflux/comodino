@@ -2,6 +2,8 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.Blob" %>
+<%@ page import="java.util.Base64" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -21,16 +23,19 @@
     </div>
     <div class="container">
       <%
+        String imgDataBase64 = "";
         DBConnection dbc = new DBConnection();
         try {
-          ResultSet rs = dbc.select("select * from shop");
-          while(rs.next())
-            out.println(rs.getInt(1)+"  "+rs.getString(2));
-          out.println("YEAH");
+          ResultSet rs = dbc.select("select * from shopphoto");
+          rs.next();
+          Blob imgData = rs.getBlob("Image");
+          imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1,(int)imgData.length())));
+          imgData.free();
         } catch(Exception e){
           e.printStackTrace();
         }
       %>
+      <img src="data:image/gif;base64,<%= imgDataBase64%>" alt="images Here" width="130px" height="90px"/>
       <p><c:out value = "${'FUNZIONA!'}"/></p>
       <p>This is another text.</p>
     </div>
