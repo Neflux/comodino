@@ -1,3 +1,6 @@
-Stampare risultati db con bootstrap
-readme con il remember delle info del file di configurazione
-Gestire chiusura connesione database mysql (scope, frequenza apertura/chiusura, ecc.)
+-Stampare risultati db con bootstrap
+-readme con il remember delle info del file di configurazione
+-Gestire chiusura connesione database mysql (scope, frequenza apertura/chiusura, ecc.)
+
+-sistemare database con le nuove entry
+-stabilire le pagine da dividere e fare mockup
