@@ -6,16 +6,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
+import main.Product;
 import utils.PropertiesReader;
 
 public class DBManager implements Serializable {
-    // transient == non viene serializzato
-
     private static transient Connection con;
 
-    public DBManager(String dburl) throws SQLException {
+    public DBManager() throws SQLException {
         String database, user, password, timezone_fix;
         try {
             PropertiesReader pr = new PropertiesReader("config.properties");
@@ -23,7 +24,7 @@ public class DBManager implements Serializable {
             user = pr.get("user");
             password = pr.get("password");
             timezone_fix = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");     //togliete il cj se dà problemi, ma scrivetelo nel gruppo
         } catch (Exception e) {
             throw new RuntimeException(e.toString(), e);
         }
@@ -49,7 +50,6 @@ public class DBManager implements Serializable {
      * @param password la password
      * @return null se l'utente non è autenticato, un oggetto User se l'utente esiste ed è autenticato
      */
-
     public User authenticate(String email, String password) throws SQLException {
         PreparedStatement stm = con.prepareStatement("SELECT * FROM User U " +
                 "WHERE U.Email = ? AND U.password = ? AND U.EmailConfirm = 'yes'");
@@ -85,24 +85,44 @@ public class DBManager implements Serializable {
      * @return
      * @throws SQLException
      */
-    /*
-    public List<Product> getProducts() throws SQLException {
-        List<Product> products = new ArrayList<Product>();
+    public List<Product> getProducts(String searchQuery, int offset, int limit) throws SQLException {
+        List<Product> products = new ArrayList<>();
 
-        PreparedStatement stm = con.prepareStatement("SELECT * FROM products");
+        PreparedStatement stm = con.prepareStatement(
+        "SELECT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName " +
+                "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                "WHERE P.Name = ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity <> -1 " +
+                "OFFSET ? LIMIT ?"
+        );
+
+        stm.setString(1,searchQuery);
+
+        stm.setInt(2,offset);
+        stm.setInt(3,limit);
+
+        //parametri extra se ci sono, da decidere come gestire la sidebar che aggiunge altri parametri in GET
+
         try {
             ResultSet rs = stm.executeQuery();
-            try {
 
+            try {
                 while(rs.next()) {
                     Product p = new Product();
 
-                    p.setName(rs.getString("name"));
-                    p.setPrice(rs.getFloat("price"));
+                    //System.out.println(rs.getString("ProductName"));
+
+                    p.setProductID(rs.getInt("ProductID"));
+                    p.setProductName(rs.getString("ProductName"));
+                    p.setCategoryName(rs.getString("CategoryName"));
+
+                    p.setRating(rs.getFloat("Rating"));
+                    p.setPrice(rs.getFloat("Price"));
+                    p.setDiscount(rs.getFloat("Discount"));
+                    p.setQuantity(rs.getInt("Quantity"));
+                    p.setShopName(rs.getString("ShopName"));
 
                     products.add(p);
                 }
-
             } finally {
                 rs.close();
             }
@@ -111,5 +131,5 @@ public class DBManager implements Serializable {
         }
 
         return products;
-    }*/
+    }
 }

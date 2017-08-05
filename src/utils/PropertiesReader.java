@@ -18,7 +18,7 @@ public class PropertiesReader {
     public PropertiesReader(String filename) {
         this.filename = filename;
         readProperties();
-        printAllProperties();
+        //printAllProperties();
     }
 
     private void readProperties(){

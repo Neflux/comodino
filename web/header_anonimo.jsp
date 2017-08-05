@@ -29,7 +29,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-center">
                 <li>
-                    <form class="navbar-form">
+                    <form class="navbar-form" type="GET" action="/Search">
                         <div class="btn btn-default btn-left dropdown">
                             <a href="#" class="dropdown-toggle navbar-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorie&nbsp;&nbsp;<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -41,7 +41,7 @@
                             </ul>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control no-border" placeholder="Cerca">
+                            <input type="text" class="form-control no-border" name="q" placeholder="Cerca">
                         </div>
                         <button type="submit" class="btn btn-default btn-right"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>

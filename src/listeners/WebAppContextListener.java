@@ -28,9 +28,8 @@ public class WebAppContextListener implements ServletContextListener,
          initialized(when the Web application is deployed). 
          You can initialize servlet context related data here.
       */
-        String dburl = sce.getServletContext().getInitParameter("dburl");
         try {
-            DBManager manager = new DBManager(dburl);
+            DBManager manager = new DBManager();
             sce.getServletContext().setAttribute("dbmanager", manager);
         } catch (SQLException ex) {
             Logger.getLogger(getClass().getName()).severe(ex.toString());
