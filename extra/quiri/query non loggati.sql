@@ -6,7 +6,6 @@ SELECT *
 FROM User U
 WHERE U.Email = @EMAIL@ AND U.password = @PASSWORD@;
 
-se il count = 1 ok login , mettere userid nei cookie sennò errore
 
 -- SIGNUP
 
