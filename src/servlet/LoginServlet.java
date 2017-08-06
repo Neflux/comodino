@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import db.User;
+import main.User;
 import db.DBManager;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})

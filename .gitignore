@@ -6,10 +6,9 @@
 .idea/dataSources.xml
 .idea/dataSources/b42ff736-1160-4f78-a745-96ad057541ec.xml
 .idea/workspace.xml
+.idea/uiDesigner.xml
 
 #File di configurazione
 **/config.properties
-.idea/uiDesigner.xml
 .idea/workspace.xml
-.idea/workspace.xml
-.idea/workspace.xml
+.idea/deployment.xml

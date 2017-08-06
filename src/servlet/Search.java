@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import main.Product;
 
@@ -23,18 +24,15 @@ public class Search extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+        //PrintWriter out = response.getWriter();
 
-        String searchQuery = request.getParameter("q");
-
-
-        ArrayList al = null;
-        ArrayList pid_list = new ArrayList();
+        if(request.getParameter("q") == null){      //quick check
+            return;
+        }
 
         try{
-
             DBManager shopCrawler = new DBManager();
-            List<Product> products = shopCrawler.getProducts(searchQuery,0,3);
+            List<Product> products = shopCrawler.getProducts(request.getParameterMap());
 
             request.setAttribute("products", products);
 
@@ -42,6 +40,7 @@ public class Search extends HttpServlet {
             view.forward(request, response);
 
             shopCrawler.shutdown();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

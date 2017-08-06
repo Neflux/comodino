@@ -31,7 +31,7 @@
                     <th scope="row"><%=count%></th>
                     <td><%=p.getProductName()%></td>
                     <td><%=p.getPrice()%></td>
-                    <td><%=p.getShopName()%></td>
+                    <td><%=p.getRating()%></td>
                 </tr>
                 <%
                         }
