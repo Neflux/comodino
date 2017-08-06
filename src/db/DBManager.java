@@ -92,11 +92,10 @@ public class DBManager implements Serializable {
         "SELECT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName " +
                 "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
                 "WHERE P.Name = ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity <> -1 " +
-                "OFFSET ? LIMIT ?"
+                "LIMIT ?,?"
         );
 
         stm.setString(1,searchQuery);
-
         stm.setInt(2,offset);
         stm.setInt(3,limit);
 
@@ -108,8 +107,6 @@ public class DBManager implements Serializable {
             try {
                 while(rs.next()) {
                     Product p = new Product();
-
-                    //System.out.println(rs.getString("ProductName"));
 
                     p.setProductID(rs.getInt("ProductID"));
                     p.setProductName(rs.getString("ProductName"));

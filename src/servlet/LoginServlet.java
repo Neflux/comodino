@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import db.User;
 import db.DBManager;
 
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
     private DBManager manager;
 

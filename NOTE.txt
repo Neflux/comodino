@@ -1,1 +1,0 @@
-se un utente deve ancora attivare l'account con il link via mail il rifiuto del login sarà identico a quello di uno non registrato

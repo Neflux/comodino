@@ -1,0 +1,3 @@
+Servlet:
+	- Ogni servlet deve comprendere possibilmente una parola e "Servlet" subito dopo -> NomeServlet.java
+	- Specificare sempre l'urlPattern della servlet. Il nome ha una parola sola e inizia con la lettera minuscola -> /nome (quindi sarà accessibile ad un form tramite /nome)

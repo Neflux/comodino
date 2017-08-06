@@ -1,7 +1,3 @@
-<%@ page import="utils.DBConnection" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.Blob" %>
-<%@ page import="java.util.Base64" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -21,7 +17,7 @@
     </div>
     <div class="container">
       <%
-        String imgDataBase64 = "";
+        /*String imgDataBase64 = "";
         DBConnection dbc = new DBConnection();
         try {
           ResultSet rs = dbc.select("select * from shopphoto");
@@ -33,7 +29,8 @@
       }
         } catch(Exception e){
           e.printStackTrace();
-        }
+        }*/
+
       %>
       <p><c:out value = "${'FUNZIONA!'}"/></p>
       <p>This is another text.</p>

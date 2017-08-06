@@ -15,7 +15,7 @@ import java.util.List;
 
 import main.Product;
 
-@WebServlet(name = "Search", urlPatterns = {"/Search"})
+@WebServlet(name = "Search", urlPatterns = {"/search"})
 public class Search extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -27,32 +27,19 @@ public class Search extends HttpServlet {
 
         String searchQuery = request.getParameter("q");
 
-/*
+
         ArrayList al = null;
         ArrayList pid_list = new ArrayList();
-*/
+
         try{
 
             DBManager shopCrawler = new DBManager();
-            List<Product> products = shopCrawler.getProducts(searchQuery);
+            List<Product> products = shopCrawler.getProducts(searchQuery,0,3);
 
-            for(Product p: products){
-                out.println(p.getProductName());
-                System.out.println(p.getProductName());
-            }
-/*
-            while (rs.next()) {
-                al = new ArrayList();
+            request.setAttribute("products", products);
 
-                al.add(rs.getString(1));
-
-                System.out.println("al :: " + al);
-                pid_list.add(al);
-            }
-            request.setAttribute("piList", pid_list);
-            RequestDispatcher view = request.getRequestDispatcher("/Search.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("/search.jsp");
             view.forward(request, response);
-*/
 
             shopCrawler.shutdown();
         } catch (Exception e) {
