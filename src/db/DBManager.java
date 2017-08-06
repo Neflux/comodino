@@ -13,7 +13,7 @@ import main.User;
 import main.Product;
 import utils.PropertiesReader;
 
-import static utils.Mechanist.checkSMP;
+import static utils.Mechanist.*;
 
 public class DBManager implements Serializable {
     private static transient Connection con;
@@ -101,13 +101,13 @@ public class DBManager implements Serializable {
         if(sort != null) {
             switch (sort) {
                 case "price-asc":
-                    orderBySql = "ORDER BY SP.Price ASC, P.Rating DESC";
+                    orderBySql = " ORDER BY SP.Price ASC, P.Rating DESC ";
                     break;
                 case "price-desc":
-                    orderBySql = "ORDER BY SP.Price DESC, P.Rating DESC";
+                    orderBySql = " ORDER BY SP.Price DESC, P.Rating DESC ";
                     break;
                 case "rating-desc":
-                    orderBySql = "ORDER BY P.Rating DESC, SP.Price ASC";
+                    orderBySql = " ORDER BY P.Rating DESC, SP.Price ASC ";
                     break;
                 default:
                     orderBySql = "";
@@ -115,38 +115,100 @@ public class DBManager implements Serializable {
             }
         }
 
+        //minPrice, maxPrice
+        String minPrice = "",maxPrice = "";
+        if((minPrice = checkSMP(params.get("minPrice"))) != null){
+            try {
+                int value = Integer.parseInt(minPrice);
+                if(value >= 0){
+                    minPrice = " AND SP.Price >= " + minPrice + " ";
+                }
+                else maxPrice = "";
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                minPrice = "";
+            }
+        } else minPrice = "";
+        if((maxPrice = checkSMP(params.get("maxPrice"))) != null){
+            try {
+                int value = Integer.parseInt(maxPrice);
+                if(value > 0){
+                    maxPrice = " AND SP.Price <= " + maxPrice + " ";
+                }
+                else maxPrice = "";
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                maxPrice = "";
+            }
+        } else maxPrice = "";
+
+        //minRating
+        String minRating = "";
+        if((minRating = checkSMP(params.get("minrat"))) != null){
+            try {
+                int value = Integer.parseInt(minRating);
+                if(!(value >= 1 && value <= 5)){
+                    minRating = "";
+                }
+                else {
+                    minRating = " AND P.Rating >= " + minRating + " ";
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                minRating = "";
+            }
+        } else minRating = "";
+
         //Category
+        String[] cat;
         StringBuilder category = new StringBuilder();
-        if(params.get("category") != null){
-            String[] cat = (String[])params.get("category");
+        if((cat = getMMP(params.get("cat"))) != null){
             for(int i = 0; i<cat.length;i++){
+                System.out.println(cat[i]);
                 if(i == 0)
-                    category.append(" AND (P.CategoryName = '" + cat[i] + "'");
-                if (i == cat.length-1)
-                    category.append(") ");
-                if(i > 0 && i < cat.length-1)
-                    category.append(" OR P.CategoryName = '" + cat[i] + "'");
+                    category.append(" AND (P.CategoryName = '" + cat[i] + "'"+((i==cat.length-1)?") ":""));
+                else
+                    category.append(" OR P.CategoryName = '" + cat[i] + "'"+((i==cat.length-1)?") ":""));
+            }
+        }
+
+        //Vendor
+        String[] ven;
+        StringBuilder vendor = new StringBuilder();
+        if((ven = getMMP(params.get("vendor"))) != null){
+            for(int i = 0; i<ven.length;i++){
+                if(i == 0)
+                    vendor.append(" AND (S.Name = '" + ven[i] + "'"+((i==ven.length-1)?") ":""));
+                else
+                    vendor.append(" OR S.Name = '" + ven[i] + "'"+((i==ven.length-1)?") ":""));
+            }
+        }
+
+        //Regione amministrativa
+        String[] geo;
+        StringBuilder region = new StringBuilder();
+        if((geo = getMMP(params.get("geo"))) != null){
+            region.append(" AND S.ShopID = SI.ShopID "); //appesantiamo la query solo se ha senso
+            for(int i = 0; i<geo.length;i++){
+                if(i == 0)
+                    region.append(" AND (SI.State = '" + geo[i] + "'"+((i==geo.length-1)?") ":""));
+                else
+                    region.append(" OR SI.State = '" + geo[i] + "'"+((i==geo.length-1)?") ":""));
             }
         }
 
         PreparedStatement stm = con.prepareStatement(
                 "SELECT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName " +
                         "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-                        "WHERE P.Name LIKE %?% AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID " +
-                        "AND SP.Quantity <> -1 " + category.toString() +
-                        orderBySql + " LIMIT 0,5 "
+                        "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity <> -1 " +
+                        region.toString() + category.toString() + vendor.toString() + minPrice + maxPrice + minRating +
+                        orderBySql + " LIMIT 0,200 "
         );
-
-        stm.setString(1,searchQuery);       //a questo punto "q" è settata di sicuro
-        //stm.setInt(2,(int)params.get("offset"));
-        //stm.setInt(3,(int)params.get("limit"));
-
-        //parametri extra se ci sono, da decidere come gestire la sidebar che aggiunge altri parametri in GET
+        stm.setString(1,"%"+searchQuery+"%");       //a questo punto "q" è settata di sicuro
 
         try {
             System.out.println(stm.toString());
-            ResultSet rs = stm.executeQuery();
-            try {
+            try (ResultSet rs = stm.executeQuery()){
                 while(rs.next()) {
                     Product p = new Product();
 
@@ -162,8 +224,6 @@ public class DBManager implements Serializable {
 
                     products.add(p);
                 }
-            } finally {
-                rs.close();
             }
         } finally {
             stm.close();

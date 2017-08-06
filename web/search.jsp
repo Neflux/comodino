@@ -16,7 +16,7 @@
                     <th>#</th>
                     <th>Product Name</th>
                     <th>Price</th>
-                    <th>Shop Name</th>
+                    <th>Rating</th>
                 </tr>
                 </thead>
                 <tbody>

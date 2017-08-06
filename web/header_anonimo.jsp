@@ -40,7 +40,7 @@
                                 </ul>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control no-border" name="q" placeholder="Cerca">
+                                <input type="text" class="form-control no-border" name="q" placeholder="Cerca" required>
                             </div>
                             <button type="submit" class="btn btn-default btn-right"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>

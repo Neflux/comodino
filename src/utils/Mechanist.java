@@ -28,4 +28,13 @@ public class Mechanist {
         }
         return null;
     }
+
+    public static boolean tryParseInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
