@@ -5,11 +5,21 @@
 <!doctype html>
 <html lang="it">
     <head>
+        <link rel="stylesheet" type="text/css" href="css/search.css">
         <title>Ricerca</title>
     </head>
     <body>
         <jsp:include page="header_anonimo.jsp" flush="true" />
-        <div class="container" style="margin-top: 75px">
+        <div class="container" style="width:70%">
+            <div class="search_row row vcenter">
+                <div class="col-md-2">
+                    <img src="http://www.whirlpool.it/digitalassets/Picture/web1000x1000/852575438010_1000x1000_frontal.jpg"/ width="100" height="100">
+                </div>
+                <div class="col-md-10 text-left">
+                    <h2>Piano cottura</h2>
+                    <p>Venduto da <a href="www.google.com">Nardi</a></p>
+                </div>
+            </div>
             <table class="table">
                 <thead>
                 <tr>

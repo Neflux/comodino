@@ -1,0 +1,17 @@
+h2 {
+    margin-bottom: 0px !important;
+}
+
+.vcenter {
+    display: flex;
+    align-items: center;
+}
+
+.search_row {
+    background-color: white;
+    height: 125px;
+}
+
+body {
+    background-color: #f4f4f4 !important;
+}
