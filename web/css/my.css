@@ -2,7 +2,9 @@
 .white {
 	color: #fff;
 }
-
+body>div.container{
+    margin-top: 75px;
+}
 .centerize {
 	position: absolute !important;
 	top: 50%;
