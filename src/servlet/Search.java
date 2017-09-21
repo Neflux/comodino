@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import main.Product;
+import main.ProductGroup;
 
 @WebServlet(name = "Search", urlPatterns = {"/search"})
 public class Search extends HttpServlet {
@@ -32,7 +33,7 @@ public class Search extends HttpServlet {
 
         try{
             DBManager shopCrawler = new DBManager();
-            List<Product> products = shopCrawler.getProducts(request.getParameterMap());
+            Map<String, ProductGroup> products = shopCrawler.getProducts(request.getParameterMap());
 
             request.setAttribute("products", products);
 

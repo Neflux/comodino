@@ -50,15 +50,13 @@
                 <%
                     User user = (User) session.getAttribute("user");
                     String title = "Login | Sign Up";
-                    String modal = "#myModal";
                     if(user != null){
                         title = user.getEmail();
-                        modal = 
                     }
                 %>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#" role="button" data-toggle="modal" data-target="<%=modal%>">
+                        <a href="#" role="button" data-toggle="modal" data-target="#myModal">
                             <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;<%=title%>
                         </a>
                     </li>

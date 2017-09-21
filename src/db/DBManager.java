@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Logger;
 
+import main.ProductGroup;
 import main.User;
 import main.Product;
 import utils.PropertiesReader;
@@ -87,8 +88,8 @@ public class DBManager implements Serializable {
      * @return
      * @throws SQLException
      */
-    public List<Product> getProducts(Map params) throws SQLException {
-        List<Product> products = new ArrayList<>();
+    public Map<String, ProductGroup> getProducts(Map params) throws SQLException {
+        Map<String,ProductGroup> products = new HashMap<>();
 
         //Search query
         String searchQuery;
@@ -97,7 +98,7 @@ public class DBManager implements Serializable {
         }
 
         //Sorting
-        String sort = checkSMP(params.get("sort")), orderBySql = "";
+        String sort = checkSMP(params.get("sort")), orderBySql = "ORDER BY SP.Price ASC, P.Rating DESC";
         if(sort != null) {
             switch (sort) {
                 case "price-asc":
@@ -110,7 +111,6 @@ public class DBManager implements Serializable {
                     orderBySql = " ORDER BY P.Rating DESC, SP.Price ASC ";
                     break;
                 default:
-                    orderBySql = "";
                     break;
             }
         }
@@ -202,13 +202,14 @@ public class DBManager implements Serializable {
                         "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
                         "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity <> -1 " +
                         region.toString() + category.toString() + vendor.toString() + minPrice + maxPrice + minRating +
-                        orderBySql + " LIMIT 0,200 "
+                        orderBySql //+ " LIMIT 0,200"
         );
         stm.setString(1,"%"+searchQuery+"%");       //a questo punto "q" è settata di sicuro
 
         try {
             System.out.println(stm.toString());
             try (ResultSet rs = stm.executeQuery()){
+                int sum = 0;
                 while(rs.next()) {
                     Product p = new Product();
 
@@ -222,11 +223,39 @@ public class DBManager implements Serializable {
                     p.setQuantity(rs.getInt("Quantity"));
                     p.setShopName(rs.getString("ShopName"));
 
-                    products.add(p);
+                    if(products.get(p.getProductName()) == null){
+                        products.put(p.getProductName(), new ProductGroup());
+                    }
+
+                    products.get(p.getProductName()).getList().add(p);
                 }
+
+
             }
         } finally {
             stm.close();
+        }
+
+
+        for (Object o : products.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            //System.out.println(pair.getKey() + " = " + pair.getValue());
+            ProductGroup gp = (ProductGroup) pair.getValue();
+            stm = con.prepareStatement(
+                    "SELECT COUNT(*) AS conto, product.name " +
+                            "FROM productreview, product " +
+                            "WHERE product.ProductID = productreview.ProductID AND product.name LIKE ?"
+            );
+            stm.setString(1, "%" + gp.getList().get(0).getProductName() + "%");
+            try {
+                System.out.println(stm.toString());
+                try (ResultSet rs = stm.executeQuery()) {
+                    rs.next();
+                    gp.setReviewCount(rs.getInt("conto"));
+                }
+            } finally {
+                stm.close();
+            }
         }
 
         return products;
