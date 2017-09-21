@@ -10,7 +10,15 @@
     </head>
     <body>
         <jsp:include page="header_anonimo.jsp" flush="true" />
-        <div class="container" style="width:70%">
+        <div class="banner">
+            <h5>
+                <a href="index.php">Home</a>
+                <i class="fa fa-angle-right"></i>
+                <span>Forno</span>
+            </h5>
+        </div>
+
+        <div class="container" style="width:75%">
             <div class="search_row row vcenter">
                 <div class="col-md-2">
                     <img src="http://www.whirlpool.it/digitalassets/Picture/web1000x1000/852575438010_1000x1000_frontal.jpg"/ width="100" height="100">

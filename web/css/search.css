@@ -1,3 +1,26 @@
+.banner {
+    margin-top: 75px !important;
+    background: #fff;
+    display: block;
+    margin: 0px 10px;
+    border: 1px solid #ebeff6;
+    border-top-color: rgb(235, 239, 246);
+    border-right-color: rgb(235, 239, 246);
+    border-bottom-color: rgb(235, 239, 246);
+    border-left-color: rgb(235, 239, 246);
+    border-color: #ebeff6;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+
 .separated {
     margin-top: 20px;
 }
