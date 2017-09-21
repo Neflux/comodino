@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<% String role = "header_anonimo.jsp"; %>
-<jsp:include page="<%= role %>" flush="true" />
+<jsp:include page="header.jsp" flush="true" />
 
 <!doctype html>
 <html lang="it">

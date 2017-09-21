@@ -50,7 +50,9 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", user);
 
             // mando un redirect alla servlet che carica i prodotti
-            response.sendRedirect(request.getContextPath() + "/Search");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+
+
         }
     }
 

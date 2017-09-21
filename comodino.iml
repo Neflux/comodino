@@ -23,5 +23,7 @@
     <orderEntry type="library" exported="" name="mysql-connector-java-8.0.7-dmr" level="project" />
     <orderEntry type="library" exported="" name="standard-1.1.2" level="project" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" name="java-string-similarity-1.0.0" level="project" />
+    <orderEntry type="library" name="urlrewritefilter-4.0.3" level="project" />
   </component>
 </module>
