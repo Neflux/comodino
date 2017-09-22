@@ -86,10 +86,6 @@ h4, .h4 {
     height: 38px;
     width: auto;
 }
-.notification {
-        padding-left: 10px !important;
-    padding-right: 0 !important;
-}
 .fa.fa-user-o, .fa.fa-shopping-cart, .fa.fa-hand-o-up, .fa.fa-truck {
     padding-right: 5px;
     font-size: 18px;

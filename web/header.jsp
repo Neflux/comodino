@@ -22,9 +22,9 @@
                 <a class="navbar-brand" href="#"><img src="./css/passero.svg"/></a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#" class="notification">65&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i></a></li>
-                    <li><a href="#" class="notification">23&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i></a></li>
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#">65&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i></a></li>
+                    <li><a href="#">23&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i></a></li>
 
                 </ul>
                 <ul class="nav navbar-nav navbar-center">
@@ -48,10 +48,12 @@
                     </li>
                 </ul>
                 <%
-                    User user = (User) session.getAttribute("user");
+                    User usr = (User) session.getAttribute("user");
                     String title = "Login | Sign Up";
-                    if(user != null){
-                        title = user.getEmail();
+                    if (usr == null || usr.getEmail() == null) {
+                        System.out.println("Null user");
+                    } else {
+                        title = usr.getEmail();
                     }
                 %>
                 <ul class="nav navbar-nav navbar-right">
@@ -104,12 +106,11 @@
                               </div> -->
                     </div>
                     <div class="footer text-center">
-                        <a href="#" class="btn btn-default" onclick="$('#form').submit();"(>Get Started</a>
+                        <a href="#" class="btn btn-default" onclick="$('#form').submit();">Get Started</a>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

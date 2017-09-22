@@ -1,4 +1,12 @@
+<%@ page import="main.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+
+<%
+    User usr = (User) session.getAttribute("user");
+    if ( usr == null || usr.getEmail() == null){
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }
+%>
 
 <html lang="it">
 <head>
@@ -7,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/profile.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/custom.min.css" rel="stylesheet" type="text/css">
@@ -25,7 +34,7 @@
     </div>
     <div class="row" style="margin: 0 0 15px 0;">
         <div class="col-md-4">
-            <a class="btn btn-block btn-primary text-capitalize" href="#"><i class="fa fa-fw fa-lock pull-left"></i>Modifica Password</a>
+            <a class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#changePwd"><i class="fa fa-fw fa-lock pull-left"></i>Modifica Password</a>
         </div>
         <div class="col-md-4">
             <a class="btn btn-block btn-primary text-capitalize" href=" #"><i class="fa fa-fw fa-user pull-left"></i>Modifica Dati</a>
@@ -48,4 +57,44 @@
 </div>
 
 
-</body></html>
+<!-- editPwd -->
+<div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-labelledby="changePwdLabel">
+    <div class="row">
+        <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
+            <form id="changePwdform" class="form" method="POST" action="/changepassword">
+                <div class="header header-primary text-center">
+                    <h4 class="title title-up" id="card_titolo">Cambia la password</h4>
+                </div>
+                <div class="content">
+                    <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-key green" aria-hidden="true"></i>
+                          </span>
+                        <input id="CurrentPassword" type="password" onkeyup="checkPass();return false;" class="form-control" name="CurrentPassword" placeholder="Password attuale...">
+                    </div>
+                    <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i id="PwdCheck" class="fa fa-key green" aria-hidden="true"></i>
+                          </span>
+                        <input id="NewPassword" type="password" onkeyup="checkPass();return false;" class="form-control" name="NewPassword" placeholder="Nuova password..."/>
+                    </div>
+
+                    <!-- If you want to add a checkbox to this form, uncomment this code -->
+                    <!-- <div class="checkbox">
+                        <input id="checkboxSignup" type="checkbox">
+                          <label for="checkboxSignup">
+                          Unchecked
+                          </label>
+                          </div> -->
+                </div>
+                <div class="footer text-center">
+                    <a id="submitPwd" class="btn btn-default" onclick="$('#changePwdform').submit();">Cambia</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
