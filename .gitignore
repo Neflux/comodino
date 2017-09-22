@@ -3,8 +3,6 @@
 
 #Elementi os-dipendent, user-dipendent
 .idea/dataSources.local.xml
-.idea/dataSources.xml
-.idea/dataSources/b42ff736-1160-4f78-a745-96ad057541ec.xml
 .idea/workspace.xml
 .idea/uiDesigner.xml
 
@@ -12,3 +10,5 @@
 **/config.properties
 .idea/workspace.xml
 .idea/deployment.xml
+.idea/dataSources/*
+.idea/dataSources.xml

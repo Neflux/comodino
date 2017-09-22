@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-7 text-left">
                     <h2>Piano cottura</h2>
-                    <p>Venduto da <a href="www.google.com">Nardi</a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="">12</a> venditori</span></p>
+                    <p>Venduto da <a href="www.google.com">Nardi</a>&nbsp&nbsp<span style="font-size:12px">o da altri <a data-toggle="modal" data-target="#vendorsModal">12</a> venditori</span></p>
                     <h1 class="prezzo">320 €</h1>
                 </div>
                 <div class="col-md-3">
@@ -49,10 +49,14 @@
                         count++;
                         int rc = (int)gp.getReviewCount();
                         String review = ((rc>0)?((rc>1)?rc+" recensioni":"1 recensione"):"Nessuna recensione");
+                        String imageSrc = "data:image/gif;base64," + gp.getImageData();
+                        if(gp.getImageData().equals("")){
+                            imageSrc = "http://via.placeholder.com/1000x1000";
+                        }
             %>
                         <div class="search_row row vcenter separated">
                             <div class="col-md-2">
-                                <img src="http://www.whirlpool.it/digitalassets/Picture/web1000x1000/852575438010_1000x1000_frontal.jpg"/ width="100" height="100">
+                                <img src='<%=imageSrc%>' alt='images Here' width="100" height="100"/>
                             </div>
                             <div class="col-md-7 text-left">
                                 <h2><%=p.getProductName()%></h2>
@@ -81,6 +85,32 @@
                     }
                 }
             %>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="vendorsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="row">
+                <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
+                    <span class="form" id="form">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up" id="card_titolo"></h4>
+                        </div>
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-2 text-right">
+                                     <p class="white"><a href="">Nardi</a></p>
+                                </div>
+                                <div class="col-md-10">
+                                    <p class="white">da 12€</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer text-center">
+
+                        </div>
+                    </span>
+                </div>
+            </div>
         </div>
     </body>
 </html>

@@ -1,11 +1,7 @@
 package db;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -236,11 +232,11 @@ public class DBManager implements Serializable {
             stm.close();
         }
 
-
         for (Object o : products.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
             //System.out.println(pair.getKey() + " = " + pair.getValue());
             ProductGroup gp = (ProductGroup) pair.getValue();
+
             stm = con.prepareStatement(
                     "SELECT COUNT(*) AS conto, product.name " +
                             "FROM productreview, product " +
@@ -256,6 +252,27 @@ public class DBManager implements Serializable {
             } finally {
                 stm.close();
             }
+
+            Product p = gp.getList().get(0);    //il primo prodotto
+            String imgDataBase64 = "";
+            stm = con.prepareStatement("select * from productphoto where ProductID = ?");
+            stm.setInt(1,p.getProductID());
+            try (ResultSet rs = stm.executeQuery()){
+                System.out.println(stm.toString());
+                if(rs.next()) {
+                    System.out.println("ciao");
+                    Blob imgData = rs.getBlob("Image");
+                    imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1, (int) imgData.length())));
+                    gp.setImageData(imgDataBase64);
+                    imgData.free();
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                stm.close();
+            }
+
         }
 
         return products;
