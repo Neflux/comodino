@@ -14,13 +14,11 @@
     <link href="css/user_profile.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<jsp:include page="header_anonimo.jsp" flush="true"/>
+<jsp:include page="header.jsp" flush="true"/>
 <div class="container">
     <div class="row" style="margin: 0 0 10px 0;">
         <div class="col-md-12 text-center">
-            <jsp:useBean id="user" class="main.UserBean" scope="session">
-            </jsp:useBean>
-
+            <jsp:useBean id="user" class="main.User" scope="session"/>
             <img id="profile_pic" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/512/user-male-icon.png" class="center-block img-circle img-responsive">
             <h1 class="text-center text-uppercase"><jsp:getProperty name="user" property="firstName"/> <jsp:getProperty name="user" property="lastName"/></h1>
         </div>
