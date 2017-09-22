@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 import main.ProductGroup;
+import main.Shop;
 import main.User;
 import main.Product;
 import utils.PropertiesReader;
@@ -234,7 +235,6 @@ public class DBManager implements Serializable {
 
         for (Object o : products.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
-            //System.out.println(pair.getKey() + " = " + pair.getValue());
             ProductGroup gp = (ProductGroup) pair.getValue();
 
             stm = con.prepareStatement(
@@ -242,7 +242,9 @@ public class DBManager implements Serializable {
                             "FROM productreview, product " +
                             "WHERE product.ProductID = productreview.ProductID AND product.name LIKE ?"
             );
-            stm.setString(1, "%" + gp.getList().get(0).getProductName() + "%");
+
+            //gp.getList().get(0).getProductName() =========> pair.getKey()
+            stm.setString(1, "%" + pair.getKey() + "%");
             try {
                 System.out.println(stm.toString());
                 try (ResultSet rs = stm.executeQuery()) {
@@ -265,6 +267,36 @@ public class DBManager implements Serializable {
                     imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1, (int) imgData.length())));
                     gp.setImageData(imgDataBase64);
                     imgData.free();
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                stm.close();
+            }
+
+
+            stm = con.prepareStatement("SELECT shop.*, shopproduct.Price, shopproduct.Discount, shopproduct.Quantity " +
+                    "FROM product, shopproduct, shop " +
+                    "WHERE product.name LIKE ? AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID " +
+                    "LIMIT 5"
+            );
+            stm.setString(1, "%" + pair.getKey() + "%");
+            try (ResultSet rs = stm.executeQuery()){
+                System.out.println(stm.toString());
+                while(rs.next()) {
+                    if(rs.getInt("Quantity") > 0){
+                        Shop s = new Shop();
+                        s.setShopID(rs.getInt("ShopID"));
+                        s.setName(rs.getString("Name"));
+                        s.setDescription(rs.getString("Description"));
+                        s.setWebsite(rs.getString("Website"));
+                        s.setRating(rs.getFloat("Rating"));
+
+                        s.setPrice(rs.getFloat("Price")*(1 - rs.getFloat("Discount")));
+
+                        gp.getVendors().add(s);
+                    }
                 }
             } catch(Exception e){
                 e.printStackTrace();

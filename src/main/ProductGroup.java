@@ -8,6 +8,7 @@ public class ProductGroup {
     private List<Product> list;
     private int reviewCount = 0;
     private String imageData = "";
+    private List<Shop> vendors;
 
     public ProductGroup(){
         list = new ArrayList<Product>();
@@ -31,5 +32,9 @@ public class ProductGroup {
 
     public void setImageData(String imageData) {
         this.imageData = imageData;
+    }
+
+    public List<Shop> getVendors() {
+        return vendors;
     }
 }
