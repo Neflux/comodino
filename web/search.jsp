@@ -93,16 +93,21 @@
                 <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
                     <span class="form" id="form">
                         <div class="header header-primary text-center">
-                            <h4 class="title title-up" id="card_titolo"></h4>
+                            <h4 class="title title-up" id="card_titolo">Piano cottura</h4>
+                            <p class="white subtitolo">
+                                Disponibile anche da:
+                            </p>
                         </div>
                         <div class="content">
-                            <div class="row">
-                                <div class="col-md-2 text-right">
-                                     <p class="white"><a href="">Nardi</a></p>
+                            <div class="row text-center">
+                                <div style="display: inline-block; text-align:left">
+                                    <p class="white"><a href="">Nardi</a> da 12 €</p>
+                                    <p class="white"><a href="">Gino Perna</a> da 12 €</p>
+                                    <p class="white"><a href="">Povolaro</a> da 12 €</p>
+                                    <p class="white"><a href="">Campese</a> da 12 €</p>
+                                    <p class="white"><a href="">Bonato</a> da 12 €</p>
                                 </div>
-                                <div class="col-md-10">
-                                    <p class="white">da 12€</p>
-                                </div>
+
                             </div>
                         </div>
                         <div class="footer text-center">
