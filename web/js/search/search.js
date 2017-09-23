@@ -1,5 +1,6 @@
 function openModal(titolo,venditori,prezzi)
 {
+    alert(prezzi);
     $('#vendorsModal').modal('show');
     $("#content-modal-vendors").empty();
     $("#card_titolo_vendors").text(titolo);

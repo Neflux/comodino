@@ -9,6 +9,7 @@ public class Product {
     private float Price;
     private int Quantity;
     private float Discount;
+    private float ActualPrice;
     private String CategoryName;
     private float Rating;
 
@@ -82,5 +83,13 @@ public class Product {
 
     public void setRating(float rating) {
         Rating = rating;
+    }
+
+    public float getActualPrice() {
+        return ActualPrice;
+    }
+
+    public void setActualPrice(float actualPrice) {
+        ActualPrice = actualPrice;
     }
 }

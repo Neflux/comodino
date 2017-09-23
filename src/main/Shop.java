@@ -7,7 +7,7 @@ public class Shop {
     private String Description;
     private String Website;
     private float Rating;
-    private float samplePrice; //ovviamente uno shop non ha un prezzo singolo, ma ci serve per il modal nella ricerca
+    private float sampleActualPrice; //ovviamente uno shop non ha un prezzo singolo, ma ci serve per il modal nella ricerca
 
     public Shop(){
 
@@ -53,11 +53,11 @@ public class Shop {
         Rating = rating;
     }
 
-    public float getPrice() {
-        return samplePrice;
+    public float getSampleActualPrice() {
+        return sampleActualPrice;
     }
 
-    public void setPrice(float price) {
-        samplePrice = price;
+    public void setSampleActualPrice(float sampleActualPrice) {
+        this.sampleActualPrice = sampleActualPrice;
     }
 }

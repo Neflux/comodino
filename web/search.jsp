@@ -50,13 +50,18 @@
                         String vendors_array = "[";
                         String price_array = "[";
 
+                        System.out.println(pair.getKey().toString());
                         for (Shop item : gp.getVendors()) {
+                            //System.out.println(item.getSampleActualPrice());
                             vendors_array += "\"" + item.getName() + "\",";
-                            price_array += "\"" + item.getPrice() + "\",";
+                            price_array += "\"" + item.getSampleActualPrice() + "\",";
                         }
 
                         vendors_array += "\"\"]";
                         price_array += "\"\"]";
+
+                        System.out.println(vendors_array);
+                        System.out.println(price_array);
 
                         count++;
                         int rc = (int)gp.getReviewCount();
@@ -77,7 +82,7 @@
                             <div class="col-md-7 text-left">
                                 <h2><%=p.getProductName()%></h2>
                                 <p>Venduto da <a href="#"><%=p.getShopName()%></a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="#" onclick="openModal('<%=p.getProductName()%>',vendors,prices);"><%=gp.getList().size()%></a> venditori</span></p>
-                                <h1 class="prezzo"><%=p.getPrice()%> €</h1>
+                                <h1 class="prezzo"><%=p.getActualPrice()%> €</h1>
                             </div>
                             <div class="col-md-3">
                                 <%

@@ -98,17 +98,17 @@ public class DBManager implements Serializable {
         }
 
         //Sorting
-        String sort = checkSMP(params.get("sort")), orderBySql = "ORDER BY SP.Price ASC, P.Rating DESC";
+        String sort = checkSMP(params.get("sort")), orderBySql = "ORDER BY ActualPrice ASC, P.Rating DESC, S.Rating DESC, SP.Quantity DESC";
         if(sort != null) {
             switch (sort) {
                 case "price-asc":
-                    orderBySql = " ORDER BY SP.Price ASC, P.Rating DESC ";
+                    orderBySql = " ORDER BY ActualPrice ASC, P.Rating DESC, S.Rating DESC, SP.Quantity DESC";
                     break;
                 case "price-desc":
-                    orderBySql = " ORDER BY SP.Price DESC, P.Rating DESC ";
+                    orderBySql = " ORDER BY ActualPrice DESC, P.Rating DESC, S.Rating DESC, SP.Quantity DESC";
                     break;
                 case "rating-desc":
-                    orderBySql = " ORDER BY P.Rating DESC, SP.Price ASC ";
+                    orderBySql = " ORDER BY P.Rating DESC, ActualPrice ASC, S.Rating DESC, SP.Quantity DESC";
                     break;
                 default:
                     break;
@@ -198,7 +198,8 @@ public class DBManager implements Serializable {
         }
 
         PreparedStatement stm = con.prepareStatement(
-                "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName " +
+                "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, " +
+                        "SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName,  round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
                         "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
                         "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
                         region.toString() + category.toString() + vendor.toString() + minPrice + maxPrice + minRating +
@@ -220,12 +221,11 @@ public class DBManager implements Serializable {
                     p.setRating(rs.getFloat("Rating"));
                     p.setPrice(rs.getFloat("Price"));
                     p.setDiscount(rs.getFloat("Discount"));
+                    p.setActualPrice(rs.getFloat("ActualPrice"));
                     p.setQuantity(rs.getInt("Quantity"));
                     p.setShopName(rs.getString("ShopName"));
 
-                    if(products.get(p.getProductName()) == null){
-                        products.put(p.getProductName(), new ProductGroup());
-                    }
+                    products.computeIfAbsent(p.getProductName(), k -> new ProductGroup());
 
                     products.get(p.getProductName()).getList().add(p);
                 }
@@ -240,20 +240,24 @@ public class DBManager implements Serializable {
             Map.Entry pair = (Map.Entry) o;
             ProductGroup gp = (ProductGroup) pair.getValue();
 
+            /*System.out.println(pair.getKey().toString());
+            for(Product p: gp.getList()){
+                System.out.println(p.getActualPrice());
+            }*/
+
             stm = con.prepareStatement(
                     "SELECT COUNT(*) AS conto, product.name " +
                             "FROM productreview, product " +
-                            "WHERE product.ProductID = productreview.ProductID AND product.name LIKE ?"
+                            "WHERE product.ProductID = productreview.ProductID AND product.name = ?"
             );
 
             //gp.getList().get(0).getProductName() =========> pair.getKey()
-            stm.setString(1, "%" + pair.getKey() + "%");
+            stm.setString(1, pair.getKey().toString());
             try {
-                System.out.println(stm.toString());
+                //System.out.println(stm.toString());
                 try (ResultSet rs = stm.executeQuery()) {
                     rs.next();
                     gp.setReviewCount(rs.getInt("conto"));
-                    System.out.println(gp.getReviewCount());
                 }
             } finally {
                 stm.close();
@@ -264,9 +268,8 @@ public class DBManager implements Serializable {
             stm = con.prepareStatement("select * from productphoto where ProductID = ?");
             stm.setInt(1,p.getProductID());
             try (ResultSet rs = stm.executeQuery()){
-                System.out.println(stm.toString());
+                //System.out.println(stm.toString());
                 if(rs.next()) {
-                    System.out.println("ciao");
                     Blob imgData = rs.getBlob("Image");
                     imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1, (int) imgData.length())));
                     gp.setImageData(imgDataBase64);
@@ -280,26 +283,28 @@ public class DBManager implements Serializable {
             }
 
 
-            stm = con.prepareStatement("SELECT shop.*, shopproduct.Price, shopproduct.Discount, shopproduct.Quantity " +
+            stm = con.prepareStatement("SELECT shop.*, shopproduct.Price, shopproduct.Discount, " +
+                    "shopproduct.Quantity, round(shopproduct.Price * (1-shopproduct.Discount),2) as ActualPrice " +
                     "FROM product, shopproduct, shop " +
-                    "WHERE product.name LIKE ? AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID "
+                    "WHERE product.name = ? AND shopproduct.Quantity > 0 " +
+                    "AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID " +
+                    "ORDER BY ActualPrice ASC, Rating DESC"
             );
-            stm.setString(1, "%" + pair.getKey() + "%");
+
+            stm.setString(1, pair.getKey().toString());
             try (ResultSet rs = stm.executeQuery()){
                 System.out.println(stm.toString());
                 while(rs.next()) {
-                    if(rs.getInt("Quantity") > 0){
-                        Shop s = new Shop();
-                        s.setShopID(rs.getInt("ShopID"));
-                        s.setName(rs.getString("Name"));
-                        s.setDescription(rs.getString("Description"));
-                        s.setWebsite(rs.getString("Website"));
-                        s.setRating(rs.getFloat("Rating"));
+                    Shop s = new Shop();
+                    s.setShopID(rs.getInt("ShopID"));
+                    s.setName(rs.getString("Name"));
+                    s.setDescription(rs.getString("Description"));
+                    s.setWebsite(rs.getString("Website"));
+                    s.setRating(rs.getFloat("Rating"));
 
-                        s.setPrice(rs.getFloat("Price")*(1 - rs.getFloat("Discount")));
+                    s.setSampleActualPrice(rs.getFloat("ActualPrice"));
 
-                        gp.getVendors().add(s);
-                    }
+                    gp.getVendors().add(s);
                 }
             } catch(Exception e){
                 e.printStackTrace();
