@@ -26,8 +26,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        System.out.println("Ciao!");
-        System.out.println(email + " "+ password);
+        System.out.println("Parametri: " + email + " "+ password);
         // controllo nel DB se esiste un utente con lo stesso username + password
         User user;
         try {

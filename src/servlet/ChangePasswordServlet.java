@@ -17,25 +17,18 @@ import java.util.Objects;
 
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
 public class ChangePasswordServlet extends HttpServlet {
-    private DBManager manager;
-
-    @Override
-    public void init() throws ServletException {
-        // inizializza il DBManager dagli attributi di Application
-        this.manager = (DBManager)super.getServletContext().getAttribute("dbmanager");
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String curPwd = request.getParameter("CurrentPassword");
         String newPwd = request.getParameter("NewPassword");
         String repeatPwd = request.getParameter("RepeatPassword");
-        System.out.println(curPwd + " " + newPwd + " " + repeatPwd);
+        System.out.println("Parametri: " + curPwd + " " + newPwd + " " + repeatPwd);
         if (Objects.equals(newPwd, repeatPwd)){
             HttpSession session = request.getSession(false);
             User user = (User) session.getAttribute("user");
             UserDao userDao = new UserDaoImpl();
             if (userDao.changePwd(user,curPwd,newPwd)){
-                System.out.println("AAAAA");
+                System.out.println("[ " + user.getFirstName() + " ] Password modificata");
                 response.sendRedirect(request.getContextPath() + "/profile.jsp");
             }
             else {

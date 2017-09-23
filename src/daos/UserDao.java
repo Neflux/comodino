@@ -20,5 +20,7 @@ public interface UserDao extends Serializable {
      * @param newPwd    nuova password
      * @return          'true' se la modifica è avvenuta con successo, 'false' altrimenti
      */
-    boolean changePwd(User u, String curPwd, String newPwd);
+    boolean changePwd(User user, String curPwd, String newPwd);
+
+    boolean editInfo(User user);
 }

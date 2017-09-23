@@ -56,6 +56,25 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    @Override
+    public boolean editInfo(User user) {
+        try {
+            // se la password attuale coincide posso aggiornare il campo con la nuova password
+            PreparedStatement ps = this.con.prepareStatement("UPDATE user SET FirstName = ?, LastName = ?, Email = ? WHERE UserID = ?");
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getEmail());
+            ps.setInt(4, user.getUserID());
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {
         User user = new User();
         user.setUserID(rs.getInt("UserID"));
