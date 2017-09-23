@@ -198,9 +198,9 @@ public class DBManager implements Serializable {
         }
 
         PreparedStatement stm = con.prepareStatement(
-                "SELECT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName " +
+                "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName " +
                         "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-                        "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity <> -1 " +
+                        "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
                         region.toString() + category.toString() + vendor.toString() + minPrice + maxPrice + minRating +
                         orderBySql //+ " LIMIT 0,200"
         );
@@ -253,6 +253,7 @@ public class DBManager implements Serializable {
                 try (ResultSet rs = stm.executeQuery()) {
                     rs.next();
                     gp.setReviewCount(rs.getInt("conto"));
+                    System.out.println(gp.getReviewCount());
                 }
             } finally {
                 stm.close();
@@ -281,8 +282,7 @@ public class DBManager implements Serializable {
 
             stm = con.prepareStatement("SELECT shop.*, shopproduct.Price, shopproduct.Discount, shopproduct.Quantity " +
                     "FROM product, shopproduct, shop " +
-                    "WHERE product.name LIKE ? AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID " +
-                    "LIMIT 5"
+                    "WHERE product.name LIKE ? AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID "
             );
             stm.setString(1, "%" + pair.getKey() + "%");
             try (ResultSet rs = stm.executeQuery()){
