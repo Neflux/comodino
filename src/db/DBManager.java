@@ -16,6 +16,10 @@ import static utils.Mechanist.*;
 public class DBManager implements Serializable {
     private static transient Connection con;
 
+    public static Connection getCon() {
+        return con;
+    }
+
     public DBManager() throws SQLException {
         String database, user, password, timezone_fix;
         try {
@@ -29,9 +33,8 @@ public class DBManager implements Serializable {
             throw new RuntimeException(e.toString(), e);
         }
 
-        Connection con = DriverManager.getConnection(
+        con = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/" + database + timezone_fix + "&user=" + user + "&password=" + password);
-        this.con = con;
     }
 
 

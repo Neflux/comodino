@@ -37,11 +37,10 @@ public class LoginServlet extends HttpServlet {
         }
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         if (user == null) {
+
             // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-
-            request.setAttribute("message", "email/password non esistente !");
-
-            RequestDispatcher rd = request.getRequestDispatcher("/logindc.jsp");
+            request.setAttribute("message", "Email/password non esistente!");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
 
         } else {

@@ -61,31 +61,29 @@
 <div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-labelledby="changePwdLabel">
     <div class="row">
         <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-            <form id="changePwdform" class="form" method="POST" action="/changepassword">
+            <form id="changePwdform" class="form" method="POST" action="${pageContext.request.contextPath}/changepassword">
                 <div class="header header-primary text-center">
                     <h4 class="title title-up" id="card_titolo">Cambia la password</h4>
                 </div>
                 <div class="content">
                     <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
-                              <i class="fa fa-key green" aria-hidden="true"></i>
+                              <i class="fa fa-lock green" aria-hidden="true"></i>
                           </span>
-                        <input id="CurrentPassword" type="password" onkeyup="checkPass();return false;" class="form-control" name="CurrentPassword" placeholder="Password attuale...">
+                        <input id="CurrentPassword" name="CurrentPassword" type="password" class="form-control"  placeholder="Password attuale...">
                     </div>
                     <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
-                              <i id="PwdCheck" class="fa fa-key green" aria-hidden="true"></i>
+                              <i class="fa fa-key green" aria-hidden="true"></i>
                           </span>
-                        <input id="NewPassword" type="password" onkeyup="checkPass();return false;" class="form-control" name="NewPassword" placeholder="Nuova password..."/>
+                        <input id="NewPassword" name="NewPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Nuova password..."/>
                     </div>
-
-                    <!-- If you want to add a checkbox to this form, uncomment this code -->
-                    <!-- <div class="checkbox">
-                        <input id="checkboxSignup" type="checkbox">
-                          <label for="checkboxSignup">
-                          Unchecked
-                          </label>
-                          </div> -->
+                    <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i id="PwdCheck" class="fa fa-repeat green" aria-hidden="true"></i>
+                          </span>
+                        <input id="RepeatPassword" name="RepeatPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Ripeti password..."/>
+                    </div>
                 </div>
                 <div class="footer text-center">
                     <a id="submitPwd" class="btn btn-default" onclick="$('#changePwdform').submit();">Cambia</a>
