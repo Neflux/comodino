@@ -1,3 +1,9 @@
+.card-signup {
+    max-width: 450px !important;
+    margin: 0 auto;
+    margin-bottom: 0px;
+}
+
 .valign {
     line-height:15px;
 }
