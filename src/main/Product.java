@@ -1,95 +1,97 @@
 package main;
 
-public class Product {
-    private int ProductID;
-    private String ProductName;
-    private int ShopID;
-    private String ShopName;
+import java.io.Serializable;
 
-    private float Price;
-    private int Quantity;
-    private float Discount;
-    private float ActualPrice;
-    private String CategoryName;
-    private float Rating;
+public class Product implements Serializable {
+    private int productID;
+    private String productName;
+    private int shopID;
+    private String shopName;
+
+    private float price;
+    private int quantity;
+    private float discount;
+    private float actualPrice;
+    private String categoryName;
+    private float rating;
 
     public int getProductID() {
-        return ProductID;
+        return productID;
     }
 
     public void setProductID(int productID) {
-        ProductID = productID;
+        this.productID = productID;
     }
 
     public String getProductName() {
-        return ProductName;
+        return productName;
     }
 
     public void setProductName(String productName) {
-        ProductName = productName;
+        this.productName = productName;
     }
 
     public int getShopID() {
-        return ShopID;
+        return shopID;
     }
 
     public void setShopID(int shopID) {
-        ShopID = shopID;
+        this.shopID = shopID;
     }
 
     public String getShopName() {
-        return ShopName;
+        return shopName;
     }
 
     public void setShopName(String shopName) {
-        ShopName = shopName;
+        this.shopName = shopName;
     }
 
     public float getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(float price) {
-        Price = price;
+        this.price = price;
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
     public float getDiscount() {
-        return Discount;
+        return discount;
     }
 
     public void setDiscount(float discount) {
-        Discount = discount;
-    }
-
-    public String getCategoryName() {
-        return CategoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        CategoryName = categoryName;
-    }
-
-    public float getRating() {
-        return Rating;
-    }
-
-    public void setRating(float rating) {
-        Rating = rating;
+        this.discount = discount;
     }
 
     public float getActualPrice() {
-        return ActualPrice;
+        return actualPrice;
     }
 
     public void setActualPrice(float actualPrice) {
-        ActualPrice = actualPrice;
+        this.actualPrice = actualPrice;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }

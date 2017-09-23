@@ -32,7 +32,6 @@ public class ChangePasswordServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/profile.jsp");
             }
             else {
-                System.out.println("BBBBB");
                 // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
                 request.setAttribute("message", "Password attuale errata o mancante!");
                 RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");

@@ -1,56 +1,54 @@
 package main;
 
-public class Shop {
+import java.io.Serializable;
 
-    private int ShopID;
-    private String Name;
-    private String Description;
-    private String Website;
-    private float Rating;
+public class Shop implements Serializable {
+
+    private int shopID;
+    private String name;
+    private String description;
+    private String website;
+    private float rating;
     private float sampleActualPrice; //ovviamente uno shop non ha un prezzo singolo, ma ci serve per il modal nella ricerca
 
-    public Shop(){
-
-    }
-
     public int getShopID() {
-        return ShopID;
+        return shopID;
     }
 
     public void setShopID(int shopID) {
-        ShopID = shopID;
+        this.shopID = shopID;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getWebsite() {
-        return Website;
+        return website;
     }
 
     public void setWebsite(String website) {
-        Website = website;
+        this.website = website;
     }
 
     public float getRating() {
-        return Rating;
+        return rating;
     }
 
     public void setRating(float rating) {
-        Rating = rating;
+        this.rating = rating;
     }
 
     public float getSampleActualPrice() {

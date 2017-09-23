@@ -1,9 +1,10 @@
 package main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductGroup {
+public class ProductGroup implements Serializable {
 
     private List<Product> list;
     private int reviewCount = 0;
