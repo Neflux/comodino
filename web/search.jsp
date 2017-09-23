@@ -2,6 +2,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="main.ProductGroup" %>
+<%@ page import="main.Shop" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!doctype html>
@@ -23,7 +24,7 @@
         <div class="container" style="width:75%">
             <div class="search_row row vcenter">
                 <div class="col-md-2">
-                    <img src="http://www.whirlpool.it/digitalassets/Picture/web1000x1000/852575438010_1000x1000_frontal.jpg"/ width="100" height="100">
+                    <img src="http://www.whirlpool.it/digitalassets/Picture/web1000x1000/852575438010_1000x1000_frontal.jpg" width="100" height="100">
                 </div>
                 <div class="col-md-7 text-left">
                     <h2>Piano cottura</h2>
@@ -46,6 +47,17 @@
                         //System.out.println(pair.getKey() + " = " + pair.getValue());
                         ProductGroup gp = (ProductGroup) pair.getValue();
                         Product p = gp.getList().get(0);    //il primo prodotto
+                        String vendors_array = "[";
+                        String price_array = "[";
+
+                        for (Shop item : gp.getVendors()) {
+                            vendors_array += "\"" + item.getName() + "\",";
+                            price_array += "\"" + item.getPrice() + "\",";
+                        }
+
+                        vendors_array += "\"\"]";
+                        price_array += "\"\"]";
+
                         count++;
                         int rc = (int)gp.getReviewCount();
                         String review = ((rc>0)?((rc>1)?rc+" recensioni":"1 recensione"):"Nessuna recensione");
@@ -54,13 +66,17 @@
                             imageSrc = "http://via.placeholder.com/1000x1000";
                         }
             %>
+                        <script>
+                            var vendors = <%=vendors_array%>;
+                            var prices = <%=price_array%>;
+                        </script>
                         <div class="search_row row vcenter separated">
                             <div class="col-md-2">
                                 <img src='<%=imageSrc%>' alt='images Here' width="100" height="100"/>
                             </div>
                             <div class="col-md-7 text-left">
                                 <h2><%=p.getProductName()%></h2>
-                                <p>Venduto da <a href="www.google.com"><%=p.getShopName()%></a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href=""><%=gp.getList().size()%></a> venditori</span></p>
+                                <p>Venduto da <a href="#"><%=p.getShopName()%></a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="#" onclick="openModal('<%=p.getProductName()%>',vendors,prices);"><%=gp.getList().size()%></a> venditori</span></p>
                                 <h1 class="prezzo"><%=p.getPrice()%> €</h1>
                             </div>
                             <div class="col-md-3">
@@ -93,21 +109,16 @@
                 <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
                     <span class="form" id="form">
                         <div class="header header-primary text-center">
-                            <h4 class="title title-up" id="card_titolo">Piano cottura</h4>
+                            <h4 class="title title-up" id="card_titolo_vendors">Piano cottura</h4>
                             <p class="white subtitolo">
                                 Disponibile anche da:
                             </p>
                         </div>
                         <div class="content">
                             <div class="row text-center">
-                                <div style="display: inline-block; text-align:left">
-                                    <p class="white"><a href="">Nardi</a> da 12 €</p>
-                                    <p class="white"><a href="">Gino Perna</a> da 12 €</p>
-                                    <p class="white"><a href="">Povolaro</a> da 12 €</p>
-                                    <p class="white"><a href="">Campese</a> da 12 €</p>
-                                    <p class="white"><a href="">Bonato</a> da 12 €</p>
-                                </div>
+                                <div class="content-modal-vendors" id="content-modal-vendors">
 
+                                </div>
                             </div>
                         </div>
                         <div class="footer text-center">
@@ -118,4 +129,5 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript" src="js/search/search.js"></script>
 </html>

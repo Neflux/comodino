@@ -12,6 +12,7 @@ public class ProductGroup {
 
     public ProductGroup(){
         list = new ArrayList<Product>();
+        vendors = new ArrayList<Shop>();
     }
 
     public List<Product> getList() {
