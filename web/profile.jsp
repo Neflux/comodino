@@ -1,5 +1,5 @@
 <%@ page import="main.User" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 
 <%
     User usr = (User) session.getAttribute("user");
@@ -37,7 +37,7 @@
             <a class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#changePwd"><i class="fa fa-fw fa-lock pull-left"></i>Modifica Password</a>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-block btn-primary text-capitalize" href=" #"><i class="fa fa-fw fa-user pull-left"></i>Modifica Dati</a>
+            <a class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#editInfo"><i class="fa fa-fw fa-user pull-left"></i>Modifica Dati</a>
         </div>
         <div class="col-md-4">
             <a class="btn btn-block btn-primary text-capitalize" href="#"><i class="fa fa-fw fa-map-marker pull-left"></i>Modifica Indirizzo Spedizione</a>
@@ -57,13 +57,13 @@
 </div>
 
 
-<!-- editPwd -->
+<!-- changePwd -->
 <div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-labelledby="changePwdLabel">
     <div class="row">
-        <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-            <form id="changePwdform" class="form" method="POST" action="${pageContext.request.contextPath}/changepassword">
+        <div class="card card-signup centerize" data-background-color="orange">
+            <form id="changePwdForm" class="form" method="POST" action="${pageContext.request.contextPath}/changepassword">
                 <div class="header header-primary text-center">
-                    <h4 class="title title-up" id="card_titolo">Cambia la password</h4>
+                    <h4 class="title title-up">Cambia la password</h4>
                 </div>
                 <div class="content">
                     <div class="input-group form-group-no-border nologin">
@@ -86,13 +86,48 @@
                     </div>
                 </div>
                 <div class="footer text-center">
-                    <a id="submitPwd" class="btn btn-default" onclick="$('#changePwdform').submit();">Cambia</a>
+                    <a id="submitPwd" class="btn btn-default" onclick="$('#changePwdForm').submit();">Cambia</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+<!-- editInfo -->
+<div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="editInfoLabel">
+    <div class="row">
+        <div class="card card-signup centerize" data-background-color="orange">
+            <form id="editInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/editinfo">
+                <div class="header header-primary text-center">
+                    <h4 class="title title-up">Modifica dati</h4>
+                </div>
+                <div class="content">
+                    <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-lock green" aria-hidden="true"></i>
+                          </span>
+                        <input name="FirstName" type="text" class="form-control"  placeholder="Nome...">
+                    </div>
+                    <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-key green" aria-hidden="true"></i>
+                          </span>
+                        <input name="LastName" type="text" class="form-control" placeholder="Cognome..."/>
+                    </div>
+                    <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-repeat green" aria-hidden="true"></i>
+                          </span>
+                        <input name="Email" type="email" class="form-control" placeholder="Email..."/>
+                    </div>
+                </div>
+                <div class="footer text-center">
+                    <a class="btn btn-default" onclick="$('#editInfoForm').submit();">Salva</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

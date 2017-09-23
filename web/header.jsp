@@ -29,7 +29,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-center">
                     <li>
-                        <form class="navbar-form" type="GET" action="/search">
+                        <form class="navbar-form" type="GET" action="${pageContext.request.contextPath}/search">
                             <div class="btn btn-default btn-left dropdown">
                                 <a href="#" class="dropdown-toggle navbar-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorie&nbsp;&nbsp;<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
@@ -71,7 +71,7 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="row">
             <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-                <form class="form" method="POST" action="/login" id="form">
+                <form class="form" method="POST" action="${pageContext.request.contextPath}/login" id="form">
                     <div class="header header-primary text-center">
                         <h4 class="title title-up" id="card_titolo">Sign Up</h4>
                     </div>
