@@ -1,7 +1,7 @@
 package servlet;
 
 import daos.UserDao;
-import daos.UserDaoImpl;
+import daos.impl.UserDaoImpl;
 import db.DBManager;
 import main.User;
 
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Objects;
 
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})

@@ -11,7 +11,7 @@ public interface UserDao extends Serializable {
      * @param password  password utente
      * @return          restituisce l'utente se si è autenticato con successo, 'null' altrimenti
      */
-    public User authUser(String email, String password);
+    User authUser(String email, String password);
 
     /**
      *
@@ -20,5 +20,5 @@ public interface UserDao extends Serializable {
      * @param newPwd    nuova password
      * @return          'true' se la modifica è avvenuta con successo, 'false' altrimenti
      */
-    public boolean changePwd(User u, String curPwd, String newPwd);
+    boolean changePwd(User u, String curPwd, String newPwd);
 }
