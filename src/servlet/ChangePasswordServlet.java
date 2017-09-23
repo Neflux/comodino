@@ -34,7 +34,7 @@ public class ChangePasswordServlet extends HttpServlet {
             else {
                 System.out.println("BBBBB");
                 // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-                request.setAttribute("message", "Password attuale errata!");
+                request.setAttribute("message", "Password attuale errata o mancante!");
                 RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
                 rd.forward(request, response);
             }

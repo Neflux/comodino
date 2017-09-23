@@ -18,6 +18,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User authUser(String email, String password) {
+        if (email.isEmpty() | password.isEmpty())
+            return null;
         try {
             PreparedStatement ps = this.con.prepareStatement("SELECT * FROM user U WHERE U.Email = ? AND U.password = ? AND U.EmailConfirm = 'yes'");
             ps.setString(1, email);

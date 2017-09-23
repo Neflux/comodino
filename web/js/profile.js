@@ -16,7 +16,7 @@ function checkPass()
         document.getElementById('PwdCheck').classList.remove('fa-times');
         document.getElementById('PwdCheck').classList.add('fa-check');
         if(curpass !== ""){
-            document.getElementById("submitPwd").onclick = function () { $('#changePwdform').submit(); };
+            document.getElementById("submitPwd").onclick = function () { $('#changePwdForm').submit(); };
         }
     }else{
         //The passwords do not match.
