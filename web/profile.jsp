@@ -29,7 +29,23 @@
         <div class="col-md-12 text-center">
             <jsp:useBean id="user" class="main.User" scope="session"/>
             <img id="profile_pic" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/512/user-male-icon.png" class="center-block img-circle img-responsive">
-            <h1 class="text-center text-uppercase"><jsp:getProperty name="user" property="firstName"/> <jsp:getProperty name="user" property="lastName"/></h1>
+            <h1 class="text-center text-uppercase">
+                <%
+                    String tipo;
+                    switch (user.getType()){
+                        case 1:
+                            tipo = "Venditore";
+                            break;
+                        case 2:
+                            tipo = "Amministratore";
+                            break;
+                        default:
+                            tipo = "";
+                            break;
+                    }
+                %>
+                <jsp:getProperty name="user" property="firstName"/> <jsp:getProperty name="user" property="lastName"/><br><small class="text-capitalize"><%=tipo%></small>
+            </h1>
         </div>
     </div>
     <div class="row" style="margin: 0 0 15px 0;">

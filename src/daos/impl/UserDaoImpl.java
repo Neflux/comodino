@@ -24,10 +24,7 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement stm = this.con.prepareStatement("SELECT * FROM user U WHERE U.Email = ? AND U.password = ? AND U.EmailConfirm = 'yes'");
             stm.setString(1, email);
             stm.setString(2, password);
-
             ResultSet rs = stm.executeQuery();
-
-            stm.close();
             if (rs.next()) {
                 return extractUserFromResultSet(rs);
             } else {
@@ -51,7 +48,6 @@ public class UserDaoImpl implements UserDao {
             stm.setString(1, newPwd);
             stm.setInt(2, user.getUserID());
             int i = stm.executeUpdate();
-            stm.close();
             if (i == 1) {
                 return true;
             }
@@ -71,7 +67,6 @@ public class UserDaoImpl implements UserDao {
             stm.setString(3, user.getEmail());
             stm.setInt(4, user.getUserID());
             int i = stm.executeUpdate();
-            stm.close();
             if (i == 1) {
                 return true;
             }
