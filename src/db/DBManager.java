@@ -53,6 +53,7 @@ public class DBManager implements Serializable {
      * @param password la password
      * @return null se l'utente non è autenticato, un oggetto User se l'utente esiste ed è autenticato
      */
+    /*
     public static User authenticate(String email, String password) throws SQLException {
         PreparedStatement stm = con.prepareStatement("SELECT * FROM User U " +
                 "WHERE U.Email = ? AND U.password = ? AND U.EmailConfirm = 'yes'");
@@ -82,6 +83,8 @@ public class DBManager implements Serializable {
             stm.close();
         }
     }
+    */
+
     /**
      * Ottiene la lista dei prodotti dal DB
      *

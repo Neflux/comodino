@@ -2,7 +2,6 @@ package servlet;
 
 import daos.UserDao;
 import daos.impl.UserDaoImpl;
-import db.DBManager;
 import main.User;
 
 import javax.servlet.RequestDispatcher;

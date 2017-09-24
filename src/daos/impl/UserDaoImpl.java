@@ -21,11 +21,13 @@ public class UserDaoImpl implements UserDao {
         if (email.isEmpty() | password.isEmpty())
             return null;
         try {
-            PreparedStatement ps = this.con.prepareStatement("SELECT * FROM user U WHERE U.Email = ? AND U.password = ? AND U.EmailConfirm = 'yes'");
-            ps.setString(1, email);
-            ps.setString(2, password);
+            PreparedStatement stm = this.con.prepareStatement("SELECT * FROM user U WHERE U.Email = ? AND U.password = ? AND U.EmailConfirm = 'yes'");
+            stm.setString(1, email);
+            stm.setString(2, password);
 
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = stm.executeQuery();
+
+            stm.close();
             if (rs.next()) {
                 return extractUserFromResultSet(rs);
             } else {
@@ -45,10 +47,11 @@ public class UserDaoImpl implements UserDao {
                 return false;
             }
             // se la password attuale coincide posso aggiornare il campo con la nuova password
-            PreparedStatement ps = this.con.prepareStatement("UPDATE user SET Password = ? WHERE UserID = ?");
-            ps.setString(1, newPwd);
-            ps.setInt(2, user.getUserID());
-            int i = ps.executeUpdate();
+            PreparedStatement stm = this.con.prepareStatement("UPDATE user SET Password = ? WHERE UserID = ?");
+            stm.setString(1, newPwd);
+            stm.setInt(2, user.getUserID());
+            int i = stm.executeUpdate();
+            stm.close();
             if (i == 1) {
                 return true;
             }
@@ -62,12 +65,13 @@ public class UserDaoImpl implements UserDao {
     public boolean editInfo(User user) {
         try {
             // se la password attuale coincide posso aggiornare il campo con la nuova password
-            PreparedStatement ps = this.con.prepareStatement("UPDATE user SET FirstName = ?, LastName = ?, Email = ? WHERE UserID = ?");
-            ps.setString(1, user.getFirstName());
-            ps.setString(2, user.getLastName());
-            ps.setString(3, user.getEmail());
-            ps.setInt(4, user.getUserID());
-            int i = ps.executeUpdate();
+            PreparedStatement stm = this.con.prepareStatement("UPDATE user SET FirstName = ?, LastName = ?, Email = ? WHERE UserID = ?");
+            stm.setString(1, user.getFirstName());
+            stm.setString(2, user.getLastName());
+            stm.setString(3, user.getEmail());
+            stm.setInt(4, user.getUserID());
+            int i = stm.executeUpdate();
+            stm.close();
             if (i == 1) {
                 return true;
             }

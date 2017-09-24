@@ -2,7 +2,6 @@ package servlet;
 
 import daos.UserDao;
 import daos.impl.UserDaoImpl;
-import db.DBManager;
 import main.User;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Objects;
 
 @WebServlet(name = "EditInfoServlet", urlPatterns = {"/editinfo"})
 public class EditInfoServlet extends HttpServlet {
