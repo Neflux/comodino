@@ -53,7 +53,7 @@ public class DBManager implements Serializable {
      * @param password la password
      * @return null se l'utente non è autenticato, un oggetto User se l'utente esiste ed è autenticato
      */
-    public User authenticate(String email, String password) throws SQLException {
+    public static User authenticate(String email, String password) throws SQLException {
         PreparedStatement stm = con.prepareStatement("SELECT * FROM User U " +
                 "WHERE U.Email = ? AND U.password = ? AND U.EmailConfirm = 'yes'");
         try {
@@ -88,7 +88,7 @@ public class DBManager implements Serializable {
      * @return
      * @throws SQLException
      */
-    public Map<String, ProductGroup> getProducts(Map params) throws SQLException {
+    public static Map<String, ProductGroup> getProducts(Map params) throws SQLException {
         Map<String,ProductGroup> products = new HashMap<>();
 
         //Search query

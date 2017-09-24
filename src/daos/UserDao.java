@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public interface UserDao extends Serializable {
     /**
+     * Autentica l'utente se presente in database
      *
      * @param email     email utente
      * @param password  password utente
@@ -14,13 +15,20 @@ public interface UserDao extends Serializable {
     User authUser(String email, String password);
 
     /**
+     * Modifica la password dell'utente autenticato se presente in database
      *
-     * @param u         utente al quale modificare la password
+     * @param user      utente al quale modificare la password
      * @param curPwd    password attuale
      * @param newPwd    nuova password
      * @return          'true' se la modifica è avvenuta con successo, 'false' altrimenti
      */
     boolean changePwd(User user, String curPwd, String newPwd);
 
+    /**
+     * Modifica info personali dell'utente autenticato se presente in database
+     *
+     * @param user      utente al quale modificare le info
+     * @return          'true' se la modifica è avvenuta con successo, 'false' altrimenti
+     */
     boolean editInfo(User user);
 }
