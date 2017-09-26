@@ -60,8 +60,9 @@
                         vendors_array += "\"\"]";
                         price_array += "\"\"]";
 
-                        System.out.println(vendors_array);
-                        System.out.println(price_array);
+                        String all_array = "{\"vendors\":"+vendors_array+",\"prices\":"+price_array+"}";
+
+                        System.out.println(all_array);
 
                         count++;
                         int rc = (int)gp.getReviewCount();
@@ -71,17 +72,13 @@
                             imageSrc = "http://via.placeholder.com/1000x1000";
                         }
             %>
-                        <script>
-                            var vendors = <%=vendors_array%>;
-                            var prices = <%=price_array%>;
-                        </script>
                         <div class="search_row row vcenter separated">
                             <div class="col-md-2">
                                 <img src='<%=imageSrc%>' alt='images Here' width="100" height="100"/>
                             </div>
                             <div class="col-md-7 text-left">
                                 <h2><%=p.getProductName()%></h2>
-                                <p>Venduto da <a href="#"><%=p.getShopName()%></a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="#" onclick="openModal('<%=p.getProductName()%>',vendors,prices);"><%=gp.getList().size()%></a> venditori</span></p>
+                                <p>Venduto da <a href="#"><%=p.getShopName()%></a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="#" onclick="openModal('<%=p.getProductName()%>');"><%=gp.getList().size()%></a> venditori</span></p>
                                 <h1 class="prezzo"><%=p.getActualPrice()%> €</h1>
                             </div>
                             <div class="col-md-3">
