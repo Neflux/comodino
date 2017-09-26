@@ -11,6 +11,13 @@ body{
     background-color: #F3F3F4 !important;
 }
 
+.review{
+	padding-top: 1px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 1px;
+}
+
 /* Main carousel style */
 
 .carousel {
