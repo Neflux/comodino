@@ -1,0 +1,26 @@
+body>.container{
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+    border-radius: 8px;
+}
+html{
+    background-color: #F3F3F4;
+}
+body{
+    background-color: #F3F3F4 !important;
+}
+
+#photoPanel {
+  padding:20px 5% 35px 5%;
+  background-color: white;
+}
+
+#buttonPanel{
+  background-color: white;
+  padding:20px 5% 35px 5%;
+    margin-left: 5px;
+}
+
+#buttonPanel > .row > .col-md-6  {
+    padding: 5%;
+}
