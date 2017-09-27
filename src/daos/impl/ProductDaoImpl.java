@@ -10,7 +10,7 @@ import java.sql.*;
 public class ProductDaoImpl implements ProductDao {
     private Connection con;
 
-    public ProductDaoImpl() {
+    ProductDaoImpl() {
         this.con = DBManager.getCon();
     }
 
