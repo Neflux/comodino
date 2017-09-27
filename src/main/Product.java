@@ -8,12 +8,30 @@ public class Product implements Serializable {
     private int shopID;
     private String shopName;
 
+    private String description;
+    private String imgBase64;
     private float price;
     private int quantity;
     private float discount;
     private float actualPrice;
     private String categoryName;
     private float rating;
+
+    public Product() {
+        this.productID = 0;
+        this.productName = "";
+        this.shopID = 0;
+        this.shopName = "";
+
+        this.description = "";
+        this.imgBase64 = "";
+        this.price = 0;
+        this.quantity = 0;
+        this.discount = 0;
+        this.actualPrice = 0;
+        this.categoryName = "";
+        this.rating = 0;
+    }
 
     public int getProductID() {
         return productID;
@@ -45,6 +63,22 @@ public class Product implements Serializable {
 
     public void setShopName(String shopName) {
         this.shopName = shopName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImgBase64() {
+        return imgBase64;
+    }
+
+    public void setImgBase64(String imgBase64) {
+        this.imgBase64 = imgBase64;
     }
 
     public float getPrice() {
