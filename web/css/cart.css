@@ -23,6 +23,48 @@ body{
 
 .list-group-item {
     margin: 10px;
-    border-radius: 8px;
+    border-radius: 8px !important;
     border-width: 1px;
+    border-color: #CAD2D2;
+}
+
+.cart-item {
+    background-color: #FFF !important;
+}
+
+.itemtitle {
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.itemseller {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.itemprice {
+    margin-top: 0;
+    font-size: 24px;
+    color: #99CC33;
+}
+
+.itemquantity {
+   padding-top: 20px;
+   text-align: center;
+   height: 100px;
+   margin: auto;
+}
+
+#prodimg {
+     padding-top: 5px;
+}
+
+#prodimg>img {
+    width: 120px;
+    height: 90px;
+}
+
+.checkout {
+	vertical-align: center;
 }
