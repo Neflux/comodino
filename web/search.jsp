@@ -124,7 +124,12 @@
                             </div>
                         </div>
                         <div class="footer text-center">
+                            <div id="footer_vendors">
 
+                            </div>
+                            <div class="row" style="margin-top:10px" id="pagination_numbers_vendors">
+
+                            </div>
                         </div>
                     </span>
                 </div>
