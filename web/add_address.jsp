@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: giuliomarcon
-  Date: 28/09/2017
-  Time: 15:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html><head>
@@ -34,9 +27,7 @@
                         <div class="cart-item">
                             <div class="row pi-draggable" id="c_row-4col" draggable="true">
                                 <div class="col-md-10">
-                                    <p>
-                                        <b>Luca De Fassi</b>
-                                    </p>
+                                    <p><b>Luca De Fassi</b></p>
                                     <p>Via Perini 127</p>
                                     <p>Trento</p>
                                     <p>45687</p>
@@ -57,7 +48,7 @@
                 <div class="row">
                     <div class="col-md-5"></div>
                     <div class="col-md-2">
-                        <a class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#changePwd" contenteditable="true"><i class="fa fa-fw pull-left fa-map-marker"></i>Aggiungi Indirizzo</a>
+                        <a class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#addAddress" contenteditable="true"><i class="fa fa-fw pull-left fa-map-marker"></i>Aggiungi Indirizzo</a>
                     </div>
                     <div class="col-md-5"></div>
                 </div>
@@ -65,43 +56,58 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-labelledby="changePwdLabel">
+
+<div class="modal fade" id="addAddress" tabindex="-1" role="dialog" aria-labelledby="addAddressLabel">
     <div class="row">
         <div class="card card-signup centerize" data-background-color="orange">
-            <form id="changePwdForm" class="form" method="POST" action="${pageContext.request.contextPath}/changepassword">
+            <form id="addAddressForm" class="form" method="POST" action="${pageContext.request.contextPath}/addaddress">
                 <div class="header header-primary text-center">
-                    <h4 class="title title-up">Cambia la password</h4>
+                    <h4 class="title title-up">Aggiungi Indirizzo</h4>
                 </div>
                 <div class="content">
                     <div class="input-group form-group-no-border nologin">
-                <span class="input-group-addon">
-                  <i class="fa fa-lock green" aria-hidden="true"></i>
-                </span>
-                        <input id="CurrentPassword" name="CurrentPassword" type="password" class="form-control" placeholder="Password attuale...">
+                    <span class="input-group-addon">
+                      <i class="fa fa-id-card green" aria-hidden="true"></i>
+                    </span>
+                        <input id="FirstName" name="FirstName" type="text" class="form-control" placeholder="Nome">
                     </div>
-                    <div class="input-group form-group-no-border">
-                <span class="input-group-addon">
-                  <i class="fa fa-key green" aria-hidden="true"></i>
-                </span>
-                        <input id="NewPassword" name="NewPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Nuova password...">
+                    <div class="input-group form-group-no-border nologin">
+                    <span class="input-group-addon">
+                      <i class="fa fa-id-card green" aria-hidden="true"></i>
+                    </span>
+                        <input id="LastName" name="LastName" type="text" class="form-control" placeholder="Cognome">
                     </div>
-                    <div class="input-group form-group-no-border">
-                <span class="input-group-addon">
-                  <i id="PwdCheck" class="fa fa-repeat green" aria-hidden="true"></i>
-                </span>
-                        <input id="RepeatPassword" name="RepeatPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Ripeti password...">
+                    <div class="input-group form-group-no-border nologin">
+                    <span class="input-group-addon">
+                      <i class="fa fa-map-marker green" aria-hidden="true"></i>
+                    </span>
+                        <input id="Address" name="Address" type="text" class="form-control" placeholder="Indirizzo">
                     </div>
-                </div>
-                <div class="footer text-center">
-                    <a id="submitPwd" class="btn btn-default" onclick="$('#changePwdForm').submit();">Cambia</a>
+                    <div class="input-group form-group-no-border nologin">
+                    <span class="input-group-addon">
+                      <i class="fa fa-home green" aria-hidden="true"></i>
+                    </span>
+                        <input id="City" name="City" type="text" class="form-control" placeholder="Città">
+                    </div>
+                    <div class="input-group form-group-no-border nologin">
+                    <span class="input-group-addon">
+                      <i class="fa fa-hashtag green" aria-hidden="true"></i>
+                    </span>
+                        <input id="ZIP" name="ZIP" type="text" class="form-control" placeholder="CAP">
+                    </div>
+                    <div class="input-group form-group-no-border nologin">
+                    <span class="input-group-addon">
+                      <i class="fa fa-phone green" aria-hidden="true"></i>
+                    </span>
+                        <input id="Phone" name="Phone" type="number" class="form-control" placeholder="Telefono">
+                    </div>
+                    <div class="footer text-center">
+                        <a id="addAdr" class="btn btn-default" onclick="$('#addAddressForm').submit();">Aggiungi</a>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-
 
 </body></html>
