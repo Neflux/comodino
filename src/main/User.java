@@ -3,6 +3,7 @@ package main;
 import java.io.Serializable;
 
 public class User implements Serializable {
+
     private int userID;
     private String firstName;
     private String lastName;

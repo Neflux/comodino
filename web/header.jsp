@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/custom.js"></script>
     <script src="./js/now-ui-kit.js"></script>
