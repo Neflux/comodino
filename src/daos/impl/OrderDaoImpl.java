@@ -1,7 +1,6 @@
 package daos.impl;
 
 import daos.OrderDao;
-
 import daos.ProductDao;
 import db.DBManager;
 import main.Order;
@@ -10,6 +9,8 @@ import main.Product;
 import main.User;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,7 +30,9 @@ public class OrderDaoImpl implements OrderDao {
             ResultSet rs = stm.executeQuery();
             printRS(rs);
             System.out.println("");
-            return null;//extractProductFromResultSet(rs);
+            ArrayList<Order> orders = extractProductFromResultSet(rs);
+            System.out.println("Size: " + (orders != null ? orders.size() : "orders is NULL"));
+            return orders;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,22 +64,34 @@ public class OrderDaoImpl implements OrderDao {
         ArrayList<Order> orderList = new ArrayList<>();
 
         try {
+            Order order = new Order();
+            ProdOrder ps;
+            ProductDao pd;
+            Product p;
+            int i = 0;
+
+            // mi assicuro che legga sempre dall'inizio
+            rs.first();
+
             while (rs.next()){
-                Order order;
-                ProdOrder ps;
-                ProductDao pd;
-                Product p;
+
+                if (i == 0){
+                    rs.previous(); // serve perche il primo elemento sennò viene saltato da rs.next()
+                }
 
                 // creo inserisco dati ordine generale
                 order = new Order();
+                i++;
                 order.setOrderID(rs.getInt("OrderID"));
                 order.setUserID(rs.getInt("UserID"));
-                order.setDate(new Date(rs.getString("Date")));
+                //order.setDate((Date) new SimpleDateFormat("F T").parse(rs.getString("Date")));
                 order.setPaymentStatus(rs.getInt("PaymentStatus"));
 
                 // creo prodotto con dati venditore
                 pd = new ProductDaoImpl();
-                p = pd.getProduct(rs.getInt("productID"),rs.getInt("shopID"));
+                p = pd.getProduct(rs.getInt("ProductID"),rs.getInt("ShopID"));
+                System.out.println(p.getProductName());
+                System.out.flush();
 
                 // creo l'ordine del prodotto particolare e lo aggiungo alla lista dell'ordine generale
                 ps = new ProdOrder();
@@ -91,19 +106,21 @@ public class OrderDaoImpl implements OrderDao {
                 // ciclo sugli elementi successivi dell'ordine (basta aggiungere gli progelem alla lista ordine)
                 while (rs.next()){
 
-                    // se trovo un elemento che non appartiene piÃ¹ all'ordine corrente
+                    // se trovo un elemento che non appartiene più all'ordine corrente
                     if (rs.getInt("OrderID") != order.getOrderID()){
                         // finalizzo l'ordine
                         orderList.add(order);
-                        // torno all'elemento precedente (perchÃ¨ poi nel while esterno ritorno avanti di uno e dichiaro un nuovo ordine)
+                        // torno all'elemento precedente (perchè poi nel while esterno ritorno avanti di uno e dichiaro un nuovo ordine)
                         rs.previous();
-                        // esco dal while interno (ovvero non ho piÃ¹ prodotti relativi all'ordine corrente)
+                        // esco dal while interno (ovvero non ho più prodotti relativi all'ordine corrente)
                         break;
                     }
 
                     // creo prodotto con dati venditore
                     pd = new ProductDaoImpl();
-                    p = pd.getProduct(rs.getInt("productID"), rs.getInt("shopID"));
+                    p = pd.getProduct(rs.getInt("ProductID"), rs.getInt("ShopID"));
+                    System.out.println(p.getProductName());
+                    System.out.flush();
 
                     // creo l'ordine del prodotto particolare e lo aggiungo alla lista dell'ordine generale
                     ps = new ProdOrder();
@@ -111,7 +128,14 @@ public class OrderDaoImpl implements OrderDao {
                     ps.setQuantity(rs.getInt("Quantity"));
                     ps.setHandDelivery(rs.getInt("HandDelivery"));
                     ps.setStatus(rs.getInt("Status"));
+
+                    // aggiungo l'ordine del prodotto al corrispettivo ordine generale
+                    order.getProductList().add(ps);
                 }
+
+            }
+            if (i > 0){
+                orderList.add(order);
             }
             
             return orderList;

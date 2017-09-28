@@ -1,5 +1,6 @@
-<%@ page import="main.User" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
+
+<%@ page import="main.User" %>
 
 <%
     User usr = (User) session.getAttribute("user");
@@ -60,7 +61,7 @@
     </div>
     <div class="row" style="margin: 0 0 15px 0;">
         <div class="col-md-4">
-            <a class="btn btn-block btn-success text-capitalize" href="#"><i class="fa fa-fw pull-left fa-shopping-cart"></i>I miei ordini</a>
+            <a class="btn btn-block btn-success text-capitalize" href="orderhistory.jsp"><i class="fa fa-fw pull-left fa-shopping-cart"></i>I miei ordini</a>
         </div>
         <div class="col-md-4">
             <a class="btn btn-block btn-success text-capitalize" href=" #"><i class="fa fa-fw pull-left fa-warning"></i>Dispute</a>

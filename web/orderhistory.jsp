@@ -1,14 +1,24 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="main.Order" %>
 <%@ page import="daos.OrderDao" %>
 <%@ page import="daos.impl.OrderDaoImpl" %>
 <%@ page import="main.User" %>
+
+<%
+    User usr = (User) session.getAttribute("user");
+
+    if ( usr == null || usr.getEmail() == null){
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }
+%>
+
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Ordini</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -16,12 +26,11 @@
     <link href="css/custom.min.css" rel="stylesheet" type="text/css">
     <link href="css/my.css" rel="stylesheet" type="text/css">
     <link href="css/orderhistory.css" rel="stylesheet" type="text/css"> </head>
-
 <body>
 <jsp:include page="header.jsp" flush="true"/>
 <%
     OrderDao orderDao = new OrderDaoImpl();
-    ArrayList<Order> orders = orderDao.getAllOrders((User) session.getAttribute("user"));
+    ArrayList<Order> orders = orderDao.getAllOrders(usr);
 %>
 <div class="container">
     <div class="row">
@@ -38,26 +47,28 @@
                     <a class="nav-link" href="#">Ordini Completati</a>
                 </li>
             </ul>
+            <%
+                if (orders.size() > 0)
+                    for (Order o:orders) {
+            %>
             <div class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row text-left">
                             <div class="col-md-4 text-left">
-                                <h5> Ordine n: 123456789 </h5>
+                                <h5> Ordine n: <%=o.getOrderID()%></h5>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5> Totale: 200€</h5>
+                                <h5> Totale: <%=o.getTotal()%>&euro;</h5>
                             </div>
                             <div class="col-md-4 text-right">
-                                <h5> Effettuato il: 02/04/2017 10:22</h5>
+                                <h5> Effettuato il: </h5>
                             </div>
                         </div>
                     </div>
                     <div class="panel-collapse">
                         <ul class="list-group">
-                            <%
-                                for (Order o:orders) {
-                            %>
+
                             <!-- inizio oggetto -->
                             <li class="list-group-item">
                                 <a href="#" class="list-group-item">
@@ -69,7 +80,7 @@
                                         <h1 class="list-group-item-heading">Lampada Grosa</h1>
                                         <ul class="list-unstyled list-group-item-text">
                                             <li>Venditore: Slav </li>
-                                            <li>Prezzo: 20€</li>
+                                            <li>Prezzo: 20&euro;</li>
                                             <li>Quantità: 5pz</li>
                                         </ul>
                                     </div>
@@ -92,13 +103,20 @@
                                 </a>
                             </li>
                             <!-- fine oggetto -->
-                            <%
-                                }
-                            %>
+
                         </ul>
                     </div>
+
                 </div>
             </div>
+            <%
+                }
+                else{
+            %>
+            <h3>&nbsp;&nbsp;&nbsp;Non hai ancora effettuato alcun ordine</h3>
+            <%
+                }
+            %>
             <!--div class="list-group">
               <a href="#" class="list-group-item">
                 <div class="media col-md-3">

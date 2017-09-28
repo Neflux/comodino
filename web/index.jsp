@@ -36,6 +36,7 @@
         if (user != null){
     %>
     <a href="profile.jsp"><h1>Vai al Profilo</h1></a>
+    <a href="orderhistory.jsp"><h1>Vai agli Ordini</h1></a>
     <%
         }
     %>
