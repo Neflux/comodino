@@ -3,6 +3,8 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="main.ProductGroup" %>
 <%@ page import="main.Shop" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!doctype html>
@@ -14,7 +16,7 @@
 
     </head>
     <body>
-        <jsp:include page="header_anonimo.jsp" flush="true" />
+        <jsp:include page="header.jsp" flush="true" />
         <div class="banner">
             <h5>
                 <a href="index.php">Home</a>
@@ -29,15 +31,31 @@
                     <div class="search_row" style="margin-left:-25%;height:100%;">
                         <h3 class="text-center">Categorie</h3>
                         <ul class="list-group">
-                            <li class="list-group-item"><input type="checkbox" name="html" value="html"/> bla</li>
-                            <li class="list-group-item"><input type="checkbox" name="html" value="html"/> blabla</li>
-                            <li class="list-group-item"><input type="checkbox" name="html" value="html"/> blablabla</li>
+                            <%
+                                if (request.getAttribute("categories") != null)
+                                {
+                                    ArrayList<String> categories = (ArrayList<String>) request.getAttribute("categories");
+                                    for (String i : categories) {
+                                        %>
+                                        <li class="list-group-item"><input type="radio" name="<%=i%>" value="<%=i%>"/> <%=i%></li>
+                                        <%
+                                    }
+                                }
+                            %>
                         </ul>
                         <h3 class="text-center">Venditori</h3>
                         <ul class="list-group">
-                            <li class="list-group-item"><input type="checkbox" name="html" value="html"/> bla</li>
-                            <li class="list-group-item"><input type="checkbox" name="html" value="html"/> blabla</li>
-                            <li class="list-group-item"><input type="checkbox" name="html" value="html"/> blablabla</li>
+                            <%
+                                if (request.getAttribute("categories") != null)
+                                {
+                                    ArrayList<String> vendors = (ArrayList<String>) request.getAttribute("vendors");
+                                    for (String i : vendors) {
+                                        %>
+                                        <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>"/> <%=i%></li>
+                                        <%
+                                    }
+                                }
+                            %>
                         </ul>
                         <h3 class="text-center">Area Geografica</h3>
                         <ul class="list-group">
@@ -64,11 +82,11 @@
                         <div class="row" style="padding-bottom:15px">
                             <h3 class="text-center">Valutazione</h3>
                             <div class="col-md-12" style="margin-left:5%" >
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_0" onmouseover="setStar(this)" onclick="setStarFilter()"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)" onclick="setStarFilter()"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)" onclick="setStarFilter()"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)" onclick="setStarFilter()"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)" onclick="setStarFilter()"></i>&nbsp;
+                                <i class="fa fa-star rating_star" aria-hidden="true" id="stella_0" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
                                 &nbsp;o più
                             </div>
                         </div>

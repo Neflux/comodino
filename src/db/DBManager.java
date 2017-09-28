@@ -85,6 +85,78 @@ public class DBManager implements Serializable {
     }
     */
 
+    public static ArrayList<String> getCategories(Map params)
+    {
+        ArrayList<String> ret = new ArrayList<String>();
+        String searchQuery;
+        if((searchQuery = checkSMP(params.get("q"))) == null){
+            return null;
+        }
+
+        PreparedStatement stm = null;
+        try {
+            stm = con.prepareStatement(
+                    "SELECT DISTINCT P.CategoryName " +
+                            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                            "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
+            );
+            stm.setString(1,"%"+searchQuery+"%");       //a questo punto "q" è settata di sicuro
+
+            try (ResultSet rs = stm.executeQuery()){
+                System.out.println(stm.toString());
+                while(rs.next()) {
+                    ret.add(rs.getString("CategoryName"));
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                stm.close();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
+    public static ArrayList<String> getVendors(Map params)
+    {
+        ArrayList<String> ret = new ArrayList<String>();
+        String searchQuery;
+        if((searchQuery = checkSMP(params.get("q"))) == null){
+            return null;
+        }
+
+        PreparedStatement stm = null;
+        try {
+            stm = con.prepareStatement(
+                    "SELECT DISTINCT S.Name " +
+                            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                            "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
+            );
+            stm.setString(1,"%"+searchQuery+"%");       //a questo punto "q" è settata di sicuro
+
+            try (ResultSet rs = stm.executeQuery()){
+                System.out.println(stm.toString());
+                while(rs.next()) {
+                    ret.add(rs.getString("Name"));
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                stm.close();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
     /**
      * Ottiene la lista dei prodotti dal DB
      *
