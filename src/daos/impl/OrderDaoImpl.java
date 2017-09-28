@@ -1,6 +1,7 @@
-﻿package daos.impl;
+package daos.impl;
 
 import daos.OrderDao;
+
 import daos.ProductDao;
 import db.DBManager;
 import main.Order;
@@ -78,13 +79,13 @@ public class OrderDaoImpl implements OrderDao {
                 // ciclo sugli elementi successivi dell'ordine (basta aggiungere gli progelem alla lista ordine)
                 while (rs.next()){
 
-                    // se trovo un elemento che non appartiene più all'ordine corrente
+                    // se trovo un elemento che non appartiene piÃ¹ all'ordine corrente
                     if (rs.getInt("OrderID") != order.getOrderID()){
                         // finalizzo l'ordine
                         orderList.add(order);
-                        // torno all'elemento precedente (perchè poi nel while esterno ritorno avanti di uno e dichiaro un nuovo ordine)
+                        // torno all'elemento precedente (perchÃ¨ poi nel while esterno ritorno avanti di uno e dichiaro un nuovo ordine)
                         rs.previous();
-                        // esco dal while interno (ovvero non ho più prodotti relativi all'ordine corrente)
+                        // esco dal while interno (ovvero non ho piÃ¹ prodotti relativi all'ordine corrente)
                         break;
                     }
 
