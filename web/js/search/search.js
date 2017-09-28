@@ -1,8 +1,12 @@
 var i_quanti = 10;
+var stelle = 0;
+
+$( document ).ready(function() {
+    $("#ex16b").slider({ min: 0, max: 10, value: [0, 10], focus: true });
+});
 
 function openModal(titolo)
 {
-    $('#vendorsModal').modal('show');
     $("#content-modal-vendors").empty();
     $("#card_titolo_vendors").text(titolo);
 
@@ -11,6 +15,8 @@ function openModal(titolo)
     $.post( "/getVendorServlet", post)
         .done(function( data ) {
             $("#content-modal-vendors").html(data);
+
+            $('#vendorsModal').modal('show');
         });
 
     $.post( "/getVendorServlet", {nome_prodotto:titolo,getQuantity:"1"})
@@ -96,4 +102,29 @@ function lessOffset(titolo,offset,tot)
             $("#pagination_numbers_vendors").html("<h6 style=\"color:#ffffff\">Mostrando i risultati " + (offset+1) + "-" + (offset+i_quanti) + " su " + tot + "</h6>");
         });
 
+}
+
+function resetStar()
+{
+    stelle = 0;
+    for (i = 0; i <= 5; i++)
+        $("#stella_" + i).attr("class","fa fa-star-o rating_star");
+}
+
+function setStar(id)
+{
+    stelle_hover = id.id.substr(7,id.id.lenght);
+
+    for (i = 0; i <= stelle_hover; i++)
+        $("#stella_" + i).attr("class","fa fa-star rating_star");
+
+    for (i = parseInt(stelle_hover)+1; i <= 5; i++)
+        $("#stella_" + i).attr("class","fa fa-star-o rating_star");
+
+    stelle = stelle_hover;
+}
+
+function setStarFilter()
+{
+    alert(stelle_hover);
 }
