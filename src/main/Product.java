@@ -3,35 +3,19 @@ package main;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    private int productID;
-    private String productName;
-    private int shopID;
-    private String shopName;
+    private int productID = 0;
+    private String productName = "";
+    private int shopID = 0;
+    private String shopName = "";
 
-    private String description;
-    private String imgBase64;
-    private float price;
-    private int quantity;
-    private float discount;
-    private float actualPrice;
-    private String categoryName;
-    private float rating;
-
-    public Product() {
-        this.productID = 0;
-        this.productName = "";
-        this.shopID = 0;
-        this.shopName = "";
-
-        this.description = "";
-        this.imgBase64 = "";
-        this.price = 0;
-        this.quantity = 0;
-        this.discount = 0;
-        this.actualPrice = 0;
-        this.categoryName = "";
-        this.rating = 0;
-    }
+    private String description = "";
+    private String imgBase64 = "http://via.placeholder.com/1000x1000";
+    private float price = 0;
+    private int quantity = 0;
+    private float discount = 0;
+    private float actualPrice = 0;
+    private String categoryName = "";
+    private float rating = -1;
 
     public int getProductID() {
         return productID;

@@ -1,13 +1,13 @@
 package daos;
 
-import main.Product;
+import main.Order;
 import main.User;
 
 import java.io.Serializable;
-import java.util.Map;
+import java.util.ArrayList;
 
 public interface OrderDao extends Serializable {
 
-    Map<Integer, Product> getAllOrders(User user);
+    ArrayList<Order> getAllOrders(User user);
 
 }
