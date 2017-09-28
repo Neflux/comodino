@@ -1,0 +1,518 @@
+﻿CreationDate;Rating;Description;ProductID;UserID;Title
+2017-03-24;5;Speciale!;2;1;Speciale!
+2016-06-10;2;Complessivamente deludente;3;1;Complessivamente deludente
+2016-07-15;4;Prodotto di ottima qualità;4;1;Prodotto di ottima qualità
+2016-03-09;2;Complessivamente deludente;5;1;Complessivamente deludente
+2017-06-07;3;Buono ma potrebbero migliorarlo;6;1;Buono ma potrebbero migliorarlo
+2017-02-10;5;Speciale!;7;1;Speciale!
+2016-03-28;4;Prodotto di ottima qualità;8;1;Prodotto di ottima qualità
+2017-01-20;4;Prodotto di ottima qualità;9;1;Prodotto di ottima qualità
+2017-05-28;4;Prodotto di ottima qualità;10;1;Prodotto di ottima qualità
+2016-04-30;3;Buono ma potrebbero migliorarlo;11;1;Buono ma potrebbero migliorarlo
+2016-10-26;2;Complessivamente deludente;12;1;Complessivamente deludente
+2016-05-24;1;Prodotto mediocre;13;1;Prodotto mediocre
+2016-02-17;3;Buono ma potrebbero migliorarlo;14;1;Buono ma potrebbero migliorarlo
+2017-03-27;3;Buono ma potrebbero migliorarlo;15;1;Buono ma potrebbero migliorarlo
+2016-01-09;4;Prodotto di ottima qualità;16;1;Prodotto di ottima qualità
+2016-10-06;4;Prodotto di ottima qualità;17;1;Prodotto di ottima qualità
+2017-01-31;1;Prodotto mediocre;18;1;Prodotto mediocre
+2017-06-18;1;Prodotto mediocre;19;1;Prodotto mediocre
+2017-05-08;4;Prodotto di ottima qualità;20;2;Prodotto di ottima qualità
+2016-11-15;2;Complessivamente deludente;21;2;Complessivamente deludente
+2016-02-15;3;Buono ma potrebbero migliorarlo;22;2;Buono ma potrebbero migliorarlo
+2016-09-17;4;Prodotto di ottima qualità;23;2;Prodotto di ottima qualità
+2017-06-08;5;Speciale!;24;2;Speciale!
+2016-01-22;3;Buono ma potrebbero migliorarlo;25;2;Buono ma potrebbero migliorarlo
+2016-08-19;5;Speciale!;26;2;Speciale!
+2016-08-09;1;Prodotto mediocre;27;2;Prodotto mediocre
+2017-05-17;1;Prodotto mediocre;28;2;Prodotto mediocre
+2016-10-21;2;Complessivamente deludente;29;2;Complessivamente deludente
+2016-05-04;2;Complessivamente deludente;30;2;Complessivamente deludente
+2017-04-20;5;Speciale!;31;2;Speciale!
+2017-02-25;2;Complessivamente deludente;32;2;Complessivamente deludente
+2017-03-14;1;Prodotto mediocre;33;3;Prodotto mediocre
+2017-02-07;5;Speciale!;34;3;Speciale!
+2017-03-29;1;Prodotto mediocre;35;3;Prodotto mediocre
+2016-03-27;4;Prodotto di ottima qualità;36;3;Prodotto di ottima qualità
+2017-05-25;1;Prodotto mediocre;37;3;Prodotto mediocre
+2016-07-24;5;Speciale!;38;3;Speciale!
+2016-02-11;1;Prodotto mediocre;39;3;Prodotto mediocre
+2017-01-19;3;Buono ma potrebbero migliorarlo;40;3;Buono ma potrebbero migliorarlo
+2017-05-06;3;Buono ma potrebbero migliorarlo;41;3;Buono ma potrebbero migliorarlo
+2016-10-17;1;Prodotto mediocre;42;3;Prodotto mediocre
+2016-05-14;3;Buono ma potrebbero migliorarlo;43;3;Buono ma potrebbero migliorarlo
+2017-02-12;4;Prodotto di ottima qualità;44;3;Prodotto di ottima qualità
+2016-01-31;3;Buono ma potrebbero migliorarlo;45;3;Buono ma potrebbero migliorarlo
+2017-02-21;3;Buono ma potrebbero migliorarlo;46;3;Buono ma potrebbero migliorarlo
+2016-02-05;4;Prodotto di ottima qualità;47;3;Prodotto di ottima qualità
+2016-07-01;1;Prodotto mediocre;48;4;Prodotto mediocre
+2017-01-25;2;Complessivamente deludente;2;4;Complessivamente deludente
+2017-04-04;2;Complessivamente deludente;3;4;Complessivamente deludente
+2017-07-22;3;Buono ma potrebbero migliorarlo;4;4;Buono ma potrebbero migliorarlo
+2017-05-29;1;Prodotto mediocre;5;4;Prodotto mediocre
+2017-02-21;3;Buono ma potrebbero migliorarlo;6;4;Buono ma potrebbero migliorarlo
+2017-03-20;3;Buono ma potrebbero migliorarlo;7;4;Buono ma potrebbero migliorarlo
+2017-03-01;2;Complessivamente deludente;8;4;Complessivamente deludente
+2016-04-06;1;Prodotto mediocre;9;4;Prodotto mediocre
+2016-07-10;1;Prodotto mediocre;10;4;Prodotto mediocre
+2016-11-05;2;Complessivamente deludente;11;4;Complessivamente deludente
+2016-04-24;5;Speciale!;12;4;Speciale!
+2016-10-18;5;Speciale!;13;5;Speciale!
+2017-01-31;2;Complessivamente deludente;14;5;Complessivamente deludente
+2016-05-14;4;Prodotto di ottima qualità;15;5;Prodotto di ottima qualità
+2016-04-14;3;Buono ma potrebbero migliorarlo;16;5;Buono ma potrebbero migliorarlo
+2017-01-20;5;Speciale!;17;5;Speciale!
+2016-01-09;4;Prodotto di ottima qualità;18;5;Prodotto di ottima qualità
+2016-01-09;3;Buono ma potrebbero migliorarlo;19;5;Buono ma potrebbero migliorarlo
+2016-01-06;1;Prodotto mediocre;20;5;Prodotto mediocre
+2016-04-08;5;Speciale!;21;5;Speciale!
+2016-08-29;5;Speciale!;22;5;Speciale!
+2017-03-08;5;Speciale!;23;5;Speciale!
+2016-06-08;1;Prodotto mediocre;24;5;Prodotto mediocre
+2016-06-26;4;Prodotto di ottima qualità;25;5;Prodotto di ottima qualità
+2017-07-06;3;Buono ma potrebbero migliorarlo;26;5;Buono ma potrebbero migliorarlo
+2016-08-13;5;Speciale!;27;5;Speciale!
+2016-08-30;5;Speciale!;28;5;Speciale!
+2017-04-25;2;Complessivamente deludente;29;5;Complessivamente deludente
+2017-07-26;2;Complessivamente deludente;30;5;Complessivamente deludente
+2016-08-07;5;Speciale!;31;5;Speciale!
+2016-11-06;1;Prodotto mediocre;32;6;Prodotto mediocre
+2016-03-31;4;Prodotto di ottima qualità;33;6;Prodotto di ottima qualità
+2016-06-20;2;Complessivamente deludente;34;6;Complessivamente deludente
+2017-02-15;1;Prodotto mediocre;35;6;Prodotto mediocre
+2017-05-03;3;Buono ma potrebbero migliorarlo;36;6;Buono ma potrebbero migliorarlo
+2017-06-08;3;Buono ma potrebbero migliorarlo;37;6;Buono ma potrebbero migliorarlo
+2016-10-17;1;Prodotto mediocre;38;8;Prodotto mediocre
+2017-04-18;4;Prodotto di ottima qualità;39;8;Prodotto di ottima qualità
+2016-12-08;2;Complessivamente deludente;40;8;Complessivamente deludente
+2017-07-30;5;Speciale!;41;8;Speciale!
+2016-03-19;5;Speciale!;42;8;Speciale!
+2017-01-18;3;Buono ma potrebbero migliorarlo;43;8;Buono ma potrebbero migliorarlo
+2017-03-26;3;Buono ma potrebbero migliorarlo;44;8;Buono ma potrebbero migliorarlo
+2016-07-31;1;Prodotto mediocre;45;8;Prodotto mediocre
+2016-08-08;3;Buono ma potrebbero migliorarlo;46;8;Buono ma potrebbero migliorarlo
+2016-12-21;5;Speciale!;47;8;Speciale!
+2016-07-15;5;Speciale!;48;8;Speciale!
+2016-10-07;2;Complessivamente deludente;2;8;Complessivamente deludente
+2017-01-20;2;Complessivamente deludente;3;8;Complessivamente deludente
+2016-06-23;2;Complessivamente deludente;4;8;Complessivamente deludente
+2017-05-22;5;Speciale!;5;8;Speciale!
+2016-11-06;4;Prodotto di ottima qualità;6;8;Prodotto di ottima qualità
+2016-02-27;2;Complessivamente deludente;7;8;Complessivamente deludente
+2016-02-21;5;Speciale!;8;42;Speciale!
+2016-05-01;3;Buono ma potrebbero migliorarlo;9;42;Buono ma potrebbero migliorarlo
+2017-07-24;5;Speciale!;10;42;Speciale!
+2016-02-22;5;Speciale!;11;42;Speciale!
+2016-03-01;4;Prodotto di ottima qualità;12;42;Prodotto di ottima qualità
+2017-01-09;2;Complessivamente deludente;13;42;Complessivamente deludente
+2016-09-06;1;Prodotto mediocre;14;42;Prodotto mediocre
+2016-10-07;3;Buono ma potrebbero migliorarlo;15;42;Buono ma potrebbero migliorarlo
+2017-06-17;5;Speciale!;16;42;Speciale!
+2016-09-26;3;Buono ma potrebbero migliorarlo;17;42;Buono ma potrebbero migliorarlo
+2017-05-17;5;Speciale!;18;42;Speciale!
+2017-01-14;1;Prodotto mediocre;19;42;Prodotto mediocre
+2017-07-26;2;Complessivamente deludente;20;42;Complessivamente deludente
+2016-05-24;1;Prodotto mediocre;21;221;Prodotto mediocre
+2016-10-13;2;Complessivamente deludente;22;211;Complessivamente deludente
+2017-04-11;5;Speciale!;23;211;Speciale!
+2016-07-13;2;Complessivamente deludente;24;211;Complessivamente deludente
+2016-10-06;5;Speciale!;25;211;Speciale!
+2017-01-27;1;Prodotto mediocre;26;211;Prodotto mediocre
+2016-06-23;4;Prodotto di ottima qualità;27;211;Prodotto di ottima qualità
+2016-03-09;5;Speciale!;28;211;Speciale!
+2016-07-03;2;Complessivamente deludente;29;211;Complessivamente deludente
+2016-06-30;4;Prodotto di ottima qualità;30;211;Prodotto di ottima qualità
+2017-01-26;2;Complessivamente deludente;31;211;Complessivamente deludente
+2016-10-10;3;Buono ma potrebbero migliorarlo;32;211;Buono ma potrebbero migliorarlo
+2016-05-28;5;Speciale!;33;211;Speciale!
+2017-04-17;3;Buono ma potrebbero migliorarlo;34;211;Buono ma potrebbero migliorarlo
+2017-03-15;2;Complessivamente deludente;35;211;Complessivamente deludente
+2017-05-29;1;Prodotto mediocre;36;211;Prodotto mediocre
+2016-02-14;2;Complessivamente deludente;37;211;Complessivamente deludente
+2016-07-30;5;Speciale!;38;211;Speciale!
+2016-07-13;4;Prodotto di ottima qualità;39;211;Prodotto di ottima qualità
+2016-10-22;2;Complessivamente deludente;40;211;Complessivamente deludente
+2016-10-02;3;Buono ma potrebbero migliorarlo;41;211;Buono ma potrebbero migliorarlo
+2016-03-28;4;Prodotto di ottima qualità;42;211;Prodotto di ottima qualità
+2016-11-13;5;Speciale!;43;211;Speciale!
+2016-12-02;3;Buono ma potrebbero migliorarlo;44;211;Buono ma potrebbero migliorarlo
+2016-05-10;4;Prodotto di ottima qualità;45;211;Prodotto di ottima qualità
+2016-10-27;2;Complessivamente deludente;46;211;Complessivamente deludente
+2016-04-26;3;Buono ma potrebbero migliorarlo;47;211;Buono ma potrebbero migliorarlo
+2016-01-02;3;Buono ma potrebbero migliorarlo;48;211;Buono ma potrebbero migliorarlo
+2017-04-18;1;Prodotto mediocre;2;211;Prodotto mediocre
+2016-05-24;1;Prodotto mediocre;3;211;Prodotto mediocre
+2017-06-08;4;Prodotto di ottima qualità;4;211;Prodotto di ottima qualità
+2016-10-07;1;Prodotto mediocre;5;211;Prodotto mediocre
+2016-08-27;5;Speciale!;6;211;Speciale!
+2016-07-20;4;Prodotto di ottima qualità;7;211;Prodotto di ottima qualità
+2017-01-06;2;Complessivamente deludente;8;211;Complessivamente deludente
+2016-03-21;4;Prodotto di ottima qualità;9;214;Prodotto di ottima qualità
+2016-04-13;4;Prodotto di ottima qualità;10;214;Prodotto di ottima qualità
+2017-01-14;5;Speciale!;11;214;Speciale!
+2017-02-28;3;Buono ma potrebbero migliorarlo;12;214;Buono ma potrebbero migliorarlo
+2017-02-22;5;Speciale!;13;214;Speciale!
+2016-12-20;4;Prodotto di ottima qualità;14;214;Prodotto di ottima qualità
+2016-09-09;2;Complessivamente deludente;15;214;Complessivamente deludente
+2016-01-08;1;Prodotto mediocre;16;214;Prodotto mediocre
+2017-02-17;4;Prodotto di ottima qualità;17;217;Prodotto di ottima qualità
+2016-04-13;3;Buono ma potrebbero migliorarlo;18;217;Buono ma potrebbero migliorarlo
+2016-01-10;3;Buono ma potrebbero migliorarlo;19;217;Buono ma potrebbero migliorarlo
+2017-07-04;2;Complessivamente deludente;20;217;Complessivamente deludente
+2016-06-02;1;Prodotto mediocre;21;217;Prodotto mediocre
+2017-07-21;2;Complessivamente deludente;22;217;Complessivamente deludente
+2017-03-25;2;Complessivamente deludente;23;217;Complessivamente deludente
+2016-07-27;5;Speciale!;24;217;Speciale!
+2016-10-03;2;Complessivamente deludente;25;217;Complessivamente deludente
+2017-02-08;4;Prodotto di ottima qualità;26;217;Prodotto di ottima qualità
+2016-04-09;2;Complessivamente deludente;27;217;Complessivamente deludente
+2017-01-28;5;Speciale!;28;217;Speciale!
+2016-06-01;2;Complessivamente deludente;29;217;Complessivamente deludente
+2016-08-05;3;Buono ma potrebbero migliorarlo;30;146;Buono ma potrebbero migliorarlo
+2016-11-03;3;Buono ma potrebbero migliorarlo;31;146;Buono ma potrebbero migliorarlo
+2016-09-12;3;Buono ma potrebbero migliorarlo;32;146;Buono ma potrebbero migliorarlo
+2016-03-24;4;Prodotto di ottima qualità;33;146;Prodotto di ottima qualità
+2016-09-08;5;Speciale!;34;146;Speciale!
+2017-01-07;3;Buono ma potrebbero migliorarlo;35;146;Buono ma potrebbero migliorarlo
+2016-06-28;2;Complessivamente deludente;36;146;Complessivamente deludente
+2016-03-16;3;Buono ma potrebbero migliorarlo;37;146;Buono ma potrebbero migliorarlo
+2016-03-08;1;Prodotto mediocre;38;146;Prodotto mediocre
+2017-06-18;4;Prodotto di ottima qualità;39;146;Prodotto di ottima qualità
+2017-03-04;5;Speciale!;40;146;Speciale!
+2016-10-09;4;Prodotto di ottima qualità;41;146;Prodotto di ottima qualità
+2016-02-26;1;Prodotto mediocre;42;146;Prodotto mediocre
+2016-07-12;3;Buono ma potrebbero migliorarlo;43;146;Buono ma potrebbero migliorarlo
+2017-01-10;2;Complessivamente deludente;44;146;Complessivamente deludente
+2017-06-16;3;Buono ma potrebbero migliorarlo;45;146;Buono ma potrebbero migliorarlo
+2017-05-20;2;Complessivamente deludente;46;146;Complessivamente deludente
+2016-03-19;1;Prodotto mediocre;47;146;Prodotto mediocre
+2017-04-10;2;Complessivamente deludente;48;147;Complessivamente deludente
+2016-06-11;2;Complessivamente deludente;2;147;Complessivamente deludente
+2016-03-11;5;Speciale!;3;147;Speciale!
+2017-02-11;1;Prodotto mediocre;4;147;Prodotto mediocre
+2016-10-12;3;Buono ma potrebbero migliorarlo;5;147;Buono ma potrebbero migliorarlo
+2017-02-13;5;Speciale!;6;147;Speciale!
+2016-08-07;3;Buono ma potrebbero migliorarlo;7;147;Buono ma potrebbero migliorarlo
+2016-08-11;4;Prodotto di ottima qualità;8;147;Prodotto di ottima qualità
+2016-10-21;4;Prodotto di ottima qualità;9;147;Prodotto di ottima qualità
+2017-05-12;1;Prodotto mediocre;10;147;Prodotto mediocre
+2016-10-04;3;Buono ma potrebbero migliorarlo;11;147;Buono ma potrebbero migliorarlo
+2017-03-05;2;Complessivamente deludente;12;147;Complessivamente deludente
+2017-06-28;5;Speciale!;13;147;Speciale!
+2017-02-09;1;Prodotto mediocre;14;147;Prodotto mediocre
+2017-03-24;3;Buono ma potrebbero migliorarlo;15;147;Buono ma potrebbero migliorarlo
+2017-02-18;4;Prodotto di ottima qualità;16;147;Prodotto di ottima qualità
+2016-09-20;3;Buono ma potrebbero migliorarlo;17;147;Buono ma potrebbero migliorarlo
+2017-06-17;1;Prodotto mediocre;18;148;Prodotto mediocre
+2016-12-11;1;Prodotto mediocre;19;148;Prodotto mediocre
+2017-06-06;3;Buono ma potrebbero migliorarlo;20;148;Buono ma potrebbero migliorarlo
+2016-09-07;4;Prodotto di ottima qualità;21;148;Prodotto di ottima qualità
+2016-09-04;4;Prodotto di ottima qualità;22;148;Prodotto di ottima qualità
+2016-04-11;3;Buono ma potrebbero migliorarlo;23;148;Buono ma potrebbero migliorarlo
+2017-06-18;4;Prodotto di ottima qualità;24;148;Prodotto di ottima qualità
+2016-10-07;4;Prodotto di ottima qualità;25;148;Prodotto di ottima qualità
+2016-10-05;2;Complessivamente deludente;26;148;Complessivamente deludente
+2016-01-24;3;Buono ma potrebbero migliorarlo;27;148;Buono ma potrebbero migliorarlo
+2016-10-09;1;Prodotto mediocre;28;148;Prodotto mediocre
+2016-02-22;3;Buono ma potrebbero migliorarlo;29;148;Buono ma potrebbero migliorarlo
+2016-10-07;5;Speciale!;30;148;Speciale!
+2016-06-07;4;Prodotto di ottima qualità;31;148;Prodotto di ottima qualità
+2016-09-26;5;Speciale!;32;148;Speciale!
+2016-04-29;2;Complessivamente deludente;33;148;Complessivamente deludente
+2016-11-17;4;Prodotto di ottima qualità;34;148;Prodotto di ottima qualità
+2017-04-13;5;Speciale!;35;148;Speciale!
+2017-07-26;3;Buono ma potrebbero migliorarlo;36;148;Buono ma potrebbero migliorarlo
+2016-06-03;5;Speciale!;37;148;Speciale!
+2016-04-02;2;Complessivamente deludente;38;148;Complessivamente deludente
+2016-05-10;2;Complessivamente deludente;39;148;Complessivamente deludente
+2016-04-04;4;Prodotto di ottima qualità;40;149;Prodotto di ottima qualità
+2016-05-13;5;Speciale!;41;149;Speciale!
+2017-06-18;1;Prodotto mediocre;42;149;Prodotto mediocre
+2016-06-11;1;Prodotto mediocre;43;149;Prodotto mediocre
+2016-09-18;3;Buono ma potrebbero migliorarlo;44;149;Buono ma potrebbero migliorarlo
+2016-03-03;1;Prodotto mediocre;45;149;Prodotto mediocre
+2016-10-16;4;Prodotto di ottima qualità;46;149;Prodotto di ottima qualità
+2016-07-09;1;Prodotto mediocre;47;149;Prodotto mediocre
+2016-11-03;5;Speciale!;48;149;Speciale!
+2016-01-02;1;Prodotto mediocre;2;149;Prodotto mediocre
+2016-03-18;4;Prodotto di ottima qualità;3;149;Prodotto di ottima qualità
+2016-04-10;5;Speciale!;4;149;Speciale!
+2016-08-06;1;Prodotto mediocre;5;149;Prodotto mediocre
+2017-04-11;3;Buono ma potrebbero migliorarlo;6;149;Buono ma potrebbero migliorarlo
+2016-11-26;2;Complessivamente deludente;7;149;Complessivamente deludente
+2016-01-21;1;Prodotto mediocre;8;149;Prodotto mediocre
+2017-01-01;1;Prodotto mediocre;9;149;Prodotto mediocre
+2016-08-02;3;Buono ma potrebbero migliorarlo;10;149;Buono ma potrebbero migliorarlo
+2016-08-17;4;Prodotto di ottima qualità;11;149;Prodotto di ottima qualità
+2016-12-15;2;Complessivamente deludente;12;149;Complessivamente deludente
+2016-12-02;2;Complessivamente deludente;13;149;Complessivamente deludente
+2016-04-11;4;Prodotto di ottima qualità;14;149;Prodotto di ottima qualità
+2016-08-31;5;Speciale!;15;149;Speciale!
+2017-07-01;4;Prodotto di ottima qualità;16;149;Prodotto di ottima qualità
+2017-06-08;1;Prodotto mediocre;17;149;Prodotto mediocre
+2016-10-20;2;Complessivamente deludente;18;149;Complessivamente deludente
+2016-05-29;3;Buono ma potrebbero migliorarlo;19;149;Buono ma potrebbero migliorarlo
+2016-01-25;4;Prodotto di ottima qualità;20;149;Prodotto di ottima qualità
+2016-07-09;3;Buono ma potrebbero migliorarlo;21;149;Buono ma potrebbero migliorarlo
+2016-04-30;5;Speciale!;22;149;Speciale!
+2016-01-29;3;Buono ma potrebbero migliorarlo;23;149;Buono ma potrebbero migliorarlo
+2016-10-08;5;Speciale!;24;149;Speciale!
+2016-09-27;3;Buono ma potrebbero migliorarlo;25;149;Buono ma potrebbero migliorarlo
+2016-10-13;1;Prodotto mediocre;26;149;Prodotto mediocre
+2016-10-23;4;Prodotto di ottima qualità;27;149;Prodotto di ottima qualità
+2017-06-11;5;Speciale!;28;149;Speciale!
+2016-03-07;4;Prodotto di ottima qualità;29;149;Prodotto di ottima qualità
+2016-10-04;3;Buono ma potrebbero migliorarlo;30;149;Buono ma potrebbero migliorarlo
+2016-09-16;3;Buono ma potrebbero migliorarlo;31;150;Buono ma potrebbero migliorarlo
+2017-06-25;3;Buono ma potrebbero migliorarlo;32;150;Buono ma potrebbero migliorarlo
+2016-06-20;2;Complessivamente deludente;33;150;Complessivamente deludente
+2016-06-11;5;Speciale!;34;150;Speciale!
+2017-07-10;1;Prodotto mediocre;35;150;Prodotto mediocre
+2016-04-15;2;Complessivamente deludente;36;150;Complessivamente deludente
+2016-09-08;5;Speciale!;37;150;Speciale!
+2017-07-22;1;Prodotto mediocre;38;150;Prodotto mediocre
+2016-11-29;2;Complessivamente deludente;39;150;Complessivamente deludente
+2017-05-19;4;Prodotto di ottima qualità;40;150;Prodotto di ottima qualità
+2017-04-26;5;Speciale!;41;150;Speciale!
+2017-01-29;2;Complessivamente deludente;42;150;Complessivamente deludente
+2016-08-05;3;Buono ma potrebbero migliorarlo;43;150;Buono ma potrebbero migliorarlo
+2017-05-02;4;Prodotto di ottima qualità;44;150;Prodotto di ottima qualità
+2016-01-07;5;Speciale!;45;150;Speciale!
+2016-05-04;2;Complessivamente deludente;46;150;Complessivamente deludente
+2017-03-26;2;Complessivamente deludente;47;150;Complessivamente deludente
+2017-01-02;4;Prodotto di ottima qualità;48;150;Prodotto di ottima qualità
+2017-01-13;4;Prodotto di ottima qualità;2;150;Prodotto di ottima qualità
+2016-05-03;1;Prodotto mediocre;3;150;Prodotto mediocre
+2017-05-04;2;Complessivamente deludente;4;150;Complessivamente deludente
+2016-05-03;3;Buono ma potrebbero migliorarlo;5;150;Buono ma potrebbero migliorarlo
+2016-09-06;3;Buono ma potrebbero migliorarlo;6;150;Buono ma potrebbero migliorarlo
+2016-09-13;4;Prodotto di ottima qualità;7;150;Prodotto di ottima qualità
+2016-12-04;5;Speciale!;8;150;Speciale!
+2016-08-03;2;Complessivamente deludente;9;150;Complessivamente deludente
+2017-05-02;2;Complessivamente deludente;10;150;Complessivamente deludente
+2017-04-17;4;Prodotto di ottima qualità;11;150;Prodotto di ottima qualità
+2017-05-25;1;Prodotto mediocre;12;150;Prodotto mediocre
+2016-12-23;1;Prodotto mediocre;13;150;Prodotto mediocre
+2017-01-27;3;Buono ma potrebbero migliorarlo;14;150;Buono ma potrebbero migliorarlo
+2017-01-08;1;Prodotto mediocre;15;150;Prodotto mediocre
+2016-07-17;1;Prodotto mediocre;16;151;Prodotto mediocre
+2017-01-29;4;Prodotto di ottima qualità;17;151;Prodotto di ottima qualità
+2016-06-01;1;Prodotto mediocre;18;151;Prodotto mediocre
+2016-06-02;3;Buono ma potrebbero migliorarlo;19;151;Buono ma potrebbero migliorarlo
+2017-02-12;1;Prodotto mediocre;20;151;Prodotto mediocre
+2017-05-16;4;Prodotto di ottima qualità;21;151;Prodotto di ottima qualità
+2016-05-21;5;Speciale!;22;151;Speciale!
+2016-03-19;1;Prodotto mediocre;23;151;Prodotto mediocre
+2016-12-12;1;Prodotto mediocre;24;151;Prodotto mediocre
+2016-05-28;4;Prodotto di ottima qualità;25;151;Prodotto di ottima qualità
+2016-01-14;5;Speciale!;26;151;Speciale!
+2016-08-13;3;Buono ma potrebbero migliorarlo;27;151;Buono ma potrebbero migliorarlo
+2017-02-26;5;Speciale!;28;151;Speciale!
+2017-02-27;5;Speciale!;29;151;Speciale!
+2016-12-17;1;Prodotto mediocre;30;151;Prodotto mediocre
+2016-05-17;3;Buono ma potrebbero migliorarlo;31;152;Buono ma potrebbero migliorarlo
+2016-10-08;3;Buono ma potrebbero migliorarlo;32;152;Buono ma potrebbero migliorarlo
+2017-07-29;5;Speciale!;33;152;Speciale!
+2017-05-18;5;Speciale!;34;152;Speciale!
+2016-06-23;2;Complessivamente deludente;35;152;Complessivamente deludente
+2016-02-26;4;Prodotto di ottima qualità;36;152;Prodotto di ottima qualità
+2016-11-15;5;Speciale!;37;152;Speciale!
+2017-07-03;3;Buono ma potrebbero migliorarlo;38;152;Buono ma potrebbero migliorarlo
+2016-02-14;3;Buono ma potrebbero migliorarlo;39;152;Buono ma potrebbero migliorarlo
+2016-12-03;1;Prodotto mediocre;40;152;Prodotto mediocre
+2016-09-01;1;Prodotto mediocre;41;152;Prodotto mediocre
+2017-06-30;2;Complessivamente deludente;42;152;Complessivamente deludente
+2016-04-03;5;Speciale!;43;152;Speciale!
+2016-04-13;4;Prodotto di ottima qualità;44;152;Prodotto di ottima qualità
+2016-03-14;4;Prodotto di ottima qualità;45;152;Prodotto di ottima qualità
+2016-08-09;2;Complessivamente deludente;46;152;Complessivamente deludente
+2016-12-15;1;Prodotto mediocre;47;152;Prodotto mediocre
+2017-04-21;2;Complessivamente deludente;48;152;Complessivamente deludente
+2016-03-27;2;Complessivamente deludente;2;152;Complessivamente deludente
+2016-11-07;1;Prodotto mediocre;3;152;Prodotto mediocre
+2016-08-18;5;Speciale!;4;153;Speciale!
+2016-11-13;2;Complessivamente deludente;5;153;Complessivamente deludente
+2016-01-16;4;Prodotto di ottima qualità;6;153;Prodotto di ottima qualità
+2016-05-21;5;Speciale!;7;153;Speciale!
+2016-09-01;5;Speciale!;8;153;Speciale!
+2016-12-25;1;Prodotto mediocre;9;153;Prodotto mediocre
+2017-02-04;2;Complessivamente deludente;10;153;Complessivamente deludente
+2016-01-10;5;Speciale!;11;153;Speciale!
+2016-09-28;2;Complessivamente deludente;12;153;Complessivamente deludente
+2017-06-14;1;Prodotto mediocre;13;153;Prodotto mediocre
+2016-11-30;1;Prodotto mediocre;14;153;Prodotto mediocre
+2017-07-08;3;Buono ma potrebbero migliorarlo;15;153;Buono ma potrebbero migliorarlo
+2016-07-10;1;Prodotto mediocre;16;154;Prodotto mediocre
+2016-06-02;1;Prodotto mediocre;17;154;Prodotto mediocre
+2017-05-18;5;Speciale!;18;154;Speciale!
+2016-04-03;2;Complessivamente deludente;19;154;Complessivamente deludente
+2016-06-28;1;Prodotto mediocre;20;154;Prodotto mediocre
+2016-02-01;2;Complessivamente deludente;21;154;Complessivamente deludente
+2016-06-06;5;Speciale!;22;154;Speciale!
+2016-06-14;5;Speciale!;23;154;Speciale!
+2017-01-11;3;Buono ma potrebbero migliorarlo;24;154;Buono ma potrebbero migliorarlo
+2016-06-27;2;Complessivamente deludente;25;154;Complessivamente deludente
+2016-02-19;5;Speciale!;26;154;Speciale!
+2017-07-23;4;Prodotto di ottima qualità;27;154;Prodotto di ottima qualità
+2016-12-22;1;Prodotto mediocre;28;154;Prodotto mediocre
+2017-01-22;3;Buono ma potrebbero migliorarlo;29;154;Buono ma potrebbero migliorarlo
+2016-09-12;5;Speciale!;30;154;Speciale!
+2016-04-27;5;Speciale!;31;154;Speciale!
+2016-07-25;3;Buono ma potrebbero migliorarlo;32;154;Buono ma potrebbero migliorarlo
+2016-11-05;4;Prodotto di ottima qualità;33;154;Prodotto di ottima qualità
+2017-04-29;4;Prodotto di ottima qualità;34;154;Prodotto di ottima qualità
+2017-04-09;1;Prodotto mediocre;35;154;Prodotto mediocre
+2016-12-29;4;Prodotto di ottima qualità;36;154;Prodotto di ottima qualità
+2016-12-10;2;Complessivamente deludente;37;100;Complessivamente deludente
+2016-03-02;5;Speciale!;38;100;Speciale!
+2016-05-19;3;Buono ma potrebbero migliorarlo;39;100;Buono ma potrebbero migliorarlo
+2016-07-07;3;Buono ma potrebbero migliorarlo;40;100;Buono ma potrebbero migliorarlo
+2016-03-27;5;Speciale!;41;100;Speciale!
+2016-09-09;2;Complessivamente deludente;42;100;Complessivamente deludente
+2016-01-05;1;Prodotto mediocre;43;100;Prodotto mediocre
+2016-04-19;2;Complessivamente deludente;44;100;Complessivamente deludente
+2016-06-30;1;Prodotto mediocre;45;100;Prodotto mediocre
+2016-02-09;4;Prodotto di ottima qualità;46;100;Prodotto di ottima qualità
+2016-11-05;1;Prodotto mediocre;47;100;Prodotto mediocre
+2016-07-20;2;Complessivamente deludente;48;100;Complessivamente deludente
+2017-02-10;3;Buono ma potrebbero migliorarlo;2;100;Buono ma potrebbero migliorarlo
+2017-06-07;4;Prodotto di ottima qualità;3;100;Prodotto di ottima qualità
+2017-07-27;3;Buono ma potrebbero migliorarlo;4;100;Buono ma potrebbero migliorarlo
+2017-07-01;2;Complessivamente deludente;5;100;Complessivamente deludente
+2016-07-31;5;Speciale!;6;100;Speciale!
+2017-07-05;1;Prodotto mediocre;7;100;Prodotto mediocre
+2017-01-20;3;Buono ma potrebbero migliorarlo;8;100;Buono ma potrebbero migliorarlo
+2017-03-22;2;Complessivamente deludente;9;100;Complessivamente deludente
+2016-09-26;1;Prodotto mediocre;10;100;Prodotto mediocre
+2016-10-09;5;Speciale!;11;100;Speciale!
+2016-06-20;4;Prodotto di ottima qualità;12;100;Prodotto di ottima qualità
+2016-02-21;4;Prodotto di ottima qualità;13;100;Prodotto di ottima qualità
+2016-07-10;4;Prodotto di ottima qualità;14;101;Prodotto di ottima qualità
+2016-03-01;3;Buono ma potrebbero migliorarlo;15;101;Buono ma potrebbero migliorarlo
+2017-01-03;2;Complessivamente deludente;16;101;Complessivamente deludente
+2016-04-28;1;Prodotto mediocre;17;101;Prodotto mediocre
+2016-02-27;5;Speciale!;18;101;Speciale!
+2016-10-30;1;Prodotto mediocre;19;101;Prodotto mediocre
+2016-01-02;2;Complessivamente deludente;20;101;Complessivamente deludente
+2017-07-18;3;Buono ma potrebbero migliorarlo;21;101;Buono ma potrebbero migliorarlo
+2016-07-22;2;Complessivamente deludente;22;101;Complessivamente deludente
+2016-03-21;2;Complessivamente deludente;23;102;Complessivamente deludente
+2016-08-20;1;Prodotto mediocre;24;102;Prodotto mediocre
+2017-03-28;3;Buono ma potrebbero migliorarlo;25;102;Buono ma potrebbero migliorarlo
+2016-01-22;3;Buono ma potrebbero migliorarlo;26;102;Buono ma potrebbero migliorarlo
+2016-11-15;2;Complessivamente deludente;27;102;Complessivamente deludente
+2016-06-14;4;Prodotto di ottima qualità;28;102;Prodotto di ottima qualità
+2017-04-04;5;Speciale!;29;102;Speciale!
+2016-10-05;2;Complessivamente deludente;30;102;Complessivamente deludente
+2017-07-28;5;Speciale!;31;102;Speciale!
+2017-06-24;3;Buono ma potrebbero migliorarlo;32;102;Buono ma potrebbero migliorarlo
+2016-04-05;4;Prodotto di ottima qualità;33;102;Prodotto di ottima qualità
+2016-02-20;5;Speciale!;34;102;Speciale!
+2017-02-12;3;Buono ma potrebbero migliorarlo;35;102;Buono ma potrebbero migliorarlo
+2016-05-03;1;Prodotto mediocre;36;102;Prodotto mediocre
+2017-03-25;4;Prodotto di ottima qualità;37;103;Prodotto di ottima qualità
+2016-06-14;5;Speciale!;38;103;Speciale!
+2017-07-18;2;Complessivamente deludente;39;103;Complessivamente deludente
+2016-04-18;5;Speciale!;40;103;Speciale!
+2017-05-14;3;Buono ma potrebbero migliorarlo;41;103;Buono ma potrebbero migliorarlo
+2016-10-08;5;Speciale!;42;103;Speciale!
+2016-12-15;2;Complessivamente deludente;43;103;Complessivamente deludente
+2017-04-17;3;Buono ma potrebbero migliorarlo;44;103;Buono ma potrebbero migliorarlo
+2016-11-30;1;Prodotto mediocre;45;103;Prodotto mediocre
+2016-06-05;5;Speciale!;46;103;Speciale!
+2016-11-17;3;Buono ma potrebbero migliorarlo;47;103;Buono ma potrebbero migliorarlo
+2017-02-18;1;Prodotto mediocre;48;103;Prodotto mediocre
+2016-12-07;3;Buono ma potrebbero migliorarlo;2;103;Buono ma potrebbero migliorarlo
+2017-02-10;5;Speciale!;3;103;Speciale!
+2016-10-05;4;Prodotto di ottima qualità;4;104;Prodotto di ottima qualità
+2017-04-10;1;Prodotto mediocre;5;104;Prodotto mediocre
+2016-05-24;5;Speciale!;6;104;Speciale!
+2016-10-03;5;Speciale!;7;104;Speciale!
+2016-07-17;3;Buono ma potrebbero migliorarlo;8;104;Buono ma potrebbero migliorarlo
+2017-04-02;3;Buono ma potrebbero migliorarlo;9;104;Buono ma potrebbero migliorarlo
+2016-10-08;4;Prodotto di ottima qualità;10;104;Prodotto di ottima qualità
+2017-02-24;4;Prodotto di ottima qualità;11;104;Prodotto di ottima qualità
+2016-05-22;5;Speciale!;12;104;Speciale!
+2017-07-11;3;Buono ma potrebbero migliorarlo;13;104;Buono ma potrebbero migliorarlo
+2016-05-26;4;Prodotto di ottima qualità;14;104;Prodotto di ottima qualità
+2017-02-22;4;Prodotto di ottima qualità;15;104;Prodotto di ottima qualità
+2016-06-05;5;Speciale!;16;104;Speciale!
+2016-08-02;1;Prodotto mediocre;17;105;Prodotto mediocre
+2016-09-07;2;Complessivamente deludente;18;105;Complessivamente deludente
+2016-05-28;5;Speciale!;19;105;Speciale!
+2017-07-22;2;Complessivamente deludente;20;105;Complessivamente deludente
+2016-07-14;1;Prodotto mediocre;21;105;Prodotto mediocre
+2016-07-31;1;Prodotto mediocre;22;105;Prodotto mediocre
+2016-10-31;3;Buono ma potrebbero migliorarlo;23;105;Buono ma potrebbero migliorarlo
+2017-03-13;4;Prodotto di ottima qualità;24;105;Prodotto di ottima qualità
+2016-03-18;5;Speciale!;25;105;Speciale!
+2016-03-22;1;Prodotto mediocre;26;105;Prodotto mediocre
+2017-07-07;5;Speciale!;27;105;Speciale!
+2017-03-23;5;Speciale!;28;105;Speciale!
+2016-08-21;3;Buono ma potrebbero migliorarlo;29;105;Buono ma potrebbero migliorarlo
+2017-06-06;3;Buono ma potrebbero migliorarlo;30;105;Buono ma potrebbero migliorarlo
+2016-05-18;5;Speciale!;31;105;Speciale!
+2017-03-07;4;Prodotto di ottima qualità;32;105;Prodotto di ottima qualità
+2017-04-10;4;Prodotto di ottima qualità;33;105;Prodotto di ottima qualità
+2017-01-30;5;Speciale!;34;105;Speciale!
+2016-07-24;1;Prodotto mediocre;35;105;Prodotto mediocre
+2016-07-18;1;Prodotto mediocre;36;105;Prodotto mediocre
+2017-03-21;5;Speciale!;37;105;Speciale!
+2016-12-27;2;Complessivamente deludente;38;105;Complessivamente deludente
+2016-10-10;1;Prodotto mediocre;39;105;Prodotto mediocre
+2016-07-22;2;Complessivamente deludente;40;105;Complessivamente deludente
+2016-04-13;4;Prodotto di ottima qualità;41;105;Prodotto di ottima qualità
+2017-06-23;3;Buono ma potrebbero migliorarlo;42;105;Buono ma potrebbero migliorarlo
+2016-06-13;4;Prodotto di ottima qualità;43;105;Prodotto di ottima qualità
+2017-07-31;2;Complessivamente deludente;44;105;Complessivamente deludente
+2017-02-06;2;Complessivamente deludente;45;105;Complessivamente deludente
+2016-10-02;4;Prodotto di ottima qualità;46;105;Prodotto di ottima qualità
+2016-09-10;3;Buono ma potrebbero migliorarlo;47;105;Buono ma potrebbero migliorarlo
+2016-11-06;1;Prodotto mediocre;48;105;Prodotto mediocre
+2017-04-15;4;Prodotto di ottima qualità;2;105;Prodotto di ottima qualità
+2017-03-25;2;Complessivamente deludente;3;105;Complessivamente deludente
+2016-10-08;3;Buono ma potrebbero migliorarlo;4;105;Buono ma potrebbero migliorarlo
+2017-01-30;1;Prodotto mediocre;5;105;Prodotto mediocre
+2017-03-21;2;Complessivamente deludente;6;106;Complessivamente deludente
+2017-03-03;2;Complessivamente deludente;7;106;Complessivamente deludente
+2017-04-22;2;Complessivamente deludente;8;106;Complessivamente deludente
+2016-11-17;5;Speciale!;9;106;Speciale!
+2016-01-20;2;Complessivamente deludente;10;106;Complessivamente deludente
+2017-04-20;5;Speciale!;11;106;Speciale!
+2017-06-22;2;Complessivamente deludente;12;106;Complessivamente deludente
+2016-04-10;2;Complessivamente deludente;13;106;Complessivamente deludente
+2016-02-07;3;Buono ma potrebbero migliorarlo;14;106;Buono ma potrebbero migliorarlo
+2016-07-30;1;Prodotto mediocre;15;106;Prodotto mediocre
+2017-03-09;2;Complessivamente deludente;16;106;Complessivamente deludente
+2017-04-04;4;Prodotto di ottima qualità;17;106;Prodotto di ottima qualità
+2016-08-02;4;Prodotto di ottima qualità;18;106;Prodotto di ottima qualità
+2017-07-17;4;Prodotto di ottima qualità;19;106;Prodotto di ottima qualità
+2016-03-10;2;Complessivamente deludente;20;106;Complessivamente deludente
+2017-03-19;2;Complessivamente deludente;21;106;Complessivamente deludente
+2016-11-18;5;Speciale!;22;106;Speciale!
+2017-02-19;2;Complessivamente deludente;23;106;Complessivamente deludente
+2016-02-01;2;Complessivamente deludente;24;106;Complessivamente deludente
+2016-06-27;3;Buono ma potrebbero migliorarlo;25;106;Buono ma potrebbero migliorarlo
+2016-01-14;5;Speciale!;26;106;Speciale!
+2016-03-12;1;Prodotto mediocre;27;106;Prodotto mediocre
+2017-01-15;1;Prodotto mediocre;28;106;Prodotto mediocre
+2016-12-07;4;Prodotto di ottima qualità;29;106;Prodotto di ottima qualità
+2017-06-30;3;Buono ma potrebbero migliorarlo;30;107;Buono ma potrebbero migliorarlo
+2017-06-04;4;Prodotto di ottima qualità;31;107;Prodotto di ottima qualità
+2017-01-24;4;Prodotto di ottima qualità;32;107;Prodotto di ottima qualità
+2016-01-11;5;Speciale!;33;107;Speciale!
+2017-07-03;1;Prodotto mediocre;34;107;Prodotto mediocre
+2016-10-20;3;Buono ma potrebbero migliorarlo;35;107;Buono ma potrebbero migliorarlo
+2016-12-05;4;Prodotto di ottima qualità;36;107;Prodotto di ottima qualità
+2017-01-14;4;Prodotto di ottima qualità;37;107;Prodotto di ottima qualità
+2016-02-23;1;Prodotto mediocre;38;107;Prodotto mediocre
+2016-01-07;4;Prodotto di ottima qualità;39;107;Prodotto di ottima qualità
+2017-07-01;2;Complessivamente deludente;40;107;Complessivamente deludente
+2016-08-12;4;Prodotto di ottima qualità;41;107;Prodotto di ottima qualità
+2016-08-22;1;Prodotto mediocre;42;107;Prodotto mediocre
+2016-10-14;4;Prodotto di ottima qualità;43;107;Prodotto di ottima qualità
+2017-03-14;2;Complessivamente deludente;44;107;Complessivamente deludente
+2016-02-12;3;Buono ma potrebbero migliorarlo;45;107;Buono ma potrebbero migliorarlo
+2017-05-20;4;Prodotto di ottima qualità;46;107;Prodotto di ottima qualità
+2017-06-04;3;Buono ma potrebbero migliorarlo;47;107;Buono ma potrebbero migliorarlo
+2016-02-28;4;Prodotto di ottima qualità;48;107;Prodotto di ottima qualità
