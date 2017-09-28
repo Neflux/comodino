@@ -9,10 +9,7 @@ import main.ProdOrder;
 import main.Product;
 import main.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,19 +21,34 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public ArrayList getAllOrders(User user) {
+    public ArrayList<Order> getAllOrders(User user) {
 
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM orderlist INNER JOIN ordertable USING(OrderID) WHERE UserID = ? ORDER BY OrderID");
             stm.setInt(1, user.getUserID());
             ResultSet rs = stm.executeQuery();
-            return extractProductFromResultSet(rs);
+            printRS(rs);
+            System.out.println("");
+            return null;//extractProductFromResultSet(rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    private void printRS(ResultSet resultSet) throws SQLException {
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        while (resultSet.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) System.out.print(",  ");
+                String columnValue = resultSet.getString(i);
+                System.out.print(columnValue + " " + rsmd.getColumnName(i));
+            }
+            System.out.println("");
+        }
     }
 
     /**
