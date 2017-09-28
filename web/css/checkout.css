@@ -42,3 +42,21 @@ body{
     font-size: 18px;
     margin-bottom: 5px;
 }
+
+.radio {
+	padding: 5px 0px;
+	margin: 10px 0px;
+	font-size: 20px;
+	border: 1px;
+	border-color: #CAD2D2;
+	border-style: solid;
+	border-radius: 8px;
+}
+
+input[type=radio]:not(old) {
+	margin-top: 8px;
+}
+
+h3 {
+	margin: 0;
+}
