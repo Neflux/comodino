@@ -27,4 +27,7 @@ public class Utils {
         }
         return "http://via.placeholder.com/1000x1000";
     }
+    public static String getNDecPrice(float p,int n){
+        return String.format("%."+n+"f",p);
+    }
 }

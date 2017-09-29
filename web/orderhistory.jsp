@@ -6,6 +6,7 @@
 <%@ page import="daos.impl.OrderDaoImpl" %>
 <%@ page import="main.User" %>
 <%@ page import="main.ProdOrder" %>
+<%@ page import="utils.Utils" %>
 
 <%
     User usr = (User) session.getAttribute("user");
@@ -61,7 +62,7 @@
                                 <h5> Ordine n: <%=o.getOrderID()%></h5>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5> Totale: <%=o.getTotal()%>&euro;</h5>
+                                <h5> Totale: <%=Utils.getNDecPrice(o.getTotal(),2)%>&euro;</h5>
                             </div>
                             <div class="col-md-4 text-right">
                                 <h5> Effettuato il: <%=o.getDate().toString()%></h5>
@@ -84,7 +85,17 @@
                                         <h1 class="list-group-item-heading"><%=po.getProduct().getProductName()%></h1>
                                         <ul class="list-unstyled list-group-item-text">
                                             <li>Venditore: <%=po.getProduct().getShopName()%></li>
-                                            <li>Prezzo: <%=po.getProduct().getPrice()%>&euro;</li>
+                                            <%
+                                                if (po.getProduct().getDiscount() == 0){
+                                            %>
+                                            <li>Prezzo: <%=Utils.getNDecPrice(po.getProduct().getActualPrice(),2)%>&euro;</li>
+                                            <%
+                                                }else{
+                                            %>
+                                            <li>Prezzo: <s><%=Utils.getNDecPrice(po.getProduct().getPrice(),2)%>&euro;</s>&nbsp;&nbsp;<b>Offerta: <%=Utils.getNDecPrice(po.getProduct().getActualPrice(),2)%> (<%=Utils.getNDecPrice(100*po.getProduct().getDiscount(),0)%>% di sconto)</b> </li>
+                                            <%
+                                                }
+                                            %>
                                             <li>Quantità: <%=po.getQuantity()%> pz</li>
                                         </ul>
                                     </div>
@@ -180,6 +191,4 @@
         </div>
     </div>
 </div>
-</body>
-
-</html>
+</body></html>

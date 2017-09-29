@@ -54,7 +54,7 @@ public class Order implements Serializable {
     public float getTotal() {
         float total = 0;
         for (ProdOrder po:this.productList) {
-            float price = po.getProduct().getPrice();
+            float price = po.getProduct().getActualPrice();
             int quantity = po.getQuantity();
             total += quantity*price;
         }
