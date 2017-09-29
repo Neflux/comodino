@@ -5,6 +5,7 @@
 <%@ page import="daos.OrderDao" %>
 <%@ page import="daos.impl.OrderDaoImpl" %>
 <%@ page import="main.User" %>
+<%@ page import="main.ProdOrder" %>
 
 <%
     User usr = (User) session.getAttribute("user");
@@ -51,6 +52,7 @@
                 if (orders.size() > 0)
                     for (Order o:orders) {
             %>
+            <!-- inizio ordine -->
             <div class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -62,26 +64,28 @@
                                 <h5> Totale: <%=o.getTotal()%>&euro;</h5>
                             </div>
                             <div class="col-md-4 text-right">
-                                <h5> Effettuato il: </h5>
+                                <h5> Effettuato il: <%=o.getDate().toString()%></h5>
                             </div>
                         </div>
                     </div>
                     <div class="panel-collapse">
                         <ul class="list-group">
-
-                            <!-- inizio oggetto -->
+                            <%
+                                for (ProdOrder po:o.getProductList()) {
+                            %>
+                            <!-- inizio prodotto -->
                             <li class="list-group-item">
                                 <a href="#" class="list-group-item">
                                     <div class="media col-md-2">
                                         <figure class="pull-left">
-                                            <img class="media-object img-rounded img-responsive" src="250x250.png" alt="placehold.it/350x250" height="" width="200px"> </figure>
+                                            <img class="media-object img-rounded img-responsive" src="<%=po.getProduct().getImgBase64()%>" alt="product image" height="" width="200px"> </figure>
                                     </div>
                                     <div class="col-md-6">
-                                        <h1 class="list-group-item-heading">Lampada Grosa</h1>
+                                        <h1 class="list-group-item-heading"><%=po.getProduct().getProductName()%></h1>
                                         <ul class="list-unstyled list-group-item-text">
-                                            <li>Venditore: Slav </li>
-                                            <li>Prezzo: 20&euro;</li>
-                                            <li>Quantità: 5pz</li>
+                                            <li>Venditore: <%=po.getProduct().getShopName()%></li>
+                                            <li>Prezzo: <%=po.getProduct().getPrice()%>&euro;</li>
+                                            <li>Quantità: <%=po.getQuantity()%> pz</li>
                                         </ul>
                                     </div>
                                     <div class="col-md-2 text-right">
@@ -102,13 +106,16 @@
                                     </div>
                                 </a>
                             </li>
-                            <!-- fine oggetto -->
-
+                            <!-- fine prodotto -->
+                            <%
+                                }
+                            %>
                         </ul>
                     </div>
 
                 </div>
             </div>
+            <!-- fine ordine -->
             <%
                 }
                 else{

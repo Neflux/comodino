@@ -17,11 +17,12 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Product getProduct(int productID, int shopID) {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
-                    "FROM product\n" +
-                    "INNER JOIN productphoto USING(ProductID)\n" +
-                    "INNER JOIN shopproduct USING (ProductID)\n" +
-                    "WHERE product.ProductID = ? AND shopproduct.ShopID = ?;");
+            PreparedStatement stm = con.prepareStatement("SELECT *, s.Name AS ShopName \n" +
+                    "FROM product AS p\n" +
+                    "INNER JOIN productphoto AS pp USING(ProductID)\n" +
+                    "INNER JOIN shopproduct AS sp USING (ProductID)\n" +
+                    "INNER JOIN shop AS s USING (ShopID)\n" +
+                    "WHERE p.ProductID = ? AND sp.ShopID = ?;");
             stm.setInt(1,productID);
             stm.setInt(2,shopID);
             ResultSet rs = stm.executeQuery();
@@ -40,12 +41,16 @@ public class ProductDaoImpl implements ProductDao {
         Product prod = new Product();
         prod.setProductID(rs.getInt("ProductID"));
         prod.setProductName(rs.getString("Name"));
+        prod.setShopID(rs.getInt("ShopID"));
+        prod.setShopName(rs.getString("ShopName"));
         prod.setDescription(rs.getString("Description"));
-        prod.setRating(rs.getInt("Rating"));
-        prod.setCategoryName(rs.getString("CategoryName"));
         prod.setImgBase64(Utils.getStringfromBlob(rs.getBlob("Image")));
         prod.setPrice(rs.getFloat("Price"));
-        prod.setShopID(rs.getInt("ShopID"));
+        prod.setQuantity(rs.getInt("Quantity"));
+        prod.setDiscount(rs.getFloat("Discount"));
+        prod.setActualPrice(prod.getPrice()*(1-prod.getDiscount()));
+        prod.setCategoryName(rs.getString("CategoryName"));
+        prod.setRating(rs.getInt("Rating"));
         return prod;
     }
 }

@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Shop implements Serializable {
 
-    private int shopID;
-    private String name;
-    private String description;
-    private String website;
-    private float rating;
-    private float sampleActualPrice; //ovviamente uno shop non ha un prezzo singolo, ma ci serve per il modal nella ricerca
+    private int shopID = 0;
+    private String name = "";
+    private String description = "";
+    private String website = "";
+    private float rating = -1;
+    private float sampleActualPrice = 0; //ovviamente uno shop non ha un prezzo singolo, ma ci serve per il modal nella ricerca
 
     public int getShopID() {
         return shopID;

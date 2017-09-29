@@ -2,9 +2,9 @@ package main;
 
 public class ProdOrder{
     private Product product;
-    private int quantity;
-    private int handDelivery;
-    private int status;
+    private int quantity = 0;
+    private int handDelivery = 0;
+    private int status = 0;
 
     public Product getProduct() {
         return product;
