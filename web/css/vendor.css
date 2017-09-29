@@ -59,26 +59,29 @@ body > .container > .row > #mainContent > #productsLeftContainer  { /* ma se tog
 #productsLeftContainer >.col-md-12 >.row > #shopTitle {
     font-size: 250%;
 }
-
 .productRow {
     margin-bottom: 10px;
     background-color: #156486;
     border-radius: 8px;
     color: white;
+    
+    position:relative;
 }
+/* versionecon le colonne bootstrap
 
 .productRow > div > .row{
     margin-left: 0px;
     margin-right: 0px;
 }
-.btnShowProductDiv > .row{
-    
-}
-.btnShowProductDiv > .row > a{
-    /*! font-size: 20px !important; */
-    /*! line-height: 16px; */
-    /*! border-radius: 3px; */
-    height: 10px;
-}
+*/
 
 
+/*
+.productRow >.productName {
+    position:absolute;
+    left: 15px;
+}
+
+.productRow > .itemsLeft {
+    left: 100px;
+}*/
