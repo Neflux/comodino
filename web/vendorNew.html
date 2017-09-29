@@ -10,11 +10,34 @@
     <link href="css/my.css" rel="stylesheet" type="text/css">
     <link href="css/vendor.css" rel="stylesheet" type="text/css">
   </head><body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><span>Brand</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active">
+              <a href="#">Home</a>
+            </li>
+            <li>
+              <a href="#">Contacts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <div class="row">
-        <div class="col-md-3" id="navbar">
+        <div class="col-md-4" id="navbar">
           <div class="col-md-12">
-            <a href="#"><img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="img-responsive"></a>
+            <a id="shopPhoto" href="#"><img src="http://via.placeholder.com/400x300" class="img-responsive"></a>
             <h1 id="shopTitle" class="text-center">Ina Market</h1>
             <h4 id="shopEmailWebsite" class="text-center text-info">@InaMarket - Inamarket.co</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
@@ -32,16 +55,16 @@
             <a class="btn btn-default">Aggiungi negozio fisico</a>
           </div>
         </div>
-        <div class="col-md-9">
-          <div class="row">
+        <div class="col-md-7 col-md-offset-1" id="mainContent">
+          <div class="row" id="panelContainer">
             <div class="col-md-5" id="photoPanel">
               <div class="col-md-12">
-                <a href="#"><img src="http://via.placeholder.com/350x150" class="img-responsive"></a>
+                <a href="#"><img src="http://via.placeholder.com/400x300" class="img-responsive"></a>
                 <a class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-camera"></i>Aggiungi foto</a>
                 <a class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-book"></i>Modifica negozio</a>
               </div>
             </div>
-            <div class="col-md-5" id="buttonPanel">
+            <div class="col-md-5 col-md-offset-2" id="buttonPanel">
               <div class="row">
                 <div class="col-md-6">
                   <a class="btn btn-block btn-success"><i class="fa fa-cube fa-fw fa-lg pull-left"></i>Inventario</a>
@@ -60,20 +83,45 @@
               </div>
             </div>
           </div>
-          <div class="row" id="productsLeft">
-            <div class="row">
-              <h1 id="shopTitle">Prodotti in esaurimento</h1>
-            </div>
-            <div class="row">
+          <div class="row" id="productsLeftContainer">
+            <div class="col-md-12">
               <div class="row">
-                <div class="col-md-6">
-                  <h5 id="shopTitle" class="text-left">Sdraio di cartapesta</h5>
+                <h1 id="shopTitle">Prodotti in esaurimento</h1>
+              </div>
+              <div class="row" id="productsLeftRows">
+                <div class="row productRow">
+                  <div class="col-md-5">
+                    <div class="row">
+                      <h5 id="shopTitle" class="text-left">Sdraio di cartapesta</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="row">
+                      <h5 id="shopTitle" class="text-right">Pezzi rimanenti: 4</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-2 btnShowProductDiv">
+                    <div class="row">
+                      <a class="btn btn-block btn-default">Vedi</a>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-5">
-                  <h5 id="shopTitle" class="text-right">Pezzi rimanenti: 4</h5>
-                </div>
-                <div class="col-md-1">
-                  <a class="btn btn-block btn-default">Vedi</a>
+                <div class="row productRow">
+                  <div class="col-md-5">
+                    <div class="row">
+                      <h5 id="shopTitle" class="text-left">Sdraio di cartapesta</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="row">
+                      <h5 id="shopTitle" class="text-right">Pezzi rimanenti: 4</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-2 btnShowProductDiv">
+                    <div class="row">
+                      <button type="button" class="btn btn-primary btn-sm">Vedi</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
