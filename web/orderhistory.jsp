@@ -31,8 +31,15 @@
 <body>
 <jsp:include page="header.jsp" flush="true"/>
 <%
-    OrderDao orderDao = new OrderDaoImpl();
-    ArrayList<Order> orders = orderDao.getAllOrders(usr);
+    OrderDao orderDao;
+    ArrayList<Order> orders = new ArrayList<>();
+    try{
+        orderDao = new OrderDaoImpl();
+        orders = orderDao.getAllOrders(usr);
+    }catch (Exception e){
+        e.printStackTrace();
+    }
+
 %>
 <div class="container">
     <div class="row">
@@ -76,7 +83,7 @@
                             %>
                             <!-- inizio prodotto -->
                             <li class="list-group-item">
-                                <a href="#" class="list-group-item">
+                                <a class="list-group-item">
                                     <div class="media col-md-2">
                                         <figure class="pull-left">
                                             <img class="media-object img-rounded img-responsive" src="<%=po.getProduct().getImgBase64()%>" alt="product image" height="" width="200px"> </figure>
