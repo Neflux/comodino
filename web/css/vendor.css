@@ -34,19 +34,31 @@ body > .container > .row > #navbar {
     margin-bottom: 10px;
 }
 
+#btnAddShopLocation {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
 body > .container > .row > #mainContent > #panelContainer > #photoPanel {
     background-color: white;
     border-radius: 8px;
 }
-
-#photoPanel > .col-md-12 > a > img {
+#photoPanel > .col-md-12 > a  {
+    margin-bottom: 20px;
+}
+#photoPanel > .col-md-12 > a >img {
     margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 body > .container > .row > #mainContent > #panelContainer > #buttonPanel {
     background-color: white;
-    padding: 40px;
+    padding: 30px;
     border-radius: 8px;
+}
+
+.btnUpper {
+    margin-bottom: 20px;
 }
 
 body > .container > .row > #mainContent > #productsLeftContainer  { /* ma se togliessi sta colonna? */
