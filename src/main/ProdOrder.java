@@ -4,7 +4,7 @@ public class ProdOrder{
     private Product product;
     private int quantity = 0;
     private float finalPrice = 0;
-    private int addressID = 0;
+    private Address address;
     private int status = 0;
 
     public Product getProduct() {
@@ -31,12 +31,12 @@ public class ProdOrder{
         this.finalPrice = finalPrice;
     }
 
-    public int getAddressID() {
-        return addressID;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressID(int handDelivery) {
-        this.addressID = handDelivery;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public int getStatus() {

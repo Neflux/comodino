@@ -84,36 +84,42 @@
                                     <div class="col-md-6">
                                         <h1 class="list-group-item-heading"><%=po.getProduct().getProductName()%></h1>
                                         <ul class="list-unstyled list-group-item-text">
-                                            <li>Venditore: <%=po.getProduct().getShopName()%></li>
-                                            <%
-                                                if (po.getProduct().getDiscount() == 0){
-                                            %>
-                                            <li>Prezzo: <%=Utils.getNDecPrice(po.getProduct().getActualPrice(),2)%>&euro;</li>
-                                            <%
-                                                }else{
-                                            %>
-                                            <li>Prezzo: <s><%=Utils.getNDecPrice(po.getProduct().getPrice(),2)%>&euro;</s>&nbsp;&nbsp;<b>Offerta: <%=Utils.getNDecPrice(po.getProduct().getActualPrice(),2)%> (<%=Utils.getNDecPrice(100*po.getProduct().getDiscount(),0)%>% di sconto)</b> </li>
-                                            <%
-                                                }
-                                            %>
+                                            <li>Venditore: <b><%=po.getProduct().getShopName()%></b></li>
+                                            <li>Prezzo: <%=Utils.getNDecPrice(po.getFinalPrice(),2)%>&euro;</li>
                                             <li>Quantità: <%=po.getQuantity()%> pz</li>
                                         </ul>
                                     </div>
                                     <div class="col-md-2 text-right">
                                         <h4 class="list-group-item-heading">Spedito a:</h4>
                                         <ul class="list-unstyled list-group-item-text">
-                                            <li>Andrea &nbsp;Porcospino</li>
-                                            <li>Via delle Ghiaie 5</li>
-                                            <li>35122, Trento (TN)</li>
+                                            <li><b><%=po.getAddress().getFirstName()%> <%=po.getAddress().getLastName()%></b></li>
+                                            <li><%=po.getAddress().getAddress()%></li>
+                                            <li><%=po.getAddress().getZip()%>, <%=po.getAddress().getCity()%></li>
+                                            <li>+39 <%=po.getAddress().getTelephoneNumber()%></li>
                                         </ul>
                                     </div>
                                     <div class="col-md-2 text-center">
+                                        <%
+                                            if(po.getStatus() == 0){
+                                        %>
                                         <div class="row">
                                             <button type="button" class="btn btn-default btn-block">Consegna avvenuta!</button>
                                         </div>
                                         <div class="row">
                                             <button type="button" class="btn btn-default btn-block">Apri disputa</button>
                                         </div>
+                                        <%
+                                            }else if (po.getStatus() == 1){
+                                        %>
+                                        <div class="row">
+                                            <h3>Ordine<br>Completato</h3>
+                                        </div>
+                                        <div class="row">
+                                            <button type="button" class="btn btn-default btn-block">Lascia una recensione</button>
+                                        </div>
+                                        <%
+                                            }
+                                        %>
                                     </div>
                                 </a>
                             </li>

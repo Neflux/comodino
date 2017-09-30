@@ -1,12 +1,10 @@
 package daos.impl;
 
+import daos.AddressDao;
 import daos.OrderDao;
 import daos.ProductDao;
 import db.DBManager;
-import main.Order;
-import main.ProdOrder;
-import main.Product;
-import main.User;
+import main.*;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -68,6 +66,8 @@ public class OrderDaoImpl implements OrderDao {
             ProdOrder ps;
             ProductDao pd;
             Product p;
+            AddressDao ad;
+            Address a;
             int i = 0;
 
             // mi assicuro che legga sempre dall'inizio
@@ -92,12 +92,16 @@ public class OrderDaoImpl implements OrderDao {
                 p = pd.getProduct(rs.getInt("ProductID"),rs.getInt("ShopID"));
                 System.out.println("[ INFO ] Prodotto : " + p.getProductName());
 
+                // creo indirizzo spedizione
+                ad = new AddressDaoImpl();
+                a = ad.getAddress(rs.getInt("AddressID"));
+
                 // creo l'ordine del prodotto particolare e lo aggiungo alla lista dell'ordine generale
                 ps = new ProdOrder();
                 ps.setProduct(p);
                 ps.setQuantity(rs.getInt("Quantity"));
                 ps.setFinalPrice(rs.getFloat("FinalPrice"));
-                ps.setAddressID(rs.getInt("AddressID"));
+                ps.setAddress(a);
                 ps.setStatus(rs.getInt("Status"));
 
                 // aggiungo l'ordine del prodotto al corrispettivo ordine generale
@@ -122,12 +126,16 @@ public class OrderDaoImpl implements OrderDao {
                     p = pd.getProduct(rs.getInt("ProductID"), rs.getInt("ShopID"));
                     System.out.println("[ INFO ] Prodotto : " + p.getProductName());
 
+                    // creo indirizzo spedizione
+                    ad = new AddressDaoImpl();
+                    a = ad.getAddress(rs.getInt("AddressID"));
+
                     // creo l'ordine del prodotto particolare e lo aggiungo alla lista dell'ordine generale
                     ps = new ProdOrder();
                     ps.setProduct(p);
                     ps.setQuantity(rs.getInt("Quantity"));
                     ps.setFinalPrice(rs.getFloat("FinalPrice"));
-                    ps.setAddressID(rs.getInt("AddressID"));
+                    ps.setAddress(a);
                     ps.setStatus(rs.getInt("Status"));
 
                     // aggiungo l'ordine del prodotto al corrispettivo ordine generale

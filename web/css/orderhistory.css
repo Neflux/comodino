@@ -1,3 +1,8 @@
+a.list-group-item:hover{
+    background-color: #FFF !important;
+    cursor: default;
+}
+
 li>img {
     max-height: 10px !important;
 }
