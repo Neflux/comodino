@@ -1,0 +1,34 @@
+Rinominata ordertable in orderlist
+
+Rinominata orderlist in orderprod
+
+CREATE TABLE ShippingAddress
+(
+  AddressID       INT AUTO_INCREMENT
+    PRIMARY KEY,
+  UserID          INT             NOT NULL,
+  Address         VARCHAR(100)    NOT NULL,
+  FirstName       VARCHAR(100)    NOT NULL,
+  LastName        VARCHAR(100)    NOT NULL,
+  City            VARCHAR(100)    NOT NULL,
+  ZIP             VARCHAR(10)     NOT NULL,
+  State           VARCHAR(100)    NOT NULL,
+  TelephoneNumber VARCHAR(20)     NOT NULL,
+  active          INT DEFAULT '1' NOT NULL,
+  FOREIGN KEY (UserID) REFERENCES User (UserID)
+);
+
+CREATE TABLE OrderProd
+(
+  OrderID    INT   NOT NULL,
+  Status     INT   NOT NULL,
+  ProductID  INT   NOT NULL,
+  ShopID     INT   NOT NULL,
+  Quantity   INT   NOT NULL,
+  FinalPrice FLOAT NULL,
+  AddressID  INT   NULL,
+  PRIMARY KEY (OrderID, ProductID, ShopID),
+  FOREIGN KEY (OrderID) REFERENCES OrderList (OrderID),
+  FOREIGN KEY (ProductID, ShopID) REFERENCES ShopProduct (ProductID, ShopID),
+  FOREIGN KEY (AddressID) REFERENCES ShippingAddress (AddressID)
+);
