@@ -9,9 +9,9 @@ html{
 body{
     background-color: #F3F3F4 !important;
 
-    min-width:500px; /* suppose you want minimun width of 1000px */
+    min-width:350px; /* suppose you want minimun width of 1000px */
     width: auto !important;  /* Firefox will set width as auto */
-    width:500px;             /* As IE ignores !important it will set width as 1000px; */
+    width:350px;             /* As IE ignores !important it will set width as 1000px; */
 }
 
 /* override my.css */
@@ -22,7 +22,6 @@ h4 {
 }
 
 /* regole che vanno bene sempre */
-
 
 /* sotto i 992 pixel */
 
@@ -132,6 +131,24 @@ h4 {
     }
 }
 
+/* bugfix del button "aggiungi negozio fisico" */
+
+@media screen and (max-width: 525px){
+    
+    #addShopDiv{
+        height: 140px;
+        text-align: center;
+    }
+    #realShop {
+        float: none;
+    }
+    #btnAddShopLocation {
+        margin-top: 10px;
+        float:none;
+    }
+    
+}
+
 /*sopra i 992 pixel */
 
 @media screen and (min-width: 992px){
@@ -140,7 +157,7 @@ h4 {
         padding: 0px !important;
     }
     body > .container > .row {
-        margin-left: -60px;
+        margin-left: -20px;
     }
 
     /* i due stili fondamentali */
@@ -153,6 +170,10 @@ h4 {
         float: none;
         display: table-cell;
         vertical-align: top;
+        
+    }
+    #panelContainer > #buttonPanel {
+        min-width: 350px;
     }
     
     /* Nav bar */ 
@@ -160,7 +181,7 @@ h4 {
     body > .container > .row > #navbar {
         background-color: white;
         /*border-radius: 8px;*/
-        height: 720px;
+       /* height: 720px;*/
         padding-left: 30px;
     } 
     
@@ -193,11 +214,13 @@ h4 {
     #photoPanel {
         background-color: white;
         border-radius: 8px;
-        vertical-align: middle;
+        vertical-align: middle !important;
+        min-width: 200px;
     }
     
     #photoPanel > .col-md-12 > a  {
         margin-bottom: 20px;
+        /*padding-left:  4%;*/
     }
     #photoPanel > .col-md-12 > a >img {
         margin-top: 15px;
@@ -214,21 +237,21 @@ h4 {
     }
 
     .btnUpper {
-        margin-bottom: 50px;
+        margin-bottom: 35px;
     }
     .btnLower {
-        margin-top: 50px;
+        margin-top: 35px;
     }
 
     #btnReviews, #btnInventario {
-        padding-left: 12px;
+        padding-left: 7%;
         padding-right: 0;
     }
 
     /* Prodotti in esaurimento */
     
     body > .container > .row > #mainContent > #productsLeftContainer  { /* ma se togliessi sta colonna? */
-        margin-top: 50px;
+        margin-top: 35px;
         background-color: white;
         border-radius: 8px;
         padding: 0 40px 15px 40px;
@@ -251,3 +274,35 @@ h4 {
         margin-top: 8px;
     }
 }
+ /* disperato tentativo di fixare il range 992-1200
+@media screen and (min-width: 1200px){
+    
+   
+    #photoPanel {
+        min-width: 300px;
+    }
+    
+    #buttonPanel {
+        min-width: 400px !important;
+    }
+    
+    #mySpace { 
+     width: 0px;
+    }
+    
+    body > .container > .row {
+        margin-left: -45px;
+        width: 90%;
+    }
+    
+    #navbar > .col-md-12{
+        padding-left: 0px;
+    }
+    
+    #mainContent {
+        width: 100%;
+    }
+   
+    
+}
+ */
