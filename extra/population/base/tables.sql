@@ -75,7 +75,7 @@ CREATE TABLE ShippingAddress
   ZIP             VARCHAR(10)     NOT NULL,
   State           VARCHAR(100)    NOT NULL,
   TelephoneNumber VARCHAR(20)     NOT NULL,
-  active          INT DEFAULT '1' NOT NULL,
+  Active          INT DEFAULT '1' NOT NULL,
   FOREIGN KEY (UserID) REFERENCES User (UserID)
 );
 
