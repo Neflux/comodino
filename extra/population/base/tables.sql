@@ -65,19 +65,21 @@ CREATE TABLE ShopReview
 
 CREATE TABLE ShippingAddress
 (
-  Address VARCHAR(100) NOT NULL,
-  FirstName VARCHAR(100) NOT NULL,
-  LastName VARCHAR(100) NOT NULL,
-  City VARCHAR(100) NOT NULL,
-  ZIP VARCHAR(10) NOT NULL,
-  State VARCHAR(100) NOT NULL,
-  TelephoneNumber VARCHAR(20) NOT NULL,
-  UserID INT NOT NULL,
-  PRIMARY KEY (Address, ZIP, State, UserID),
-  FOREIGN KEY (UserID) REFERENCES User(UserID)
+  AddressID       INT AUTO_INCREMENT
+    PRIMARY KEY,
+  UserID          INT             NOT NULL,
+  Address         VARCHAR(100)    NOT NULL,
+  FirstName       VARCHAR(100)    NOT NULL,
+  LastName        VARCHAR(100)    NOT NULL,
+  City            VARCHAR(100)    NOT NULL,
+  ZIP             VARCHAR(10)     NOT NULL,
+  State           VARCHAR(100)    NOT NULL,
+  TelephoneNumber VARCHAR(20)     NOT NULL,
+  active          INT DEFAULT '1' NOT NULL,
+  FOREIGN KEY (UserID) REFERENCES User (UserID)
 );
 
-CREATE TABLE OrderTable
+CREATE TABLE OrderList
 (
   OrderID INT NOT NULL AUTO_INCREMENT,
   Date TIMESTAMP NOT NULL,
@@ -152,17 +154,19 @@ CREATE TABLE ReviewReply
   FOREIGN KEY (ReviewID) REFERENCES ProductReview(ReviewID)
 );
 
-CREATE TABLE OrderList
+CREATE TABLE OrderProd
 (
-  Quantity INT NOT NULL,
-  HandDelivery INT NOT NULL,
-  Status INT NOT NULL,
-  OrderID INT NOT NULL,
-  ProductID INT NOT NULL,
-  ShopID INT NOT NULL,
+  OrderID    INT   NOT NULL,
+  Status     INT   NOT NULL,
+  ProductID  INT   NOT NULL,
+  ShopID     INT   NOT NULL,
+  Quantity   INT   NOT NULL,
+  FinalPrice FLOAT NULL,
+  AddressID  INT   NULL,
   PRIMARY KEY (OrderID, ProductID, ShopID),
-  FOREIGN KEY (OrderID) REFERENCES OrderTable(OrderID),
-  FOREIGN KEY (ProductID, ShopID) REFERENCES ShopProduct(ProductID, ShopID)
+  FOREIGN KEY (OrderID) REFERENCES OrderList (OrderID),
+  FOREIGN KEY (ProductID, ShopID) REFERENCES ShopProduct (ProductID, ShopID),
+  FOREIGN KEY (AddressID) REFERENCES ShippingAddress (AddressID)
 );
 
 CREATE TABLE Dispute
@@ -175,7 +179,7 @@ CREATE TABLE Dispute
   ProductID INT NOT NULL,
   ShopID INT NOT NULL,
   PRIMARY KEY (OrderID, ProductID, ShopID),
-  FOREIGN KEY (OrderID, ProductID, ShopID) REFERENCES OrderList(OrderID, ProductID, ShopID)
+  FOREIGN KEY (OrderID, ProductID, ShopID) REFERENCES OrderProd(OrderID, ProductID, ShopID)
 );
 
 CREATE TABLE DisputeReply
