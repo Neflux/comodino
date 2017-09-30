@@ -23,7 +23,7 @@ public class OrderDaoImpl implements OrderDao {
     public ArrayList<Order> getAllOrders(User user) {
 
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM orderprod INNER JOIN orderlist USING(OrderID) WHERE UserID = ? ORDER BY OrderID");
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM orderprod INNER JOIN orderlist USING(OrderID) WHERE UserID = ? ORDER BY OrderID DESC");
             stm.setInt(1, user.getUserID());
             ResultSet rs = stm.executeQuery();
             printRS(rs);
