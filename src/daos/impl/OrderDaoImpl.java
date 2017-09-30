@@ -25,7 +25,7 @@ public class OrderDaoImpl implements OrderDao {
     public ArrayList<Order> getAllOrders(User user) {
 
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM orderlist INNER JOIN ordertable USING(OrderID) WHERE UserID = ? ORDER BY OrderID");
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM orderprod INNER JOIN orderlist USING(OrderID) WHERE UserID = ? ORDER BY OrderID");
             stm.setInt(1, user.getUserID());
             ResultSet rs = stm.executeQuery();
             printRS(rs);
@@ -96,7 +96,8 @@ public class OrderDaoImpl implements OrderDao {
                 ps = new ProdOrder();
                 ps.setProduct(p);
                 ps.setQuantity(rs.getInt("Quantity"));
-                ps.setHandDelivery(rs.getInt("HandDelivery"));
+                ps.setFinalPrice(rs.getFloat("FinalPrice"));
+                ps.setAddressID(rs.getInt("AddressID"));
                 ps.setStatus(rs.getInt("Status"));
 
                 // aggiungo l'ordine del prodotto al corrispettivo ordine generale
@@ -125,7 +126,8 @@ public class OrderDaoImpl implements OrderDao {
                     ps = new ProdOrder();
                     ps.setProduct(p);
                     ps.setQuantity(rs.getInt("Quantity"));
-                    ps.setHandDelivery(rs.getInt("HandDelivery"));
+                    ps.setFinalPrice(rs.getFloat("FinalPrice"));
+                    ps.setAddressID(rs.getInt("AddressID"));
                     ps.setStatus(rs.getInt("Status"));
 
                     // aggiungo l'ordine del prodotto al corrispettivo ordine generale

@@ -25,11 +25,7 @@ public class UserDaoImpl implements UserDao {
             stm.setString(1, email);
             stm.setString(2, password);
             ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
-                return extractUserFromResultSet(rs);
-            } else {
-                return null;
-            }
+            return extractUserFromResultSet(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,6 +73,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {
+        if(!rs.next()){
+            return null;
+        }
         User user = new User();
         user.setUserID(rs.getInt("UserID"));
         user.setFirstName(rs.getString("FirstName"));

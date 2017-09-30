@@ -3,7 +3,8 @@ package main;
 public class ProdOrder{
     private Product product;
     private int quantity = 0;
-    private int handDelivery = 0;
+    private float finalPrice = 0;
+    private int addressID = 0;
     private int status = 0;
 
     public Product getProduct() {
@@ -22,12 +23,20 @@ public class ProdOrder{
         this.quantity = quantity;
     }
 
-    public int getHandDelivery() {
-        return handDelivery;
+    public float getFinalPrice() {
+        return finalPrice;
     }
 
-    public void setHandDelivery(int handDelivery) {
-        this.handDelivery = handDelivery;
+    public void setFinalPrice(float finalPrice) {
+        this.finalPrice = finalPrice;
+    }
+
+    public int getAddressID() {
+        return addressID;
+    }
+
+    public void setAddressID(int handDelivery) {
+        this.addressID = handDelivery;
     }
 
     public int getStatus() {
