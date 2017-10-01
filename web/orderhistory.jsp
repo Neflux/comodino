@@ -73,13 +73,13 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="row text-left">
-                                    <div class="col-md-4 text-left">
+                                    <div class="col-md-4 col-xs-4 text-left">
                                         <h5> Ordine n: <%=o.getOrderID()%></h5>
                                     </div>
-                                    <div class="col-md-4 text-center">
+                                    <div class="col-md-4 col-xs-4 text-center">
                                         <h5> Totale: <%=Utils.getNDecPrice(o.getTotal(),2)%>&euro;</h5>
                                     </div>
-                                    <div class="col-md-4 text-right">
+                                    <div class="col-md-4 col-xs-4 text-right">
                                         <h5> Effettuato il: <%=o.getDate().toString()%></h5>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                                                 <figure class="pull-left">
                                                     <img class="media-object img-rounded img-responsive" src="<%=po.getProduct().getImgBase64()%>" alt="product image" height="" width="200px"> </figure>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-5 col-xs-6">
                                                 <h1 class="list-group-item-heading"><%=po.getProduct().getProductName()%></h1>
                                                 <ul class="list-unstyled list-group-item-text">
                                                     <li>Venditore: <b><%=po.getProduct().getShopName()%></b></li>
@@ -104,7 +104,7 @@
                                                     <li>Quantità: <%=po.getQuantity()%> pz</li>
                                                 </ul>
                                             </div>
-                                            <div class="col-md-3 text-right">
+                                            <div class="col-md-3 col-xs-6 text-right">
                                                 <h4 class="list-group-item-heading">Spedito a:</h4>
                                                 <ul class="list-unstyled list-group-item-text">
                                                     <li><b><%=po.getAddress().getFirstName()%> <%=po.getAddress().getLastName()%></b></li>
@@ -118,10 +118,10 @@
                                                     if(po.getStatus() == 0){
                                                 %>
                                                 <div class="row">
-                                                    <button type="button" class="btn btn-default btn-block">Consegna avvenuta!</button>
+                                                    <button type="button" class="btn btn-default btn-block margin-btn">Consegna avvenuta!</button>
                                                 </div>
                                                 <div class="row">
-                                                    <button type="button" class="btn btn-default btn-block">Apri disputa</button>
+                                                    <button type="button" class="btn btn-default btn-block margin-btn">Apri disputa</button>
                                                 </div>
                                                 <%
                                                 }else if (po.getStatus() == 1){
@@ -130,7 +130,7 @@
                                                     <h3>Ordine<br>Completato</h3>
                                                 </div>
                                                 <div class="row">
-                                                    <button type="button" class="btn btn-default btn-block">Lascia una recensione</button>
+                                                    <button type="button" class="btn btn-default btn-block margin-btn">Lascia una recensione</button>
                                                 </div>
                                                 <%
                                                     }
@@ -192,7 +192,7 @@
                                                 <figure class="pull-left">
                                                     <img class="media-object img-rounded img-responsive" src="<%=po.getProduct().getImgBase64()%>" alt="product image" height="" width="200px"> </figure>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-5 col-xs-6">
                                                 <h1 class="list-group-item-heading"><%=po.getProduct().getProductName()%></h1>
                                                 <ul class="list-unstyled list-group-item-text">
                                                     <li>Venditore: <b><%=po.getProduct().getShopName()%></b></li>
@@ -200,7 +200,7 @@
                                                     <li>Quantità: <%=po.getQuantity()%> pz</li>
                                                 </ul>
                                             </div>
-                                            <div class="col-md-3 text-right">
+                                            <div class="col-md-3 col-xs-6 text-right">
                                                 <h4 class="list-group-item-heading">Spedito a:</h4>
                                                 <ul class="list-unstyled list-group-item-text">
                                                     <li><b><%=po.getAddress().getFirstName()%> <%=po.getAddress().getLastName()%></b></li>
@@ -211,10 +211,10 @@
                                             </div>
                                             <div class="col-md-2 text-center">
                                                 <div class="row">
-                                                    <button type="button" class="btn btn-default btn-block">Consegna avvenuta!</button>
+                                                    <button type="button" class="btn btn-default btn-block margin-btn">Consegna avvenuta!</button>
                                                 </div>
                                                 <div class="row">
-                                                    <button type="button" class="btn btn-default btn-block">Apri disputa</button>
+                                                    <button type="button" class="btn btn-default btn-block margin-btn">Apri disputa</button>
                                                 </div>
                                             </div>
                                         </a>
@@ -274,7 +274,7 @@
                                                 <figure class="pull-left">
                                                     <img class="media-object img-rounded img-responsive" src="<%=po.getProduct().getImgBase64()%>" alt="product image" height="" width="200px"> </figure>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-5 col-xs-6">
                                                 <h1 class="list-group-item-heading"><%=po.getProduct().getProductName()%></h1>
                                                 <ul class="list-unstyled list-group-item-text">
                                                     <li>Venditore: <b><%=po.getProduct().getShopName()%></b></li>
@@ -282,7 +282,7 @@
                                                     <li>Quantità: <%=po.getQuantity()%> pz</li>
                                                 </ul>
                                             </div>
-                                            <div class="col-md-3 text-right">
+                                            <div class="col-md-3 col-xs-6 text-right">
                                                 <h4 class="list-group-item-heading">Spedito a:</h4>
                                                 <ul class="list-unstyled list-group-item-text">
                                                     <li><b><%=po.getAddress().getFirstName()%> <%=po.getAddress().getLastName()%></b></li>
@@ -293,7 +293,7 @@
                                             </div>
                                             <div class="col-md-2 text-center">
                                                 <div class="row">
-                                                    <button type="button" class="btn btn-default btn-block">Lascia una recensione</button>
+                                                    <button type="button" class="btn btn-default btn-block margin-btn">Lascia una recensione</button>
                                                 </div>
                                             </div>
                                         </a>

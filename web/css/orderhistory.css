@@ -1,3 +1,7 @@
+.margin-btn{
+    margin-top: 10px;
+}
+
 a.list-group-item:hover{
     background-color: #FFF !important;
     cursor: default;
@@ -6,16 +10,20 @@ a.list-group-item:hover{
 li>img {
     max-height: 10px !important;
 }
+
 a.list-group-item {
     height:auto;
     min-height: 210px;
 }
+
 a.list-group-item.active small {
     color:#fff;
 }
+
 .stars {
     margin:20px auto 1px;
 }
+
 #title {
     margin-top: 0px;
     margin-bottom: 15px;
@@ -26,14 +34,6 @@ li.list-group-item{
 }
 
 body>.container {
-    background-color: #FFF;
     padding-top: 30px !important;
     padding-bottom: 30px !important;
-    border-radius: 4px;
-}
-html {
-    background-color: #F3F3F4;
-}
-body {
-    background-color: #F3F3F4 !important;
 }
