@@ -72,6 +72,23 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    @Override
+    public boolean hasShop(User user) {
+        if (user == null)
+            return false;
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM usershop WHERE UserID = ?");
+            stm.setInt(1,user.getUserID());
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()){
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {
         if(!rs.next()){
             return null;
@@ -82,6 +99,7 @@ public class UserDaoImpl implements UserDao {
         user.setLastName(rs.getString("LastName"));
         user.setEmail(rs.getString("Email"));
         user.setType(rs.getInt("Type"));
+        user.updateHasShop();
         user.setPrivacy(rs.getInt("Privacy"));
         return user;
     }

@@ -1,4 +1,14 @@
 /* https://coolors.co/0e222d-156486-d4fa73-bcea4c-9ecc24 */
+
+body{
+    background-color: #F3F3F4 !important;
+}
+
+body>.container{
+    background-color: #FFF;
+    border-radius: 4px;
+}
+
 @media (min-width: 1367px) {
     .container {
         width: 1400px;

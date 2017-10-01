@@ -31,4 +31,6 @@ public interface UserDao extends Serializable {
      * @return          'true' se la modifica è avvenuta con successo, 'false' altrimenti
      */
     boolean editInfo(User user);
+
+    boolean hasShop(User user);
 }

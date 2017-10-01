@@ -9,37 +9,25 @@
 <head>
     <title>Comodino.it</title>
 </head>
-<body>
-<div class="jumbotron">
+<body >
+<%
+    try {
+
+
+    if (request.getAttribute("message") != null){
+%>
+<div id="logoutPopup" class="alert alert-success alert-dismissable fade in" style="position:fixed; z-index: 999; right: 10px; opacity: 0;">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <%=request.getAttribute("message")%>
+</div>
+<%
+        }
+    }catch (Exception e){}
+%>
+<div class="container">
     <h1>Bootstrap Tutorial</h1>
     <p>Bootstrap is the , and JS framework for developing responsive,
         mobile-first projects on the web.</p>
-</div>
-<div class="container">
-    <%
-        /*String imgDataBase64 = "";
-        DBConnection dbc = new DBConnection();
-        try {
-          ResultSet rs = dbc.select("select * from shopphoto");
-          while(rs.next()){
-            Blob imgData = rs.getBlob("Image");
-            imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1,(int)imgData.length())));
-            imgData.free();
-            out.println("<img src='data:image/gif;base64,"+imgDataBase64+"' alt='images Here' width='130px' height='90px'/>");
-      }
-        } catch(Exception e){
-          e.printStackTrace();
-        }*/
-    %>
-    <%
-        User user = (User) session.getAttribute("user");
-        if (user != null){
-    %>
-    <a href="profile.jsp"><h1>Vai al Profilo</h1></a>
-    <a href="orderhistory.jsp"><h1>Vai agli Ordini</h1></a>
-    <%
-        }
-    %>
 </div>
 </body>
 </html>
