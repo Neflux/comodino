@@ -12,13 +12,11 @@
 <body >
 <%
     try {
-
-
-    if (request.getAttribute("message") != null){
+        if (request.getParameter("action").equals("logout")){
 %>
 <div id="logoutPopup" class="alert alert-success alert-dismissable fade in" style="position:fixed; z-index: 999; right: 10px; opacity: 0;">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <%=request.getAttribute("message")%>
+    Uscito con successo!
 </div>
 <%
         }

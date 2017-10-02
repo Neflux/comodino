@@ -251,13 +251,13 @@
                             <div class="panel-heading">
                                 <div class="row text-left">
                                     <div class="col-md-4 text-left">
-                                        <h5> Ordine n: <%=o.getOrderID()%></h5>
+                                        <h5>Ordine n: <%=o.getOrderID()%></h5>
                                     </div>
                                     <div class="col-md-4 text-center">
-                                        <h5> Totale: <%=Utils.getNDecPrice(o.getTotal(),2)%>&euro;</h5>
+                                        <h5>Totale: <%=Utils.getNDecPrice(o.getTotal(),2)%>&euro;</h5>
                                     </div>
                                     <div class="col-md-4 text-right">
-                                        <h5> Effettuato il: <%=o.getDate().toString()%></h5>
+                                        <h5>Effettuato il: <%=o.getDate().toString()%></h5>
                                     </div>
                                 </div>
                             </div>
