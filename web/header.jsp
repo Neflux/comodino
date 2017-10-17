@@ -25,7 +25,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#"><img src="./css/passero.svg"/></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}"><img src="./css/logo.svg"/></a>
         </div>
         <div class="navbar-collapse collapse">
             <%
