@@ -1,9 +1,14 @@
 .dynamicTile .col-sm-2.col-xs-4{
-    padding:5px;
+    padding:2px;
 }
 
 .dynamicTile .col-sm-4.col-xs-8{
-    padding:5px;
+    padding:2px;
+}
+
+body>.container-fluid{
+    background-color: transparent;
+    margin-top: 61px;
 }
 
 #tile1{
@@ -44,6 +49,10 @@
 }
 
 #tile10{
+    background: rgb(0,93,233);
+}
+
+#tile14{
     background: rgb(0,93,233);
 }
 
