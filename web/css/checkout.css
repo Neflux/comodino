@@ -60,3 +60,6 @@ input[type=radio]:not(old) {
 h3 {
 	margin: 0;
 }
+.payfield{
+    margin-top: 34px;
+}
