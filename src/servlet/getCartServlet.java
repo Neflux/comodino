@@ -27,7 +27,7 @@ public class getCartServlet extends HttpServlet {
                         " N: " + cartItem.getValue() + "</a></li>";
             }
             ret += "<li class=\"divider\"></li>\n" +
-                    "                        <li class=\"text-center\"><a href=\"${pageContext.request.contextPath}/cart.jsp\">Vedi carrello >></a></li>";
+                    "                        <li class=\"text-center\"><a href=\"/cart.jsp\">Vedi carrello >></a></li>";
         }
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
