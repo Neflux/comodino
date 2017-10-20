@@ -1,13 +1,17 @@
 package daos.impl;
 
+import daos.ProductDao;
 import daos.UserDao;
 import db.DBManager;
+import javafx.util.Pair;
+import main.Product;
 import main.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserDaoImpl implements UserDao {
     private Connection con;
@@ -89,6 +93,29 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    @Override
+    public ArrayList<Pair<Product, Integer>> getCart(User user) {
+        if (user == null)
+            return null;
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM cart WHERE UserID = ?");
+            stm.setInt(1,user.getUserID());
+            ResultSet rs = stm.executeQuery();
+            ArrayList<Pair<Product, Integer>> cart = new ArrayList<>();
+            while (true){
+                Pair<Product,Integer> cartItem = extractCartItemFromResultSet(rs);
+                if (cartItem != null)
+                    cart.add(cartItem);
+                else
+                    break;
+            }
+            return cart;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {
         if(!rs.next()){
             return null;
@@ -100,7 +127,19 @@ public class UserDaoImpl implements UserDao {
         user.setEmail(rs.getString("Email"));
         user.setType(rs.getInt("Type"));
         user.updateHasShop();
+        user.updateCart();
         user.setPrivacy(rs.getInt("Privacy"));
         return user;
+    }
+
+    private Pair<Product, Integer> extractCartItemFromResultSet(ResultSet rs) throws SQLException {
+        if(!rs.next()){
+            return null;
+        }
+        int productID = rs.getInt("ProductID");
+        int shopID = rs.getInt("ShopID");
+        Product p = new ProductDaoImpl().getProduct(productID,shopID);
+        Pair<Product, Integer> cartItem = new Pair<>(p,rs.getInt("Quantity"));
+        return cartItem;
     }
 }

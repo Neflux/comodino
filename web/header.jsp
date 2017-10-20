@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <%@ page import="main.User" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="main.Product" %>
+<%@ page import="javafx.util.Pair" %>
 
 <html><head>
     <meta charset="UTF-8">
@@ -25,7 +28,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="${pageContext.request.contextPath}"><img src="./css/logo.svg"/></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="./css/logo.svg"/></a>
         </div>
         <div class="navbar-collapse collapse">
             <%
@@ -99,15 +102,32 @@
                         <li><a href="logout">Esci</a></li>
                     </ul>
                 </li>
+                <%
+                    ArrayList<Pair<Product, Integer>> cart = usr.getCart();
+                %>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;Carrello <span class="caret"></span>
+                    <a onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="badge">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> <%=cart.size()%>
+                        </span>
+                        &nbsp;&nbsp;Carrello <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu right">
-                        <li><a href="#">Prodotto 1</a></li>
-                        <li><a href="#">Prodotto 2</a></li>
-                        <li><a href="#">Prodotto 3</a></li>
-                        <li><a href="#">Prodotto 4</a></li>
+                    <ul id="cart" class="dropdown-menu right">
+                        <!-- ORA L'INTERNO DEL CARRELLO è GESTITO CON AJAX-->
+                        <%
+                            if (cart.size() == 0){
+                                %>
+                        <li class="text-center"><a>Carrello vuoto...</a></li>
+                        <%
+                            }
+                            for (Pair<Product, Integer> cartItem:cart) {
+                        %>
+                        <li><a href="#"><%=cartItem.getKey().getProductName()%> N: <%=cartItem.getValue()%></a></li>
+                        <%
+                            }
+                        %>
+                        <li class="divider"></li>
+                        <li class="text-center"><a href="${pageContext.request.contextPath}/cart.jsp">Vedi carrello >></a></li>
                     </ul>
                 </li>
                 <%
@@ -175,4 +195,5 @@
 <script src="./js/custom.js"></script>
 <script src="./js/now-ui-kit.js"></script>
 <script src="./js/signup_login/signup_login_actions.js"></script>
+<script src="js/header.js"></script>
 </body></html>

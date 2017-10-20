@@ -1,8 +1,11 @@
 package daos;
 
+import javafx.util.Pair;
+import main.Product;
 import main.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public interface UserDao extends Serializable {
     /**
@@ -33,4 +36,7 @@ public interface UserDao extends Serializable {
     boolean editInfo(User user);
 
     boolean hasShop(User user);
+
+    ArrayList<Pair<Product, Integer>> getCart(User user);
+
 }

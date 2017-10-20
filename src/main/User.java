@@ -1,8 +1,10 @@
 package main;
 
 import daos.impl.UserDaoImpl;
+import javafx.util.Pair;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
 
@@ -13,9 +15,11 @@ public class User implements Serializable {
     private int type; // 0 normale o venditore, 1 admin
     private boolean hasShop; // true se è venditore
     private int privacy;
+    private ArrayList<Pair<Product,Integer>> cart;
 
     public User() {
         updateHasShop();
+        updateCart();
     }
 
     public int getUserID() {
@@ -66,6 +70,14 @@ public class User implements Serializable {
         this.hasShop = new UserDaoImpl().hasShop(this);
     }
 
+    public ArrayList<Pair<Product, Integer>> getCart() {
+        return cart;
+    }
+
+    public void updateCart() {
+        this.cart = new UserDaoImpl().getCart(this);
+    }
+
     public int getPrivacy() {
         return privacy;
     }
@@ -73,4 +85,5 @@ public class User implements Serializable {
     public void setPrivacy(int privacy) {
         this.privacy = privacy;
     }
+
 }
