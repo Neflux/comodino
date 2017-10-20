@@ -32,7 +32,7 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img src="http://handsontek.net/demoimages/tiles/twitter1.png" class="img-responsive"/>
+                            <h3 class="tilecaption">Prodotti più venduti</h3>
                         </div>
                         <div class="item">
                             <img src="http://handsontek.net/demoimages/tiles/twitter2.png" class="img-responsive"/>
@@ -49,10 +49,10 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3>
+                            <h3 class="tilecaption"><i class="fa fa-shopping-cart fa-4x"></i></h3>
                         </div>
                         <div class="item">
-                            <h3 class="tilecaption">Customize your tiles</h3>
+                            <h3 class="tilecaption">Prodotti più venduti</h3>
                         </div>
                         <div class="item">
                             <h3 class="tilecaption">Text, Icons, Images</h3>
