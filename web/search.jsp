@@ -46,22 +46,58 @@
                         <h3 class="text-center">Venditori</h3>
                         <ul class="list-group">
                             <%
-                                if (request.getAttribute("categories") != null)
+                                if (request.getAttribute("vendors") != null)
                                 {
                                     ArrayList<String> vendors = (ArrayList<String>) request.getAttribute("vendors");
+
                                     for (String i : vendors) {
-                                        %>
-                                        <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>"/> <%=i%></li>
-                                        <%
+                                        if (request.getParameter("vendor") != null)
+                                        {
+                                            Boolean trovato = false;
+                                            for(String str: request.getParameterValues("vendor")) {
+                                                if(str.trim().contains(i))
+                                                {
+                                                    trovato = true;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (trovato)
+                                            {
+                                                %>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterVendor(this);"/> <%=i%></li>
+                                                <%
+                                            }
+                                            else
+                                            {
+                                                %>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterVendor(this);" checked/> <%=i%></li>
+                                                <%
+                                            }
+                                        }
+                                        else
+                                        {
+                                            %>
+                                            <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterVendor(this);" checked/> <%=i%></li>
+                                            <%
+                                        }
                                     }
                                 }
                             %>
                         </ul>
                         <h3 class="text-center">Area Geografica</h3>
                         <ul class="list-group">
-                            <li class="list-group-item"><input type="checkbox" name="html" value="html"/> bla</li>
-                            <li class="list-group-item"><input type="checkbox" name="html" value="html"/> blabla</li>
-                            <li class="list-group-item"><input type="checkbox" name="html" value="html"/> blablabla</li>
+                            <%
+                                if (request.getAttribute("vendors") != null)
+                                {
+                                    ArrayList<String> geoZone = (ArrayList<String>) request.getAttribute("geozone");
+                                    for (String i : geoZone) {
+                                    %>
+                                    <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" checked/> <%=i%></li>
+                                    <%
+                                    }
+                                }
+                            %>
                         </ul>
                         <h3 class="text-center">Prezzo</h3>
                         <div class="row">

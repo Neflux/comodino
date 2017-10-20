@@ -31,11 +31,13 @@ public class Search extends HttpServlet {
         try{
             ArrayList<String> categories = DBManager.getCategories(request.getParameterMap());
             ArrayList<String> vendors = DBManager.getVendors(request.getParameterMap());
+            ArrayList<String> geozone = DBManager.getGeoZone(request.getParameterMap());
             Map<String, ProductGroup> products = DBManager.getProducts(request.getParameterMap());
 
             request.setAttribute("products", products);
             request.setAttribute("categories", categories);
             request.setAttribute("vendors", vendors);
+            request.setAttribute("geozone", geozone);
 
             RequestDispatcher view = request.getRequestDispatcher("/search.jsp");
             view.forward(request, response);

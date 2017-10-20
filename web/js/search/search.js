@@ -5,6 +5,18 @@ $( document ).ready(function() {
     $("#ex16b").slider({ min: 0, max: 10, value: [0, 10], focus: true });
 });
 
+function filterVendor(elem)
+{
+    var url = window.location.href;
+    var uri = "&vendor=" + encodeURI(elem.name);
+    if (elem.checked == false)
+        window.location.href = url + uri;
+    else
+    {
+        window.location.href = url.replace(uri,"");
+    }
+}
+
 function openModal(titolo)
 {
     $("#content-modal-vendors").empty();

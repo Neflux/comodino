@@ -1,3 +1,7 @@
+body>.container{
+    background-color: transparent !important;
+}
+
 .card-signup {
     max-width: 450px !important;
     margin: 0 auto;

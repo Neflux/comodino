@@ -157,6 +157,42 @@ public class DBManager implements Serializable {
         return ret;
     }
 
+    public static ArrayList<String> getGeoZone(Map params)
+    {
+        ArrayList<String> ret = new ArrayList<String>();
+        String searchQuery;
+        if((searchQuery = checkSMP(params.get("q"))) == null){
+            return null;
+        }
+
+        PreparedStatement stm = null;
+        try {
+            stm = con.prepareStatement(
+                    "SELECT DISTINCT SI.State " +
+                            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                            "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
+            );
+            stm.setString(1,"%"+searchQuery+"%");       //a questo punto "q" è settata di sicuro
+
+            try (ResultSet rs = stm.executeQuery()){
+                System.out.println(stm.toString());
+                while(rs.next()) {
+                    ret.add(rs.getString("State"));
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                stm.close();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
     /**
      * Ottiene la lista dei prodotti dal DB
      *
@@ -252,10 +288,7 @@ public class DBManager implements Serializable {
         StringBuilder vendor = new StringBuilder();
         if((ven = getMMP(params.get("vendor"))) != null){
             for(int i = 0; i<ven.length;i++){
-                if(i == 0)
-                    vendor.append(" AND (S.Name = '" + ven[i] + "'"+((i==ven.length-1)?") ":""));
-                else
-                    vendor.append(" OR S.Name = '" + ven[i] + "'"+((i==ven.length-1)?") ":""));
+                vendor.append(" AND (S.Name <> '" + ven[i] + "')");
             }
         }
 
