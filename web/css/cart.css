@@ -1,16 +1,13 @@
-#cartlist>.container{
-    width: auto;
-    background-color: #FFF;
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 4px;
-    margin: 40px 70px;
+body>.container {
+    padding: 30px 40px;
+}
+
+.nessunbordo{
+    border: none !important;
 }
 
 .display-1 {
-    margin-top: 0px !important;
+    margin-top: 0 !important;
     margin-bottom: 20px !important;
 }
 

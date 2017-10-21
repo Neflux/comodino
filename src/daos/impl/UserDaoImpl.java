@@ -1,6 +1,5 @@
 package daos.impl;
 
-import daos.ProductDao;
 import daos.UserDao;
 import db.DBManager;
 import javafx.util.Pair;
@@ -139,7 +138,6 @@ public class UserDaoImpl implements UserDao {
         int productID = rs.getInt("ProductID");
         int shopID = rs.getInt("ShopID");
         Product p = new ProductDaoImpl().getProduct(productID,shopID);
-        Pair<Product, Integer> cartItem = new Pair<>(p,rs.getInt("Quantity"));
-        return cartItem;
+        return new Pair<>(p,rs.getInt("Quantity"));
     }
 }
