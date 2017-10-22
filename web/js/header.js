@@ -1,7 +1,11 @@
-function openCart()
-{
-    $.post( "/getcart")
+function openCart() {
+
+    $.post("/getcart", {type:"drop"})
         .done(function(data) {
-            $("#cart").html(data);
+            $("#cartdrop").html(data);
+        });
+    $.post("/getcart", {type:"header"})
+        .done(function(data) {
+            $("#cartheader").html(data);
         });
 }

@@ -1,3 +1,75 @@
+.quantity {
+    position: relative;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+{
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number]
+{
+    -moz-appearance: textfield;
+}
+input[value]{
+    text-align: right;
+}
+
+.quantity input {
+    width: 64px;
+    height: 42px;
+    line-height: 1.65;
+    float: left;
+    display: block;
+    padding: 0;
+    margin: 0;
+    padding-right: 30px;
+    border: 1px solid #eee;
+}
+
+.quantity input:focus {
+    outline: 0;
+}
+
+.quantity-nav {
+    float: left;
+    position: relative;
+    height: 42px;
+}
+
+.quantity-button {
+    position: relative;
+    cursor: pointer;
+    border-left: 1px solid #eee;
+    width: 20px;
+    text-align: center;
+    color: #333;
+    font-size: 13px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+    line-height: 1.7;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.quantity-button.quantity-up {
+    position: absolute;
+    height: 50%;
+    top: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.quantity-button.quantity-down {
+    position: absolute;
+    bottom: -1px;
+    height: 50%;
+}
+
 body>.container {
     padding: 30px 40px;
 }
@@ -21,8 +93,7 @@ body{
 .list-group-item {
     margin: 10px;
     border-radius: 8px !important;
-    border-width: 1px;
-    border-color: #CAD2D2;
+    border: 1px #CAD2D2;
 }
 
 .cart-item {
@@ -36,7 +107,7 @@ body{
 }
 
 .itemseller {
-    font-size: 18px;
+    font-size: 15px !important;
     margin-bottom: 5px;
 }
 
@@ -48,7 +119,6 @@ body{
 
 .itemquantity {
    padding-top: 20px;
-   text-align: center;
    height: 100px;
    margin: auto;
 }
@@ -64,4 +134,10 @@ body{
 
 .checkout {
 	vertical-align: center;
+}
+
+.cestino {
+    height: 34px !important;
+    margin-top: 40px;
+    padding: 10px 15px !important;
 }

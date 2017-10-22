@@ -1,6 +1,5 @@
 package servlet;
 
-import daos.impl.UserDaoImpl;
 import javafx.util.Pair;
 import main.Product;
 import main.User;
@@ -17,8 +16,18 @@ import java.util.ArrayList;
 public class getCartServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String ret = "";
-        ArrayList<Pair<Product, Integer>> cart = new UserDaoImpl().getCart((User) request.getSession().getAttribute("user"));
+        String ret = "", size;
+        ArrayList<Pair<Product, Integer>> cart;
+        if (request.getParameter("type").equals("drop"))
+            cart = ((User) request.getSession().getAttribute("user")).getCart(); // con update del carrello
+        else
+            cart = ((User) request.getSession().getAttribute("user")).getCart(false); // senza update del carrello
+
+        size = "<span class=\"badge\">\n" +
+                "                            <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i> " + cart.size() + "\n" +
+                "                        </span>\n" +
+                "                        &nbsp;&nbsp;Carrello <span class=\"caret\"></span>";
+
         if (cart.size() == 0) {
             ret = "<li class=\"text-center\"><a>Carrello vuoto...</a></li>";
         } else {
@@ -29,9 +38,13 @@ public class getCartServlet extends HttpServlet {
             ret += "<li class=\"divider\"></li>\n" +
                     "                        <li class=\"text-center\"><a href=\"/cart.jsp\">Vedi carrello >></a></li>";
         }
+
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(ret);
+        if (request.getParameter("type").equals("drop"))
+            response.getWriter().write(size);
+        else
+            response.getWriter().write(ret);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

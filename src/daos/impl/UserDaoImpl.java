@@ -97,7 +97,7 @@ public class UserDaoImpl implements UserDao {
         if (user == null)
             return null;
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM cart WHERE UserID = ?");
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM cart WHERE UserID = ? ORDER BY AddDate DESC");
             stm.setInt(1,user.getUserID());
             ResultSet rs = stm.executeQuery();
             ArrayList<Pair<Product, Integer>> cart = new ArrayList<>();
@@ -113,6 +113,22 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void removeCartItem(User user, int productID, int shopID){
+        if (user == null)
+            return;
+        try {
+            PreparedStatement stm = con.prepareStatement("DELETE FROM cart WHERE UserID = ? AND ProductID = ? AND ShopID = ?");
+            stm.setInt(1, user.getUserID());
+            stm.setInt(2, productID);
+            stm.setInt(3, shopID);
+            stm.execute();
+            user.updateCart();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {

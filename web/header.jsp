@@ -106,13 +106,13 @@
                     ArrayList<Pair<Product, Integer>> cart = usr.getCart();
                 %>
                 <li class="dropdown">
-                    <a onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a id="cartdrop" onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="badge">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> <%=cart.size()%>
                         </span>
                         &nbsp;&nbsp;Carrello <span class="caret"></span>
                     </a>
-                    <ul id="cart" class="dropdown-menu right">
+                    <ul id="cartheader" class="dropdown-menu right">
                         <!-- ORA L'INTERNO DEL CARRELLO è GESTITO CON AJAX-->
                         <%
                             if (cart.size() == 0){

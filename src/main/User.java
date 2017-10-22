@@ -71,10 +71,19 @@ public class User implements Serializable {
     }
 
     public ArrayList<Pair<Product, Integer>> getCart() {
+        this.updateCart();
+        return cart;
+    }
+
+    public ArrayList<Pair<Product, Integer>> getCart(boolean update) {
+        if(update)
+            this.updateCart();
         return cart;
     }
 
     public void updateCart() {
+        System.out.println("[INFO] Cart Updated");
+        System.out.flush();
         this.cart = new UserDaoImpl().getCart(this);
     }
 
