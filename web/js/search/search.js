@@ -17,6 +17,18 @@ function filterVendor(elem)
     }
 }
 
+function filterGeo(elem)
+{
+    var url = window.location.href;
+    var uri = "&geo=" + encodeURI(elem.name);
+    if (elem.checked == false)
+        window.location.href = url + uri;
+    else
+    {
+        window.location.href = url.replace(uri,"");
+    }
+}
+
 function openModal(titolo)
 {
     $("#content-modal-vendors").empty();

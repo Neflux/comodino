@@ -298,10 +298,13 @@ public class DBManager implements Serializable {
         if((geo = getMMP(params.get("geo"))) != null){
             region.append(" AND S.ShopID = SI.ShopID "); //appesantiamo la query solo se ha senso
             for(int i = 0; i<geo.length;i++){
+                region.append(" AND (SI.State <> '" + geo[i] + "')");
+                /*
                 if(i == 0)
                     region.append(" AND (SI.State = '" + geo[i] + "'"+((i==geo.length-1)?") ":""));
                 else
                     region.append(" OR SI.State = '" + geo[i] + "'"+((i==geo.length-1)?") ":""));
+                */
             }
         }
 

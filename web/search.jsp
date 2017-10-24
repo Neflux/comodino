@@ -88,13 +88,42 @@
                         <h3 class="text-center">Area Geografica</h3>
                         <ul class="list-group">
                             <%
-                                if (request.getAttribute("vendors") != null)
+                                if (request.getAttribute("geozone") != null)
                                 {
                                     ArrayList<String> geoZone = (ArrayList<String>) request.getAttribute("geozone");
+
                                     for (String i : geoZone) {
-                                    %>
-                                    <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" checked/> <%=i%></li>
-                                    <%
+                                        if (request.getParameter("geo") != null)
+                                        {
+                                            Boolean trovato = false;
+                                            for(String str: request.getParameterValues("geo")) {
+                                                System.out.println(">>>> " + str);
+                                                if(str.trim().contains(i))
+                                                {
+                                                    trovato = true;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (trovato)
+                                            {
+                                                %>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterGeo(this);"/> <%=i%></li>
+                                                <%
+                                            }
+                                            else
+                                            {
+                                                %>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterGeo(this);" checked/> <%=i%></li>
+                                                <%
+                                            }
+                                        }
+                                        else
+                                        {
+                                            %>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterGeo(this);" checked/> <%=i%></li>
+                                            <%
+                                        }
                                     }
                                 }
                             %>
