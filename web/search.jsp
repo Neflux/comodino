@@ -35,10 +35,38 @@
                                 if (request.getAttribute("categories") != null)
                                 {
                                     ArrayList<String> categories = (ArrayList<String>) request.getAttribute("categories");
+
                                     for (String i : categories) {
-                                        %>
-                                        <li class="list-group-item"><input type="radio" name="<%=i%>" value="<%=i%>"/> <%=i%></li>
-                                        <%
+                                        if (request.getParameter("cat") != null)
+                                        {
+                                            Boolean trovato = false;
+                                            for(String str: request.getParameterValues("cat")) {
+                                                if(str.trim().contains(i))
+                                                {
+                                                    trovato = true;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (trovato)
+                                            {
+                                                %>
+                                                <li class="list-group-item"><input type="radio" name="<%=i%>" value="<%=i%>" onclick="filterRadio(this,'cat');" checked/> <%=i%></li>
+                                                <%
+                                            }
+                                            else
+                                            {
+                                                %>
+                                                <li class="list-group-item"><input type="radio" name="<%=i%>" value="<%=i%>" onclick="filterRadio(this,'cat');"/> <%=i%></li>
+                                                <%
+                                            }
+                                        }
+                                        else
+                                        {
+                                            %>
+                                            <li class="list-group-item"><input type="radio" name="<%=i%>" value="<%=i%>" onclick="filterRadio(this,'cat');"/> <%=i%></li>
+                                            <%
+                                        }
                                     }
                                 }
                             %>
@@ -65,20 +93,20 @@
                                             if (trovato)
                                             {
                                                 %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterVendor(this);"/> <%=i%></li>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'vendor');"/> <%=i%></li>
                                                 <%
                                             }
                                             else
                                             {
                                                 %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterVendor(this);" checked/> <%=i%></li>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'vendor');" checked/> <%=i%></li>
                                                 <%
                                             }
                                         }
                                         else
                                         {
                                             %>
-                                            <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterVendor(this);" checked/> <%=i%></li>
+                                            <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'vendor');" checked/> <%=i%></li>
                                             <%
                                         }
                                     }
@@ -97,7 +125,6 @@
                                         {
                                             Boolean trovato = false;
                                             for(String str: request.getParameterValues("geo")) {
-                                                System.out.println(">>>> " + str);
                                                 if(str.trim().contains(i))
                                                 {
                                                     trovato = true;
@@ -108,20 +135,20 @@
                                             if (trovato)
                                             {
                                                 %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterGeo(this);"/> <%=i%></li>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'geo');"/> <%=i%></li>
                                                 <%
                                             }
                                             else
                                             {
                                                 %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterGeo(this);" checked/> <%=i%></li>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'geo');" checked/> <%=i%></li>
                                                 <%
                                             }
                                         }
                                         else
                                         {
                                             %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filterGeo(this);" checked/> <%=i%></li>
+                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'geo');" checked/> <%=i%></li>
                                             <%
                                         }
                                     }

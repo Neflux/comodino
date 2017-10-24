@@ -5,10 +5,10 @@ $( document ).ready(function() {
     $("#ex16b").slider({ min: 0, max: 10, value: [0, 10], focus: true });
 });
 
-function filterVendor(elem)
+function filter(elem,tipo)
 {
     var url = window.location.href;
-    var uri = "&vendor=" + encodeURI(elem.name);
+    var uri = "&" + tipo + "=" + encodeURI(elem.name);
     if (elem.checked == false)
         window.location.href = url + uri;
     else
@@ -17,11 +17,11 @@ function filterVendor(elem)
     }
 }
 
-function filterGeo(elem)
+function filterRadio(elem,tipo)
 {
     var url = window.location.href;
-    var uri = "&geo=" + encodeURI(elem.name);
-    if (elem.checked == false)
+    var uri = "&" + tipo + "=" + encodeURI(elem.name);
+    if (elem.checked == true && (url.indexOf(uri) == -1) )
         window.location.href = url + uri;
     else
     {
