@@ -12,48 +12,34 @@ body>.container-fluid{
 }
 
 #tile1{
+    /*
+    CUCINA (non cambiare sennò non va puù javascript)
+     */
     background: rgb(0,172,238);
 }
 
-#tile2{
-    background: rgb(243,243,243);
+#bagno{
+    background-color: cadetblue;
 }
 
-#tile3{
-    background: rgb(71,193,228);
-}
-
-#tile4{
-    background-image: url('http://handsontek.net/demoimages/tiles/facebook.png');
-    background-size: cover;
-}
-
-#tile5{
+#livingroom{
     background: rgb(175,26,63);
 }
 
-#tile6{
+#garden{
     background: rgb(62,157,215);
 }
 
-#tile7{
-    background: white;
+#bedroom{
+    background: #72d1ad;
 }
 
-#tile8{
-    background: rgb(209,70,37);
+#illumination{
+    background: rgb(157, 209, 94);
 }
 
-#tile9{
-    background: rgb(0,142,0);
-}
-
-#tile10{
-    background: rgb(0,93,233);
-}
-
-#tile14{
-    background: rgb(0,93,233);
+#studio{
+    background: rgb(200, 154, 47);
 }
 
 .tilecaption{
@@ -65,7 +51,7 @@ body>.container-fluid{
     margin:0!important;
     text-align: center;
     color:white;
-    font-family: Segoe UI;
+    font-family: Segoe UI, sans-serif;
     font-weight: lighter;
 }
 

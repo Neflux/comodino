@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./css/custom.min.css">
     <script src="https://use.fontawesome.com/f98c8dd683.js"></script>
     <link rel="stylesheet" href="./css/my.css">
+    <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
 <%
@@ -28,7 +29,15 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="./css/logo.svg"/></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="./css/logo.svg"/>
+                <%
+                    if (usr == null || usr.getEmail().isEmpty()) {
+                %>
+                <span id="headertitle">Comodino.it</span>
+                <%
+                    }
+                %>
+            </a>
         </div>
         <div class="navbar-collapse collapse">
             <%

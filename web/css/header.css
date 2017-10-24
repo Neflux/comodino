@@ -1,0 +1,9 @@
+.navbar-brand img {
+    float: left;
+}
+
+#headertitle{
+    float: left;
+    padding-left:15px;
+    padding-top: 2px;
+}
