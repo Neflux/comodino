@@ -162,13 +162,8 @@
                                 <h6 style="margin-left:10%;">Massimo</h6>
                             </div>
                             <div class="col-md-6" style="text-align:right;">
-                                <h6 style="margin-right:10%;">30</h6>
-                                <h6 style="margin-right:10%;">50</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6" style="margin-left:7%">
-                                <input style="margin-left:10%" id="ex16b" type="text"/><br/>
+                                <input class="form-control no-border input_prezzo" type="text">
+                                <input class="form-control no-border input_prezzo" type="text">
                             </div>
                         </div>
                         <div class="row" style="padding-bottom:15px">
