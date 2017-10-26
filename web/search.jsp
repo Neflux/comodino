@@ -236,23 +236,6 @@
                                 //System.out.println(pair.getKey() + " = " + pair.getValue());
                                 ProductGroup gp = (ProductGroup) pair.getValue();
                                 Product p = gp.getList().get(0);    //il primo prodotto
-                                String vendors_array = "[";
-                                String price_array = "[";
-
-                                System.out.println(pair.getKey().toString());
-                                for (Shop item : gp.getVendors()) {
-                                    //System.out.println(item.getSampleActualPrice());
-                                    vendors_array += "\"" + item.getName() + "\",";
-                                    price_array += "\"" + item.getSampleActualPrice() + "\",";
-                                }
-
-                                vendors_array += "\"\"]";
-                                price_array += "\"\"]";
-
-                                String all_array = "{\"vendors\":"+vendors_array+",\"prices\":"+price_array+"}";
-
-                                System.out.println(all_array);
-
                                 count++;
                                 int rc = (int)gp.getReviewCount();
                                 String review = ((rc>0)?((rc>1)?rc+" recensioni":"1 recensione"):"Nessuna recensione");
