@@ -162,8 +162,37 @@
                                 <h6 style="margin-left:10%;">Massimo</h6>
                             </div>
                             <div class="col-md-6" style="text-align:right;">
-                                <input class="form-control no-border input_prezzo" type="text">
-                                <input class="form-control no-border input_prezzo" type="text">
+                                <%
+                                    if (request.getParameter("minPrice") != null)
+                                    {
+                                        String val = request.getParameterValues("minPrice")[0];
+                                        %>
+                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'minPrice');" value="<%=val%>">
+                                        <%
+                                    }
+                                    else
+                                    {
+                                        %>
+                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'minPrice');" value="">
+                                        <%
+                                    }
+                                %>
+
+                                <%
+                                    if (request.getParameter("maxPrice") != null)
+                                    {
+                                        String val = request.getParameterValues("maxPrice")[0];
+                                        %>
+                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'maxPrice');" value="<%=val%>">
+                                        <%
+                                    }
+                                    else
+                                    {
+                                        %>
+                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'maxPrice');" value="">
+                                        <%
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="row" style="padding-bottom:15px">

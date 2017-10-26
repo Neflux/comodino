@@ -1,9 +1,12 @@
 var i_quanti = 10;
 var stelle = 0;
 
-$( document ).ready(function() {
-    $("#ex16b").slider({ min: 0, max: 10, value: [0, 10], focus: true });
-});
+function filterPrice(elem,tipo)
+{
+    var url = window.location.href;
+    var uri = "&" + tipo + "=" + encodeURI(elem.value);
+    window.location.href = updateURLParameter(url, tipo, elem.value);
+}
 
 function filter(elem,tipo)
 {
