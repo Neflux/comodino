@@ -29,8 +29,8 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="search_row" style="margin-left:-25%;height:100%;">
-                        <h3 class="text-center">Categorie</h3>
-                        <ul class="list-group">
+                        <h3 class="text-center" data-toggle="collapse" data-target="#categorie_accordion" style="cursor:pointer;">Categorie</h3>
+                        <ul class="list-group collapse in" aria-expanded="true" id="categorie_accordion">
                             <%
                                 if (request.getAttribute("categories") != null)
                                 {
@@ -71,8 +71,8 @@
                                 }
                             %>
                         </ul>
-                        <h3 class="text-center">Venditori</h3>
-                        <ul class="list-group">
+                        <h3 class="text-center" data-toggle="collapse" data-target="#venditori_accordion" style="cursor:pointer;">Venditori</h3>
+                        <ul class="list-group collapse in" aria-expanded="true" id="venditori_accordion">
                             <%
                                 if (request.getAttribute("vendors") != null)
                                 {
@@ -113,8 +113,8 @@
                                 }
                             %>
                         </ul>
-                        <h3 class="text-center">Area Geografica</h3>
-                        <ul class="list-group">
+                        <h3 class="text-center" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">Area Geografica</h3>
+                        <ul class="list-group collapse in" aria-expanded="true" id="geozone_accordion">
                             <%
                                 if (request.getAttribute("geozone") != null)
                                 {
