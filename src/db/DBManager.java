@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import main.ProductGroup;
 import main.Shop;
-import main.User;
 import main.Product;
 import utils.PropertiesReader;
 
@@ -28,7 +27,7 @@ public class DBManager implements Serializable {
             user = pr.get("user");
             password = pr.get("password");
             timezone_fix = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
-            Class.forName("com.mysql.cj.jdbc.Driver");     //togliete il cj se dà problemi, ma scrivetelo nel gruppo
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (Exception e) {
             throw new RuntimeException(e.toString(), e);
         }
@@ -36,7 +35,6 @@ public class DBManager implements Serializable {
         con = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/" + database + timezone_fix + "&user=" + user + "&password=" + password);
     }
-
 
     public static void shutdown() { //static?
         try {
@@ -46,170 +44,129 @@ public class DBManager implements Serializable {
         }
     }
 
-    /**
-     * Autentica un utente in base a un nome utente e a una password
-     *
-     * @param email la email dell'utente
-     * @param password la password
-     * @return null se l'utente non è autenticato, un oggetto User se l'utente esiste ed è autenticato
-     */
-    /*
-    public static User authenticate(String email, String password) throws SQLException {
-        PreparedStatement stm = con.prepareStatement("SELECT * FROM User U " +
-                "WHERE U.Email = ? AND U.password = ? AND U.EmailConfirm = 'yes'");
-        try {
-            stm.setString(1, email);
-            stm.setString(2, password);
+    public static ArrayList<String> getCategories(Map params) throws SQLException {
+        ArrayList<String> ret = new ArrayList<String>();
 
-            ResultSet rs = stm.executeQuery();
+        String searchQuery;
+        if((searchQuery = checkSMP(params.get("q"))) == null){
+            return null;
+        }
 
-            try {
-                if (rs.next()) {
-                    User user = new User();
-                    user.setUserID(rs.getInt("UserID"));
-                    user.setFirstName(rs.getString("FirstName"));
-                    user.setLastName(rs.getString("LastName"));
-                    user.setEmail(rs.getString("Email"));
-                    user.setType(rs.getInt("Type"));
-                    user.setPrivacy(rs.getInt("Privacy"));
-                    return user;
-                } else {
-                    return null;
-                }
-            } finally {
-                rs.close();
+        //Query PreparedStatement
+        PreparedStatement stm = null;
+        stm = con.prepareStatement(
+                "SELECT DISTINCT P.CategoryName " +
+                        "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                        "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
+        );
+        stm.setString(1,"%"+searchQuery+"%");
+
+        //Execution
+        try (ResultSet rs = stm.executeQuery()){
+            System.out.println(stm.toString());
+            while(rs.next()) {
+                ret.add(rs.getString("CategoryName"));
             }
-        } finally {
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
             stm.close();
         }
-    }
-    */
 
-    public static ArrayList<String> getCategories(Map params)
-    {
+        return ret;
+    }
+
+    public static ArrayList<String> getVendors(Map params) throws SQLException {
         ArrayList<String> ret = new ArrayList<String>();
+
         String searchQuery;
         if((searchQuery = checkSMP(params.get("q"))) == null){
             return null;
         }
 
+        //Query PreparedStatement
         PreparedStatement stm = null;
-        try {
-            stm = con.prepareStatement(
-                    "SELECT DISTINCT P.CategoryName " +
-                            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-                            "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
-            );
-            stm.setString(1,"%"+searchQuery+"%");       //a questo punto "q" è settata di sicuro
+        stm = con.prepareStatement(
+                "SELECT DISTINCT S.Name " +
+                        "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                        "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
+        );
+        stm.setString(1,"%"+searchQuery+"%");
 
-            try (ResultSet rs = stm.executeQuery()){
-                System.out.println(stm.toString());
-                while(rs.next()) {
-                    ret.add(rs.getString("CategoryName"));
-                }
-            } catch(Exception e){
-                e.printStackTrace();
+        //Execution
+        try (ResultSet rs = stm.executeQuery()){
+            System.out.println(stm.toString());
+            while(rs.next()) {
+                ret.add(rs.getString("Name"));
             }
-            finally {
-                stm.close();
-            }
-
-        } catch (SQLException e) {
+        } catch(Exception e){
             e.printStackTrace();
+        }
+        finally {
+            stm.close();
         }
 
         return ret;
     }
 
-    public static ArrayList<String> getVendors(Map params)
-    {
+    public static ArrayList<String> getGeoZone(Map params) throws SQLException {
         ArrayList<String> ret = new ArrayList<String>();
+
         String searchQuery;
         if((searchQuery = checkSMP(params.get("q"))) == null){
             return null;
         }
 
-        PreparedStatement stm = null;
-        try {
-            stm = con.prepareStatement(
-                    "SELECT DISTINCT S.Name " +
-                            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-                            "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
-            );
-            stm.setString(1,"%"+searchQuery+"%");       //a questo punto "q" è settata di sicuro
+        //Query PreparedStatement
+        PreparedStatement stm = con.prepareStatement(
+                "SELECT DISTINCT SI.State " +
+                        "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                        "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
+        );
+        stm.setString(1,"%"+searchQuery+"%");
+        System.out.println(stm.toString());
 
-            try (ResultSet rs = stm.executeQuery()){
-                System.out.println(stm.toString());
-                while(rs.next()) {
-                    ret.add(rs.getString("Name"));
-                }
-            } catch(Exception e){
-                e.printStackTrace();
+        //Execution
+        try (ResultSet rs = stm.executeQuery()){
+            while(rs.next()) {
+                ret.add(rs.getString("State"));
             }
-            finally {
-                stm.close();
-            }
-
-        } catch (SQLException e) {
+        } catch(Exception e){
             e.printStackTrace();
         }
-
+        finally {
+            stm.close();
+        }
         return ret;
     }
 
-    public static ArrayList<String> getGeoZone(Map params)
-    {
-        ArrayList<String> ret = new ArrayList<String>();
-        String searchQuery;
-        if((searchQuery = checkSMP(params.get("q"))) == null){
-            return null;
-        }
-
-        PreparedStatement stm = null;
-        try {
-            stm = con.prepareStatement(
-                    "SELECT DISTINCT SI.State " +
-                            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-                            "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
-            );
-            stm.setString(1,"%"+searchQuery+"%");       //a questo punto "q" è settata di sicuro
-
-            try (ResultSet rs = stm.executeQuery()){
-                System.out.println(stm.toString());
-                while(rs.next()) {
-                    ret.add(rs.getString("State"));
-                }
-            } catch(Exception e){
-                e.printStackTrace();
-            }
-            finally {
-                stm.close();
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return ret;
-    }
+    private final static String sortKeyword = "sort";
+    private final static String minPriceKeyword = "minPrice";
+    private final static String maxPriceKeyword = "maxPrice";
+    private final static String minRatingKeyword = "minRat";
+    private final static String categoryKeyword = "cat";
+    private final static String vendorKeyword = "vendor";
+    private final static String geolocalizationKeyword = "geo";
 
     /**
-     * Ottiene la lista dei prodotti dal DB
-     *
-     * @return
-     * @throws SQLException
+     * Ottiene la lista dei prodotti dal DB in base ai parametri, organizzati in gruppi di prodotti dallo stesso nome
+     * @param params Mappa contenente tutti i parametri ottenuti precedentemente dal GET
+     * @return Mappa contenente i singoli shopProduct raggruppati come product (ProductGroup in java)
+     * @throws SQLException nel caso qualcosa non andasse come previsto nel database
      */
     public static Map<String, ProductGroup> getProducts(Map params) throws SQLException {
         Map<String,ProductGroup> products = new HashMap<>();
 
-        //Search query
+        //Search query parameter
         String searchQuery;
         if((searchQuery = checkSMP(params.get("q"))) == null){
             return null;
         }
 
-        //Sorting
-        String sort = checkSMP(params.get("sort")), orderBySql = "ORDER BY ActualPrice ASC, P.Rating DESC, S.Rating DESC, SP.Quantity DESC";
+        //Sorting parameter
+        String sort = checkSMP(params.get(sortKeyword)),
+                orderBySql = "ORDER BY ActualPrice ASC, P.Rating DESC, S.Rating DESC, SP.Quantity DESC";
         if(sort != null) {
             switch (sort) {
                 case "price-asc":
@@ -226,9 +183,9 @@ public class DBManager implements Serializable {
             }
         }
 
-        //minPrice, maxPrice
+        //minPrice parameter
         String minPrice = "",maxPrice = "";
-        if((minPrice = checkSMP(params.get("minPrice"))) != null){
+        if((minPrice = checkSMP(params.get(minPriceKeyword))) != null){
             try {
                 int value = Integer.parseInt(minPrice);
                 if(value >= 0){
@@ -240,7 +197,9 @@ public class DBManager implements Serializable {
                 minPrice = "";
             }
         } else minPrice = "";
-        if((maxPrice = checkSMP(params.get("maxPrice"))) != null){
+
+        //maxPrice parameter
+        if((maxPrice = checkSMP(params.get(maxPriceKeyword))) != null){
             try {
                 int value = Integer.parseInt(maxPrice);
                 if(value > 0){
@@ -253,9 +212,9 @@ public class DBManager implements Serializable {
             }
         } else maxPrice = "";
 
-        //minRating
+        //minRating parameter
         String minRating = "";
-        if((minRating = checkSMP(params.get("minrat"))) != null){
+        if((minRating = checkSMP(params.get(minRatingKeyword))) != null){
             try {
                 int value = Integer.parseInt(minRating);
                 if(!(value >= 1 && value <= 5)){
@@ -270,65 +229,65 @@ public class DBManager implements Serializable {
             }
         } else minRating = "";
 
-        //Category
+        //Category parameter
         String[] cat;
         StringBuilder category = new StringBuilder();
-        if((cat = getMMP(params.get("cat"))) != null){
+        if((cat = getMMP(params.get(categoryKeyword))) != null){
             for(int i = 0; i<cat.length;i++){
                 System.out.println(cat[i]);
                 if(i == 0)
-                    category.append(" AND (P.CategoryName = '" + cat[i] + "'"+((i==cat.length-1)?") ":""));
+                    category.append(" AND (P.CategoryName = '")
+                            .append(cat[i])
+                            .append("'")
+                            .append((i == cat.length - 1) ? ") " : "");
                 else
-                    category.append(" OR P.CategoryName = '" + cat[i] + "'"+((i==cat.length-1)?") ":""));
+                    category.append(" OR P.CategoryName = '")
+                            .append(cat[i])
+                            .append("'")
+                            .append((i == cat.length - 1) ? ") " : "");
             }
         }
 
-        //Vendor
+        //Vendor parameter
         String[] ven;
         StringBuilder vendor = new StringBuilder();
-        if((ven = getMMP(params.get("vendor"))) != null){
-            for(int i = 0; i<ven.length;i++){
-                vendor.append(" AND (S.Name <> '" + ven[i] + "')");
+        if((ven = getMMP(params.get(vendorKeyword))) != null){
+            for (String aVen : ven) {
+                vendor.append(" AND (S.Name <> '").append(aVen).append("')");
             }
         }
 
         //Regione amministrativa
         String[] geo;
         StringBuilder region = new StringBuilder();
-        if((geo = getMMP(params.get("geo"))) != null){
-            region.append(" AND S.ShopID = SI.ShopID "); //appesantiamo la query solo se ha senso
-            for(int i = 0; i<geo.length;i++){
-                region.append(" AND (SI.State <> '" + geo[i] + "')");
-                /*
-                if(i == 0)
-                    region.append(" AND (SI.State = '" + geo[i] + "'"+((i==geo.length-1)?") ":""));
-                else
-                    region.append(" OR SI.State = '" + geo[i] + "'"+((i==geo.length-1)?") ":""));
-                */
-            }
+        if((geo = getMMP(params.get(geolocalizationKeyword))) != null){
+            region.append(" AND S.ShopID = SI.ShopID ");
+            for (String aGeo : geo)
+                region.append(" AND (SI.State <> '").append(aGeo).append("')");
         }
 
+        //Final query PreparedStatement
         PreparedStatement stm = con.prepareStatement(
-                "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, " +
-                        "SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName,  round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
-                        "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-                        "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
-                        region.toString() + category.toString() + vendor.toString() + minPrice + maxPrice + minRating +
-                        orderBySql //+ " LIMIT 0,200"
+            "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, " +
+                    "SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName, " +
+                    " round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
+                    "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                    "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
+                    region.toString() + category.toString() + vendor.toString() + minPrice + maxPrice + minRating +
+                    orderBySql
         );
-        stm.setString(1,"%"+searchQuery+"%");       //a questo punto "q" è settata di sicuro
+        stm.setString(1,"%"+searchQuery+"%");
+        System.out.println("MAIN PRODUCT QUERY: " + stm.toString());
 
+        //Final query execute
         try {
-            System.out.println(stm.toString());
             try (ResultSet rs = stm.executeQuery()){
-                int sum = 0;
                 while(rs.next()) {
+                    //Product crafting
                     Product p = new Product();
-
                     p.setProductID(rs.getInt("ProductID"));
                     p.setProductName(rs.getString("ProductName"));
                     p.setCategoryName(rs.getString("CategoryName"));
-
                     p.setRating(rs.getFloat("Rating"));
                     p.setPrice(rs.getFloat("Price"));
                     p.setDiscount(rs.getFloat("Discount"));
@@ -336,36 +295,29 @@ public class DBManager implements Serializable {
                     p.setQuantity(rs.getInt("Quantity"));
                     p.setShopName(rs.getString("ShopName"));
 
+                    //ProductGroup crafting
                     products.computeIfAbsent(p.getProductName(), k -> new ProductGroup());
-
                     products.get(p.getProductName()).getList().add(p);
                 }
-
-
             }
         } finally {
             stm.close();
         }
 
+        //ProductGroup extra fetching
         for (Object o : products.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
             ProductGroup gp = (ProductGroup) pair.getValue();
 
-            /*System.out.println(pair.getKey().toString());
-            for(Product p: gp.getList()){
-                System.out.println(p.getActualPrice());
-            }*/
-
+            //Review count info
             stm = con.prepareStatement(
                     "SELECT COUNT(*) AS conto, product.name " +
                             "FROM productreview, product " +
                             "WHERE product.ProductID = productreview.ProductID AND product.name = ?"
             );
-
-            //gp.getList().get(0).getProductName() =========> pair.getKey()
             stm.setString(1, pair.getKey().toString());
+            System.out.println("REVIEW COUNT("+pair.getKey().toString()+"): "+stm.toString());
             try {
-                //System.out.println(stm.toString());
                 try (ResultSet rs = stm.executeQuery()) {
                     rs.next();
                     gp.setReviewCount(rs.getInt("conto"));
@@ -374,12 +326,13 @@ public class DBManager implements Serializable {
                 stm.close();
             }
 
-            Product p = gp.getList().get(0);    //il primo prodotto
+            //Decode image from first product
+            Product p = gp.getList().get(0);
             String imgDataBase64 = "";
             stm = con.prepareStatement("select * from productphoto where ProductID = ?");
             stm.setInt(1,p.getProductID());
+            System.out.println("DECODE FIRST PRODUCT IMAGE(productId:"+p.getProductID()+"): "+stm.toString());
             try (ResultSet rs = stm.executeQuery()){
-                //System.out.println(stm.toString());
                 if(rs.next()) {
                     Blob imgData = rs.getBlob("Image");
                     imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1, (int) imgData.length())));
@@ -393,7 +346,7 @@ public class DBManager implements Serializable {
                 stm.close();
             }
 
-
+            //Fetch shop list related to this ProductGroup
             stm = con.prepareStatement("SELECT shop.*, shopproduct.Price, shopproduct.Discount, " +
                     "shopproduct.Quantity, round(shopproduct.Price * (1-shopproduct.Discount),2) as ActualPrice " +
                     "FROM product, shopproduct, shop " +
@@ -401,20 +354,20 @@ public class DBManager implements Serializable {
                     "AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID " +
                     "ORDER BY ActualPrice ASC, Rating DESC"
             );
-
             stm.setString(1, pair.getKey().toString());
+            System.out.println(stm.toString());
             try (ResultSet rs = stm.executeQuery()){
-                System.out.println(stm.toString());
                 while(rs.next()) {
+                    //Shop crafting
                     Shop s = new Shop();
                     s.setShopID(rs.getInt("ShopID"));
                     s.setName(rs.getString("Name"));
                     s.setDescription(rs.getString("Description"));
                     s.setWebsite(rs.getString("Website"));
                     s.setRating(rs.getFloat("Rating"));
-
                     s.setSampleActualPrice(rs.getFloat("ActualPrice"));
 
+                    //Actual insertion
                     gp.getVendors().add(s);
                 }
             } catch(Exception e){
@@ -423,7 +376,6 @@ public class DBManager implements Serializable {
             finally {
                 stm.close();
             }
-
         }
 
         return products;

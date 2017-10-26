@@ -24,21 +24,22 @@ public class Search extends HttpServlet {
         response.setContentType("text/html");
         //PrintWriter out = response.getWriter();
 
-        if(request.getParameter("q") == null){      //quick check
+        //Quick check
+        if(request.getParameter("q") == null){
             return;
         }
 
         try{
-            ArrayList<String> categories = DBManager.getCategories(request.getParameterMap());
-            ArrayList<String> vendors = DBManager.getVendors(request.getParameterMap());
-            ArrayList<String> geozone = DBManager.getGeoZone(request.getParameterMap());
-            Map<String, ProductGroup> products = DBManager.getProducts(request.getParameterMap());
 
-            request.setAttribute("products", products);
-            request.setAttribute("categories", categories);
-            request.setAttribute("vendors", vendors);
-            request.setAttribute("geozone", geozone);
+            //Map
+            request.setAttribute("products", DBManager.getProducts(request.getParameterMap()));
 
+            //ArrayList
+            request.setAttribute("categories", DBManager.getCategories(request.getParameterMap()));
+            request.setAttribute("vendors", DBManager.getVendors(request.getParameterMap()));
+            request.setAttribute("geozone", DBManager.getGeoZone(request.getParameterMap()));
+
+            //redirect
             RequestDispatcher view = request.getRequestDispatcher("/search.jsp");
             view.forward(request, response);
 

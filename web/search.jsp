@@ -29,8 +29,8 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="search_row" style="margin-left:-25%;height:100%;">
-                        <h3 class="text-center">Categorie</h3>
-                        <ul class="list-group">
+                        <h3 class="text-center" data-toggle="collapse" data-target="#categorie_accordion" style="cursor:pointer;">Categorie</h3>
+                        <ul class="list-group collapse in" aria-expanded="true" id="categorie_accordion">
                             <%
                                 if (request.getAttribute("categories") != null)
                                 {
@@ -71,8 +71,8 @@
                                 }
                             %>
                         </ul>
-                        <h3 class="text-center">Venditori</h3>
-                        <ul class="list-group">
+                        <h3 class="text-center" data-toggle="collapse" data-target="#venditori_accordion" style="cursor:pointer;">Venditori</h3>
+                        <ul class="list-group collapse in" aria-expanded="true" id="venditori_accordion">
                             <%
                                 if (request.getAttribute("vendors") != null)
                                 {
@@ -113,8 +113,8 @@
                                 }
                             %>
                         </ul>
-                        <h3 class="text-center">Area Geografica</h3>
-                        <ul class="list-group">
+                        <h3 class="text-center" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">Area Geografica</h3>
+                        <ul class="list-group collapse in" aria-expanded="true" id="geozone_accordion">
                             <%
                                 if (request.getAttribute("geozone") != null)
                                 {
@@ -162,8 +162,37 @@
                                 <h6 style="margin-left:10%;">Massimo</h6>
                             </div>
                             <div class="col-md-6" style="text-align:right;">
-                                <input class="form-control no-border input_prezzo" type="text">
-                                <input class="form-control no-border input_prezzo" type="text">
+                                <%
+                                    if (request.getParameter("minPrice") != null)
+                                    {
+                                        String val = request.getParameterValues("minPrice")[0];
+                                        %>
+                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'minPrice');" value="<%=val%>">
+                                        <%
+                                    }
+                                    else
+                                    {
+                                        %>
+                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'minPrice');" value="">
+                                        <%
+                                    }
+                                %>
+
+                                <%
+                                    if (request.getParameter("maxPrice") != null)
+                                    {
+                                        String val = request.getParameterValues("maxPrice")[0];
+                                        %>
+                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'maxPrice');" value="<%=val%>">
+                                        <%
+                                    }
+                                    else
+                                    {
+                                        %>
+                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'maxPrice');" value="">
+                                        <%
+                                    }
+                                %>
                             </div>
                         </div>
                         <div class="row" style="padding-bottom:15px">
@@ -207,23 +236,6 @@
                                 //System.out.println(pair.getKey() + " = " + pair.getValue());
                                 ProductGroup gp = (ProductGroup) pair.getValue();
                                 Product p = gp.getList().get(0);    //il primo prodotto
-                                String vendors_array = "[";
-                                String price_array = "[";
-
-                                System.out.println(pair.getKey().toString());
-                                for (Shop item : gp.getVendors()) {
-                                    //System.out.println(item.getSampleActualPrice());
-                                    vendors_array += "\"" + item.getName() + "\",";
-                                    price_array += "\"" + item.getSampleActualPrice() + "\",";
-                                }
-
-                                vendors_array += "\"\"]";
-                                price_array += "\"\"]";
-
-                                String all_array = "{\"vendors\":"+vendors_array+",\"prices\":"+price_array+"}";
-
-                                System.out.println(all_array);
-
                                 count++;
                                 int rc = (int)gp.getReviewCount();
                                 String review = ((rc>0)?((rc>1)?rc+" recensioni":"1 recensione"):"Nessuna recensione");
