@@ -156,7 +156,7 @@ public class ProductDaoImpl implements ProductDao {
             try {
                 int value = Integer.parseInt(minPrice);
                 if(value >= 0){
-                    minPrice = " AND SP.Price >= " + minPrice + " ";
+                    minPrice = " HAVING ActualPrice >= " + minPrice + " ";
                 }
                 else minPrice = "";
             } catch (NumberFormatException e) {
@@ -170,7 +170,7 @@ public class ProductDaoImpl implements ProductDao {
             try {
                 int value = Integer.parseInt(maxPrice);
                 if(value > 0){
-                    maxPrice = " AND SP.Price <= " + maxPrice + " ";
+                    maxPrice = " HAVING ActualPrice <= " + maxPrice + " ";
                 }
                 else maxPrice = "";
             } catch (NumberFormatException e) {
@@ -240,8 +240,9 @@ public class ProductDaoImpl implements ProductDao {
                         " round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
                         "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
                         "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
-                        region.toString() + category.toString() + vendor.toString() + minPrice + maxPrice + minRating +
-                        orderBySql
+                        region.toString() + category.toString() + vendor.toString() + minRating +
+                        minPrice + maxPrice +   //HAVING
+                        orderBySql              //ORDER BY
         );
         stm.setString(1,"%"+searchQuery+"%");
         System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(46));
