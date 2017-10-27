@@ -1,16 +1,30 @@
 var i_quanti = 10;
 var stelle = 0;
 
+function addToCart(productID,shopID)
+{
+    var post = {productID:productID, shopID:shopID};
+    $.post( "/addcartitem", post);
+
+    $.post("/getcart", {type:"drop"})
+        .done(function(data) {
+            $("#cartheader").html(data);
+        });
+
+    //var valore = $("#cart-size").text();
+    //$("#cart-size").text( parseInt(valore)+1 );
+}
+
 function filterPrice(elem,tipo)
 {
-    var url = window.location.href;
+    var url = (window.location.href).replace("#","");
     var uri = "&" + tipo + "=" + encodeURI(elem.value);
     window.location.href = updateURLParameter(url, tipo, elem.value);
 }
 
 function filter(elem,tipo)
 {
-    var url = window.location.href;
+    var url = (window.location.href).replace("#","");
     var uri = "&" + tipo + "=" + encodeURI(elem.name);
     if (elem.checked == false)
         window.location.href = url + uri;
@@ -22,10 +36,10 @@ function filter(elem,tipo)
 
 function filterRadio(elem,tipo)
 {
-    var url = window.location.href;
+    var url = (window.location.href).replace("#","");
     var uri = "&" + tipo + "=" + encodeURI(elem.name);
     if (elem.checked == true && (url.indexOf(uri) == -1) )
-        window.location.href = url + uri;
+        window.location.href = updateURLParameter(url, tipo, elem.name);
     else
     {
         window.location.href = url.replace(uri,"");
@@ -153,7 +167,7 @@ function setStar(id)
 
 function setStarFilter()
 {
-    var url = window.location.href;
+    var url = (window.location.href).replace("#","");
     window.location.href = updateURLParameter(url,"minrat",(parseInt(stelle)+1));
 
 }

@@ -222,7 +222,7 @@
                         </div>
                         <div class="col-md-3">
                             <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star-o rating_star" aria-hidden="true"></i> <i class="fa fa-star-o rating_star" aria-hidden="true"></i>&nbsp&nbsp43 recensioni
-                            <a href="#" class="btn btn-default margins">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-default margins" onclick="addToCart('9','2');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <%
@@ -267,7 +267,7 @@
                             <%
                                 }
                             %>&nbsp&nbsp<span class="text-right"><%=review%></>
-                            <a href="#" class="btn btn-default margins">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-default margins" onclick="addToCart('<%=p.getProductID()%>','<%=p.getShopID()%>');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <%
