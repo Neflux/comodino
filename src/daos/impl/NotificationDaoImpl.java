@@ -22,18 +22,20 @@ public class NotificationDaoImpl implements NotificationDao {
     @Override
     public ArrayList<Notification> getNotifications(User user) {
         ArrayList<Notification> notifications = new ArrayList<>();
-        notifications.addAll(getRewiewNotifications(new UserDaoImpl().getShopID(user)));
+        notifications.addAll(getReviewNotifications(new UserDaoImpl().getShopID(user)));
         notifications.addAll(getDisputeNotifications(new UserDaoImpl().getShopID(user)));
         return notifications;
     }
 
     @Override
-    public ArrayList<Notification> getRewiewNotifications(int shopID){
+    public ArrayList<Notification> getReviewNotifications(int shopID){
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM reviewnotification WHERE ShopID = ?");
             stm.setInt(1, shopID);
             ResultSet rs = stm.executeQuery();
-            return extractRewiewNotificationFromResultSet(rs);
+            ArrayList<Notification> notifications = extractReviewNotificationFromResultSet(rs);
+            printNotifications(notifications);
+            return notifications;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,7 +43,7 @@ public class NotificationDaoImpl implements NotificationDao {
         return null;
     }
 
-    private ArrayList<Notification> extractRewiewNotificationFromResultSet(ResultSet rs) {
+    private ArrayList<Notification> extractReviewNotificationFromResultSet(ResultSet rs) {
         ArrayList<Notification> notifications = new ArrayList<>();
 
         try {
@@ -65,7 +67,9 @@ public class NotificationDaoImpl implements NotificationDao {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM disputenotification WHERE ShopID = ?");
             stm.setInt(1, shopID);
             ResultSet rs = stm.executeQuery();
-            return extractDisputeNotificationFromResultSet(rs);
+            ArrayList<Notification> notifications = extractDisputeNotificationFromResultSet(rs);
+            printNotifications(notifications);
+            return notifications;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,4 +98,13 @@ public class NotificationDaoImpl implements NotificationDao {
         return notifications;
     }
 
+    private void printNotifications(ArrayList<Notification> a){
+        for (Notification n: a){
+            System.out.println("Notification:");
+            System.out.println("    Creation date: " + n.getCreationDate());
+            System.out.println("    Shop ID: " + n.getShopId());
+            System.out.println("    Shop Status: " + n.getShopStatus());
+            System.out.flush();
+        }
+    }
 }

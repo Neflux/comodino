@@ -11,7 +11,7 @@ public interface NotificationDao extends Serializable {
 
     ArrayList<Notification> getNotifications(User user);
 
-    ArrayList<Notification> getRewiewNotifications(int shopID);
+    ArrayList<Notification> getReviewNotifications(int shopID);
 
     ArrayList<Notification> getDisputeNotifications(int shopID);
 
