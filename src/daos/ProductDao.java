@@ -1,8 +1,11 @@
 package daos;
 
 import main.Product;
+import main.ProductGroup;
 
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.Map;
 
 public interface ProductDao extends Serializable {
     /**
@@ -13,4 +16,12 @@ public interface ProductDao extends Serializable {
      * @return              ritorna il prodotto con tutte le info sul venditore
      */
     Product getProduct(int productID, int shopID);
+
+    /**
+     * Ottiene la lista dei prodotti dal DB in base ai parametri, organizzati in gruppi di prodotti dallo stesso nome
+     * @param params Mappa contenente tutti i parametri ottenuti precedentemente dal GET
+     * @return Mappa contenente i singoli shopProduct raggruppati come product (ProductGroup in java)
+     * @throws SQLException nel caso qualcosa non andasse come previsto nel database
+     */
+    Map<String, ProductGroup> getProducts(Map params) throws SQLException;
 }

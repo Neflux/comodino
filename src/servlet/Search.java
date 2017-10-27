@@ -1,6 +1,9 @@
 package servlet;
 
+import daos.ProductDao;
+import daos.impl.ProductDaoImpl;
 import db.DBManager;
+import main.Product;
 import main.ProductGroup;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +34,10 @@ public class Search extends HttpServlet {
         }
 
         try{
+            ProductDao productDao = new ProductDaoImpl();
 
             //Map
-            request.setAttribute("products", DBManager.getProducts(request.getParameterMap()));
+            request.setAttribute("products", productDao.getProducts(request.getParameterMap()));
 
             //ArrayList
             request.setAttribute("categories", DBManager.getCategories(request.getParameterMap()));
