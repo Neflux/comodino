@@ -37,6 +37,8 @@ public interface UserDao extends Serializable {
 
     boolean hasShop(User user);
 
+    int getShopID (User user);
+
     ArrayList<Pair<Product, Integer>> getCart(User user);
 
     void removeCartItem(User user, int productID, int shopID);

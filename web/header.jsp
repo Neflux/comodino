@@ -18,6 +18,9 @@
 <body>
 <%
     User usr = (User) session.getAttribute("user");
+    if ( usr != null && usr.getEmail().isEmpty()){
+        usr = null;
+    }
 %>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -31,7 +34,7 @@
 
             <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="./css/logo.svg"/>
                 <%
-                    if (usr == null || usr.getEmail().isEmpty()) {
+                    if (!(usr != null && (usr.hasShop() || usr.getType() == 1))) {
                 %>
                 <span id="headertitle">Comodino.it</span>
                 <%
@@ -41,7 +44,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <%
-                if ((usr != null) && !usr.getEmail().isEmpty()) {
+                if (usr != null) {
             %>
             <ul class="nav navbar-nav navbar-left">
                 <%
@@ -50,9 +53,12 @@
                 <li><a href="#">65&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i></a></li>
                 <%
                     }
+                    if(usr.getType() == 1){
                 %>
                 <li><a href="#">23&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i></a></li>
-
+                <%
+                    }
+                %>
             </ul>
             <%
                 }
@@ -79,7 +85,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <%
-                    if (usr == null || usr.getEmail() == null) {
+                    if (usr == null) {
                 %>
                 <li>
                     <a href="#" role="button" data-toggle="modal" data-target="#LoginSignup">

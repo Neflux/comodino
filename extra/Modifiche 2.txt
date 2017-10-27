@@ -1,0 +1,27 @@
+create table reviewnotification
+(
+	ShopStatus int not null,
+	ReviewID int not null,
+	ShopID int not null,
+	CreationDate timestamp default CURRENT_TIMESTAMP not null,
+	primary key (ReviewID, ShopID),
+	constraint reviewnotification_ibfk_1
+		foreign key (ReviewID) references productreview (ReviewID),
+	constraint reviewnotification_ibfk_2
+		foreign key (ShopID) references shop (ShopID)
+)
+;
+
+create table disputenotification
+(
+	AdminStatus int not null,
+	ShopStatus int not null,
+	OrderID int not null,
+	ProductID int not null,
+	ShopID int not null,
+	CreationDate timestamp default CURRENT_TIMESTAMP not null,
+	primary key (OrderID, ProductID, ShopID),
+	constraint disputenotification_ibfk_1
+		foreign key (OrderID, ProductID, ShopID) references dispute (OrderID, ProductID, ShopID)
+)
+;

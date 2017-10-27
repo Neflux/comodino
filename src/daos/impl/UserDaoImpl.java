@@ -93,6 +93,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public int getShopID (User user) {
+        if (user == null)
+            return 0;
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM usershop WHERE UserID = ?");
+            stm.setInt(1,user.getUserID());
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()){
+                return rs.getInt("ShopID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
     public ArrayList<Pair<Product, Integer>> getCart(User user) {
         if (user == null)
             return null;
