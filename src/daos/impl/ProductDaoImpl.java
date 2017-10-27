@@ -245,7 +245,7 @@ public class ProductDaoImpl implements ProductDao {
                         orderBySql              //ORDER BY
         );
         stm.setString(1,"%"+searchQuery+"%");
-        System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(46));
+        System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
 
         //Final query execute
         try {
@@ -286,7 +286,7 @@ public class ProductDaoImpl implements ProductDao {
                     "WHERE product.ProductID = productreview.ProductID AND product.name = ?"
             );
             stm.setString(1, pair.getKey().toString());
-            System.out.println("REVIEW COUNT: "+stm.toString().substring(46));
+            System.out.println("REVIEW COUNT: "+stm.toString().substring(45));
             try {
                 try (ResultSet rs = stm.executeQuery()) {
                     rs.next();
@@ -301,7 +301,7 @@ public class ProductDaoImpl implements ProductDao {
             String imgDataBase64;
             stm = con.prepareStatement("select * from productphoto where ProductID = ?");
             stm.setInt(1,p.getProductID());
-            System.out.println("DECODE PRODUCT IMAGE: "+stm.toString().substring(46));
+            System.out.println("DECODE PRODUCT IMAGE: "+stm.toString().substring(45));
             try (ResultSet rs = stm.executeQuery()){
                 if(rs.next()) {
                     Blob imgData = rs.getBlob("Image");

@@ -60,10 +60,10 @@ public class DBManager implements Serializable {
                         "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
         );
         stm.setString(1,"%"+searchQuery+"%");
+        System.out.println("SIDEBAR GET CATEGORY: " + stm.toString().substring(45));
 
         //Execution
         try (ResultSet rs = stm.executeQuery()){
-            System.out.println(stm.toString());
             while(rs.next()) {
                 ret.add(rs.getString("CategoryName"));
             }
@@ -93,10 +93,10 @@ public class DBManager implements Serializable {
                         "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
         );
         stm.setString(1,"%"+searchQuery+"%");
+        System.out.println("SIDEBAR GET VENDORS: " + stm.toString().substring(45));
 
         //Execution
         try (ResultSet rs = stm.executeQuery()){
-            System.out.println(stm.toString());
             while(rs.next()) {
                 ret.add(rs.getString("Name"));
             }
@@ -125,7 +125,7 @@ public class DBManager implements Serializable {
                         "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
         );
         stm.setString(1,"%"+searchQuery+"%");
-        System.out.println(stm.toString());
+        System.out.println("SIDEBAR GET GEOZONE: " + stm.toString().substring(45));
 
         //Execution
         try (ResultSet rs = stm.executeQuery()){
