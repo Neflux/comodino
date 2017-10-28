@@ -32,14 +32,26 @@ jQuery(".quantity").each(function() {
 });
 
 function removeItem(prodID, shopID){
+    var prezzo = $("#price_" + prodID).text().slice(0, -1).replace(",",".");
+    var quantita = $("#quantity_" + prodID).val();
+    var aggiungere = parseFloat(prezzo) * parseFloat(quantita);
+    var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
+    var aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
+    $("#total").text("Totale: " + aggiunto + "€");
+    $("#" + prodID + "_" + shopID).fadeOut("700");
 
-    $.post("/removecartitem", {"productID": prodID, "shopID": shopID})
+    $.post("/removecartitem", {"productID": prodID, "shopID": shopID});
+    $.post("/getcart", {type:"drop"})
         .done(function(data) {
-            location.reload();
+            $("#cartdrop").html(data);
+        });
+    $.post("/getcart", {type:"header"})
+        .done(function(data) {
+            $("#cartheader").html(data);
         });
 }
 
-function updatePrice(prodID,tipo, shopID)
+function updatePrice(prodID, tipo, shopID)
 {
     var prezzo = $("#price_" + prodID).text().slice(0, -1).replace(",",".");
     var quantita = $("#quantity_" + prodID).val();
