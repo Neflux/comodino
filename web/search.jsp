@@ -222,7 +222,7 @@
                         </div>
                         <div class="col-md-3">
                             <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star-o rating_star" aria-hidden="true"></i> <i class="fa fa-star-o rating_star" aria-hidden="true"></i>&nbsp&nbsp43 recensioni
-                            <a href="#" class="btn btn-default margins" onclick="addToCart('9','2');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('9','2');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <%
@@ -250,7 +250,7 @@
                         </div>
                         <div class="col-md-7 text-left">
                             <h2><%=p.getProductName()%></h2>
-                            <p>Venduto da <a href="#"><%=p.getShopName()%></a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="#" onclick="openModal('<%=p.getProductName()%>');"><%=gp.getList().size()%></a> venditori</span></p>
+                            <p>Venduto da <a href="javascript:void(0);"><%=p.getShopName()%></a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="javascript:void(0);" onclick="openModal('<%=p.getProductName()%>');"><%=gp.getList().size()%></a> venditori</span></p>
                             <h1 class="prezzo"><%=p.getActualPrice()%> €</h1>
                         </div>
                         <div class="col-md-3">
@@ -267,7 +267,7 @@
                             <%
                                 }
                             %>&nbsp&nbsp<span class="text-right"><%=review%></>
-                            <a href="#" class="btn btn-default margins" onclick="addToCart('<%=p.getProductID()%>','<%=p.getShopID()%>');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('<%=p.getProductID()%>','<%=p.getShopID()%>');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <%
