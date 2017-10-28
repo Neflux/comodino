@@ -24,7 +24,7 @@ public class getCartServlet extends HttpServlet {
             cart = ((User) request.getSession().getAttribute("user")).getCart(false); // senza update del carrello
 
         size = "<span class=\"badge\">\n" +
-                "                            <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i> <span id=\"cart-size\"> " + cart.size() + "</span>\n" +
+                "                            <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i> " + cart.size() + "\n" +
                 "                        </span>\n" +
                 "                        &nbsp;&nbsp;Carrello <span class=\"caret\"></span>";
 
