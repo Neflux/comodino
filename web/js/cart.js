@@ -46,15 +46,20 @@ function updatePrice(prodID,tipo, shopID)
     var aggiungere = parseFloat(prezzo);
     var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
     var aggiunto = attuale;
+    var post = {productID: prodID, shopID: shopID};
     if (tipo == "+")
+    {
         aggiunto = (parseFloat(attuale) + parseFloat(aggiungere)).toFixed(2);
+        $.post("/addcartitem", post);
+    }
     else if (tipo == "-" && quantita > 1)
+    {
         aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
+        $.post("/decreasecartitem", post);
+    }
 
     $("#total").text("Totale: " + aggiunto + "€");
 
-    var post = {productID: prodID, shopID: shopID};
-    $.post("/addcartitem", post);
     $.post("/getcart", {type:"drop"})
         .done(function(data) {
             $("#cartdrop").html(data);
