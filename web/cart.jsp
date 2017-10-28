@@ -52,13 +52,17 @@
                                 <p id="c_lead" class="lead pi-draggable itemseller" draggable="true">Venduto da:&nbsp;
                                     <a href="#" style="font-size: 18px"><%=item.getKey().getShopName()%></a>
                                 </p>
-                                <h2 class="itemprice"><%=Utils.getNDecPrice(item.getKey().getActualPrice(),2)%>&euro;</h2>
+                                <h2 class="itemprice" id="price_<%=item.getKey().getProductID()%>"><%=Utils.getNDecPrice(item.getKey().getActualPrice(),2)%>&euro;</h2>
                             </div>
                             <div class="col-md-1">
                                 <div class="itemquantity">
                                     <p>Quantità:</p>
                                     <div class="quantity">
-                                        <input type="number" min="1" step="1" value="<%=item.getValue()%>">
+                                        <input type="number" min="1" step="1" value="<%=item.getValue()%>" id="quantity_<%=item.getKey().getProductID()%>">
+                                        <div class="quantity-nav">
+                                            <div class="quantity-button quantity-up" onclick="updatePrice(<%=item.getKey().getProductID()%>,'+',<%=item.getKey().getShopID()%>);">+</div>
+                                            <div class="quantity-button quantity-down" onclick="updatePrice(<%=item.getKey().getProductID()%>,'-',<%=item.getKey().getShopID()%>);">-</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +87,7 @@
     </div>
     <div class="row">
         <div class="col-md-12" style="padding-right: 30px">
-            <h1 class="total" style="text-align: right; margin: 5px 0">Totale: <%=Utils.getNDecPrice(total,2)%>&euro;</h1>
+            <h1 class="total" id="total" style="text-align: right; margin: 5px 0">Totale: <%=Utils.getNDecPrice(total,2)%>&euro;</h1>
         </div>
     </div>
 

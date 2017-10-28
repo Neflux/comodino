@@ -1,4 +1,4 @@
-jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter('.quantity input');
+jQuery('').insertAfter('.quantity input');
 jQuery(".quantity").each(function() {
     var spinner = jQuery(this),
         input = spinner.find('input[type="number"]'),
@@ -36,5 +36,31 @@ function removeItem(prodID, shopID){
     $.post("/removecartitem", {"productID": prodID, "shopID": shopID})
         .done(function(data) {
             location.reload();
+        });
+}
+
+function updatePrice(prodID,tipo, shopID)
+{
+    var prezzo = $("#price_" + prodID).text().slice(0, -1).replace(",",".");
+    var quantita = $("#quantity_" + prodID).val();
+    var aggiungere = parseFloat(prezzo);
+    var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
+    var aggiunto = attuale;
+    if (tipo == "+")
+        aggiunto = (parseFloat(attuale) + parseFloat(aggiungere)).toFixed(2);
+    else if (tipo == "-" && quantita > 1)
+        aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
+
+    $("#total").text("Totale: " + aggiunto + "€");
+
+    var post = {productID: prodID, shopID: shopID};
+    $.post("/addcartitem", post);
+    $.post("/getcart", {type:"drop"})
+        .done(function(data) {
+            $("#cartdrop").html(data);
+        });
+    $.post("/getcart", {type:"header"})
+        .done(function(data) {
+            $("#cartheader").html(data);
         });
 }
