@@ -123,7 +123,7 @@
                 <li class="dropdown">
                     <a id="cartdrop" onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="badge">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i><span id="cart-size"><%=cart.size()%></span>
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> <%=cart.size()%>
                         </span>
                         &nbsp;&nbsp;Carrello <span class="caret"></span>
                     </a>
