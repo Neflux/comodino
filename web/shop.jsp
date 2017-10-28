@@ -1,19 +1,15 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: delsi
-  Date: 26/10/2017
-  Time: 21:43
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="main.User" %>
+<%@ page import="daos.impl.ShopDaoImpl" %>
+<%@ page import="main.Shop" %>
+<%@ page import="daos.impl.UserDaoImpl" %>
 
 <%
-        User usr = (User) session.getAttribute("user");
-        if ( usr == null || usr.getEmail() == null || !usr.hasShop()) {
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
-        }
+    User usr = (User) session.getAttribute("user");
+    if ( usr == null || usr.getEmail() == null || !usr.hasShop()) {
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }
 %>
 
 <jsp:include page="header.jsp" flush="true" />
@@ -33,19 +29,42 @@
     </head>
     <body>
             <div style="margin-top:+35px !important;" class="container">
+                <%
+                    //trick di ldb
+                    //non si può sfruttare la query che fa il check subito (hasShop?)
+                    //non possiamo avere ridondanza nel database, ma nel server java si..
+                    //se cambiassimo approccio completamente?
+                    Shop shop = new ShopDaoImpl().getShop(new UserDaoImpl().getShopID(usr));
+                    System.out.println(shop.getName());
+                    String imageSrc = "data:image/gif;base64," + shop.getImageData();
+                    if(imageSrc.equals("data:image/gif;base64,")){
+                        imageSrc = "http://via.placeholder.com/400x300";
+                    }
+                    /*String imageSrc = "http://via.placeholder.com/400x300";
+                    Shop shop = new Shop();*/
+                %>
                 <div class="row">
                     <div class="col-md-4" id="navbar">
                         <div class="col-md-12">
-                            <a id="shopPhoto" href="#"><img src="http://via.placeholder.com/400x300" class="img-responsive"></a>
-                            <h1 id="shopTitle" class="text-center">Ina Market</h1>
-                            <h4 id="shopEmailWebsite" class="text-center text-info">@InaMarket - Inamarket.co</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
+                            <a id="shopPhoto" href="#"><img src='<%=imageSrc%>' class="img-responsive"></a>
+                            <h1 id="shopTitle" class="text-center"><%=shop.getName()%></h1>
+                            <h4 id="shopEmailWebsite" class="text-center text-info"><a href="<%=shop.getWebsite()%>"><%=shop.getWebsite()%></a></h4>
+                            <p><%=shop.getDescription()%></p>
                             <div class="row text-center">
+
+                                <%
+                                    int i = 0;
+                                    for(; i < shop.getRating();i++){
+                                %>
                                 <i class="fa fa-lg fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-lg fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-lg fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-lg fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-lg fa-star" aria-hidden="true"></i>
+                                <%
+                                    }
+                                    for(; i < 5 ;i++){
+                                %>
+                                <i class="fa fa-lg fa-star-o" aria-hidden="true"></i>
+                                <%
+                                    }
+                                %>
                                 <a href="#">Vedi tutte</a>
                             </div>
                             <div id="addShopDiv" class="row">

@@ -156,7 +156,7 @@ public class ProductDaoImpl implements ProductDao {
             try {
                 int value = Integer.parseInt(minPrice);
                 if(value >= 0){
-                    minPrice = " HAVING ActualPrice >= " + minPrice + " ";
+                    minPrice = " ActualPrice >= " + minPrice + " ";
                 }
                 else minPrice = "";
             } catch (NumberFormatException e) {
@@ -164,13 +164,12 @@ public class ProductDaoImpl implements ProductDao {
                 minPrice = "";
             }
         } else minPrice = "";
-
         //maxPrice parameter
         if((maxPrice = checkSMP(params.get(maxPriceKeyword))) != null){
             try {
                 int value = Integer.parseInt(maxPrice);
                 if(value > 0){
-                    maxPrice = " HAVING ActualPrice <= " + maxPrice + " ";
+                    maxPrice = " ActualPrice <= " + maxPrice + " ";
                 }
                 else maxPrice = "";
             } catch (NumberFormatException e) {
@@ -178,6 +177,24 @@ public class ProductDaoImpl implements ProductDao {
                 maxPrice = "";
             }
         } else maxPrice = "";
+        //price range;
+        String priceRange = " HAVING ";
+        if(minPrice.equals("")){
+            if(maxPrice.equals("")){
+                priceRange = "";
+            }
+            else{
+                priceRange += maxPrice;
+            }
+        }
+        else{
+            if(maxPrice.equals("")){
+                priceRange += minPrice;
+            }
+            else{
+                priceRange += minPrice + " AND " + maxPrice;
+            }
+        }
 
         //minRating parameter
         String minRating;
@@ -241,7 +258,7 @@ public class ProductDaoImpl implements ProductDao {
                         "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
                         "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
                         region.toString() + category.toString() + vendor.toString() + minRating +
-                        minPrice + maxPrice +   //HAVING
+                        priceRange +            //HAVING
                         orderBySql              //ORDER BY
         );
         stm.setString(1,"%"+searchQuery+"%");
