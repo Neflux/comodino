@@ -16,7 +16,7 @@
 
     </head>
     <body>
-        <jsp:include page="header_anonimo.jsp" flush="true" />
+        <jsp:include page="header.jsp" flush="true" />
         <div class="banner">
             <h5>
                 <a href="index.php">Home</a>

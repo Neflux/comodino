@@ -19,9 +19,9 @@ public class getCartServlet extends HttpServlet {
         String ret = "", size;
         ArrayList<Pair<Product, Integer>> cart;
         if (request.getParameter("type").equals("drop"))
-            cart = ((User) request.getSession(false).getAttribute("user")).getCart(); // con update del carrello
+            cart = ((User) request.getSession().getAttribute("user")).getCart(); // con update del carrello
         else
-            cart = ((User) request.getSession(false).getAttribute("user")).getCart(false); // senza update del carrello
+            cart = ((User) request.getSession().getAttribute("user")).getCart(false); // senza update del carrello
 
         size = "<span class=\"badge\">\n" +
                 "                            <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i> " + cart.size() + "\n" +
