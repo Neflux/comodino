@@ -7,3 +7,11 @@
     padding-left:15px;
     padding-top: 2px;
 }
+
+#popup {
+    margin-top: 8px;
+    position:fixed;
+    z-index: 999;
+    right: 10px;
+    opacity: 0;
+}

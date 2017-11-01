@@ -100,62 +100,9 @@
     </div>
 </nav>
 
-<!-- Modal -->
-<div class="modal fade" id="LoginSignup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="row">
-        <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-            <form class="form" method="POST" action="${pageContext.request.contextPath}/login" id="form">
-                <div class="header header-primary text-center">
-                    <h4 class="title title-up" id="card_titolo" style="margin-bottom: -40px; margin-top: 20px;">Login</h4>
-                </div>
-                <div class="content">
-                    <div class="input-group form-group-no-border nologin" style="opacity: 0;margin-top: -50px;">
-                          <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
-                          </span>
-                        <input type="text" class="form-control" name="FirstName" placeholder="Nome...">
-                    </div>
-                    <div class="input-group form-group-no-border nologin" style="opacity: 0; ">
-                          <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
-                          </span>
-                        <input type="text" class="form-control" name="LastName" placeholder="Cognome...">
-                    </div>
-                    <div class="input-group form-group-no-border login">
-                          <span class="input-group-addon">
-                              <i class="fa fa-envelope-o green" aria-hidden="true"></i>
-                          </span>
-                        <input type="text" class="form-control" name="email" placeholder="Email...">
-                    </div>
-                    <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-key green" aria-hidden="true"></i>
-                          </span>
-                        <input type="password" placeholder="Password..." name="password" class="form-control" />
-                    </div>
-                    <div class="row text-center" style="margin-top: 15px">
-                        <span class="white" id="card_change_button">Non hai ancora un account? <a onclick="show_signup();">Registrati</a></span>
-                    </div>
-                    <!-- If you want to add a checkbox to this form, uncomment this code -->
-                    <!-- <div class="checkbox">
-                        <input id="checkboxSignup" type="checkbox">
-                          <label for="checkboxSignup">
-                          Unchecked
-                          </label>
-                          </div> -->
-                </div>
-                <div class="footer text-center" style="margin-top: 15px;">
-                    <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#form').submit();">Entra</a><a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#LoginSignup').modal('toggle');});">Chiudi</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/custom.js"></script>
 <script src="../js/now-ui-kit.js"></script>
-<script src="../js/signup_login/signup_login_actions.js"></script>
 <script src="../js/header.js"></script>
 </body></html>

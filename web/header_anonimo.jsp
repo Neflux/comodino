@@ -71,13 +71,13 @@
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
-                        <input type="text" class="form-control" name="FirstName" placeholder="Nome...">
+                        <input type="text" class="form-control" name="firstname" placeholder="Nome...">
                     </div>
                     <div class="input-group form-group-no-border nologin" style="opacity: 0; ">
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
-                        <input type="text" class="form-control" name="LastName" placeholder="Cognome...">
+                        <input type="text" class="form-control" name="lastname" placeholder="Cognome...">
                     </div>
                     <div class="input-group form-group-no-border login">
                           <span class="input-group-addon">
@@ -89,7 +89,7 @@
                           <span class="input-group-addon">
                               <i class="fa fa-key green" aria-hidden="true"></i>
                           </span>
-                        <input type="password" placeholder="Password..." name="password" class="form-control" />
+                        <input type="password" placeholder="Password..." name="password" class="form-control">
                     </div>
                     <div class="row text-center" style="margin-top: 15px">
                         <span class="white" id="card_change_button">Non hai ancora un account? <a onclick="show_signup();">Registrati</a></span>
@@ -114,6 +114,5 @@
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/custom.js"></script>
 <script src="./js/now-ui-kit.js"></script>
-<script src="./js/signup_login/signup_login_actions.js"></script>
 <script src="js/header.js"></script>
 </body></html>

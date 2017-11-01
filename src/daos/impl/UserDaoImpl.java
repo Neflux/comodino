@@ -228,4 +228,36 @@ public class UserDaoImpl implements UserDao {
         Product p = new ProductDaoImpl().getProduct(productID,shopID);
         return new Pair<>(p,rs.getInt("Quantity"));
     }
+
+    public User register(String firstname, String lastname, String email, String password) {
+        if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() | password.isEmpty())
+            return null;
+
+        // controllo che non ci siano utenti già presenti con la stessa mail
+        try {
+            PreparedStatement stm = this.con.prepareStatement("SELECT * FROM user U WHERE U.Email = ? AND U.EmailConfirm = 'yes'");
+            stm.setString(1, email);
+            ResultSet rs = stm.executeQuery();
+            if (extractUserFromResultSet(rs) != null){
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            PreparedStatement stm = this.con.prepareStatement("INSERT INTO user (UserID,FirstName,LastName,Email,Password,Type,Privacy,EmailConfirm) VALUES (NULL,?,?,?,?,0,0,'yes')");
+            stm.setString(1, firstname);
+            stm.setString(2, lastname);
+            stm.setString(3, email);
+            stm.setString(4, password);
+            int result = stm.executeUpdate();
+            if (result == 0){
+                return null;
+            }
+            return authUser(email,password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
