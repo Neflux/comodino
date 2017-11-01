@@ -11,16 +11,16 @@
     <title>Profilo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/profile.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/profile.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="css/custom.min.css" rel="stylesheet" type="text/css">
-    <link href="css/my.css" rel="stylesheet" type="text/css">
-    <link href="css/user_profile.css" rel="stylesheet" type="text/css">
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../css/custom.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/my.css" rel="stylesheet" type="text/css">
+    <link href="../css/user_profile.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<jsp:include page="header_anonimo.jsp" flush="true"/>
+<jsp:include page="header.jsp" flush="true"/>
 <div class="container">
     <div class="row" style="margin: 0 0 10px 0;">
         <div class="col-md-12 text-center">

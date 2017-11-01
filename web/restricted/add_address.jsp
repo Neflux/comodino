@@ -9,7 +9,7 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../css/custom.min.css" rel="stylesheet" type="text/css">
     <link href="../css/my.css" rel="stylesheet" type="text/css">
-    <link href="css\add_address.css" rel="stylesheet" type="text/css">
+    <link href="../css/add_address.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <jsp:include page="header.jsp" flush="true"/>

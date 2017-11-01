@@ -9,11 +9,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="css/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="css/custom.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="../css/custom.min.css">
     <script src="https://use.fontawesome.com/f98c8dd683.js"></script>
-    <link rel="stylesheet" href="css/my.css">
-    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="../css/my.css">
+    <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
 <%
@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="./css/logo.svg"/>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="../css/logo.svg"/>
                 <%
                     if (!(usr != null && (usr.hasShop() || usr.getType() == 1))) {
                 %>
@@ -203,9 +203,9 @@
 </div>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
-<script src="./js/custom.js"></script>
-<script src="./js/now-ui-kit.js"></script>
-<script src="./js/signup_login/signup_login_actions.js"></script>
-<script src="js/header.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/custom.js"></script>
+<script src="../js/now-ui-kit.js"></script>
+<script src="../js/signup_login/signup_login_actions.js"></script>
+<script src="../js/header.js"></script>
 </body></html>
