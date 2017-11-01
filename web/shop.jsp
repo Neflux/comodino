@@ -12,7 +12,7 @@
     }
 %>
 
-<jsp:include page="header.jsp" flush="true" />
+<jsp:include page="header_anonimo.jsp" flush="true" />
 
 <html>
     <head>

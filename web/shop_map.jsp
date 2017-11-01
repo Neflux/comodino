@@ -10,7 +10,7 @@
     <link href="css/my.css" rel="stylesheet" type="text/css">
     <link href="css/shop_map.css" rel="stylesheet" type="text/css">
 </head><body>
-<jsp:include page="header.jsp" flush="true"/>
+<jsp:include page="header_anonimo.jsp" flush="true"/>
 <div class="container" style="margin-top: 80px">
     <div class="google-maps">
         <iframe src="https://www.google.com/maps/embed" frameborder="0" style="border:0" allowfullscreen></iframe>
