@@ -23,6 +23,12 @@
             Uscito con successo!
         </div>
     </c:if>
+    <c:if test="${param.action == 'login_error'}">
+        <div id="logoutPopup" class="alert alert-danger alert-dismissable fade in" style="position:fixed; z-index: 999; right: 10px; opacity: 0;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            Username o password errati!
+        </div>
+    </c:if>
 <div class="container-fluid dynamicTile">
     <div class="row">
         <div class="col-sm-2 col-xs-4">

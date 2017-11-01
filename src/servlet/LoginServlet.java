@@ -26,10 +26,7 @@ public class LoginServlet extends HttpServlet {
         if (user == null) {
 
             // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-            request.setAttribute("message", "Email/password non esistente!");
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
-
+            response.sendRedirect("/index.jsp?action=login_error");
         }
         else {
             // imposto l'utente connesso come attributo di sessione
