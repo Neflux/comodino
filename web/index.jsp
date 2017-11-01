@@ -1,18 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
-<%
-    if(session != null && session.getAttribute("user") != null){
-%>
-<jsp:include page="/restricted/header.jsp" flush="true" />
-<%
-    }
-    else{
-%>
-<jsp:include page="/header_anonimo.jsp" flush="true" />
-<%
-    }
-%>
+<c:if test="${sessionScope.user != null}">
+    <jsp:include page="/restricted/header.jsp" flush="true" />
+</c:if>
+<c:if test="${sessionScope.user == null}">
+    <jsp:include page="/header_anonimo.jsp" flush="true" />
+</c:if>
+
 
 <!doctype html>
 <html lang="it">
@@ -21,19 +16,13 @@
     <link href="css/index.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="js/index.js"></script>
 </head>
-<body >
-<%
-    try {
-        if (request.getParameter("action").equals("logout")){
-%>
-<div id="logoutPopup" class="alert alert-success alert-dismissable fade in" style="position:fixed; z-index: 999; right: 10px; opacity: 0;">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    Uscito con successo!
-</div>
-<%
-        }
-    }catch (Exception e){}
-%>
+<body>
+    <c:if test="${param.action == 'logout'}">
+        <div id="logoutPopup" class="alert alert-success alert-dismissable fade in" style="position:fixed; z-index: 999; right: 10px; opacity: 0;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            Uscito con successo!
+        </div>
+    </c:if>
 <div class="container-fluid dynamicTile">
     <div class="row">
         <div class="col-sm-2 col-xs-4">
