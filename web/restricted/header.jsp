@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
-
 <html><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,10 +23,19 @@
             </button>
 
             <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="../css/logo.svg"/>
+                <c:if test="${!sessionScope.user.hasShop() && sessionScope.user.type == 0}">
+                    <span id="headertitle">Comodino.it</span>
+                </c:if>
             </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
+                <c:if test="${sessionScope.user.hasShop()}">
+                    <li><a href="#">65&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i></a></li>
+                </c:if>
+                <c:if test="${sessionScope.user.type == 1}">
+                    <li><a href="#">23&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i></a></li>
+                </c:if>
             </ul>
             <ul class="nav navbar-nav navbar-center">
                 <li>
@@ -52,11 +60,18 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp; ${sessionScope.user.getFirstName()} ${sessionScope.user.getLastName()}  <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu centered">
                         <li class="dropdown-header">Il mio profilo</li>
                         <li><a href="profile.jsp">Il mio account</a></li>
                         <li><a href="orderhistory.jsp">I miei ordini</a></li>
+                        <c:if test="${sessionScope.user.hasShop()}">
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Negozio</li>
+                            <li><a href="#">Inventario</a></li>
+                            <li><a href="#">Riepilogo vendite</a></li>
+                        </c:if>
                         <li role="separator" class="divider"></li>
                         <li><a href="logout">Esci</a></li>
                     </ul>
@@ -64,11 +79,19 @@
                 <li class="dropdown">
                     <a id="cartdrop" onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="badge">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> ${sessionScope.user.getCart().size()}
                         </span>
                         &nbsp;&nbsp;Carrello <span class="caret"></span>
                     </a>
                     <ul id="cartheader" class="dropdown-menu right">
                         <!-- ORA L'INTERNO DEL CARRELLO è GESTITO CON AJAX-->
+                        <c:if test="${sessionScope.user.getCart(true).size() == 0}">
+                            <li class="text-center"><a>Carrello vuoto...</a></li>
+                        </c:if>
+                        <c:forEach var="cartItem" items="${sessionScope.user.getCart(true)}">
+                            <% System.out.println("TEST"); %>
+                            <li><a href="#">${cartItem.getKey().getProductName()} N: ${cartItem.getValue()}</a></li>
+                        </c:forEach>
                         <li class="divider"></li>
                         <li class="text-center"><a href="${pageContext.request.contextPath}/restricted/cart.jsp">Vedi carrello <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
                     </ul>
