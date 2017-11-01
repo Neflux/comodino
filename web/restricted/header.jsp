@@ -64,8 +64,8 @@
                     </a>
                     <ul class="dropdown-menu centered">
                         <li class="dropdown-header">Il mio profilo</li>
-                        <li><a href="profile.jsp">Il mio account</a></li>
-                        <li><a href="orderhistory.jsp">I miei ordini</a></li>
+                        <li><a href="${pageContext.request.contextPath}/restricted/profile.jsp">Il mio account</a></li>
+                        <li><a href="${pageContext.request.contextPath}/restricted/orderhistory.jsp">I miei ordini</a></li>
                         <c:if test="${sessionScope.user.hasShop()}">
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Negozio</li>
@@ -73,7 +73,7 @@
                             <li><a href="#">Riepilogo vendite</a></li>
                         </c:if>
                         <li role="separator" class="divider"></li>
-                        <li><a href="logout">Esci</a></li>
+                        <li><a href="${pageContext.request.contextPath}/restricted/logout">Esci</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -89,7 +89,6 @@
                             <li class="text-center"><a>Carrello vuoto...</a></li>
                         </c:if>
                         <c:forEach var="cartItem" items="${sessionScope.user.getCart(true)}">
-                            <% System.out.println("TEST"); %>
                             <li><a href="#">${cartItem.getKey().getProductName()} N: ${cartItem.getValue()}</a></li>
                         </c:forEach>
                         <li class="divider"></li>
