@@ -17,18 +17,30 @@
     <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
-    <c:if test="${param.action == 'logout'}">
-        <div id="logoutPopup" class="alert alert-success alert-dismissable fade in" style="position:fixed; z-index: 999; right: 10px; opacity: 0;">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            Uscito con successo!
-        </div>
-    </c:if>
-    <c:if test="${param.action == 'login_error'}">
-        <div id="logoutPopup" class="alert alert-danger alert-dismissable fade in" style="position:fixed; z-index: 999; right: 10px; opacity: 0;">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            Username o password errati!
-        </div>
-    </c:if>
+<c:if test="${param.action == 'logout'}">
+    <div id="popup" class="alert alert-success alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Uscito con successo!
+    </div>
+</c:if>
+<c:if test="${param.action == 'login_error'}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Username o password errati!
+    </div>
+</c:if>
+<c:if test="${param.action == 'register_error'}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Campi mancanti!
+    </div>
+</c:if>
+<c:if test="${param.action == 'email_already_in_use_error'}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        La mail inserita è già in uso!
+    </div>
+</c:if>
 <div class="container-fluid dynamicTile">
     <div class="row">
         <div class="col-sm-2 col-xs-4">
@@ -51,17 +63,7 @@
         <div class="col-sm-4 col-xs-8">
             <div class="tile">
 
-                <div class="carousel slide" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="img/cucina1.jpg" class="img-responsive"/>
-                        </div>
-                        <div class="item">
-                            <img src="img/cucina2.jpg" class="img-responsive"/>
-                        </div>
-                    </div>
-                </div>
+                <img src="img/cucina1.jpg" class="img-responsive"/>
 
             </div>
         </div>
@@ -85,17 +87,7 @@
         <div class="col-sm-2 col-xs-4">
             <div class="tile">
 
-                <div class="carousel slide" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="img/bagno1.jpg" class="img-responsive"/>
-                        </div>
-                        <div class="item">
-                            <img src="img/bagno2.jpg" class="img-responsive"/>
-                        </div>
-                    </div>
-                </div>
+                <img src="img/bagno1.jpg" class="img-responsive"/>
 
             </div>
         </div>
@@ -122,17 +114,7 @@
         <div class="col-sm-4 col-xs-8">
             <div class="tile">
 
-                <div class="carousel slide" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="img/bedroom1.jpg" class="img-responsive"/>
-                        </div>
-                        <div class="item">
-                            <img src="img/bedroom2.jpg" class="img-responsive"/>
-                        </div>
-                    </div>
-                </div>
+                <img src="img/bedroom1.jpg" class="img-responsive"/>
 
             </div>
         </div>
@@ -175,18 +157,7 @@
         <div class="col-sm-4 col-xs-8">
             <div class="tile">
 
-                <div class="carousel slide" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="img/garden1.jpg" class="img-responsive"/>
-                        </div>
-                        <div class="item">
-                            <img src="img/garden2.jpg" class="img-responsive"/>
-                        </div>
-
-                    </div>
-                </div>
+                <img src="img/garden1.jpg" class="img-responsive"/>
 
             </div>
         </div>
@@ -213,34 +184,14 @@
         <div class="col-sm-4 col-xs-8">
             <div class="tile">
 
-                <div class="carousel slide" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="img/salotto1.jpg" class="img-responsive"/>
-                        </div>
-                        <div class="item">
-                            <img src="img/salotto2.jpg" class="img-responsive"/>
-                        </div>
-                    </div>
-                </div>
+                <img src="img/salotto2.jpg" class="img-responsive"/>
 
             </div>
         </div>
         <div class="col-sm-2 col-xs-4">
             <div class="tile">
 
-                <div class="carousel slide" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="img/illumination1.jpg" class="img-responsive"/>
-                        </div>
-                        <div class="item">
-                            <img src="img/illumination2.jpg" class="img-responsive"/>
-                        </div>
-                    </div>
-                </div>
+                <img src="img/illumination2.jpg" class="img-responsive"/>
 
             </div>
         </div>
@@ -265,17 +216,7 @@
         <div class="col-sm-2 col-xs-4">
             <div class="tile">
 
-                <div class="carousel slide" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="img/studio1.jpg" class="img-responsive"/>
-                        </div>
-                        <div class="item">
-                            <img src="img/studio2.jpg" class="img-responsive"/>
-                        </div>
-                    </div>
-                </div>
+                <img src="img/studio2.jpg" class="img-responsive"/>
 
             </div>
         </div>
