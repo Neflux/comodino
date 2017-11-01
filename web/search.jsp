@@ -16,7 +16,20 @@
 
     </head>
     <body>
-        <jsp:include page="header.jsp" flush="true" />
+
+        <%
+            if(session != null && session.getAttribute("user") != null){
+        %>
+        <jsp:include page="/restricted/header.jsp" flush="true" />
+        <%
+        }
+        else{
+        %>
+        <jsp:include page="/header_anonimo.jsp" flush="true" />
+        <%
+            }
+        %>
+
         <div class="banner">
             <h5>
                 <a href="index.php">Home</a>

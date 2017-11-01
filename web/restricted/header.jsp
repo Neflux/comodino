@@ -139,7 +139,7 @@
                             }
                         %>
                         <li class="divider"></li>
-                        <li class="text-center"><a href="${pageContext.request.contextPath}/restricted/cart.jsp">Vedi carrello >></a></li>
+                        <li class="text-center"><a href="${pageContext.request.contextPath}/restricted/cart.jsp">Vedi carrello <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
                     </ul>
                 </li>
                 <%

@@ -98,7 +98,7 @@
                     <%
                         if (total>0){
                     %>
-                    <a class="btn btn-primary btn-xs" href="#" style="border-radius: 8px; max-width:200px"><i class="fa fa-fw fa-lg fa-arrow-right"></i> Procedi all'acquisto</a>
+                    <a class="btn btn-primary btn-xs" href="#" style="border-radius: 8px; max-width:200px">Procedi all'acquisto <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                     <%
                     }
                     else{

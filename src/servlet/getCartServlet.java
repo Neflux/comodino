@@ -36,7 +36,7 @@ public class getCartServlet extends HttpServlet {
                         "</b> - " + cartItem.getValue() + "&nbsp;pz</a></li>";
             }
             ret += "<li class=\"divider\"></li>\n" +
-                    "                        <li class=\"text-center\"><a href=\"/cart.jsp\">Vedi carrello >></a></li>";
+                    "                        <li class=\"text-center\"><a href=\"/restricted/cart.jsp\">Vedi carrello <i class=\"fa fa-angle-double-right\" aria-hidden=\"true\"></i>\n</a></li>";
         }
 
         response.setContentType("text/plain");
