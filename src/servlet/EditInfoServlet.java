@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "EditInfoServlet", urlPatterns = {"/editinfo"})
+@WebServlet(name = "EditInfoServlet", urlPatterns = {"/restricted/editinfo"})
 public class EditInfoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

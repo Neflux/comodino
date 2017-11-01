@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
+@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/restricted/changepassword"})
 public class ChangePasswordServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
