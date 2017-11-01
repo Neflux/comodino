@@ -1,9 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
-<%@ page import="main.User" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="main.Product" %>
-<%@ page import="javafx.util.Pair" %>
 
 <html><head>
     <meta charset="UTF-8">
@@ -16,9 +13,6 @@
     <link rel="stylesheet" href="../css/header.css">
 </head>
 <body>
-<%
-    User usr = (User) session.getAttribute("user");
-%>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -30,36 +24,11 @@
             </button>
 
             <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="../css/logo.svg"/>
-                <%
-                    if (!(usr != null && (usr.hasShop() || usr.getType() == 1))) {
-                %>
-                <span id="headertitle">Comodino.it</span>
-                <%
-                    }
-                %>
             </a>
         </div>
         <div class="navbar-collapse collapse">
-            <%
-                if (usr != null) {
-            %>
             <ul class="nav navbar-nav navbar-left">
-                <%
-                    if (usr.hasShop()){
-                %>
-                <li><a href="#">65&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i></a></li>
-                <%
-                    }
-                    if(usr.getType() == 1){
-                %>
-                <li><a href="#">23&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i></a></li>
-                <%
-                    }
-                %>
             </ul>
-            <%
-                }
-            %>
             <ul class="nav navbar-nav navbar-center">
                 <li>
                     <form class="navbar-form" type="GET" action="${pageContext.request.contextPath}/search">
@@ -81,70 +50,29 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <%
-                    if (usr == null) {
-                %>
-                <li>
-                    <a href="#" role="button" data-toggle="modal" data-target="#LoginSignup">
-                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;Login | Sign Up
-                    </a>
-                </li>
-                <%
-                }else {
-                %>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp; <%=usr.getFirstName()%> <%=usr.getLastName()%> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu centered">
                         <li class="dropdown-header">Il mio profilo</li>
                         <li><a href="profile.jsp">Il mio account</a></li>
                         <li><a href="orderhistory.jsp">I miei ordini</a></li>
-                        <%
-                            if(usr.hasShop()){
-                        %>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Negozio</li>
-                        <li><a href="#">Inventario</a></li>
-                        <li><a href="#">Riepilogo vendite</a></li>
-                        <%
-                            }
-                        %>
                         <li role="separator" class="divider"></li>
                         <li><a href="logout">Esci</a></li>
                     </ul>
                 </li>
-                <%
-                    ArrayList<Pair<Product, Integer>> cart = usr.getCart();
-                %>
                 <li class="dropdown">
                     <a id="cartdrop" onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="badge">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> <%=cart.size()%>
                         </span>
                         &nbsp;&nbsp;Carrello <span class="caret"></span>
                     </a>
                     <ul id="cartheader" class="dropdown-menu right">
                         <!-- ORA L'INTERNO DEL CARRELLO è GESTITO CON AJAX-->
-                        <%
-                            if (cart.size() == 0){
-                                %>
-                        <li class="text-center"><a>Carrello vuoto...</a></li>
-                        <%
-                            }
-                            for (Pair<Product, Integer> cartItem:cart) {
-                        %>
-                        <li><a href="#"><%=cartItem.getKey().getProductName()%> N: <%=cartItem.getValue()%></a></li>
-                        <%
-                            }
-                        %>
                         <li class="divider"></li>
                         <li class="text-center"><a href="${pageContext.request.contextPath}/restricted/cart.jsp">Vedi carrello <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
                     </ul>
                 </li>
-                <%
-                    }
-                %>
             </ul>
         </div>
     </div>
