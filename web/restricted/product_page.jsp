@@ -6,12 +6,12 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="css/custom.min.css" rel="stylesheet" type="text/css">
-    <link href="css/my.css" rel="stylesheet" type="text/css">
-    <link href="css/product_page.css" rel="stylesheet" type="text/css">
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../css/custom.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/my.css" rel="stylesheet" type="text/css">
+    <link href="../css/product_page.css" rel="stylesheet" type="text/css">
 </head><body>
-<jsp:include page="header.jsp" flush="true" />
+<jsp:include page="header.jsp" flush="true"/>
 <div class="container" style="margin-top: 80px">
     <div class="row">
         <div class="col-md-6">

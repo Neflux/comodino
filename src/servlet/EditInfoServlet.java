@@ -35,7 +35,7 @@ public class EditInfoServlet extends HttpServlet {
         UserDao userDao = new UserDaoImpl();
         if (userDao.editInfo(user)){
             System.out.println("[ " + user.getFirstName() + " ] Info modificate");
-            response.sendRedirect(request.getContextPath() + "/profile.jsp");
+            response.sendRedirect("/restricted/profile.jsp");
         }
         else {
             // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio

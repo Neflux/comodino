@@ -28,7 +28,7 @@ public class ChangePasswordServlet extends HttpServlet {
             UserDao userDao = new UserDaoImpl();
             if (userDao.changePwd(user,curPwd,newPwd)){
                 System.out.println("[ " + user.getFirstName() + " ] Password modificata");
-                response.sendRedirect(request.getContextPath() + "/profile.jsp");
+                response.sendRedirect("/restricted/profile.jsp");
             }
             else {
                 // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio

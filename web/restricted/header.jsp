@@ -9,18 +9,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="./css/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="./css/custom.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="css/custom.min.css">
     <script src="https://use.fontawesome.com/f98c8dd683.js"></script>
-    <link rel="stylesheet" href="./css/my.css">
+    <link rel="stylesheet" href="css/my.css">
     <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
 <%
     User usr = (User) session.getAttribute("user");
-    if ( usr != null && usr.getEmail().isEmpty()){
-        usr = null;
-    }
 %>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -142,7 +139,7 @@
                             }
                         %>
                         <li class="divider"></li>
-                        <li class="text-center"><a href="${pageContext.request.contextPath}/cart.jsp">Vedi carrello >></a></li>
+                        <li class="text-center"><a href="${pageContext.request.contextPath}/restricted/cart.jsp">Vedi carrello >></a></li>
                     </ul>
                 </li>
                 <%

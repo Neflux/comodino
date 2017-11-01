@@ -1,7 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<jsp:include page="header.jsp" flush="true" />
+<%
+    if(session != null && session.getAttribute("user") != null){
+%>
+<jsp:include page="/restricted/header.jsp" flush="true" />
+<%
+    }
+    else{
+%>
+<jsp:include page="/header_anonimo.jsp" flush="true" />
+<%
+    }
+%>
 
 <!doctype html>
 <html lang="it">

@@ -4,9 +4,6 @@
 
 <%
     User usr = (User) session.getAttribute("user");
-    if ( usr == null || usr.getEmail() == null){
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
-    }
 %>
 
 <html lang="it">
@@ -23,7 +20,7 @@
     <link href="css/user_profile.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<jsp:include page="header.jsp" flush="true"/>
+<jsp:include page="header_anonimo.jsp" flush="true"/>
 <div class="container">
     <div class="row" style="margin: 0 0 10px 0;">
         <div class="col-md-12 text-center">
