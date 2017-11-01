@@ -33,4 +33,10 @@ $(document).ready(function() {
     setTimeout(function() {
         $("#logoutPopup").fadeOut();
     }, 6000);
+
+    $('#signup_login_card').keypress(function (e) {
+        var key = e.which;
+        if(key == 13)  // invio
+            $('#form').submit();
+    });
 });
