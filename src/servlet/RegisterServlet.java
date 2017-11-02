@@ -24,12 +24,10 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect("/index.jsp?action=register_error");
             return;
         }
-
         User user = new UserDaoImpl().register(firstname, lastname, email, password);
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/index.jsp?action=email_already_in_use_error");
-            return;
         }
         else {
             // imposto l'utente connesso come attributo di sessione
