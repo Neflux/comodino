@@ -1,6 +1,3 @@
-<%@ page import="main.Product" %>
-<%@ page import="java.util.List" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="it">
@@ -16,7 +13,7 @@
     </style>
 </head>
 <body>
-<jsp:include page="header_anonimo.jsp" flush="true" />
+<jsp:include page="header.jsp" flush="true" />
 <div class="container" style="margin-top: 75px">
     <button>Dispute in Corso</button>
     <button>Dispute Completate</button>
