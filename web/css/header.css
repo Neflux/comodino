@@ -9,6 +9,7 @@
 }
 
 #popup {
+    top: 61px;
     margin-top: 8px;
     position:fixed;
     z-index: 999;

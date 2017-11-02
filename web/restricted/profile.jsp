@@ -19,6 +19,38 @@
 </head>
 <body>
 <jsp:include page="header.jsp" flush="true"/>
+
+<c:if test="${param.action == 'password_changed'}">
+    <div id="popup" class="alert alert-success alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Password modificata con successo!
+    </div>
+</c:if>
+<c:if test="${param.action == 'wrong_password'}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Password attuale errata o mancante!
+    </div>
+</c:if>
+<c:if test="${param.action == 'password_not_match'}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Le password non corrispondono!
+    </div>
+</c:if>
+
+<c:if test="${param.action == 'info_updated'}">
+    <div id="popup" class="alert alert-success alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Info modificate con successo!
+    </div>
+</c:if>
+<c:if test="${param.action == 'info_error'}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Info non modificate!
+    </div>
+</c:if>
 <div class="container">
     <div class="row" style="margin: 0 0 10px 0;">
         <div class="col-md-12 text-center">

@@ -28,20 +28,14 @@ public class ChangePasswordServlet extends HttpServlet {
             UserDao userDao = new UserDaoImpl();
             if (userDao.changePwd(user,curPwd,newPwd)){
                 System.out.println("[ " + user.getFirstName() + " ] Password modificata");
-                response.sendRedirect("/restricted/profile.jsp");
+                response.sendRedirect("/restricted/profile.jsp?action=password_changed");
             }
             else {
-                // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-                request.setAttribute("message", "Password attuale errata o mancante!");
-                RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-                rd.forward(request, response);
+                response.sendRedirect("/restricted/profile.jsp?action=wrong_password");
             }
         }
         else{
-            // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-            request.setAttribute("message", "Le password non coincidono!");
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("/restricted/profile.jsp?action=password_not_match");
         }
 
     }
