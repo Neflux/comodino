@@ -3,11 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <!-- NON DOVREBBE SERVIRE IN QUANTO ABBIAMO IL PROPERTIESREADER
-    <context-param>
-        <param-name>dburl</param-name>
-        <param-value>jdbc:mysql://localhost:3306/ecommerce;user=root;password=toor</param-value>
-    </context-param>-->
+
+    <filter>
+        <filter-name>authenticationFilter</filter-name>
+        <filter-class>filters.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authenticationFilter</filter-name>
+        <url-pattern>/restricted/*</url-pattern>
+    </filter-mapping>
+
     <listener>
         <description>ServletContextListener</description>
         <listener-class>listeners.WebAppContextListener</listener-class>
