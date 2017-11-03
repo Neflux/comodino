@@ -9,10 +9,13 @@ import java.util.ArrayList;
 
 public interface NotificationDao extends Serializable {
 
-    ArrayList<Notification> getNotifications(User user);
+    ArrayList<Notification> getVendorNotifications(User user);
+
+    ArrayList<Notification> getAdminNotifications();
 
     ArrayList<Notification> getReviewNotifications(int shopID);
 
     ArrayList<Notification> getDisputeNotifications(int shopID);
 
+    boolean createDisputeNotification(int orderID, int productID, int shopID);
 }

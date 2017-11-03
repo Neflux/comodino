@@ -11,36 +11,93 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class NotificationDaoImpl implements NotificationDao {
     private Connection con;
+
+    private boolean DEBUG = false;
 
     public NotificationDaoImpl() {
         this.con = DBManager.getCon();
     }
 
     @Override
-    public ArrayList<Notification> getNotifications(User user) {
+    public ArrayList<Notification> getVendorNotifications(User user) {
         ArrayList<Notification> notifications = new ArrayList<>();
         notifications.addAll(getReviewNotifications(new UserDaoImpl().getShopID(user)));
         notifications.addAll(getDisputeNotifications(new UserDaoImpl().getShopID(user)));
+        Comparator<Notification> dateComparator = Comparator.comparing(Notification::getCreationDate);
+        notifications.sort(dateComparator.reversed());
+        printNotifications(notifications, DEBUG);
         return notifications;
     }
 
     @Override
-    public ArrayList<Notification> getReviewNotifications(int shopID){
+    public ArrayList<Notification> getAdminNotifications() {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM reviewnotification WHERE ShopID = ?");
-            stm.setInt(1, shopID);
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM disputenotification ORDER BY CreationDate DESC");
             ResultSet rs = stm.executeQuery();
-            ArrayList<Notification> notifications = extractReviewNotificationFromResultSet(rs);
-            printNotifications(notifications);
+            ArrayList<Notification> notifications = extractDisputeNotificationFromResultSet(rs);
+            printNotifications(notifications, DEBUG);
             return notifications;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public ArrayList<Notification> getReviewNotifications(int shopID){
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM reviewnotification WHERE ShopID = ? ORDER BY CreationDate DESC");
+            stm.setInt(1, shopID);
+            ResultSet rs = stm.executeQuery();
+            ArrayList<Notification> notifications = extractReviewNotificationFromResultSet(rs);
+            printNotifications(notifications, DEBUG);
+            return notifications;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Notification> getDisputeNotifications(int shopID){
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM disputenotification WHERE ShopID = ? ORDER BY CreationDate DESC");
+            stm.setInt(1, shopID);
+            ResultSet rs = stm.executeQuery();
+            ArrayList<Notification> notifications = extractDisputeNotificationFromResultSet(rs);
+            printNotifications(notifications, DEBUG);
+            return notifications;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean createDisputeNotification(int orderID, int productID, int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO disputenotification (OrderID, ProductID, ShopID, AdminStatus, ShopStatus) VALUES (?,?,?,0,0)");
+            stm.setInt(1, orderID);
+            stm.setInt(2, productID);
+            stm.setInt(3, shopID);
+
+            int result = stm.executeUpdate();
+            if (result == 0){
+                return false;
+            }
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private ArrayList<Notification> extractReviewNotificationFromResultSet(ResultSet rs) {
@@ -59,22 +116,6 @@ public class NotificationDaoImpl implements NotificationDao {
             e.printStackTrace();
         }
         return notifications;
-    }
-
-    @Override
-    public ArrayList<Notification> getDisputeNotifications(int shopID){
-        try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM disputenotification WHERE ShopID = ?");
-            stm.setInt(1, shopID);
-            ResultSet rs = stm.executeQuery();
-            ArrayList<Notification> notifications = extractDisputeNotificationFromResultSet(rs);
-            printNotifications(notifications);
-            return notifications;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private ArrayList<Notification> extractDisputeNotificationFromResultSet(ResultSet rs) {
@@ -98,7 +139,9 @@ public class NotificationDaoImpl implements NotificationDao {
         return notifications;
     }
 
-    private void printNotifications(ArrayList<Notification> a){
+    private void printNotifications(ArrayList<Notification> a, boolean DEBUG){
+        if (!DEBUG)
+            return;
         for (Notification n: a){
             System.out.println("Notification:");
             System.out.println("    Creation date: " + n.getCreationDate());

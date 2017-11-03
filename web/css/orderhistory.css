@@ -1,3 +1,7 @@
+.card-signup .header {
+    padding: 15px 0;
+}
+
 .nav-tabs > li.active > a{
     border-width: 2px !important;
 }

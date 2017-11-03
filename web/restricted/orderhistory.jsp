@@ -3,6 +3,9 @@
 
 <%@ page import="utils.Utils" %>
 
+<jsp:include page="header.jsp" flush="true"/>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +21,7 @@
     <link href="../css/orderhistory.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<jsp:include page="header.jsp" flush="true"/>
+
 
 <jsp:useBean id="user" class="main.User" scope="session"/>
 <jsp:useBean id="orderDao" class="daos.impl.OrderDaoImpl"/>
@@ -28,17 +31,6 @@
     <div class="row">
         <div class="col-md-12">
             <h1 id="title" class="text-uppercase">Lista ordini:</h1>
-            <!--ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active"><i class="fa fa-home"></i>&nbsp;Tutti gli ordini</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Ordini in corso</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Ordini Completati</a>
-                </li>
-            </ul-->
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#TuttiGliOrdini">Tutti gli ordini</a></li>
                 <li><a data-toggle="tab" href="#OrdiniInCorso">Ordini in corso</a></li>
@@ -100,7 +92,7 @@
                                                                             <button type="button" class="btn btn-default btn-block margin-btn">Consegna avvenuta!</button>
                                                                         </div>
                                                                         <div class="row">
-                                                                            <button type="button" class="btn btn-default btn-block margin-btn">Apri disputa</button>
+                                                                            <button type="button" class="btn btn-default btn-block margin-btn" onclick="openDisputeModal(${order.orderID},${po.product.productID},${po.product.shopID})">Apri disputa</button>
                                                                         </div>
                                                                     </c:when>
                                                                     <c:when test="${po.getStatus() == 1}">
@@ -188,7 +180,7 @@
                                                                         <button type="button" class="btn btn-default btn-block margin-btn">Consegna avvenuta!</button>
                                                                     </div>
                                                                     <div class="row">
-                                                                        <button type="button" class="btn btn-default btn-block margin-btn">Apri disputa</button>
+                                                                        <button type="button" class="btn btn-default btn-block margin-btn" data-toggle="modal" data-target="#opendisputemodal">Apri disputa</button>
                                                                     </div>
                                                                 </div>
                                                             </a>
@@ -284,60 +276,43 @@
                     </c:choose>
                 </div>
             </div>
-            <!--div class="list-group">
-              <a href="#" class="list-group-item">
-                <div class="media col-md-3">
-                  <figure class="pull-left">
-                    <img class="media-object img-rounded img-responsive" src="250x250.png" alt="placehold.it/350x250"> </figure>
-                </div>
-                <div class="col-md-6">
-                  <h4 class="list-group-item-heading"> Lampada Grosa </h4>
-                  <p class="list-group-item-text"> Qui diam libris ei, vidisse incorrupte at mel. His euismod salutandi dissentiunt eu. Habeo offendit ea mea. Nostro blandit sea ea, viris timeam molestiae an has. At nisl platonem eum. Vel et nonumy gubergren, ad has tota facilis probatus.
-                    Ea legere legimus tibique cum, sale tantas vim ea, eu vivendo expetendis vim. Voluptua vituperatoribus et mel, ius no elitr deserunt mediocrem. Mea facilisi torquatos ad. </p>
-                </div>
-                <div class="col-md-3 text-center">
-                  <h2> 14240 <small> votes </small></h2>
-                  <button type="button" class="btn btn-block btn-default"> Vote Now! </button>
-                  <div class="stars"> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star-o"></span> </div>
-                  <p> Average 4.5 <small> / </small> 5 </p>
-                </div>
-              </a>
-              <a href="#" class="list-group-item">
-                <div class="media col-md-3">
-                  <figure class="pull-left">
-                    <img class="media-object img-rounded img-responsive" src="250x250.png" alt="placehold.it/350x250"> </figure>
-                </div>
-                <div class="col-md-6">
-                  <h4 class="list-group-item-heading"> List group heading </h4>
-                  <p class="list-group-item-text"> Qui diam libris ei, vidisse incorrupte at mel. His euismod salutandi dissentiunt eu. Habeo offendit ea mea. Nostro blandit sea ea, viris timeam molestiae an has. At nisl platonem eum. Vel et nonumy gubergren, ad has tota facilis probatus.
-                    Ea legere legimus tibique cum, sale tantas vim ea, eu vivendo expetendis vim. Voluptua vituperatoribus et mel, ius no elitr deserunt mediocrem. Mea facilisi torquatos ad. </p>
-                </div>
-                <div class="col-md-3 text-center">
-                  <h2> 14240 <small> votes </small></h2>
-                  <button type="button" class="btn btn-block btn-default"> Vote Now! </button>
-                  <div class="stars"> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star-o"></span> </div>
-                  <p> Average 4.5 <small> / </small> 5 </p>
-                </div>
-              </a>
-              <a href="#" class="list-group-item">
-                <div class="media col-md-3">
-                  <figure class="pull-left">
-                    <img class="media-object img-rounded img-responsive" src="250x250.png" alt="placehold.it/350x250"> </figure>
-                </div>
-                <div class="col-md-6">
-                  <h4 class="list-group-item-heading"> List group heading </h4>
-                  <p class="list-group-item-text"> Qui diam libris ei, vidisse incorrupte at mel. His euismod salutandi dissentiunt eu. Habeo offendit ea mea. Nostro blandit sea ea, viris timeam molestiae an has. At nisl platonem eum. Vel et nonumy gubergren, ad has tota facilis probatus.
-                    Ea legere legimus tibique cum, sale tantas vim ea, eu vivendo expetendis vim. Voluptua vituperatoribus et mel, ius no elitr deserunt mediocrem. Mea facilisi torquatos ad. </p>
-                </div>
-                <div class="col-md-3 text-center">
-                  <h2> 14240 <small> votes </small></h2>
-                  <button type="button" class="btn btn-block btn-default"> Vote Now! </button>
-                  <div class="stars"> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star-o"></span> </div>
-                  <p> Average 4.5 <small> / </small> 5 </p>
-                </div>
-              </a>
-          </div-->
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="opendisputemodal" tabindex="-1" role="dialog">
+    <div class="row">
+        <div id="opendisputecard" class="card card-signup centerize" data-background-color="orange">
+            <form id="opendisputeform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/opendispute">
+                <div class="header header-primary text-center">
+                    <h4 id="card_titolo" class="title title-up" >Apri Disputa</h4>
+                </div>
+                <div class="content">
+                    <input id="orderIdDisputeModal" type="text" class="hidden" name="orderID" placeholder="">
+                    <input id="productIdDisputeModal" type="text" class="hidden" name="productID" placeholder="">
+                    <input id="shopIdDisputeModal" type="text" class="hidden" name="shopID" placeholder="">
+
+                    <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user-o green" aria-hidden="true"></i>
+                          </span>
+                        <input type="text" class="form-control" name="title" placeholder="Titolo...">
+                    </div>
+                    <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user-o green" aria-hidden="true"></i>
+                          </span>
+                        <input type="text" class="form-control" name="description" placeholder="Descrivi anomalia...">
+                    </div>
+                </div>
+                <div class="footer text-center" style="margin-top: 15px;">
+                    <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#opendisputeform').submit();">Invia</a>
+                    <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#opendisputemodal').modal('toggle');});">Chiudi</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../js/orderhistory.js"></script>
+
 </body></html>
