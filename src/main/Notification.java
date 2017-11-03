@@ -1,10 +1,9 @@
 package main;
 
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Notification implements Serializable{
+public class Notification implements Serializable {
 
     private int shopStatus;
     private int shopId;

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <html><head>
@@ -14,6 +15,8 @@
 <body>
 
 <jsp:useBean id="user" class="main.User" scope="session"/>
+<!--jsp:useBean id="notifications" class="java.util.ArrayList"/-->
+<jsp:useBean id="notificationdao" class="daos.impl.NotificationDaoImpl"/>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -33,10 +36,55 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
                 <c:if test="${user.hasShop()}">
-                    <li><a href="#">65&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i></a></li>
+                    <c:set var="vendor_notifications" value="${notificationdao.getVendorNotifications(user)}" scope="page"/>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                ${fn:length(vendor_notifications)}&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Notifiche Venditore</li>
+                            <c:choose>
+                                <c:when test="${fn:length(vendor_notifications) == 0}">
+                                    <li><a>Nessuna nuova notifica</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${vendor_notifications}" var="n">
+                                        <li>
+                                            <a>Notifica:<br>Data: ${n.creationDate}
+                                            </a>
+                                        </li>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Vedi tutte</a></li><!-- TODO: inserire link pagina/sistemare formattazione notifiche -->
+                        </ul>
+                    </li>
                 </c:if>
                 <c:if test="${user.type == 1}">
-                    <li><a href="#">23&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i></a></li>
+                    <c:set var="admin_notifications" value="${notificationdao.getAdminNotifications()}" scope="page"/>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                ${fn:length(admin_notifications)}&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Notifiche Admin</li>
+                            <c:choose>
+                                <c:when test="${fn:length(admin_notifications) == 0}">
+                                    <li><a>Nessuna nuova notifica</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${admin_notifications}" var="n">
+                                        <li>
+                                            <a>Disputa:<br>Order: ${n.orderId} Product: ${n.productId} Shop: ${n.shopId}<br>Data: ${n.creationDate}</a>
+                                        </li>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Vedi tutte</a></li><!-- TODO: inserire link pagina/sistemare formattazione notifiche -->
+                        </ul>
+                    </li>
                 </c:if>
             </ul>
             <ul class="nav navbar-nav navbar-center">
