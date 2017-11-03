@@ -51,6 +51,6 @@ public class OpenDisputeServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("orderhistory.jsp");
+        response.sendRedirect("index.jsp?error=Percorso invalido");
     }
 }

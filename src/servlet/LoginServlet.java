@@ -15,6 +15,11 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getParameter("email") == null || request.getParameter("password") == null){
+            response.sendRedirect("/index.jsp?error=Parametri Mancanti");
+            return;
+        }
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         System.out.println("Parametri: " + email + " " + password);
@@ -24,7 +29,7 @@ public class LoginServlet extends HttpServlet {
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         if (user == null) {
 
-            response.sendRedirect(request.getContextPath() + "/index.jsp?action=login_error");
+            response.sendRedirect("/index.jsp?action=login_error");
         }
         else {
             // imposto l'utente connesso come attributo di sessione
@@ -32,13 +37,11 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", user);
 
             // mando un redirect alla servlet che carica i prodotti
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
-
-
+            response.sendRedirect("/index.jsp");
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.sendRedirect("index.jsp?error=Percorso invalido");
     }
 }

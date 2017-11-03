@@ -41,6 +41,14 @@
         La mail inserita è già in uso!
     </div>
 </c:if>
+
+<!-- general error, see passed parameter -->
+<c:if test="${not empty param.error}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        ERRORE: ${param.error}
+    </div>
+</c:if>
 <div class="container-fluid dynamicTile">
     <div class="row">
         <div class="col-sm-2 col-xs-4">

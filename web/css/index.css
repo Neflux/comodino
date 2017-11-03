@@ -42,6 +42,10 @@ body>.container-fluid{
     background: rgb(200, 154, 47);
 }
 
+.tile{
+    overflow: hidden;
+}
+
 .tilecaption{
     position: relative;
     top: 50%;
