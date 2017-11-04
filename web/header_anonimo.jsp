@@ -83,7 +83,7 @@
                           <span class="input-group-addon">
                               <i class="fa fa-envelope-o green" aria-hidden="true"></i>
                           </span>
-                        <input type="text" class="form-control" name="email" placeholder="Email...">
+                        <input type="text" class="form-control" name="email" placeholder="Email..." autofocus>
                     </div>
                     <div class="input-group form-group-no-border">
                           <span class="input-group-addon">

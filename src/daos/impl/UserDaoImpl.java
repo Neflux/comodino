@@ -260,4 +260,19 @@ public class UserDaoImpl implements UserDao {
         }
         return null;
     }
+
+    public boolean acceptPrivacy (User user){
+        try {
+            PreparedStatement stm = this.con.prepareStatement("UPDATE user SET Privacy = 1 WHERE UserID = ?");
+            stm.setInt(1, user.getUserID());
+            int result = stm.executeUpdate();
+            if (result == 0){
+                return false;
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

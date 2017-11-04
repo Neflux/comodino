@@ -1,7 +1,8 @@
 package filters;
 
+import main.User;
+
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,8 +28,18 @@ public class AuthenticationFilter implements Filter {
             System.out.println("[INFO] Auth Filter: L'utente non è loggato");
             res.sendRedirect("/");
         }
-        else
-            filterChain.doFilter(servletRequest,servletResponse);
+        else {
+            User u = (User)session.getAttribute("user");
+            if (u.getPrivacy() == 0){
+                System.out.println("    Privacy not accepted yet.");
+                String path = req.getRequestURI();
+                if (!path.endsWith("profile.jsp") && !path.endsWith("/acceptprivacy") && !path.endsWith("/logout")) {
+                    res.sendRedirect("profile.jsp?action=privacy_not_accepted");
+                    return;
+                }
+            }
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
     }
 
     @Override

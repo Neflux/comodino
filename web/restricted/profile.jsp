@@ -51,6 +51,25 @@
         Info non modificate!
     </div>
 </c:if>
+<c:if test="${param.action == 'privacy_accepted'}">
+    <div id="popup" class="alert alert-success alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Privacy accettata!
+    </div>
+</c:if>
+<c:if test="${param.action == 'privacy_not_accepted'}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        È necessario accettare la privacy!
+    </div>
+</c:if>
+<!-- general error, see passed parameter -->
+<c:if test="${not empty param.error}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        ERRORE: ${param.error}
+    </div>
+</c:if>
 <div class="container">
     <div class="row" style="margin: 0 0 10px 0;">
         <div class="col-md-12 text-center">
@@ -70,6 +89,13 @@
             </h1>
         </div>
     </div>
+    <c:if test="${user.privacy == 0}">
+    <div class="row" style="margin: 0 0 15px 0;">
+        <div class="col-md-4 col-md-offset-4">
+            <a class="btn btn-block btn-warning text-capitalize" href="${pageContext.request.contextPath}/restricted/acceptprivacy"><i class="fa fa-fw fa-lock pull-left"></i>Accetta privacy</a>
+        </div>
+    </div>
+    </c:if>
     <div class="row" style="margin: 0 0 15px 0;">
         <div class="col-md-4">
             <a class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#changePwd"><i class="fa fa-fw fa-lock pull-left"></i>Modifica Password</a>
