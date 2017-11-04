@@ -1,18 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="main.User" %>
-<%@ page import="daos.impl.ShopDaoImpl" %>
 <%@ page import="main.Shop" %>
-<%@ page import="daos.impl.UserDaoImpl" %>
 
-<%
-    User usr = (User) session.getAttribute("user");
-    if ( usr == null || usr.getEmail() == null || !usr.hasShop()) {
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
-    }
-%>
 
-<jsp:include page="header.jsp" flush="true" />
+<c:if test="${not empty user}">
+    <jsp:include page="/restricted/header.jsp" flush="true" />
+</c:if>
+<c:if test="${empty user}">
+    <jsp:include page="/header_anonimo.jsp" flush="true" />
+</c:if>
 
 <html>
     <head>
@@ -22,27 +19,16 @@
         <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="css/custom.min.css" rel="stylesheet" type="text/css">
-        <link href="css/my.css" rel="stylesheet" type="text/css">
-        <link href="css/vendor.css" rel="stylesheet" type="text/css">
+        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="../css/custom.min.css" rel="stylesheet" type="text/css">
+        <link href="../css/my.css" rel="stylesheet" type="text/css">
+        <link href="../css/vendor.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+    <c:if test="${!sessionScope.user.hasShop()}">
+        <c: redirect url="/index.jsp" flush="true"/>
+    </c:if>
             <div style="margin-top:+35px !important;" class="container">
-                <%
-                    //trick di ldb
-                    //non si può sfruttare la query che fa il check subito (hasShop?)
-                    //non possiamo avere ridondanza nel database, ma nel server java si..
-                    //se cambiassimo approccio completamente?
-                    Shop shop = new ShopDaoImpl().getShop(new UserDaoImpl().getShopID(usr));
-                    System.out.println(shop.getName());
-                    String imageSrc = "data:image/gif;base64," + shop.getImageData();
-                    if(imageSrc.equals("data:image/gif;base64,")){
-                        imageSrc = "http://via.placeholder.com/400x300";
-                    }
-                    /*String imageSrc = "http://via.placeholder.com/400x300";
-                    Shop shop = new Shop();*/
-                %>
                 <div class="row">
                     <div class="col-md-4" id="navbar">
                         <div class="col-md-12">
@@ -242,6 +228,6 @@
                     </div>
                 </div>
         </div>
-        <script type="text/javascript" src="js/vendor.js"></script>
+        <script type="text/javascript" src="../js/vendor.js"></script>
     </body>
 </html>
