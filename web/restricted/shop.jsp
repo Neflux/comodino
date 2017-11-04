@@ -1,13 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="main.User" %>
-<%@ page import="main.Shop" %>
+
+<jsp:useBean id="user" class="main.User" scope="session"/>
 
 
-<c:if test="${not empty user}">
+
+<c:if test="${not empty sessionScope.user}">
     <jsp:include page="/restricted/header.jsp" flush="true" />
 </c:if>
-<c:if test="${empty user}">
+<c:if test="${empty sessionScope.user}">
     <jsp:include page="/header_anonimo.jsp" flush="true" />
 </c:if>
 
@@ -28,13 +29,16 @@
     <c:if test="${!sessionScope.user.hasShop()}">
         <c: redirect url="/index.jsp" flush="true"/>
     </c:if>
+    <c:if test="${sessionScope.user.hasShop()}">
+        <jsp:useBean id="shop" class="main.Shop" scope="session"/>
+    </c:if>
             <div style="margin-top:+35px !important;" class="container">
                 <div class="row">
                     <div class="col-md-4" id="navbar">
                         <div class="col-md-12">
                             <a id="shopPhoto" href="#"><img src='<%=imageSrc%>' class="img-responsive"></a>
-                            <h1 id="shopTitle" class="text-center"><%=shop.getName()%></h1>
-                            <h4 id="shopEmailWebsite" class="text-center text-info"><a href="<%=shop.getWebsite()%>"><%=shop.getWebsite()%></a></h4>
+                            <h1 id="shopTitle" class="text-center">${shop.name}</h1>
+                            <h4 id="shopEmailWebsite" class="text-center text-info"><a href="${shop.website}"></a></h4>
                             <p><%=shop.getDescription()%></p>
                             <div class="row text-center">
 
