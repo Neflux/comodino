@@ -76,23 +76,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean hasShop(User user) {
-        if (user == null)
-            return false;
-        try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM usershop WHERE UserID = ?");
-            stm.setInt(1,user.getUserID());
-            ResultSet rs = stm.executeQuery();
-            if (rs.next()){
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
     public int getShopID (User user) {
         if (user == null)
             return 0;
@@ -132,6 +115,7 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
+    @Override
     public void decreaseCartItem(User user, int productID, int shopID){
         if (user == null)
             return;
@@ -155,6 +139,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
     public void addCartItem(User user, int productID, int shopID){
         if (user == null)
             return;
@@ -213,7 +198,7 @@ public class UserDaoImpl implements UserDao {
         user.setLastName(rs.getString("LastName"));
         user.setEmail(rs.getString("Email"));
         user.setType(rs.getInt("Type"));
-        user.updateHasShop();
+        user.updateShopID();
         user.updateCart();
         user.setPrivacy(rs.getInt("Privacy"));
         return user;
@@ -229,6 +214,7 @@ public class UserDaoImpl implements UserDao {
         return new Pair<>(p,rs.getInt("Quantity"));
     }
 
+    @Override
     public User register(String firstname, String lastname, String email, String password) {
         if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() | password.isEmpty())
             return null;
@@ -261,6 +247,7 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
+    @Override
     public boolean acceptPrivacy (User user){
         try {
             PreparedStatement stm = this.con.prepareStatement("UPDATE user SET Privacy = 1 WHERE UserID = ?");

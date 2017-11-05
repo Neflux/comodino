@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
             if (user.hasShop()) {
-                Shop shop = new ShopDaoImpl().getShop(new UserDaoImpl().getShopID(user));
+                Shop shop = new ShopDaoImpl().getShop(user.getShopID());
                 session.setAttribute("shop", shop);
             }
             // mando un redirect alla servlet che carica i prodotti
