@@ -54,18 +54,52 @@
         </div>
         <div class="col-md-6">
             <h1>${product.productName}</h1>
-            <h2>${product.price}</h2>
-            <h2>Rating</h2>
-            <h2>Venduto da
-                <a href="#">venditore</a>
+            <c:choose>
+                <c:when test="${product.price != product.actualPrice}">
+                    <h2><span class="strikethrough">${product.price} €</span>&nbsp<span class="text-right">${product.actualPrice} €</></h2>
+                </c:when>
+                <c:otherwise>
+                    <h2>${product.price} €</h2>
+                </c:otherwise>
+            </c:choose>
+            <h2><%
+                //int rc = (int)product.getReviewCount();
+                //String review = ((rc>0)?((rc>1)?rc+" recensioni":"1 recensione"):"Nessuna recensione");
+                int i = 0;
+                for(; i < product.getRating();i++){
+            %>
+                <i class="fa fa-star rating_star" aria-hidden="true"></i>
+                <%
+                    }
+                    for(; i < 5 ;i++){
+                %>
+                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                <%
+                    }
+                %>&nbsp&nbsp<span class="text-right"><%=product.getRating()%></>
+
             </h2>
+
+            <h2>Venduto da <a href="#">${product.shopName}</a></h2>
             <a class="btn btn-primary"><i class="fa fa-fw fa-home pull-left"></i>Visualizza venditori nelle
                 vicinanze</a>
-            <p>descrizione akshalnscxaljhconalknc aonxkan xlkn</p>
-            <h2>Disponibilità:
-                <span>42</span>
-            </h2>
-            <a class="btn btn-primary"><i class="fa fa-fw pull-left fa-shopping-cart"></i>Aggiungi al carrello</a>
+            <p><br>${product.description}</p>
+            <c:choose>
+                <c:when test="${product.quantity > 0}">
+                    <h2>Disponibilità: <span>${product.quantity}</span></h2>
+                </c:when>
+                <c:otherwise>
+                    <h2>Il prodotto non è al momento disponibile.</h2>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${sessionScope.user != null}">
+                    <a href="javascript:void(0);" class="btn btn-primary" onclick="addToCart('<%=product.getProductID()%>','<%=product.getShopID()%>');"><i class="fa fa-fw pull-left fa-shopping-cart"></i>Aggiungi al carrello</a>
+                </c:when>
+                <c:otherwise>
+                    <a class="btn btn-primary" href="#"><i class="fa fa-fw pull-left fa-shopping-cart"></i>Aggiungi al carrello</a>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
@@ -94,4 +128,6 @@
 
 
 </body>
+<script type="text/javascript" src="js/search/product.js"></script>
+
 </html>
