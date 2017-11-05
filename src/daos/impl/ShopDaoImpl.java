@@ -12,9 +12,7 @@ import java.sql.SQLException;
 public class ShopDaoImpl implements ShopDao {
     private Connection con;
 
-    public ShopDaoImpl(){}
-
-    public ShopDaoImpl(Connection con) {
+    public ShopDaoImpl(){
         this.con = DBManager.getCon();
     }
 
