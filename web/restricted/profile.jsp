@@ -4,21 +4,20 @@
 
 <jsp:useBean id="user" class="main.User" scope="session"/>
 
+
+
+<jsp:include page="header.jsp" flush="true"/>
+
+
 <html lang="it">
 <head>
     <title>Profilo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/profile.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="../css/custom.min.css" rel="stylesheet" type="text/css">
-    <link href="../css/my.css" rel="stylesheet" type="text/css">
     <link href="../css/user_profile.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<jsp:include page="header.jsp" flush="true"/>
 
 <c:if test="${param.action == 'password_changed'}">
     <div id="popup" class="alert alert-success alert-dismissable fade in">
@@ -115,7 +114,7 @@
             <a class="btn btn-block btn-success text-capitalize" href=" #"><i class="fa fa-fw pull-left fa-warning"></i>Dispute</a>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-block btn-success text-capitalize" href="#"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio/negozio</a>
+            <a class="btn btn-block btn-success text-capitalize" href="shop.jsp"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio / negozio</a>
         </div>
     </div>
 </div>
