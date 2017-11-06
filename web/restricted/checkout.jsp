@@ -24,7 +24,7 @@ else{
 
 
     <div>
-      <div class="container">
+      <div class="container bcontainer">
         <div class="row">
           <div class="col-md-12">
             <h1 class="display-1">Modalità di consegna</h1>
@@ -75,7 +75,7 @@ else{
             </div>
           </div>
         </div>
-        <div class="container" style="margin: 0">
+        <div class="container bcontainer" style="margin: 0">
           <div class="row">
             <div class="col-md-12">
               <div class="radio">&nbsp;
