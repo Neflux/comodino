@@ -1,3 +1,4 @@
+<%@ page import="java.util.Map" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -46,32 +47,72 @@
                         </ul>
                         <h3 class="text-center" data-toggle="collapse" data-target="#venditori_accordion" style="cursor:pointer;">Venditori</h3>
                         <ul class="list-group collapse in" aria-expanded="true" id="venditori_accordion">
+                            <%
+                                // Trick obbligatorio in scriplet che dimostra l'inferiorità di jstl
+                                String[] vendor = request.getParameterValues("vendor");
+                                pageContext.setAttribute("vendor", vendor);
+                            %>
                             <c:if test="${not empty requestScope.vendors}">
-                                <c:forEach var="iven" items="${requestScope.vendors}">
-                                    <c:choose>
-                                        <c:when test="${param.vendor == iven}">
-                                            <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}" onclick="filter(this,'vendor');" checked/> ${iven}</li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}" onclick="filter(this,'vendor');" /> ${iven}</li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${not empty pageScope.vendor}">
+                                        <c:forEach var="iven" items="${requestScope.vendors}">
+                                            <c:set var="found" value="false" scope="page"/>
+                                            <c:forEach var="ivan" items="${pageScope.vendor}">
+                                                <c:if test="${ivan eq iven}">
+                                                    <c:set var="found" value="true" scope="page"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            <c:choose>
+                                                <c:when test="${found eq true}">
+                                                    <li class="list-group-item"><input type="checkbox" iven="${iven}" name="${iven}" value="${iven}" onclick="filter(this,'vendor');"/> ${iven}</li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="list-group-item"><input type="checkbox" civen="${iven}" name="${iven}" value="${iven}" onclick="filter(this,'vendor');" checked/> ${iven}</li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="iven" items="${requestScope.vendors}">
+                                            <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}" onclick="filter(this,'vendor');" checked /> ${iven}</li>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:if>
                         </ul>
                         <h3 class="text-center" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">Area Geografica</h3>
                         <ul class="list-group collapse in" aria-expanded="true" id="geozone_accordion">
+                            <%
+                                // Trick obbligatorio in scriplet che dimostra l'inferiorità di jstl
+                                String[] geo = request.getParameterValues("geo");
+                                pageContext.setAttribute("geozone", geo);
+                            %>
                             <c:if test="${not empty requestScope.geozone}">
-                                <c:forEach var="igeo" items="${requestScope.geozone}">
-                                    <c:choose>
-                                        <c:when test="${param.geozone == igeo}">
-                                            <li class="list-group-item"><input type="checkbox" name="${igeo}" value="${igeo}" onclick="filter(this,'geo');" checked/> ${igeo}</li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li class="list-group-item"><input type="checkbox" name="${igeo}" value="${igeo}" onclick="filter(this,'geo');"/> ${igeo}</li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${not empty pageScope.geozone}">
+                                        <c:forEach var="iven" items="${requestScope.geozone}">
+                                            <c:set var="found" value="false" scope="page"/>
+                                            <c:forEach var="ivan" items="${pageScope.geozone}">
+                                                <c:if test="${ivan eq iven}">
+                                                    <c:set var="found" value="true" scope="page"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            <c:choose>
+                                                <c:when test="${found eq true}">
+                                                    <li class="list-group-item"><input type="checkbox" iven="${iven}" name="${iven}" value="${iven}" onclick="filter(this,'geo');"/> ${iven}</li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="list-group-item"><input type="checkbox" civen="${iven}" name="${iven}" value="${iven}" onclick="filter(this,'geo');" checked/> ${iven}</li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="iven" items="${requestScope.geozone}">
+                                            <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}" onclick="filter(this,'geo');" checked /> ${iven}</li>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:if>
                         </ul>
                         <h3 class="text-center">Prezzo</h3>
@@ -149,10 +190,10 @@
                                 </div>
                                 <div class="col-md-3">
 
-                                    <c:forEach begin="0" end="${prod.value.getList().get(0).getRating()}" varStatus="loop">
+                                    <c:forEach begin="1" end="${prod.value.getList().get(0).getRating()}" varStatus="loop">
                                         <i class="fa fa-star rating_star" aria-hidden="true"></i>
                                     </c:forEach>
-                                    <c:forEach begin="0" end="${4-prod.value.getList().get(0).getRating()}" varStatus="loop">
+                                    <c:forEach begin="0" end="${5-prod.value.getList().get(0).getRating()}" varStatus="loop">
                                         <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
                                     </c:forEach>
                                     <fmt:formatNumber var="rc" value="${prod.value.getReviewCount()}" />
