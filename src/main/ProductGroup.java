@@ -33,7 +33,7 @@ public class ProductGroup implements Serializable {
     }
 
     public void setImageData(String imageData) {
-        this.imageData = imageData;
+        this.imageData = "data:image/gif;base64," + imageData;
     }
 
     public List<Shop> getVendors() {
