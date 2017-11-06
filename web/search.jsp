@@ -144,7 +144,7 @@
                                 </div>
                                 <div class="col-md-7 text-left">
                                     <h2>${prod.value.getList().get(0).getProductName()}</h2>
-                                    <p>Venduto da <a href="javascript:void(0);">${prod.value.getList().get(0).getProductName()}</a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</span></p>
+                                    <p>Venduto da <a href="javascript:void(0);">${prod.value.getList().get(0).getShopName()}</a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</span></p>
                                     <h1 class="prezzo">${prod.value.getList().get(0).getActualPrice()} €</h1>
                                 </div>
                                 <div class="col-md-3">
