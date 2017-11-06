@@ -1,9 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="main.Product" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="main.ProductGroup" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!doctype html>
@@ -159,15 +155,17 @@
                                     <c:forEach begin="0" end="${4-prod.value.getList().get(0).getRating()}" varStatus="loop">
                                         <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
                                     </c:forEach>
+                                    <fmt:formatNumber var="rc" value="${prod.value.getReviewCount()}" />
+                                    <!-- da testare i due primi when -->
                                     <c:choose>
-                                        <c:when test="${prod.value.getReviewCount() == 0}">
+                                        <c:when test="${rc == 0}">
                                             &nbsp&nbsp<span class="text-right">Nessuna recensione</span>
                                         </c:when>
-                                        <c:when test="${prod.value.getReviewCount() == 1}">
+                                        <c:when test="${rc == 1}">
                                             &nbsp&nbsp<span class="text-right">1 recensione</span>
                                         </c:when>
                                         <c:otherwise>
-                                            &nbsp&nbsp<span class="text-right">${prod.value.getReviewCount()} recensioni</>
+                                            &nbsp&nbsp<span class="text-right">${rc} recensioni</>
                                         </c:otherwise>
                                     </c:choose>
                                     <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
