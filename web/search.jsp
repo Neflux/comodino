@@ -224,7 +224,7 @@
                             </c:choose>
                         </div>
                         <div class="col-md-7 text-left">
-                            <h2>${prod.value.getList().get(0).getProductName()}</h2>
+                            <h2><a style="color:#2c3e50" href="/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
                             <p>Venduto da <a href="javascript:void(0);">${prod.value.getList().get(0).getShopName()}</a>&nbsp&nbsp<span
                                     style="font-size:12px">o da altri <a href="javascript:void(0);"
                                                                          onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</span>
