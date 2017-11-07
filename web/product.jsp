@@ -70,7 +70,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <fmt:formatNumber var="rat" value="${product.rating}" />
+            <fmt:formatNumber var="rat" groupingUsed = "false" maxFractionDigits = "0" value="${product.rating} " />
 
             <c:choose>
                 <c:when test="${rat ge 0}">

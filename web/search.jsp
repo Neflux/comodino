@@ -239,7 +239,7 @@
                             <c:forEach begin="0" end="${5 - prod.value.getList().get(0).getRating()}" varStatus="loop">
                                 <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
                             </c:forEach>
-                            <fmt:formatNumber var="rc" value="${prod.value.getReviewCount()}"/>
+                            <fmt:formatNumber var="rc" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getReviewCount()}"/>
                             <!-- da testare i due primi when -->
                             <c:choose>
                                 <c:when test="${rc == 0}">
