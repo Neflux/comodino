@@ -32,7 +32,7 @@
         <div class="col-md-2">
             <div class="search_row" style="margin-left:-25%;height:100%;">
                 <h3 class="text-center" data-toggle="collapse" data-target="#categorie_accordion"
-                    style="cursor:pointer;">Categorie</h3>
+                    style="cursor:pointer;">Categorie <span class="caret"></span></h3>
                 <ul class="list-group collapse in" aria-expanded="true" id="categorie_accordion">
                     <c:if test="${not empty requestScope.categories}">
                         <c:forEach var="icat" items="${requestScope.categories}">
@@ -51,7 +51,7 @@
                     </c:if>
                 </ul>
                 <h3 class="text-center" data-toggle="collapse" data-target="#venditori_accordion"
-                    style="cursor:pointer;">Venditori</h3>
+                    style="cursor:pointer;">Venditori <span class="caret"></span></h3>
                 <ul class="list-group collapse in" aria-expanded="true" id="venditori_accordion">
                     <%
                         // Trick obbligatorio in scriplet che dimostra l'inferiorità di jstl
@@ -95,7 +95,7 @@
                     </c:if>
                 </ul>
                 <h3 class="text-center" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">
-                    Area Geografica</h3>
+                    Area Geografica <span class="caret"></span></h3>
                 <ul class="list-group collapse in" aria-expanded="true" id="geozone_accordion">
                     <%
                         // Trick obbligatorio in scriplet che dimostra l'inferiorità di jstl
