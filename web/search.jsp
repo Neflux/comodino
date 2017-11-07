@@ -184,8 +184,8 @@
                                     </c:choose>
                                 </div>
                                 <div class="col-md-7 text-left">
-                                    <h2>${prod.value.getList().get(0).getProductName()}</h2>
-                                    <p>Venduto da <a href="javascript:void(0);">${prod.value.getList().get(0).getShopName()}</a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</span></p>
+                                    <h2><a href="/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}" style="color:#2c3e50">${prod.value.getList().get(0).getProductName()}</a></h2>
+                                    <p>Venduto da <a href="bonnnnyyyy">${prod.value.getList().get(0).getShopName()}</a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${   prod.value.getList().size()}</a> venditori</span></p>
                                     <h1 class="prezzo">${prod.value.getList().get(0).getActualPrice()} €</h1>
                                 </div>
                                 <div class="col-md-3">
