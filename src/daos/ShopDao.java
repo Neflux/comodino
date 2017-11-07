@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public interface ShopDao extends Serializable {
+
     /**
      *  ritorna un oggetto Shop con tutte le info sul venditore
      *
@@ -17,4 +18,6 @@ public interface ShopDao extends Serializable {
     Shop getShop(int shopID);
 
     Map<String, ProductGroup> getProducts(String id) throws SQLException;
+
+    String[] getImage(int shopID) throws SQLException;
 }

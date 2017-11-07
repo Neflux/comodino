@@ -5,6 +5,7 @@ import db.DBManager;
 import main.Product;
 import main.ProductGroup;
 import main.Shop;
+import utils.Utils;
 
 import java.sql.*;
 import java.util.Base64;
@@ -105,6 +106,20 @@ public class ShopDaoImpl implements ShopDao {
         return products;
     }
 
+    @Override
+    public String[] getImage(int shopID) throws SQLException {
+        PreparedStatement stm = con.prepareStatement("SELECT * FROM shopphoto WHERE shopphoto.ShopID = ?");
+        stm.setInt(1, shopID);
+        ResultSet rs = stm.executeQuery();
+        String [] imgBase64 = new String[10];
+        imgBase64[0] = Utils.getStringfromBlob(rs.getBlob("Image"));
+        int i = 1;
+        while (rs.next()) {
+         imgBase64[i] = Utils.getStringfromBlob(rs.getBlob("Image"));
+        }
+        return imgBase64;
+    }
+
     private Shop extractShopFromResultSet(ResultSet rs) throws SQLException {
         if(!rs.next()){
             return null;
@@ -118,3 +133,4 @@ public class ShopDaoImpl implements ShopDao {
         return shop;
     }
 }
+
