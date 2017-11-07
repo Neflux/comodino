@@ -114,7 +114,7 @@
             <a class="btn btn-block btn-success text-capitalize" href=" #"><i class="fa fa-fw pull-left fa-warning"></i>Dispute</a>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-block btn-success text-capitalize" href="shop.jsp"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio / negozio</a>
+            <a class="btn btn-block btn-success text-capitalize" href="shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio / negozio</a>
         </div>
     </div>
 </div>
