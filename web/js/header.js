@@ -1,3 +1,26 @@
+$(function(){
+
+    $(".input-group-btn .dropdown-menu li a").click(function(){
+
+        var selText = $(this).html();
+        console.log("#"+selText.split(' ').join('')+"-radio");
+        var radio = $("#"+selText.split(' ').join('')+"-radio");
+        if(selText === "Tutte le categorie"){
+            $('input[name="cat"]').prop('checked', false);
+        }
+        else {
+            radio.prop("checked", true);
+        }
+        selText += "&nbsp;&nbsp;<span class=\"caret\"></span>";
+        //working version - for multiple buttons //
+        $(this).parents('.input-group-btn').find('.btn-search').html(selText);
+
+    });
+
+});
+
+
+
 function show_login()
 {
     $('.nologin').each(function () {
