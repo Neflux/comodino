@@ -114,7 +114,15 @@
             <a class="btn btn-block btn-success text-capitalize" href=" #"><i class="fa fa-fw pull-left fa-warning"></i>Dispute</a>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-block btn-success text-capitalize" href="shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio / negozio</a>
+            <c:choose>
+                <c:when test="${user.shopID > 0}">
+                    <a class="btn btn-block btn-success text-capitalize" href="shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Negozio</a>
+                </c:when>
+                <c:otherwise>
+                    <a class="btn btn-block btn-success text-capitalize" href="profile.jsp?error=Ancora da fare"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio</a>
+                </c:otherwise>
+            </c:choose>
+
         </div>
     </div>
 </div>
