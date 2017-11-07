@@ -249,7 +249,7 @@
                                     &nbsp&nbsp<span class="text-right">1 recensione</span>
                                 </c:when>
                                 <c:otherwise>
-                                    &nbsp&nbsp<span class="text-right">${rc} recensioni</>
+                                    &nbsp&nbsp<span class="text-right">${rc} recensioni</span>
                                 </c:otherwise>
                             </c:choose>
                             <a href="javascript:void(0);" class="btn btn-default margins"

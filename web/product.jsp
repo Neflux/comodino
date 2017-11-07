@@ -1,20 +1,27 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:if test="${sessionScope.user != null}">
+
+<jsp:useBean id="user" class="main.User" scope="session"/>
+<jsp:useBean id="product" class="main.Product" scope="request"/>
+<jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl" scope="page"/>
+<c:set var="reviewList" value="${reviewDao.getProductReview(product.productID)}" scope="page"/>
+
+<c:if test="${user != null}">
     <jsp:include page="/restricted/header.jsp" flush="true"/>
 </c:if>
-<c:if test="${sessionScope.user == null}">
+<c:if test="${user == null}">
     <jsp:include page="/header_anonimo.jsp" flush="true"/>
 </c:if>
+
 
 <html lang="it">
 <head>
     <link href="css/product.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
-<jsp:useBean id="product" class="main.Product" scope="request"/>
 
 <div class="container">
     <div class="row">
@@ -62,23 +69,39 @@
                     <h2>${product.price} €</h2>
                 </c:otherwise>
             </c:choose>
-            <h2><%
-                //int rc = (int)product.getReviewCount();
-                //String review = ((rc>0)?((rc>1)?rc+" recensioni":"1 recensione"):"Nessuna recensione");
-                int i = 0;
-                for(; i < product.getRating();i++){
-            %>
-                <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                <%
-                    }
-                    for(; i < 5 ;i++){
-                %>
-                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                <%
-                    }
-                %>&nbsp&nbsp<span class="text-right"><%=product.getRating()%></>
 
-            </h2>
+            <fmt:formatNumber var="rat" value="${product.rating}" />
+
+            <c:choose>
+                <c:when test="${rat ge 0}">
+                    <c:forEach begin="0" end="${rat - 1}" varStatus="loop">
+                        <i class="fa fa-star rating_star" aria-hidden="true"></i>
+                    </c:forEach>
+                    <c:forEach begin="0" end="${4 - rat}" varStatus="loop">
+                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach begin="0" end="4" varStatus="loop">
+                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+
+
+            <!-- da testare i due primi when -->
+
+            <c:choose>
+                <c:when test="${fn:length(reviewList) == 0}">
+                    &nbsp&nbsp<span class="text-right">Nessuna recensione</span>
+                </c:when>
+                <c:when test="${fn:length(reviewList) == 1}">
+                    &nbsp&nbsp<span class="text-right">1 recensione</span>
+                </c:when>
+                <c:otherwise>
+                    &nbsp&nbsp<span class="text-right">${fn:length(reviewList)} recensioni</span>
+                </c:otherwise>
+            </c:choose>
 
             <h2>Venduto da <a href="#">${product.shopName}</a></h2>
             <a class="btn btn-primary"><i class="fa fa-fw fa-home pull-left"></i>Visualizza venditori nelle
@@ -93,8 +116,8 @@
                 </c:otherwise>
             </c:choose>
             <c:choose>
-                <c:when test="${sessionScope.user != null}">
-                    <a href="javascript:void(0);" class="btn btn-primary" onclick="addToCart('<%=product.getProductID()%>','<%=product.getShopID()%>');"><i class="fa fa-fw pull-left fa-shopping-cart"></i>Aggiungi al carrello</a>
+                <c:when test="${user != null}">
+                    <a href="javascript:void(0);" class="btn btn-primary" onclick="addToCart('${product.productID}','${product.shopID}');"><i class="fa fa-fw pull-left fa-shopping-cart"></i>Aggiungi al carrello</a>
                 </c:when>
                 <c:otherwise>
                     <a class="btn btn-primary" href="#"><i class="fa fa-fw pull-left fa-shopping-cart"></i>Aggiungi al carrello</a>
@@ -128,6 +151,6 @@
 
 
 </body>
-<script type="text/javascript" src="js/search/product.js"></script>
+<script type="text/javascript" src="js/product.js"></script>
 
 </html>
