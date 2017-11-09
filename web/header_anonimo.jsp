@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <link rel="stylesheet" href="css/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="css/custom.min.css">
     <script src="https://use.fontawesome.com/f98c8dd683.js"></script>
+    <link rel="stylesheet" href="css/custom.min.css">
     <link rel="stylesheet" href="css/my.css">
     <link rel="stylesheet" href="css/header.css">
 </head>

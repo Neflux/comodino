@@ -2,6 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 
+
+
 <jsp:useBean id="user" class="main.User" scope="session"/>
 
 <html lang="it">
@@ -9,67 +11,35 @@
     <title>Profilo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/profile.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="../css/custom.min.css" rel="stylesheet" type="text/css">
     <link href="../css/my.css" rel="stylesheet" type="text/css">
-    <link href="../css/user_profile.css" rel="stylesheet" type="text/css">
+    <link href="../css/profile.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <jsp:include page="header.jsp" flush="true"/>
-
-<c:if test="${param.action == 'password_changed'}">
-    <div id="popup" class="alert alert-success alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Password modificata con successo!
-    </div>
-</c:if>
-<c:if test="${param.action == 'wrong_password'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Password attuale errata o mancante!
-    </div>
-</c:if>
-<c:if test="${param.action == 'password_not_match'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Le password non corrispondono!
-    </div>
-</c:if>
-
-<c:if test="${param.action == 'info_updated'}">
-    <div id="popup" class="alert alert-success alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Info modificate con successo!
-    </div>
-</c:if>
-<c:if test="${param.action == 'info_error'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Info non modificate!
-    </div>
-</c:if>
-<c:if test="${param.action == 'privacy_accepted'}">
-    <div id="popup" class="alert alert-success alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Privacy accettata!
-    </div>
-</c:if>
-<c:if test="${param.action == 'privacy_not_accepted'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        È necessario accettare la privacy!
-    </div>
-</c:if>
 <!-- general error, see passed parameter -->
+<c:if test="${not empty param.success}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            ${param.success}
+    </div>
+</c:if>
+<c:if test="${not empty param.warning}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Attenzione: ${param.warning}
+    </div>
+</c:if>
 <c:if test="${not empty param.error}">
     <div id="popup" class="alert alert-danger alert-dismissable fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        ERRORE: ${param.error}
+        Errore: ${param.error}
     </div>
 </c:if>
+
 <div class="container">
     <div class="row" style="margin: 0 0 10px 0;">
         <div class="col-md-12 text-center">

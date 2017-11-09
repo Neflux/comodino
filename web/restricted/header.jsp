@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="../css/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="../css/custom.min.css">
     <script src="https://use.fontawesome.com/f98c8dd683.js"></script>
+    <link rel="stylesheet" href="../css/custom.min.css">
     <link rel="stylesheet" href="../css/my.css">
     <link rel="stylesheet" href="../css/header.css">
 </head>
@@ -147,8 +147,14 @@
                         <c:if test="${user.hasShop()}">
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Negozio</li>
-                            <li><a href="#">Inventario</a></li>
+                            <li><a href="#">Pannello inventario</a></li>
                             <li><a href="#">Riepilogo vendite</a></li>
+                        </c:if>
+                        <c:if test="${user.type == 1}">
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Admin</li>
+                            <li><a href="${pageContext.request.contextPath}/restricted/admin_panel.jsp">Pannello principale</a></li>
+                            <li><a href="#">Gestione dispute</a></li>
                         </c:if>
                         <li role="separator" class="divider"></li>
                         <li><a href="${pageContext.request.contextPath}/restricted/logout">Esci</a></li>

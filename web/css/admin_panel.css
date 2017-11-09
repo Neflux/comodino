@@ -1,0 +1,12 @@
+#disputeList .btn{
+    height: 26px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+body>.container{
+    background-color: #FFF;
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+    border-radius: 4px;
+}
