@@ -21,13 +21,13 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         System.out.println("[INFO] Registrazione: " + firstname + " " + lastname + ", " + email + " " + password);
         if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() || password.isEmpty()){
-            response.sendRedirect("/index.jsp?action=register_error");
+            response.sendRedirect("/index.jsp?error=Alcuni campi sono rimasti vuoti");
             return;
         }
         User user = new UserDaoImpl().register(firstname, lastname, email, password);
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/index.jsp?action=email_already_in_use_error");
+            response.sendRedirect(request.getContextPath() + "/index.jsp?error=Email già in uso");
         }
         else {
             // imposto l'utente connesso come attributo di sessione

@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         if (user == null) {
 
-            response.sendRedirect("/index.jsp?action=login_error");
+            response.sendRedirect("/index.jsp?error=Username o password errati");
         }
         else {
             // imposto l'utente connesso come attributo di sessione

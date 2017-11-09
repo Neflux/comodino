@@ -23,10 +23,10 @@ public class AcceptPrivacyServlet extends HttpServlet {
         boolean result = userDao.acceptPrivacy(user);
         if (result) {
             user.setPrivacy(1);
-            response.sendRedirect("/restricted/profile.jsp?action=privacy_accepted");
+            response.sendRedirect("/restricted/profile.jsp?success=Privacy accettata");
         }
         else{
-            response.sendRedirect("/restricted/profile.jsp?error=Privacy non settata");
+            response.sendRedirect("/restricted/profile.jsp?warning=Privacy non modificata");
         }
     }
 }

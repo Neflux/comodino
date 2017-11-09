@@ -17,36 +17,24 @@
     <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
-<c:if test="${param.action == 'logout'}">
-    <div id="popup" class="alert alert-success alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Uscito con successo!
-    </div>
-</c:if>
-<c:if test="${param.action == 'login_error'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Username o password errati!
-    </div>
-</c:if>
-<c:if test="${param.action == 'register_error'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Campi mancanti!
-    </div>
-</c:if>
-<c:if test="${param.action == 'email_already_in_use_error'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        La mail inserita è già in uso!
-    </div>
-</c:if>
 
 <!-- general error, see passed parameter -->
+<c:if test="${not empty param.success}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            ${param.success}
+    </div>
+</c:if>
+<c:if test="${not empty param.warning}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Attenzione: ${param.warning}
+    </div>
+</c:if>
 <c:if test="${not empty param.error}">
     <div id="popup" class="alert alert-danger alert-dismissable fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        ERRORE: ${param.error}
+        Errore: ${param.error}
     </div>
 </c:if>
 <div class="container-fluid dynamicTile">

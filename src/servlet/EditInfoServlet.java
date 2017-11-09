@@ -35,10 +35,10 @@ public class EditInfoServlet extends HttpServlet {
         UserDao userDao = new UserDaoImpl();
         if (userDao.editInfo(user)){
             System.out.println("[ " + user.getFirstName() + " ] Info modificate");
-            response.sendRedirect("/restricted/profile.jsp?action=info_updated");
+            response.sendRedirect("/restricted/profile.jsp?success=Info aggiornate");
         }
         else {
-            response.sendRedirect("/restricted/profile.jsp?action=info_error");
+            response.sendRedirect("/restricted/profile.jsp?warning=Info non aggiornate");
         }
     }
 
