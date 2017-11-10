@@ -107,6 +107,7 @@ public class NotificationDaoImpl implements NotificationDao {
         try {
             while (rs.next()){
                 Notification n = new Notification();
+                n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
                 n.setCreationDate(rs.getTimestamp("CreationDate"));
                 n.setShopStatus(rs.getInt("ShopStatus"));
@@ -125,6 +126,7 @@ public class NotificationDaoImpl implements NotificationDao {
         try {
             while (rs.next()){
                 NotificationDispute n = new NotificationDispute();
+                n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
                 n.setCreationDate(rs.getTimestamp("CreationDate"));
                 n.setShopStatus(rs.getInt("ShopStatus"));
