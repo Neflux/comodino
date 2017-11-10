@@ -80,4 +80,25 @@ public class DisputeDaoImpl implements DisputeDao {
         }
         return disputes;
     }
+
+    @Override
+    public boolean updateDispute(int orderID, int productID, int shopID, int status) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE dispute\n" +
+                    "SET Status = ?\n" +
+                    "WHERE OrderID = ? AND ProductID = ? AND ShopID = ?;");
+            stm.setInt(1, status);
+            stm.setInt(2, orderID);
+            stm.setInt(3, productID);
+            stm.setInt(4, shopID);
+            if (stm.executeUpdate() == 0)
+                return false;
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

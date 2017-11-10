@@ -18,7 +18,6 @@
     <title>Pannello Amministratore</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="../js/admin_panel.js"></script>
     <link href="../css/admin_panel.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -56,11 +55,14 @@
             <div class="tab-content">
                 <div id="Dispute" class="tab-pane fade in active">
                     <div class="col-md-3">
+                        <button id="filtrodispute" type="button" class="btn btn-block btn-primary" onclick="filtraInAttesa()">
+                            Vedi solo dispute aperte
+                        </button>
                         <button type="button" class="btn btn-block btn-success">
-                            Rimborsa ogni disputa aperta
+                            Rimborsa ogni disputa aperta <!-- TODO fare funzionalità-->
                         </button>
                         <button type="button" class="btn btn-block btn-danger">
-                            Declina ogni disputa aperta
+                            Declina ogni disputa aperta <!-- TODO fare funzionalità-->
                         </button>
                     </div>
                     <div class="col-md-9">
@@ -87,7 +89,7 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${disputes}" var="dispute">
-                                <tr>
+                                <tr class="disputa ${(dispute.status == 0) ? 'inattesa':'terminata'}">
                                     <td>
                                         <b>${dispute.title}</b>
                                     </td>
@@ -112,21 +114,32 @@
                                                 Disputa Declinata
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="btn-group">
+                                                <form action="${pageContext.request.contextPath}/restricted/updatedispute" method="POST">
+                                                    <div class="btn-group">
 
-                                                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                        Seleziona azione &nbsp;&nbsp;<span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                            <a href="#">Rimborso al cliente</a>
-                                                        </li>
-                                                        <li class="divider">
-                                                        <li>
-                                                            <a href="#">Declina disputa</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                        <input name="orderID" value="${dispute.orderID}" type="text" hidden>
+                                                        <input name="productID" value="${dispute.productID}" type="text" hidden>
+                                                        <input name="shopID" value="${dispute.shopID}" type="text" hidden>
+
+                                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            Seleziona azione &nbsp;&nbsp;<span class="caret"></span>
+                                                        </button>
+                                                        <button class="btn btn-success" data-toggle="salva" style="display: none;" type="submit">
+                                                            Salva
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a href="#">Rimborsa</a>
+                                                                <input name="status" value="1" type="radio" hidden>
+                                                            </li>
+                                                            <li class="divider">
+                                                            <li>
+                                                                <a href="#">Declina</a>
+                                                                <input name="status" value="2" type="radio" hidden>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </form>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
@@ -137,76 +150,7 @@
                     </div>
                 </div>
                 <div id="Negozi" class="tab-pane fade in">
-
-                    <table id="shopList" class="table table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th>
-                                Title
-                            </th>
-                            <th class="hidden-xs hidden-sm">
-                                Descrizione
-                            </th>
-                            <th>
-                                Data Creazione
-                            </th>
-                            <th style="text-align: center">
-                                Ord-Prod-Neg
-                            </th>
-                            <th style="text-align: center">
-                                Status
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${disputes}" var="dispute">
-                            <tr>
-                                <td>
-                                    <b>${dispute.title}</b>
-                                </td>
-                                <td class="hidden-xs hidden-sm">
-                                        ${dispute.description}
-                                </td>
-                                <td>
-                                    <c:set var="dateParts" value="${fn:split(dispute.creationDate, ' ')}" scope="page"/>
-                                    <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
-                                    <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
-                                        ${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span>
-                                </td>
-                                <td style="text-align: center">
-                                        ${dispute.orderID} - ${dispute.productID} - ${dispute.shopID}
-                                </td>
-                                <td style="text-align: center">
-                                    <c:choose>
-                                        <c:when test="${dispute.status == 1}">
-                                            Prodotto Rimborsato
-                                        </c:when>
-                                        <c:when test="${dispute.status == 2}">
-                                            Disputa Declinata
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div class="btn-group">
-
-                                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    Seleziona azione &nbsp;&nbsp;<span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a href="#">Rimborso al cliente</a>
-                                                    </li>
-                                                    <li class="divider">
-                                                    <li>
-                                                        <a href="#">Declina disputa</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                    <!-- Todo finire negozi-->
                 </div>
                 <div id="Prodotti" class="tab-pane fade in">
                     <table id="productList" class="table table-striped">
@@ -236,7 +180,7 @@
                                     <b>${prod.productID}</b>
                                 </td>
                                 <td class="hidden-xs hidden-sm">
-                                    ${prod.productName}
+                                        ${prod.productName}
                                 </td>
                                 <td class="text">
                                     <span>${prod.description}</span>
@@ -339,5 +283,6 @@
     </div>
 </div>
 
+<script type="text/javascript" src="../js/admin_panel.js"></script>
 </body>
 </html>

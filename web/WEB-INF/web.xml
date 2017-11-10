@@ -20,6 +20,7 @@
     <filter-mapping>
         <filter-name>adminFilter</filter-name>
         <url-pattern>/restricted/admin_panel.jsp</url-pattern>
+        <url-pattern>/restricted/updatedispute</url-pattern>
     </filter-mapping>
     <listener>
         <description>ServletContextListener</description>

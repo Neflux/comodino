@@ -1,6 +1,15 @@
+#disputeList form{
+    margin: 0;
+}
+
+#disputeList .btn[data-toggle="salva"]{
+    margin-left: 3px;
+}
+
 #disputeList .btn{
     padding: 0 15px;
     height: 26px;
+    border-radius: 4px;
 }
 
 .table td.text {
