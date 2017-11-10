@@ -8,6 +8,7 @@ import main.Shop;
 import utils.Utils;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +42,29 @@ public class ProductDaoImpl implements ProductDao {
         return null;
     }
 
+    @Override
+    public ArrayList<Product> allProducts() {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM product AS p\n" +
+                    "  INNER JOIN productphoto AS pp USING(ProductID)\n" +
+                    "  INNER JOIN shopproduct AS sp USING (ProductID)\n" +
+                    "GROUP BY ProductID;");
+            ResultSet rs = stm.executeQuery();
+            return extractAllProductsFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private ArrayList<Product> extractAllProductsFromResultSet(ResultSet rs) throws SQLException {
+        ArrayList<Product> products = new ArrayList<>();
+        Product prod;
+        while ((prod = extractProductFromResultSet(rs)) != null){
+            products.add(prod);
+        }
+        return products;
+    }
     private Product extractProductFromResultSet(ResultSet rs) throws SQLException {
         if(!rs.next()){
             return null;

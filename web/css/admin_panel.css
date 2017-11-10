@@ -1,7 +1,17 @@
 #disputeList .btn{
+    padding: 0 15px;
     height: 26px;
-    padding-left: 15px;
-    padding-right: 15px;
+}
+
+.table td.text {
+    max-width: 300px;
+}
+.table td.text span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
 }
 
 body>.container{

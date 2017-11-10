@@ -10,6 +10,9 @@
 <jsp:useBean id="disputeDao" class="daos.impl.DisputeDaoImpl"/>
 <c:set var="disputes" value="${disputeDao.allDisputes()}" scope="page"/>
 
+<jsp:useBean id="productDao" class="daos.impl.ProductDaoImpl"/>
+<c:set var="products" value="${productDao.allProducts()}" scope="page"/>
+
 <html lang="it">
 <head>
     <title>Pannello Amministratore</title>
@@ -52,9 +55,90 @@
             </ul>
             <div class="tab-content">
                 <div id="Dispute" class="tab-pane fade in active">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-block btn-success">
+                            Rimborsa ogni disputa aperta
+                        </button>
+                        <button type="button" class="btn btn-block btn-danger">
+                            Declina ogni disputa aperta
+                        </button>
+                    </div>
+                    <div class="col-md-9">
+                        <h3 style="margin-top: 0">Dispute</h3>
+                        <table id="disputeList" class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Title
+                                </th>
+                                <th class="hidden-xs hidden-sm">
+                                    Descrizione
+                                </th>
+                                <th>
+                                    Data Creazione
+                                </th>
+                                <th style="text-align: center">
+                                    Ord-Prod-Neg
+                                </th>
+                                <th style="text-align: center">
+                                    Status
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${disputes}" var="dispute">
+                                <tr>
+                                    <td>
+                                        <b>${dispute.title}</b>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm">
+                                            ${dispute.description}
+                                    </td>
+                                    <td>
+                                        <c:set var="dateParts" value="${fn:split(dispute.creationDate, ' ')}" scope="page"/>
+                                        <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                                        <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
+                                            ${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span>
+                                    </td>
+                                    <td style="text-align: center">
+                                            ${dispute.orderID} - ${dispute.productID} - ${dispute.shopID}
+                                    </td>
+                                    <td style="text-align: center">
+                                        <c:choose>
+                                            <c:when test="${dispute.status == 1}">
+                                                Prodotto Rimborsato
+                                            </c:when>
+                                            <c:when test="${dispute.status == 2}">
+                                                Disputa Declinata
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="btn-group">
 
-                    <h3 style="margin-top: 0; text-align:center">Dispute</h3>
-                    <table id="disputeList" class="table table-striped table-hover">
+                                                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                        Seleziona azione &nbsp;&nbsp;<span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="#">Rimborso al cliente</a>
+                                                        </li>
+                                                        <li class="divider">
+                                                        <li>
+                                                            <a href="#">Declina disputa</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="Negozi" class="tab-pane fade in">
+
+                    <table id="shopList" class="table table-striped table-hover">
                         <thead>
                         <tr>
                             <th>
@@ -124,94 +208,60 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="Negozi" class="tab-pane fade in">
-                </div>
                 <div id="Prodotti" class="tab-pane fade in">
+                    <table id="productList" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>
+                                ProductID
+                            </th>
+                            <th class="hidden-xs hidden-sm">
+                                Titolo
+                            </th>
+                            <th>
+                                Descrizione
+                            </th>
+                            <th style="text-align: center">
+                                Rating
+                            </th>
+                            <th style="text-align: center">
+                                Pagina Prodotto
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${products}" var="prod">
+                            <tr>
+                                <td>
+                                    <b>${prod.productID}</b>
+                                </td>
+                                <td class="hidden-xs hidden-sm">
+                                    ${prod.productName}
+                                </td>
+                                <td class="text">
+                                    <span>${prod.description}</span>
+                                </td>
+                                <td style="text-align: center">
+                                    <c:choose>
+                                        <c:when test="${prod.rating == -1}">
+                                            Nessuna recensione
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${prod.rating} <i class="fa fa-star"></i>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td  style="text-align: center">
+                                    <a style="text-decoration: none" href="${pageContext.request.contextPath}/product.jsp?product=${prod.productID}&shop=${prod.shopID}">
+                                        Vedi >>
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <button type="button" class="btn btn-block btn-primary">
-                Dispute
-            </button>
-            <button type="button" class="btn btn-block btn-success">
-                Negozi
-            </button>
-            <button type="button" class="btn btn-block btn-warning">
-                Prodotti
-            </button>
-        </div>
-        <div class="col-md-9">
-            <h3 style="margin-top: 0">Dispute</h3>
-            <table id="disputeList" class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>
-                        Title
-                    </th>
-                    <th class="hidden-xs hidden-sm">
-                        Descrizione
-                    </th>
-                    <th>
-                        Data Creazione
-                    </th>
-                    <th style="text-align: center">
-                        Ord-Prod-Neg
-                    </th>
-                    <th style="text-align: center">
-                        Status
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${disputes}" var="dispute">
-                    <tr>
-                        <td>
-                            <b>${dispute.title}</b>
-                        </td>
-                        <td class="hidden-xs hidden-sm">
-                                ${dispute.description}
-                        </td>
-                        <td>
-                            <c:set var="dateParts" value="${fn:split(dispute.creationDate, ' ')}" scope="page"/>
-                            <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
-                            <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
-                                ${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span>
-                        </td>
-                        <td style="text-align: center">
-                                ${dispute.orderID} - ${dispute.productID} - ${dispute.shopID}
-                        </td>
-                        <td style="text-align: center">
-                            <c:choose>
-                                <c:when test="${dispute.status == 1}">
-                                    Prodotto Rimborsato
-                                </c:when>
-                                <c:when test="${dispute.status == 2}">
-                                    Disputa Declinata
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="btn-group">
-
-                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            Seleziona azione &nbsp;&nbsp;<span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="#">Rimborso al cliente</a>
-                                            </li>
-                                            <li class="divider">
-                                            <li>
-                                                <a href="#">Declina disputa</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>

@@ -38,7 +38,7 @@ public class CategoryDaoImpl implements CategoryDao {
             while(rs.next()){
                 Category c = new Category();
                 c.setCategoryName(rs.getString("CategoryName"));
-                System.out.println("Categoria: " + c.getCategoryName());
+                //System.out.println("Categoria: " + c.getCategoryName());
                 categories.add(c);
             }
         } catch (SQLException e) {
