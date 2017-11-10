@@ -17,5 +17,5 @@ public interface NotificationDao extends Serializable {
 
     ArrayList<Notification> getDisputeNotifications(int shopID);
 
-    boolean createDisputeNotification(int orderID, int productID, int shopID);
+    boolean createDisputeNotification(String title, int orderID, int productID, int shopID);
 }

@@ -52,7 +52,7 @@
                                 <c:otherwise>
                                     <c:forEach items="${vendor_notifications}" var="n">
                                         <li>
-                                            <a>Notifica:<br>Data: ${n.creationDate}
+                                            <a><b>${n.title}</b>
                                             </a>
                                         </li>
                                     </c:forEach>
@@ -78,13 +78,13 @@
                                 <c:otherwise>
                                     <c:forEach items="${admin_notifications}" var="n">
                                         <li>
-                                            <a>Disputa:<br>Order: ${n.orderId} Product: ${n.productId} Shop: ${n.shopId}<br>Data: ${n.creationDate}</a>
+                                            <a><b>${n.title}</b><br>Order: ${n.orderId} Product: ${n.productId} Shop: ${n.shopId}<br>Data: ${n.creationDate}</a>
                                         </li>
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Vedi tutte</a></li><!-- TODO: inserire link pagina/sistemare formattazione notifiche -->
+                            <li><a href="${pageContext.request.contextPath}/restricted/admin_panel.jsp">Vedi tutte</a></li><!-- TODO: sistemare formattazione notifiche -->
                         </ul>
                     </li>
                 </c:if>

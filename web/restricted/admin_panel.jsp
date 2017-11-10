@@ -94,8 +94,8 @@
                                     <td>
                                         <b>${dispute.title}</b>
                                     </td>
-                                    <td class="hidden-xs hidden-sm">
-                                            ${dispute.description}
+                                    <td class="text hidden-xs hidden-sm">
+                                         <span>${dispute.description}</span>
                                     </td>
                                     <td>
                                         <c:set var="dateParts" value="${fn:split(dispute.creationDate, ' ')}" scope="page"/>

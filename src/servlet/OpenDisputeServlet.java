@@ -17,14 +17,14 @@ public class OpenDisputeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[INFO] OpenDispute Servlet: Entered");
-        if(     request.getParameter("orderID") == null || request.getParameter("productID") == null || request.getParameter("shopID") == null ){
+        if(request.getParameter("title") == null || request.getParameter("description") == null || request.getParameter("orderID") == null || request.getParameter("productID") == null || request.getParameter("shopID") == null ){
             response.sendRedirect("/index.jsp?error=Parametri Mancanti");
             return;
         }
+        String title = request.getParameter("title");
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         int productID = Integer.parseInt(request.getParameter("productID"));
         int shopID = Integer.parseInt(request.getParameter("shopID"));
-        String title = request.getParameter("title");
         String description = request.getParameter("description");
         System.out.println("\tDispute OrderID: " + orderID + " ProductID: " + productID + " ShopID: " + shopID +
                 "\n\tTitle: " + title +
@@ -35,7 +35,7 @@ public class OpenDisputeServlet extends HttpServlet {
         boolean result = disputeDao.createDispute(orderID, productID, shopID, title, description);
         if (result){
             NotificationDao notificationDao = new NotificationDaoImpl();
-            result = notificationDao.createDisputeNotification(orderID,productID,shopID);
+            result = notificationDao.createDisputeNotification(title, orderID, productID, shopID);
         }
         else{ // la creazione della disputa è fallita
             response.sendRedirect("/index.jsp?error=Errore Creazione Disputa");
