@@ -191,7 +191,12 @@
                                             Nessuna recensione
                                         </c:when>
                                         <c:otherwise>
-                                            ${prod.rating} <i class="fa fa-star"></i>
+                                            <c:forEach begin="0" end="${prod.rating - 1}" varStatus="loop">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </c:forEach>
+                                            <c:forEach begin="0" end="${4 - prod.rating}" varStatus="loop">
+                                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                            </c:forEach>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>

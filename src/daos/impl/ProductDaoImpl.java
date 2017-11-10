@@ -60,7 +60,10 @@ public class ProductDaoImpl implements ProductDao {
     private ArrayList<Product> extractAllProductsFromResultSet(ResultSet rs) throws SQLException {
         ArrayList<Product> products = new ArrayList<>();
         Product prod;
-        while ((prod = extractProductFromResultSet(rs)) != null){
+        while (true){
+            prod = extractProductFromResultSet(rs);
+            if (prod == null)
+                break;
             products.add(prod);
         }
         return products;
@@ -91,7 +94,7 @@ public class ProductDaoImpl implements ProductDao {
         try{
             prod.setShopName(rs.getString("ShopName"));
         }catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try{
             prod.setDescription(rs.getString("Description"));
