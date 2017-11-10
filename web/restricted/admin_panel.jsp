@@ -13,6 +13,7 @@
 <jsp:useBean id="productDao" class="daos.impl.ProductDaoImpl"/>
 <c:set var="products" value="${productDao.allProducts()}" scope="page"/>
 
+
 <html lang="it">
 <head>
     <title>Pannello Amministratore</title>
@@ -150,7 +151,7 @@
                     </div>
                 </div>
                 <div id="Negozi" class="tab-pane fade in">
-                    <!-- Todo finire negozi-->
+                    <!-- Todo finire parte negozi, in attesa del merge del brench sullo shop -->
                 </div>
                 <div id="Prodotti" class="tab-pane fade in">
                     <table id="productList" class="table table-striped">
@@ -159,10 +160,10 @@
                             <th>
                                 ProductID
                             </th>
-                            <th class="hidden-xs hidden-sm">
+                            <th>
                                 Titolo
                             </th>
-                            <th>
+                            <th class="hidden-xs hidden-sm">
                                 Descrizione
                             </th>
                             <th style="text-align: center">
@@ -179,10 +180,10 @@
                                 <td>
                                     <b>${prod.productID}</b>
                                 </td>
-                                <td class="hidden-xs hidden-sm">
-                                        ${prod.productName}
+                                <td>
+                                    ${prod.productName}
                                 </td>
-                                <td class="text">
+                                <td class="text hidden-xs hidden-sm">
                                     <span>${prod.description}</span>
                                 </td>
                                 <td style="text-align: center">
