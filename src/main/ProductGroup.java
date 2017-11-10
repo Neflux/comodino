@@ -10,10 +10,12 @@ public class ProductGroup implements Serializable {
     private int reviewCount = 0;
     private String imageData = "";
     private List<Shop> vendors;
+    private ArrayList<String> geo;
 
     public ProductGroup(){
         list = new ArrayList<Product>();
         vendors = new ArrayList<Shop>();
+        geo = new ArrayList<String>();
     }
 
     public List<Product> getList() {
@@ -38,5 +40,9 @@ public class ProductGroup implements Serializable {
 
     public List<Shop> getVendors() {
         return vendors;
+    }
+
+    public ArrayList<String> getGeo() {
+        return geo;
     }
 }
