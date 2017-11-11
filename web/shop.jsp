@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="shop" class="main.Shop" scope="session"/>
@@ -33,29 +34,23 @@
                         <h4 id="shopEmailWebsite" class="text-center text-info"><a href="${shop.website}"></a></h4>
                         <p>${shop.description}</p>
                         <div class="row text-center">
-
-                            <%
-                                int i = 0;
-                                for(; i < shop.getRating();i++){
-                            %>
-                            <i class="fa fa-lg fa-star" aria-hidden="true"></i>
-                            <%
-                                }
-                                for(; i < 5 ;i++){
-                            %>
-                            <i class="fa fa-lg fa-star-o" aria-hidden="true"></i>
-                            <%
-                                }
-                            %>
-                            <a href="#">Vedi tutte</a>
-                        </div>
-                        <div id="addShopDiv" class="row">
-                            <div class="col-md-10">
-                                <h2 id="realShop">Negozio fisico</h2>
-                            </div>
-                            <div class="col-md-7">
-                                <a id="btnAddShopLocation" class="btn btn-default">Aggiungi negozio fisico</a>
-                            </div>
+                            <fmt:formatNumber var="rat" groupingUsed = "false" maxFractionDigits = "0" value="${shop.rating}" />
+                            <c:choose>
+                                <c:when test="${rat ge 0}">
+                                    <c:forEach begin="0" end="${rat}" varStatus="loop">
+                                        <i class="fa fa-star rating_star" aria-hidden="true"></i>
+                                    </c:forEach>
+                                    <c:forEach begin="0" end="${4-rat}" varStatus="loop">
+                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach begin="0" end="4" varStatus="loop">
+                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+                            <a href="#"> vedi tutte</a>
                         </div>
                     </div>
                 </div>
@@ -79,26 +74,24 @@
                                     </div>
                                     <div class="col-md-7 text-left">
                                         <h2>${prod.value.getList().get(0).getProductName()}</h2>
-                                        <p>Venduto da <a href="javascript:void(0);">${prod.value.getList().get(0).getProductName()}</a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</span></p>
                                         <h1 class="prezzo">${prod.value.getList().get(0).getActualPrice()} €</h1>
                                     </div>
-                                    <div class="col-md-3">
-
-                                        <c:forEach begin="0" end="${prod.value.getList().get(0).getRating()}" varStatus="loop">
-                                            <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                                        </c:forEach>
-                                        <c:forEach begin="0" end="${4-prod.value.getList().get(0).getRating()}" varStatus="loop">
-                                            <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                        </c:forEach>
+                                    <div class="col-md-3 ratAdd">
+                                        Valutazione:
+                                        <fmt:formatNumber var="prat" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getList().get(0).getRating()}" />
                                         <c:choose>
-                                            <c:when test="${prod.value.getReviewCount() == 0}">
-                                                &nbsp&nbsp<span class="text-right">Nessuna recensione</span>
-                                            </c:when>
-                                            <c:when test="${prod.value.getReviewCount() == 1}">
-                                                &nbsp&nbsp<span class="text-right">1 recensione</span>
+                                            <c:when test="${prat ge 0}">
+                                                <c:forEach begin="0" end="${prat-1}" varStatus="loop">
+                                                    <i class="fa fa-star rating_star" aria-hidden="true"></i>
+                                                </c:forEach>
+                                                <c:forEach begin="0" end="${4-prat}" varStatus="loop">
+                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                </c:forEach>
                                             </c:when>
                                             <c:otherwise>
-                                                &nbsp&nbsp<span class="text-right">${prod.value.getReviewCount()} recensioni</>
+                                                <c:forEach begin="0" end="4" varStatus="loop">
+                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                </c:forEach>
                                             </c:otherwise>
                                         </c:choose>
                                         <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
