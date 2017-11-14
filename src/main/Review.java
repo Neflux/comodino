@@ -48,11 +48,11 @@ public class Review {
     }
 
 
-    public long getUserid() {
+    public long getUserID() {
         return userID;
     }
 
-    public void setUserid(int userid) {
+    public void setUserID(int userid) {
         this.userID = userid;
     }
 

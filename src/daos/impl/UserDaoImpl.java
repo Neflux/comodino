@@ -289,4 +289,17 @@ public class UserDaoImpl implements UserDao {
         }
         return false;
     }
+
+    @Override
+    public User getUser(int userID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM user WHERE UserID = ?");
+            stm.setInt(1,userID);
+            ResultSet rs = stm.executeQuery();
+            return extractUserFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

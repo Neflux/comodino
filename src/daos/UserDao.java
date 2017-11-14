@@ -46,4 +46,6 @@ public interface UserDao extends Serializable {
     User register(String firstname, String lastname, String email, String password);
 
     boolean acceptPrivacy (User user);
+
+    User getUser(int userID);
 }

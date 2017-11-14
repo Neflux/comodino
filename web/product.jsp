@@ -172,8 +172,8 @@
         <div class="review" style="box-shadow: 0 2px 35px rgba(0,0,0,.15); margin-top: 20px !important;">
             <h3>${review.getCreationdate()} - ${review.title}</h3>
             <p>
-                ${product.productID}, ${review.userID}
-                <b>${reviewDao.getReviewAuthor(product.productID, review.userID)}</b>
+                <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}" scope="page"/>
+                <b>${author.firstName} ${author.lastName}</b> <!-- TODO fai funzione che restituisce array di autori-->
             </p>
             <p>
                 <fmt:formatNumber var="rat2" groupingUsed="false" maxFractionDigits="0" value="${review.rating} "/>
