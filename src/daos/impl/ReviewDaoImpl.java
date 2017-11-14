@@ -66,4 +66,24 @@ public class ReviewDaoImpl implements ReviewDao {
         return null;
     }
 
+    public String getReviewAuthor(int productID, int userID){
+        try {
+            System.out.println("sono dentro");
+            System.out.flush();
+            PreparedStatement stm = con.prepareStatement("SELECT DISTINCT u.FirstName, u.LastName\n" +
+                    "FROM productreview pr, user u\n" +
+                    "WHERE pr.ProductID = ? AND u.UserID = pr.UserID AND pr.UserID = ?");
+            stm.setInt(1, productID);
+            stm.setInt(2,userID);
+            ResultSet rs= stm.executeQuery();
+            String res = rs.getString(1) +
+                    rs.getString(2);
+            System.out.println(res);
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
