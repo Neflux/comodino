@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="../js/profile.js"></script>
-    <link href="../css/user_profile.css" rel="stylesheet" type="text/css">
+    <link href="../css/profile.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <!-- general error, see passed parameter -->
