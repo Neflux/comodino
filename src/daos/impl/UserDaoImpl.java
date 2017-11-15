@@ -144,28 +144,42 @@ public class UserDaoImpl implements UserDao {
         if (user == null)
             return;
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM `cart` WHERE UserID = ? AND ProductID = ? AND ShopID = ?");
-            stm.setInt(1, user.getUserID());
-            stm.setInt(2, productID);
-            stm.setInt(3, shopID);
-            ResultSet rs = stm.executeQuery();
-            if (rs.next())
+            PreparedStatement stm_q = con.prepareStatement("SELECT Quantity FROM `shopproduct` WHERE ProductID = ? AND ShopID = ?"); // controllo se la quantità è > 0
+            stm_q.setInt(1, productID);
+            stm_q.setInt(2, shopID);
+            ResultSet rs_q = stm_q.executeQuery();
+            if (rs_q.next())
             {
-                PreparedStatement stm2 = con.prepareStatement("UPDATE cart SET Quantity = Quantity + 1, AddDate = NOW() WHERE UserID = ? AND ProductID = ? AND ShopID = ?");
-                stm2.setInt(1, user.getUserID());
-                stm2.setInt(2, productID);
-                stm2.setInt(3, shopID);
-                stm2.execute();
-                user.updateCart();
-            }
-            else
-            {
-                PreparedStatement stm3 = con.prepareStatement("INSERT INTO cart VALUES ('1',NOW(),?,?,?)");
-                stm3.setInt(1, user.getUserID());
-                stm3.setInt(2, productID);
-                stm3.setInt(3, shopID);
-                stm3.execute();
-                user.updateCart();
+                int maxQuantity = rs_q.getInt("Quantity");
+                PreparedStatement stm = con.prepareStatement("SELECT * FROM `cart` WHERE UserID = ? AND ProductID = ? AND ShopID = ?"); // controllo se è già nel carrello
+                stm.setInt(1, user.getUserID());
+                stm.setInt(2, productID);
+                stm.setInt(3, shopID);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) { // se ce l'ho già nel carrello faccio += 1
+                    int quantityInCart = rs.getInt("Quantity");
+                    // se la quantità che ho in carrello è minore della quantità max del venditore posso aumentare
+                    if (quantityInCart < maxQuantity){
+                        PreparedStatement stm2 = con.prepareStatement("UPDATE cart SET Quantity = Quantity + 1, AddDate = NOW() WHERE UserID = ? AND ProductID = ? AND ShopID = ?");
+                        stm2.setInt(1, user.getUserID());
+                        stm2.setInt(2, productID);
+                        stm2.setInt(3, shopID);
+                        stm2.execute();
+                        user.updateCart();
+                    }
+                }
+                else // sennò lo aggiungo
+                {
+                    if (maxQuantity > 0) { // solo se il prodotto è disponibile aggiungo
+                        PreparedStatement stm3 = con.prepareStatement("INSERT INTO cart VALUES ('1',NOW(),?,?,?)");
+                        stm3.setInt(1, user.getUserID());
+                        stm3.setInt(2, productID);
+                        stm3.setInt(3, shopID);
+                        stm3.execute();
+                        user.updateCart();
+                    }
+                }
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -261,5 +275,18 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public User getUser(int userID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM user WHERE UserID = ?");
+            stm.setInt(1,userID);
+            ResultSet rs = stm.executeQuery();
+            return extractUserFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

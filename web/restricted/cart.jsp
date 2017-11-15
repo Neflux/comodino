@@ -87,7 +87,7 @@
                 <div class="col-md-12 text-center">
                     <c:choose>
                         <c:when test="${total > 0}">
-                            <a class="btn btn-primary btn-xs" href="#">Procedi all'acquisto <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <a class="btn btn-primary btn-xs" href="#" id="nextbtn">Procedi all'acquisto <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </c:when>
                         <c:otherwise>
                             <a class="btn btn-primary btn-xs" href="<c:url value="/index.jsp"/>" style="border-radius: 8px; max-width:200px">Vai alla homepage</a>

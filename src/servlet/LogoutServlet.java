@@ -19,6 +19,6 @@ public class LogoutServlet extends HttpServlet {
             session.removeAttribute("user");
             session.invalidate();
         }
-        resp.sendRedirect("/index.jsp?action=logout");
+        resp.sendRedirect("/index.jsp?success=Uscito con successo");
     }
 }

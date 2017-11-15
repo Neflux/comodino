@@ -1,4 +1,4 @@
-.container{
+.bcontainer{
     width: auto;
     background-color: #FFF;
     padding-top: 30px !important;
@@ -6,7 +6,7 @@
     padding-left: 40px;
     padding-right: 40px;
     border-radius: 4px;
-    margin: 40px 70px;
+    margin: 40px;
 }
 
 .display-1 {
@@ -19,6 +19,7 @@ html{
 }
 body{
     background-color: #F3F3F4 !important;
+    margin-top: 80px;
 }
 
 .list-group-item {

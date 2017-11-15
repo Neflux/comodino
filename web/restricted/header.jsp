@@ -1,14 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<jsp:useBean id="categoryDao" class="daos.impl.CategoryDaoImpl"/>
+<c:set var="categories" value="${categoryDao.getCategories()}" scope="page"/>
 
 <html><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="../css/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="../css/custom.min.css">
     <script src="https://use.fontawesome.com/f98c8dd683.js"></script>
+    <link rel="stylesheet" href="../css/custom.min.css">
     <link rel="stylesheet" href="../css/my.css">
     <link rel="stylesheet" href="../css/header.css">
 </head>
@@ -50,7 +52,7 @@
                                 <c:otherwise>
                                     <c:forEach items="${vendor_notifications}" var="n">
                                         <li>
-                                            <a>Notifica:<br>Data: ${n.creationDate}
+                                            <a><b>${n.title}</b>
                                             </a>
                                         </li>
                                     </c:forEach>
@@ -76,37 +78,63 @@
                                 <c:otherwise>
                                     <c:forEach items="${admin_notifications}" var="n">
                                         <li>
-                                            <a>Disputa:<br>Order: ${n.orderId} Product: ${n.productId} Shop: ${n.shopId}<br>Data: ${n.creationDate}</a>
+                                            <a><b>${n.title}</b><br>Order: ${n.orderId} Product: ${n.productId} Shop: ${n.shopId}<br>Data: ${n.creationDate}</a>
                                         </li>
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Vedi tutte</a></li><!-- TODO: inserire link pagina/sistemare formattazione notifiche -->
+                            <li><a href="${pageContext.request.contextPath}/restricted/admin_panel.jsp">Vedi tutte</a></li><!-- TODO: sistemare formattazione notifiche -->
                         </ul>
                     </li>
                 </c:if>
             </ul>
-            <ul class="nav navbar-nav navbar-center">
-                <li>
-                    <form class="navbar-form" type="GET" action="${pageContext.request.contextPath}/search">
+            <div class="nav navbar-nav navbar-center">
+                <form class="navbar-form navbar-search" role="search" type="GET" action="${pageContext.request.contextPath}/search">
+                    <div class="input-group">
+
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="label-icon">Categoria</span>
+                                &nbsp;&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-left" role="menu">
+                                <li><a href="#">Tutte le categorie</a></li>
+                                <c:forEach items="${categories}" var="cat">
+                                    <li><a  href="#">${cat.categoryName}</a></li>
+                                    <input id="${fn:replace(cat.categoryName,' ', '')}-radio" name="cat" value="${cat.categoryName}" type="radio" hidden>
+                                </c:forEach>
+                            </ul>
+
+                        </div>
+
+                        <input name="q" class="form-control" type="text" placeholder="Cerca" autofocus>
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-search btn-default">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!--form class="navbar-form" type="GET" action="${pageContext.request.contextPath}/search">
                         <div class="btn btn-default btn-left dropdown">
                             <a href="#" class="dropdown-toggle navbar-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorie&nbsp;&nbsp;<span class="caret"></span></a>
+
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Tutte le Categorie</a></li>
+                                <c:forEach items="${categories}" var="cat">
+                                    <li><a href="#">${cat.categoryName}</a></li>
+                                </c:forEach>
                             </ul>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control no-border" name="q" placeholder="Cerca" required>
                         </div>
                         <button type="submit" class="btn btn-default btn-right"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </li>
-            </ul>
+                    </form-->
+
+            </div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -119,8 +147,14 @@
                         <c:if test="${user.hasShop()}">
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Negozio</li>
-                            <li><a href="#">Inventario</a></li>
+                            <li><a href="#">Pannello inventario</a></li>
                             <li><a href="#">Riepilogo vendite</a></li>
+                        </c:if>
+                        <c:if test="${user.type == 1}">
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Admin</li>
+                            <li><a href="${pageContext.request.contextPath}/restricted/admin_panel.jsp">Pannello principale</a></li>
+                            <li><a href="#">Gestione dispute</a></li>
                         </c:if>
                         <li role="separator" class="divider"></li>
                         <li><a href="${pageContext.request.contextPath}/restricted/logout">Esci</a></li>

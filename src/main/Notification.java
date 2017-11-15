@@ -5,11 +5,20 @@ import java.sql.Timestamp;
 
 public class Notification implements Serializable {
 
+    private String title;
     private int shopStatus;
     private int shopId;
     private Timestamp creationDate;
 
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    
     public int getShopStatus() {
         return shopStatus;
     }

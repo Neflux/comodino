@@ -17,42 +17,30 @@
     <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
-<c:if test="${param.action == 'logout'}">
-    <div id="popup" class="alert alert-success alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Uscito con successo!
-    </div>
-</c:if>
-<c:if test="${param.action == 'login_error'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Username o password errati!
-    </div>
-</c:if>
-<c:if test="${param.action == 'register_error'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Campi mancanti!
-    </div>
-</c:if>
-<c:if test="${param.action == 'email_already_in_use_error'}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        La mail inserita è già in uso!
-    </div>
-</c:if>
 
 <!-- general error, see passed parameter -->
+<c:if test="${not empty param.success}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            ${param.success}
+    </div>
+</c:if>
+<c:if test="${not empty param.warning}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Attenzione: ${param.warning}
+    </div>
+</c:if>
 <c:if test="${not empty param.error}">
     <div id="popup" class="alert alert-danger alert-dismissable fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        ERRORE: ${param.error}
+        Errore: ${param.error}
     </div>
 </c:if>
 <div class="container-fluid dynamicTile">
     <div class="row">
         <div class="col-sm-2 col-xs-4">
-            <div id="tile1" class="tile">
+            <div id="tile1" class="tile kitchen">
 
                 <div class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
@@ -69,14 +57,14 @@
             </div>
         </div>
         <div class="col-sm-4 col-xs-8">
-            <div class="tile">
+            <div class="tile kitchen">
 
                 <img src="img/cucina1.jpg" class="img-responsive"/>
 
             </div>
         </div>
         <div class="col-sm-2 col-xs-4">
-            <div id="bagno" class="tile">
+            <div id="bagno" class="tile bagno">
 
                 <div class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
@@ -93,14 +81,14 @@
             </div>
         </div>
         <div class="col-sm-2 col-xs-4">
-            <div class="tile">
+            <div class="tile bagno">
 
                 <img src="img/bagno1.jpg" class="img-responsive"/>
 
             </div>
         </div>
         <div class="col-sm-2 col-xs-4">
-            <div id="garden" class="tile">
+            <div id="garden" class="tile garden">
 
                 <div class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
@@ -120,14 +108,14 @@
 
     <div class="row">
         <div class="col-sm-4 col-xs-8">
-            <div class="tile">
+            <div class="tile bedroom">
 
                 <img src="img/bedroom1.jpg" class="img-responsive"/>
 
             </div>
         </div>
         <div class="col-sm-2 col-xs-4">
-            <div id="bedroom" class="tile">
+            <div id="bedroom" class="tile bedroom">
 
                 <div class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
@@ -145,7 +133,7 @@
             </div>
         </div>
         <div class="col-sm-2 col-xs-4">
-            <div id="illumination" class="tile">
+            <div id="illumination" class="tile illumination">
 
                 <div class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
@@ -163,7 +151,7 @@
             </div>
         </div>
         <div class="col-sm-4 col-xs-8">
-            <div class="tile">
+            <div class="tile garden">
 
                 <img src="img/garden1.jpg" class="img-responsive"/>
 
@@ -173,13 +161,13 @@
 
     <div class="row">
         <div class="col-sm-2 col-xs-4">
-            <div id="livingroom" class="tile">
+            <div id="livingroom" class="tile livingroom">
 
                 <div class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <h3 class="tilecaption">Salotto</h3>
+                            <h3 class="tilecaption">Soggiorno</h3>
                         </div>
                         <div class="item">
                             <h3 class="tilecaption"><i class="fa fa-television fa-4x"></i></h3>
@@ -190,21 +178,21 @@
             </div>
         </div>
         <div class="col-sm-4 col-xs-8">
-            <div class="tile">
+            <div class="tile livingroom">
 
                 <img src="img/salotto2.jpg" class="img-responsive"/>
 
             </div>
         </div>
         <div class="col-sm-2 col-xs-4">
-            <div class="tile">
+            <div class="tile illumination">
 
                 <img src="img/illumination2.jpg" class="img-responsive"/>
 
             </div>
         </div>
         <div class="col-sm-2 col-xs-4">
-            <div id="studio" class="tile">
+            <div id="studio" class="tile studio">
 
                 <div class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
@@ -222,7 +210,7 @@
             </div>
         </div>
         <div class="col-sm-2 col-xs-4">
-            <div class="tile">
+            <div class="tile studio">
 
                 <img src="img/studio2.jpg" class="img-responsive"/>
 

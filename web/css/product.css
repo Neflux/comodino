@@ -18,6 +18,29 @@ body{
 	padding-bottom: 1px;
 }
 
+/* Strike if product is on sale */
+
+.strikethrough {
+    position: relative;
+    color: #E0E0E0;
+}
+.strikethrough:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 50%;
+    right: 0;
+    border-top: 1px solid;
+    border-bottom: 2px solid;
+    border-color: inherit;
+
+    -webkit-transform:rotate(-5deg);
+    -moz-transform:rotate(-5deg);
+    -ms-transform:rotate(-5deg);
+    -o-transform:rotate(-5deg);
+    transform:rotate(-5deg);
+}
+
 /* Main carousel style */
 
 .carousel {

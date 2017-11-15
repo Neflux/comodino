@@ -81,12 +81,13 @@ public class NotificationDaoImpl implements NotificationDao {
     }
 
     @Override
-    public boolean createDisputeNotification(int orderID, int productID, int shopID) {
+    public boolean createDisputeNotification(String title, int orderID, int productID, int shopID) {
         try {
-            PreparedStatement stm = con.prepareStatement("INSERT INTO disputenotification (OrderID, ProductID, ShopID, AdminStatus, ShopStatus) VALUES (?,?,?,0,0)");
-            stm.setInt(1, orderID);
-            stm.setInt(2, productID);
-            stm.setInt(3, shopID);
+            PreparedStatement stm = con.prepareStatement("INSERT INTO disputenotification (Title, OrderID, ProductID, ShopID, AdminStatus, ShopStatus) VALUES (?,?,?,?,0,0)");
+            stm.setString(1, title);
+            stm.setInt(2, orderID);
+            stm.setInt(3, productID);
+            stm.setInt(4, shopID);
 
             int result = stm.executeUpdate();
             if (result == 0){
@@ -106,6 +107,7 @@ public class NotificationDaoImpl implements NotificationDao {
         try {
             while (rs.next()){
                 Notification n = new Notification();
+                n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
                 n.setCreationDate(rs.getTimestamp("CreationDate"));
                 n.setShopStatus(rs.getInt("ShopStatus"));
@@ -124,6 +126,7 @@ public class NotificationDaoImpl implements NotificationDao {
         try {
             while (rs.next()){
                 NotificationDispute n = new NotificationDispute();
+                n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
                 n.setCreationDate(rs.getTimestamp("CreationDate"));
                 n.setShopStatus(rs.getInt("ShopStatus"));

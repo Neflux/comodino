@@ -2,6 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 
+
+
 <jsp:useBean id="user" class="main.User" scope="session"/>
 
 
@@ -46,29 +48,23 @@
 </c:if>
 <c:if test="${param.action == 'info_error'}">
     <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Info non modificate!
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            ${param.success}
     </div>
 </c:if>
-<c:if test="${param.action == 'privacy_accepted'}">
-    <div id="popup" class="alert alert-success alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Privacy accettata!
-    </div>
-</c:if>
-<c:if test="${param.action == 'privacy_not_accepted'}">
+<c:if test="${not empty param.warning}">
     <div id="popup" class="alert alert-danger alert-dismissable fade in">
-        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        È necessario accettare la privacy!
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Attenzione: ${param.warning}
     </div>
 </c:if>
-<!-- general error, see passed parameter -->
 <c:if test="${not empty param.error}">
     <div id="popup" class="alert alert-danger alert-dismissable fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        ERRORE: ${param.error}
+        Errore: ${param.error}
     </div>
 </c:if>
+
 <div class="container">
     <div class="row" style="margin: 0 0 10px 0;">
         <div class="col-md-12 text-center">

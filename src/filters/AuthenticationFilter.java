@@ -34,7 +34,7 @@ public class AuthenticationFilter implements Filter {
                 System.out.println("    Privacy not accepted yet.");
                 String path = req.getRequestURI();
                 if (!path.endsWith("profile.jsp") && !path.endsWith("/acceptprivacy") && !path.endsWith("/logout")) {
-                    res.sendRedirect("profile.jsp?action=privacy_not_accepted");
+                    res.sendRedirect("profile.jsp?error=Privacy non accettata");
                     return;
                 }
             }

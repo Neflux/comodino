@@ -53,7 +53,7 @@ public class getVendorsServlet extends HttpServlet {
             {
                 PreparedStatement stm = null;
                 try {
-                    stm = con.prepareStatement("SELECT shop.*, shopproduct.Price, shopproduct.Discount, shopproduct.Quantity, round(shopproduct.Price * (1-shopproduct.Discount),2) as ActualPrice \n" +
+                    stm = con.prepareStatement("SELECT product.ProductID, shop.*, shopproduct.Price, shopproduct.Discount, shopproduct.Quantity, round(shopproduct.Price * (1-shopproduct.Discount),2) as ActualPrice \n" +
                             "FROM product, shopproduct, shop \n" +
                             "WHERE product.name = ? AND shopproduct.Quantity > 0 AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID \n" +
                             "ORDER BY ActualPrice ASC, Rating DESC\n" +
@@ -65,10 +65,10 @@ public class getVendorsServlet extends HttpServlet {
                     try (ResultSet rs = stm.executeQuery()){
                         System.out.println(stm.toString());
                         while(rs.next()) {
-                            ret += "<div class=\"col-md-8 mod\"><a href=\"\">" + rs.getString("Name") + "</a></div>\n" +
+                            ret += "<div class=\"col-md-8 mod\"><a href=\"bonnyyyyyy\">" + rs.getString("Name") + "</a></div>\n" +
                                     "                                    <div class=\"col-md-4 mod text-left\">\n" +
                                     "                                        <span class=\"white valign\">da " + rs.getFloat("ActualPrice") + " €</span>\n" +
-                                    "                                        <span class=\"float-right\"><i class=\"fa fa-angle-double-right white valign\" aria-hidden=\"true\"></i></span>\n" +
+                                    "                                        <span class=\"float-right\"><a href=\"/product.jsp?product=" + rs.getString("ProductID") + "&shop=" + rs.getString("ShopID") + "\"><i class=\"fa fa-angle-double-right white valign\" aria-hidden=\"true\"></i></a></span>\n" +
                                     "                                    </div>";
                         }
 

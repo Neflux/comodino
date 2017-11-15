@@ -8,12 +8,15 @@ import main.Shop;
 import utils.Utils;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
 import static utils.Mechanist.checkSMP;
 import static utils.Mechanist.getMMP;
+
+import info.debatty.java.stringsimilarity.JaroWinkler;
 
 public class ProductDaoImpl implements ProductDao {
     private Connection con;
@@ -41,6 +44,32 @@ public class ProductDaoImpl implements ProductDao {
         return null;
     }
 
+    @Override
+    public ArrayList<Product> allProducts() {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM product AS p\n" +
+                    "  INNER JOIN productphoto AS pp USING(ProductID)\n" +
+                    "  INNER JOIN shopproduct AS sp USING (ProductID)\n" +
+                    "GROUP BY ProductID;");
+            ResultSet rs = stm.executeQuery();
+            return extractAllProductsFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private ArrayList<Product> extractAllProductsFromResultSet(ResultSet rs) throws SQLException {
+        ArrayList<Product> products = new ArrayList<>();
+        Product prod;
+        while (true){
+            prod = extractProductFromResultSet(rs);
+            if (prod == null)
+                break;
+            products.add(prod);
+        }
+        return products;
+    }
     private Product extractProductFromResultSet(ResultSet rs) throws SQLException {
         if(!rs.next()){
             return null;
@@ -67,7 +96,7 @@ public class ProductDaoImpl implements ProductDao {
         try{
             prod.setShopName(rs.getString("ShopName"));
         }catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try{
             prod.setDescription(rs.getString("Description"));
@@ -256,34 +285,39 @@ public class ProductDaoImpl implements ProductDao {
                         "SP.ShopID, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName, " +
                         " round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
                         "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-                        "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
+                        "WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
                         region.toString() + category.toString() + vendor.toString() + minRating +
                         priceRange +            //HAVING
                         orderBySql              //ORDER BY
         );
-        stm.setString(1,"%"+searchQuery+"%");
         System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
 
         //Final query execute
         try {
             try (ResultSet rs = stm.executeQuery()){
                 while(rs.next()) {
-                    //Product crafting
-                    Product p = new Product();
-                    p.setProductID(rs.getInt("ProductID"));
-                    p.setShopID(rs.getInt("ShopID"));
-                    p.setProductName(rs.getString("ProductName"));
-                    p.setCategoryName(rs.getString("CategoryName"));
-                    p.setRating(rs.getFloat("Rating"));
-                    p.setPrice(rs.getFloat("Price"));
-                    p.setDiscount(rs.getFloat("Discount"));
-                    p.setActualPrice(rs.getFloat("ActualPrice"));
-                    p.setQuantity(rs.getInt("Quantity"));
-                    p.setShopName(rs.getString("ShopName"));
+                    //JaroWinkler implementation
+                    JaroWinkler jw = new JaroWinkler();
+                    double distance = jw.similarity(rs.getString("ProductName").toLowerCase(),searchQuery.toLowerCase());
+                    if (distance >= 0.7)
+                    {
+                        //Product crafting
+                        Product p = new Product();
+                        p.setProductID(rs.getInt("ProductID"));
+                        p.setShopID(rs.getInt("ShopID"));
+                        p.setProductName(rs.getString("ProductName"));
+                        p.setCategoryName(rs.getString("CategoryName"));
+                        p.setRating(rs.getFloat("Rating"));
+                        p.setPrice(rs.getFloat("Price"));
+                        p.setDiscount(rs.getFloat("Discount"));
+                        p.setActualPrice(rs.getFloat("ActualPrice"));
+                        p.setQuantity(rs.getInt("Quantity"));
+                        p.setShopName(rs.getString("ShopName"));
 
-                    //ProductGroup crafting
-                    products.computeIfAbsent(p.getProductName(), k -> new ProductGroup());
-                    products.get(p.getProductName()).getList().add(p);
+                        //ProductGroup crafting
+                        products.computeIfAbsent(p.getProductName(), k -> new ProductGroup());
+                        products.get(p.getProductName()).getList().add(p);
+                    }
                 }
             }
         } finally {
@@ -356,6 +390,26 @@ public class ProductDaoImpl implements ProductDao {
 
                     //Actual insertion
                     gp.getVendors().add(s);
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                stm.close();
+            }
+
+            //Fetch geozone list related to this ProductGroup
+            stm = con.prepareStatement(
+                    "SELECT DISTINCT SI.State " +
+                            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                            "WHERE P.Name = ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
+            );
+            stm.setString(1, pair.getKey().toString());
+
+            //Execution
+            try (ResultSet rs = stm.executeQuery()){
+                while(rs.next()) {
+                    gp.getGeo().add(rs.getString("State"));
                 }
             } catch(Exception e){
                 e.printStackTrace();
