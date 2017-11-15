@@ -1,21 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="main.User" %>
-<%@ page import="daos.impl.ShopDaoImpl" %>
-<%@ page import="main.Shop" %>
-<%@ page import="daos.impl.UserDaoImpl" %>
 
-<%
-    User usr = (User) session.getAttribute("user");
-    if ( usr == null || usr.getEmail() == null || !usr.hasShop()) {
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
-    }
-%>
-
-<jsp:include page="header.jsp" flush="true" />
+<jsp:useBean id="shop" class="main.Shop" scope="session"/>
 
 <html>
     <head>
+        <title>Negozio</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -25,223 +16,92 @@
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="css/custom.min.css" rel="stylesheet" type="text/css">
         <link href="css/my.css" rel="stylesheet" type="text/css">
-        <link href="css/vendor.css" rel="stylesheet" type="text/css">
+        <link href="css/public.shop.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-            <div style="margin-top:+35px !important;" class="container">
-                <%
-                    //trick di ldb
-                    //non si può sfruttare la query che fa il check subito (hasShop?)
-                    //non possiamo avere ridondanza nel database, ma nel server java si..
-                    //se cambiassimo approccio completamente?
-                    Shop shop = new ShopDaoImpl().getShop(new UserDaoImpl().getShopID(usr));
-                    System.out.println(shop.getName());
-                    String imageSrc = "data:image/gif;base64," + shop.getImageData();
-                    if(imageSrc.equals("data:image/gif;base64,")){
-                        imageSrc = "http://via.placeholder.com/400x300";
-                    }
-                    /*String imageSrc = "http://via.placeholder.com/400x300";
-                    Shop shop = new Shop();*/
-                %>
-                <div class="row">
-                    <div class="col-md-4" id="navbar">
-                        <div class="col-md-12">
-                            <a id="shopPhoto" href="#"><img src='<%=imageSrc%>' class="img-responsive"></a>
-                            <h1 id="shopTitle" class="text-center"><%=shop.getName()%></h1>
-                            <h4 id="shopEmailWebsite" class="text-center text-info"><a href="<%=shop.getWebsite()%>"><%=shop.getWebsite()%></a></h4>
-                            <p><%=shop.getDescription()%></p>
-                            <div class="row text-center">
-
-                                <%
-                                    int i = 0;
-                                    for(; i < shop.getRating();i++){
-                                %>
-                                <i class="fa fa-lg fa-star" aria-hidden="true"></i>
-                                <%
-                                    }
-                                    for(; i < 5 ;i++){
-                                %>
-                                <i class="fa fa-lg fa-star-o" aria-hidden="true"></i>
-                                <%
-                                    }
-                                %>
-                                <a href="#">Vedi tutte</a>
-                            </div>
-                            <div id="addShopDiv" class="row">
-                                <div class="col-md-10">
-                                    <h2 id="realShop">Negozio fisico</h2>
-                                </div>
-                                <div class="col-md-7">
-                                    <a id="btnAddShopLocation" class="btn btn-default">Aggiungi negozio fisico</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-1" id="mySpace">
-                    </div>
-                    <div class="col-md-7" id="mainContent">
-                        <div class="row" id="panelContainer">
-                            <div class="col-md-4" id="photoPanel">
-                                <div class="col-md-12">
-                                    <a href="#"><img src="http://via.placeholder.com/400x300" class="img-responsive"></a>
-                                    <a id="btnAddPhoto" class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-camera"></i>Aggiungi foto</a>
-                                    <a id="btnShopSettings" class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-book"></i>Modifica negozio</a>
-                                </div>
-                            </div>
-                            <div class="col-md-1" id="mySpace2">
-                            </div>
-                            <div class="col-md-6" id="buttonPanel">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <a id="btnInventario" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-cube fa-fw fa-lg pull-left"></i>Inventario</a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a id="btnOrderList" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-fw fa-lg fa-list-ul pull-left"></i>Ordini</a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <a id="btnReviews" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a id="btnDispute" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-fw fa-lg fa-warning pull-left"></i>Dispute</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="productsLeftContainer">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <h1 id="productsLeftTitle">Prodotti in esaurimento</h1>
-                                </div>
-                                <div class="row" id="productsLeftRows">
-
-                                    <div class="row productRow">
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="productNameDiv col-md-6">
-                                                    <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                                </div>
-                                                <div class="itemsLeftDiv col-md-6">
-                                                    <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <a class="showProduct btn-sm btn-default">Vedi</a>
-                                        </div>
-                                    </div>
-                                    <div class="row productRow">
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="productNameDiv col-md-6">
-                                                    <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                                </div>
-                                                <div class="itemsLeftDiv col-md-6">
-                                                    <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <a class="showProduct btn-sm btn-default">Vedi</a>
-                                        </div>
-                                    </div>
-                                    <div class="row productRow">
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="productNameDiv col-md-6">
-                                                    <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                                </div>
-                                                <div class="itemsLeftDiv col-md-6">
-                                                    <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <a class="showProduct btn-sm btn-default">Vedi</a>
-                                        </div>
-                                    </div>
-                                    <div class="row productRow">
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="productNameDiv col-md-6">
-                                                    <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                                </div>
-                                                <div class="itemsLeftDiv col-md-6">
-                                                    <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <a class="showProduct btn-sm btn-default">Vedi</a>
-                                        </div>
-                                    </div>
-                                    <div class="row productRow">
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="productNameDiv col-md-6">
-                                                    <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                                </div>
-                                                <div class="itemsLeftDiv col-md-6">
-                                                    <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <a class="showProduct btn-sm btn-default">Vedi</a>
-                                        </div>
-                                    </div>
-                                    <div class="row productRow">
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="productNameDiv col-md-6">
-                                                    <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                                </div>
-                                                <div class="itemsLeftDiv col-md-6">
-                                                    <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <a class="showProduct btn-sm btn-default">Vedi</a>
-                                        </div>
-                                    </div>
-                                    <div class="row productRow">
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="productNameDiv col-md-6">
-                                                    <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                                </div>
-                                                <div class="itemsLeftDiv col-md-6">
-                                                    <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <a class="showProduct btn-sm btn-default">Vedi</a>
-                                        </div>
-                                    </div>
-                                    <div class="row productRow">
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="productNameDiv col-md-6">
-                                                    <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                                </div>
-                                                <div class="itemsLeftDiv col-md-6">
-                                                    <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <a class="showProduct btn-sm btn-default">Vedi</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+        <c:if test="${not empty sessionScope.user}">
+            <jsp:include page="/restricted/header.jsp" flush="true" />
+        </c:if>
+        <c:if test="${empty sessionScope.user}">
+            <jsp:include page="/header_anonimo.jsp" flush="true" />
+        </c:if>
+        <div style="margin-top:+35px !important;" class="container">
+            <div class="row">
+                <div class="col-md-4" id="navbar">
+                    <div class="col-md-12">
+                        <a id="shopPhoto" href="#"><img src="http://via.placeholder.com/1000x1000" class="img-responsive"></a>
+                        <h1 id="shopTitle" class="text-center">${shop.name}</h1>
+                        <h4 id="shopEmailWebsite" class="text-center text-info"><a href="${shop.website}"></a></h4>
+                        <p>${shop.description}</p>
+                        <div class="row text-center">
+                            <fmt:formatNumber var="rat" groupingUsed = "false" maxFractionDigits = "0" value="${shop.rating}" />
+                            <c:choose>
+                                <c:when test="${rat ge 0}">
+                                    <c:forEach begin="0" end="${rat}" varStatus="loop">
+                                        <i class="fa fa-star rating_star" aria-hidden="true"></i>
+                                    </c:forEach>
+                                    <c:forEach begin="0" end="${4-rat}" varStatus="loop">
+                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach begin="0" end="4" varStatus="loop">
+                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+                            <a href="#"> vedi tutte</a>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-1" id="mySpace">
+                </div>
+                <div class="col-md-7" id="mainContent">
+                    <!-- magari rimuovere sta row extra -->
+                    <div class="row">
+                        <c:if test="${not empty requestScope.products}">
+                            <c:forEach var="prod" items="${requestScope.products}">
+                                <div class="search_row row vcenter separated">
+                                    <div class="col-md-2">
+                                        <c:choose>
+                                            <c:when test="${not empty prod.value.getImageData()}">
+                                                <img src='${prod.value.getImageData()}' alt='images Here' width="100" height="100"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src='http://via.placeholder.com/1000x1000' alt='images Here' width="100" height="100"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <div class="col-md-7 text-left">
+                                        <h2>${prod.value.getList().get(0).getProductName()}</h2>
+                                        <h1 class="prezzo">${prod.value.getList().get(0).getActualPrice()} €</h1>
+                                    </div>
+                                    <div class="col-md-3 ratAdd">
+                                        Valutazione:
+                                        <fmt:formatNumber var="prat" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getList().get(0).getRating()}" />
+                                        <c:choose>
+                                            <c:when test="${prat ge 0}">
+                                                <c:forEach begin="0" end="${prat-1}" varStatus="loop">
+                                                    <i class="fa fa-star rating_star" aria-hidden="true"></i>
+                                                </c:forEach>
+                                                <c:forEach begin="0" end="${4-prat}" varStatus="loop">
+                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach begin="0" end="4" varStatus="loop">
+                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:if>
+                    </div>
+                </div>
+            </div>
         </div>
-        <script type="text/javascript" src="js/vendor.js"></script>
     </body>
 </html>

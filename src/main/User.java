@@ -13,12 +13,12 @@ public class User implements Serializable {
     private String lastName;
     private String email;
     private int type; // 0 normale o venditore, 1 admin
-    private boolean hasShop; // true se è venditore
+    private int shopID; // 0 se non è venditore, shopID se è venditore
     private int privacy;
     private ArrayList<Pair<Product,Integer>> cart;
 
     public User() {
-        updateHasShop();
+        updateShopID();
         updateCart();
     }
 
@@ -63,11 +63,15 @@ public class User implements Serializable {
     }
 
     public boolean hasShop() {
-        return hasShop;
+        return this.shopID != 0;
     }
 
-    public void updateHasShop() {
-        this.hasShop = new UserDaoImpl().hasShop(this);
+    public int getShopID() {
+        return this.shopID;
+    }
+
+    public void updateShopID() {
+        this.shopID = new UserDaoImpl().getShopID(this);
     }
 
     public ArrayList<Pair<Product, Integer>> getCart() {
