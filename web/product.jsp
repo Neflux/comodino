@@ -4,14 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:if test="${sessionScope.user != null}">
+<c:if test="${not empty sessionScope.user}">
     <jsp:include page="/restricted/header.jsp" flush="true"/>
 </c:if>
-<c:if test="${sessionScope.user == null}">
+<c:if test="${empty sessionScope.user}">
     <jsp:include page="/header_anonimo.jsp" flush="true"/>
 </c:if>
 
-<jsp:useBean id="user" class="main.User" scope="session"/>
 <jsp:useBean id="product" class="main.Product" scope="request"/>
 <jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl" scope="page"/>
 <c:set var="reviewList" value="${reviewDao.getProductReview(product.productID)}" scope="page"/>
