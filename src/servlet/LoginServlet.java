@@ -1,7 +1,9 @@
 package servlet;
 
+import daos.impl.ShopDaoImpl;
 import daos.impl.UserDaoImpl;
 import main.User;
+import main.Shop;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,7 +37,10 @@ public class LoginServlet extends HttpServlet {
             // imposto l'utente connesso come attributo di sessione
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
-
+            if (user.hasShop()) {
+                Shop shop = new ShopDaoImpl().getShop(user.getShopID());
+                session.setAttribute("shop", shop);
+            }
             // mando un redirect alla servlet che carica i prodotti
             response.sendRedirect("/index.jsp");
         }

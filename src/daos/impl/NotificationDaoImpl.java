@@ -25,8 +25,8 @@ public class NotificationDaoImpl implements NotificationDao {
     @Override
     public ArrayList<Notification> getVendorNotifications(User user) {
         ArrayList<Notification> notifications = new ArrayList<>();
-        notifications.addAll(getReviewNotifications(new UserDaoImpl().getShopID(user)));
-        notifications.addAll(getDisputeNotifications(new UserDaoImpl().getShopID(user)));
+        notifications.addAll(getReviewNotifications(user.getShopID()));
+        notifications.addAll(getDisputeNotifications(user.getShopID()));
         Comparator<Notification> dateComparator = Comparator.comparing(Notification::getCreationDate);
         notifications.sort(dateComparator.reversed());
         printNotifications(notifications, DEBUG);
