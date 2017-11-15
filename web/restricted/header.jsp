@@ -52,7 +52,59 @@
                                 <c:otherwise>
                                     <c:forEach items="${vendor_notifications}" var="n">
                                         <li>
-                                            <a><b>${n.title}</b>
+                                            <a>
+                                                <c:choose>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationProductReview'}">
+                                                        Recensione prodotto:
+                                                        <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
+                                                        <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                                                        <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span>
+                                                    </c:when>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationShopReview'}">
+                                                        Recensione negozio:
+                                                    </c:when>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationDispute'}">
+                                                        Disputa:
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Qualcosa è andato storto...
+                                                    </c:otherwise>
+                                                </c:choose>
+
+                                                <br>
+                                                <b class="notif-title">${n.title}</b><br>
+                                                <c:choose>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationProductReview'}">
+                                                        <span>
+                                                            <c:if test="${n.rating > 0}">
+                                                                <c:forEach begin="0" end="${n.rating - 1}" varStatus="loop">
+                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                            <c:if test="${n.rating < 5}">
+                                                                <c:forEach begin="0" end="${4 - n.rating}" varStatus="loop">
+                                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                        </span>
+                                                    </c:when>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationShopReview'}">
+                                                        <span>
+                                                            <c:forEach begin="0" end="${n.rating - 1}" varStatus="loop">
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                            </c:forEach>
+                                                            <c:forEach begin="0" end="${4 - n.rating}" varStatus="loop">
+                                                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                            </c:forEach>
+                                                        </span>
+                                                    </c:when>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationDispute'}">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Qualcosa è andato storto...
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </a>
                                         </li>
                                     </c:forEach>
@@ -78,7 +130,16 @@
                                 <c:otherwise>
                                     <c:forEach items="${admin_notifications}" var="n">
                                         <li>
-                                            <a><b>${n.title}</b><br>Order: ${n.orderId} Product: ${n.productId} Shop: ${n.shopId}<br>Data: ${n.creationDate}</a>
+                                            <a>
+                                                Disputa:
+                                                <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
+                                                <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                                                <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                ${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span><br>
+                                                <b class="notif-title">${n.title}</b>
+                                                <br>
+                                                Order: ${n.orderId} Product: ${n.productId} Shop: ${n.shopId}</a>
                                         </li>
                                     </c:forEach>
                                 </c:otherwise>

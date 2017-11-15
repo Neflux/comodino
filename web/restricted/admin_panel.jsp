@@ -25,13 +25,13 @@
 
 <!-- general error, see passed parameter -->
 <c:if test="${not empty param.success}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+    <div id="popup" class="alert alert-success alert-dismissable fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             ${param.success}
     </div>
 </c:if>
 <c:if test="${not empty param.warning}">
-    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+    <div id="popup" class="alert alert-warning alert-dismissable fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         Attenzione: ${param.warning}
     </div>
@@ -192,12 +192,16 @@
                                             Nessuna recensione
                                         </c:when>
                                         <c:otherwise>
-                                            <c:forEach begin="0" end="${prod.rating - 1}" varStatus="loop">
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                            </c:forEach>
-                                            <c:forEach begin="0" end="${4 - prod.rating}" varStatus="loop">
-                                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                            </c:forEach>
+                                            <c:if test="${prod.rating > 0}">
+                                                <c:forEach begin="0" end="${prod.rating - 1}" varStatus="loop">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </c:forEach>
+                                            </c:if>
+                                            <c:if test="${prod.rating < 5}">
+                                                <c:forEach begin="0" end="${4 - prod.rating}" varStatus="loop">
+                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                </c:forEach>
+                                            </c:if>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>

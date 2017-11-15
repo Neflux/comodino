@@ -2,9 +2,7 @@ package daos.impl;
 
 import daos.NotificationDao;
 import db.DBManager;
-import main.NotificationDispute;
-import main.Notification;
-import main.User;
+import main.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,9 +21,68 @@ public class NotificationDaoImpl implements NotificationDao {
     }
 
     @Override
+    public boolean createProductReviewNotification(int reviewID, String title, int rating) {
+        ArrayList<Integer> shops = new ArrayList<>();
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT sp.ShopID\n" +
+                    "FROM productreview pr\n" +
+                    "INNER JOIN shopproduct sp USING (ProductID)\n" +
+                    "WHERE ReviewID = ?");
+            stm.setInt(1, reviewID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+                shops.add(rs.getInt("ShopID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        try {
+            for (int shopID:shops) {
+                PreparedStatement stm = con.prepareStatement("INSERT INTO productreviewnotification (ReviewID, ShopID, Title, Rating) VALUES (?,?,?,?)");
+                stm.setInt(1, reviewID);
+                stm.setInt(2, shopID);
+                stm.setString(3, title);
+                stm.setInt(4, rating);
+                int result = stm.executeUpdate();
+                if (result == 0){
+                    return false;
+                }
+            }
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean createDisputeNotification(String title, int orderID, int productID, int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO disputenotification (Title, OrderID, ProductID, ShopID, AdminStatus, ShopStatus) VALUES (?,?,?,?,0,0)");
+            stm.setString(1, title);
+            stm.setInt(2, orderID);
+            stm.setInt(3, productID);
+            stm.setInt(4, shopID);
+
+            int result = stm.executeUpdate();
+            if (result == 0){
+                return false;
+            }
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public ArrayList<Notification> getVendorNotifications(User user) {
         ArrayList<Notification> notifications = new ArrayList<>();
-        notifications.addAll(getReviewNotifications(new UserDaoImpl().getShopID(user)));
+        notifications.addAll(getProductReviewNotifications(new UserDaoImpl().getShopID(user)));
+        notifications.addAll(getShopReviewNotifications(new UserDaoImpl().getShopID(user)));
         notifications.addAll(getDisputeNotifications(new UserDaoImpl().getShopID(user)));
         Comparator<Notification> dateComparator = Comparator.comparing(Notification::getCreationDate);
         notifications.sort(dateComparator.reversed());
@@ -49,12 +106,28 @@ public class NotificationDaoImpl implements NotificationDao {
     }
 
     @Override
-    public ArrayList<Notification> getReviewNotifications(int shopID){
+    public ArrayList<Notification> getProductReviewNotifications(int shopID){
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM reviewnotification WHERE ShopID = ? ORDER BY CreationDate DESC");
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM productreviewnotification WHERE ShopID = ? ORDER BY CreationDate DESC");
             stm.setInt(1, shopID);
             ResultSet rs = stm.executeQuery();
-            ArrayList<Notification> notifications = extractReviewNotificationFromResultSet(rs);
+            ArrayList<Notification> notifications = extractProductReviewNotificationFromResultSet(rs);
+            printNotifications(notifications, DEBUG);
+            return notifications;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Notification> getShopReviewNotifications(int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM shopreviewnotification WHERE ShopID = ? ORDER BY CreationDate DESC");
+            stm.setInt(1, shopID);
+            ResultSet rs = stm.executeQuery();
+            ArrayList<Notification> notifications = extractShopReviewNotificationFromResultSet(rs);
             printNotifications(notifications, DEBUG);
             return notifications;
 
@@ -80,37 +153,38 @@ public class NotificationDaoImpl implements NotificationDao {
         return null;
     }
 
-    @Override
-    public boolean createDisputeNotification(String title, int orderID, int productID, int shopID) {
-        try {
-            PreparedStatement stm = con.prepareStatement("INSERT INTO disputenotification (Title, OrderID, ProductID, ShopID, AdminStatus, ShopStatus) VALUES (?,?,?,?,0,0)");
-            stm.setString(1, title);
-            stm.setInt(2, orderID);
-            stm.setInt(3, productID);
-            stm.setInt(4, shopID);
-
-            int result = stm.executeUpdate();
-            if (result == 0){
-                return false;
-            }
-            return true;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    private ArrayList<Notification> extractReviewNotificationFromResultSet(ResultSet rs) {
+    private ArrayList<Notification> extractProductReviewNotificationFromResultSet(ResultSet rs) {
         ArrayList<Notification> notifications = new ArrayList<>();
 
         try {
             while (rs.next()){
-                Notification n = new Notification();
+                NotificationProductReview n = new NotificationProductReview();
                 n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
                 n.setCreationDate(rs.getTimestamp("CreationDate"));
                 n.setShopStatus(rs.getInt("ShopStatus"));
+                n.setRating(rs.getInt("Rating"));
+
+                notifications.add(n);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return notifications;
+    }
+
+    private ArrayList<Notification> extractShopReviewNotificationFromResultSet(ResultSet rs) {
+        ArrayList<Notification> notifications = new ArrayList<>();
+
+        try {
+            while (rs.next()){
+                NotificationShopReview n = new NotificationShopReview();
+                n.setTitle(rs.getString("Title"));
+                n.setShopId(rs.getInt("ShopID"));
+                n.setCreationDate(rs.getTimestamp("CreationDate"));
+                n.setShopStatus(rs.getInt("ShopStatus"));
+                n.setUserID(rs.getInt("UserID"));
+                n.setRating(rs.getInt("Rating"));
 
                 notifications.add(n);
             }
@@ -153,4 +227,5 @@ public class NotificationDaoImpl implements NotificationDao {
             System.out.flush();
         }
     }
+
 }

@@ -1,31 +1,22 @@
-#addresslist>.container{
-    width: auto;
-    background-color: #FFF;
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 4px;
-    margin: 40px 70px;
+.title.title-up {
+    margin: 5px auto;
+}
+.address-name{
+    margin-top: 0;
+}
+.address-buttons {
+    padding-top: 60px;
 }
 
-.display-1 {
-    margin-top: 0px !important;
-    margin-bottom: 20px !important;
-}
-
-html{
-    background-color: #F3F3F4;
-}
-body{
-    background-color: #F3F3F4 !important;
+body>.container{
+    padding-bottom: 20px;
 }
 
 .list-group-item {
     margin: 10px;
     border-radius: 8px !important;
-    border-width: 1px;
-    border-color: #CAD2D2;
+    -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.05);
+    box-shadow: 0 2px 2px rgba(0,0,0,.05);
 }
 
 input::-webkit-outer-spin-button,

@@ -5,10 +5,7 @@ import db.DBManager;
 import main.ProductReview;
 import main.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class ReviewDaoImpl implements ReviewDao {
@@ -19,6 +16,31 @@ public class ReviewDaoImpl implements ReviewDao {
         this.con = DBManager.getCon();
     }
 
+    @Override
+    public int createProductReview(String title, String description, int rating, int productID, int userID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO productreview (Title, Description, Rating, ProductID, UserID, CreationDate) \n" +
+                    "VALUES (?,?,?,?,?,NOW())", Statement.RETURN_GENERATED_KEYS);
+            stm.setString(1, title);
+            stm.setString(2, description);
+            stm.setInt(3, rating);
+            stm.setInt(4, productID);
+            stm.setInt(5, userID);
+
+            int result = stm.executeUpdate();
+            ResultSet rs = stm.getGeneratedKeys(); // bisogna riferirsi ai campi con il numero in sto caso
+            if (result == 0){
+                return 0;
+            }
+            rs.next();
+            System.out.flush();
+            return rs.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     @Override
     public ArrayList<ProductReview> getProductReview(int productID) {

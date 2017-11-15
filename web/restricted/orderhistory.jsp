@@ -21,6 +21,26 @@
 <jsp:useBean id="orderDao" class="daos.impl.OrderDaoImpl"/>
 <c:set var="orders" value="${orderDao.getAllOrders(user)}" scope="page"/>
 
+<!-- general error, see passed parameter -->
+<c:if test="${not empty param.success}">
+    <div id="popup" class="alert alert-success alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            ${param.success}
+    </div>
+</c:if>
+<c:if test="${not empty param.warning}">
+    <div id="popup" class="alert alert-warning alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Attenzione: ${param.warning}
+    </div>
+</c:if>
+<c:if test="${not empty param.error}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Errore: ${param.error}
+    </div>
+</c:if>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -95,7 +115,7 @@
                                                                             <h3>Ordine<br>Completato</h3>
                                                                         </div>
                                                                         <div class="row">
-                                                                            <button type="button" class="btn btn-default btn-block margin-btn">Lascia una recensione</button>
+                                                                            <button type="button" class="btn btn-default btn-block margin-btn" onclick="openReviewModal(${order.orderID},${po.product.productID},${po.product.shopID})">Lascia una recensione</button>
                                                                         </div>
                                                                     </c:when>
                                                                     <c:otherwise>
@@ -247,7 +267,7 @@
                                                                 </div>
                                                                 <div class="col-md-2 text-center">
                                                                     <div class="row">
-                                                                        <button type="button" class="btn btn-default btn-block margin-btn">Lascia una recensione</button>
+                                                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="openReviewModal(${order.orderID},${po.product.productID},${po.product.shopID})">Lascia una recensione</button>
                                                                     </div>
                                                                 </div>
                                                             </a>
@@ -279,29 +299,77 @@
         <div id="opendisputecard" class="card card-signup centerize" data-background-color="orange">
             <form id="opendisputeform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/opendispute">
                 <div class="header header-primary text-center">
-                    <h4 id="card_titolo" class="title title-up" >Apri Disputa</h4>
+                    <h4 class="title title-up" >Apri Disputa</h4>
                 </div>
                 <div class="content">
                     <input id="orderIdDisputeModal" type="text" class="hidden" name="orderID" placeholder="">
                     <input id="productIdDisputeModal" type="text" class="hidden" name="productID" placeholder="">
                     <input id="shopIdDisputeModal" type="text" class="hidden" name="shopID" placeholder="">
 
-                    <div class="input-group form-group-no-border nologin">
+                    <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
                         <input type="text" class="form-control" name="title" placeholder="Titolo...">
                     </div>
-                    <div class="input-group form-group-no-border nologin">
+                    <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
-                        <input type="text" class="form-control" name="description" placeholder="Descrivi anomalia...">
+                        <input type="text" class="form-control" name="description" rows="5" placeholder="Descrivi anomalia...">
                     </div>
                 </div>
                 <div class="footer text-center" style="margin-top: 15px;">
                     <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#opendisputeform').submit();">Invia</a>
                     <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#opendisputemodal').modal('toggle');});">Chiudi</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="openreviewmodal" tabindex="-1" role="dialog">
+    <div class="row">
+        <div id="openreviewcard" class="card card-signup centerize" data-background-color="orange">
+            <form id="openreviewform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/openproductreview">
+                <div class="header header-primary text-center">
+                    <h4 class="title title-up" >Nuova Recensione</h4>
+                </div>
+                <div class="content">
+                    <input id="orderIdReviewModal" type="text" class="hidden" name="orderID" placeholder="">
+                    <input id="productIdReviewModal" type="text" class="hidden" name="productID" placeholder="">
+                    <input id="shopIdReviewModal" type="text" class="hidden" name="shopID" placeholder="">
+
+                    <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user-o green" aria-hidden="true"></i>
+                          </span>
+                        <input type="text" class="form-control" name="title" placeholder="Titolo...">
+                    </div>
+                    <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user-o green" aria-hidden="true"></i>
+                          </span>
+                        <input type="text" class="form-control" name="description" rows="5" placeholder="Descrivi prodotto...">
+                    </div>
+                    <div class="col-md-12 text-center stelle">
+                        <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
+                           onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                        <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)"
+                           onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                        <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)"
+                           onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                        <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)"
+                           onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                        <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_5" onmouseover="setStar(this)"
+                           onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                        <input type="text" name="rating" hidden>
+                    </div>
+                </div>
+                <div class="footer text-center" style="margin-top: 15px;">
+                    <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#openreviewform').submit();">Invia</a>
+                    <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#openreviewmodal').modal('toggle');});">Chiudi</a>
                 </div>
             </form>
         </div>
