@@ -1,6 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 
 <jsp:include page="header.jsp" flush="true"/>
+
+<jsp:useBean id="user" class="main.User" scope="session"/>
+<jsp:useBean id="addressDao" class="daos.impl.AddressDaoImpl"/>
+
+<c:set var="addresses" value="${addressDao.getAllAddresses(user)}" scope="page"/>
 
 
 <html><head>
@@ -9,57 +15,81 @@
     <link href="../css/add_address.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<!-- general error, see passed parameter -->
+<c:if test="${not empty param.success}">
+    <div id="popup" class="alert alert-success alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            ${param.success}
+    </div>
+</c:if>
+<c:if test="${not empty param.warning}">
+    <div id="popup" class="alert alert-warning alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Attenzione: ${param.warning}
+    </div>
+</c:if>
+<c:if test="${not empty param.error}">
+    <div id="popup" class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Errore: ${param.error}
+    </div>
+</c:if>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h1>Lista Indirizzi</h1>
+        <div class="col-md-10">
+            <h1>I miei indirizzi</h1>
         </div>
+
+        <div class="col-md-2">
+            <button id="addaddressbutton" class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#addAddress"><i class="fa fa-fw fa-map-marker"></i>Aggiungi Indirizzo</button>
+        </div>
+
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="cart-item">
-                        <div class="row pi-draggable" id="c_row-4col" draggable="true">
-                            <div class="col-md-10">
-                                <h3 class="address-name">Luca De Fassi</h3>
-                                <p>Via Perini 127</p>
-                                <p>Trento</p>
-                                <p>45687</p>
-                                <p>Numero di telefono: 6886546890</p>
-                            </div>
-                            <div class="col-md-2 address-buttons">
-                                <button class="btn btn-default">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </button>
-                                <button class="btn btn-danger">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
+        <c:choose>
+            <c:when test="${empty addresses}">
+                <h3 class="text-center">Nessun indirizzo di spedizione presente</h3>
+                <p class="text-center">Premi <b>Aggiungi Indirizzo</b> per inserire il tuo primo indirizzo.</p>
+            </c:when>
+            <c:otherwise>
+                <c:forEach var="address" items="${addresses}">
+
+                    <div id="${address.addressID}" class="col-md-12">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <h3 class="address-name">${address.firstName} ${address.lastName}</h3>
+                                        <p>${address.address}</p>
+                                        <p>${address.city} (${address.zip})</p>
+                                        <p>Tel: ${address.telephoneNumber}</p>
+                                    </div>
+                                    <div class="col-md-2 address-buttons">
+                                        <button class="btn btn-default">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-danger" onclick="removeAddress(${address.addressID})">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                </li>
-            </ul>
-        </div>
+
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-5"></div>
-                <div class="col-md-2">
-                    <a class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#addAddress"><i class="fa fa-fw pull-left fa-map-marker"></i>Aggiungi Indirizzo</a>
-                </div>
-                <div class="col-md-5"></div>
-            </div>
-        </div>
-    </div>
+
 </div>
 
 <div class="modal fade" id="addAddress" tabindex="-1" role="dialog" aria-labelledby="addAddressLabel">
     <div class="row">
         <div class="card card-signup centerize" data-background-color="orange">
-            <form id="addAddressForm" class="form" method="POST" action="${pageContext.request.contextPath}/addaddress">
+            <form id="addAddressForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/addaddress">
                 <div class="header header-primary text-center">
                     <h4 class="title title-up">Aggiungi Indirizzo</h4>
                 </div>
@@ -68,37 +98,37 @@
                         <span class="input-group-addon">
                           <i class="fa fa-id-card green" aria-hidden="true"></i>
                         </span>
-                        <input id="FirstName" name="FirstName" type="text" class="form-control" placeholder="Nome">
+                        <input id="FirstName" name="firstname" type="text" class="form-control" placeholder="Nome" required>
                     </div>
                     <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">
                           <i class="fa fa-id-card green" aria-hidden="true"></i>
                         </span>
-                        <input id="LastName" name="LastName" type="text" class="form-control" placeholder="Cognome">
+                        <input id="LastName" name="lastname" type="text" class="form-control" placeholder="Cognome" required>
                     </div>
                     <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">
                           <i class="fa fa-map-marker green" aria-hidden="true"></i>
                         </span>
-                        <input id="Address" name="Address" type="text" class="form-control" placeholder="Indirizzo">
+                        <input id="Address" name="address" type="text" class="form-control" placeholder="Indirizzo" required>
                     </div>
                     <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">
                           <i class="fa fa-home green" aria-hidden="true"></i>
                         </span>
-                        <input id="City" name="City" type="text" class="form-control" placeholder="Città">
+                        <input id="City" name="city" type="text" class="form-control" placeholder="Città" required>
                     </div>
                     <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">
                           <i class="fa fa-hashtag green" aria-hidden="true"></i>
                         </span>
-                        <input id="ZIP" name="ZIP" type="text" class="form-control" placeholder="CAP">
+                        <input id="ZIP" name="zip" type="text" class="form-control" placeholder="CAP" required>
                     </div>
                     <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">
                           <i class="fa fa-home green" aria-hidden="true"></i>
                         </span>
-                        <select id="country" name="country" class="form-control">
+                        <select id="country" name="state" class="form-control" required>
                             <option value="IT" selected="selected">Italia</option>
                             <option value="AF">Afghanistan</option>
                             <option value="AL">Albania</option>
@@ -344,15 +374,17 @@
                         <span class="input-group-addon">
                             <i class="fa fa-phone green" aria-hidden="true"></i>
                         </span>
-                        <input id="Phone" name="Phone" type="text" class="form-control" placeholder="Telefono">
+                        <input id="Phone" name="phonenumber" type="text" class="form-control" placeholder="Telefono" required>
                     </div>
                     <div class="footer text-center">
-                        <a id="addAdr" class="btn btn-default" onclick="$('#addAddressForm').submit();">Aggiungi</a>
+                        <button id="addAdr" class="btn btn-default" type="submit">Aggiungi</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="../js/add_address.js"></script>
 
 </body></html>
