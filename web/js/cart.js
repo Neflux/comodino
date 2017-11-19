@@ -40,7 +40,7 @@ function removeItem(prodID, shopID){
     $("#total").text("Totale: " + aggiunto + "€");
     $("#" + prodID + "_" + shopID).fadeOut("700");
 
-    if (aggiunto == 0)
+    if (aggiunto === 0)
     {
         $("#nextbtn").text("Vai alla homepage");
         $("#nextbtn").attr("href", "/index.jsp");
