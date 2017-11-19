@@ -46,7 +46,7 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <h3 class="tilecaption"><i class="fa fa-cutlery fa-4x"></i></h3>
+                            <h3 class="tilecaption"><i class="fa fa-cutlery myiconresize"></i></h3>
                         </div>
                         <div class="item">
                             <h3 class="tilecaption">Cucina</h3>
@@ -73,7 +73,7 @@
                             <h3 class="tilecaption">Bagno</h3>
                         </div>
                         <div class="item">
-                            <h3 class="tilecaption"><i class="fa fa-bath fa-4x"></i></h3>
+                            <h3 class="tilecaption"><i class="fa fa-bath myiconresize"></i></h3>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <h3 class="tilecaption"><i class="fa fa-leaf fa-4x"></i></h3>
+                            <h3 class="tilecaption"><i class="fa fa-leaf myiconresize"></i></h3>
                         </div>
                         <div class="item">
                             <h3 class="tilecaption">Giardino</h3>
@@ -124,7 +124,7 @@
                             <h3 class="tilecaption">Camera da<br>letto</h3>
                         </div>
                         <div class="item">
-                            <h3 class="tilecaption"><i class="fa fa-bed fa-4x"></i></h3>
+                            <h3 class="tilecaption"><i class="fa fa-bed myiconresize"></i></h3>
                         </div>
 
                     </div>
@@ -139,7 +139,7 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <h3 class="tilecaption"><i class="fa fa-lightbulb-o fa-4x"></i></h3>
+                            <h3 class="tilecaption"><i class="fa fa-lightbulb-o myiconresize"></i></h3>
                         </div>
                         <div class="item">
                             <h3 class="tilecaption">Illuminazione</h3>
@@ -170,7 +170,7 @@
                             <h3 class="tilecaption">Soggiorno</h3>
                         </div>
                         <div class="item">
-                            <h3 class="tilecaption"><i class="fa fa-television fa-4x"></i></h3>
+                            <h3 class="tilecaption"><i class="fa fa-television myiconresize"></i></h3>
                         </div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <h3 class="tilecaption"><i class="fa fa-book fa-4x"></i></h3>
+                            <h3 class="tilecaption"><i class="fa fa-book myiconresize"></i></h3>
                         </div>
                         <div class="item">
                             <h3 class="tilecaption">Studio</h3>

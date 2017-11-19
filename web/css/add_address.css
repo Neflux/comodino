@@ -4,8 +4,11 @@
 .address-name{
     margin-top: 0;
 }
-.address-buttons {
-    padding-top: 45px;
+
+@media (min-width: 768px) {
+    .address-buttons {
+        padding-top: 45px;
+    }
 }
 
 #addaddressbutton{

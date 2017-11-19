@@ -37,11 +37,11 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-lg-10 col-md-9 col-sm-8">
             <h1>I miei indirizzi</h1>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-lg-2 col-md-3 col-sm-4">
             <button id="addaddressbutton" class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#addAddress"><i class="fa fa-fw fa-map-marker"></i>Aggiungi Indirizzo</button>
         </div>
 
@@ -59,13 +59,13 @@
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-10 col-sm-9">
                                         <h3 class="address-name">${address.firstName} ${address.lastName}</h3>
                                         <p>${address.address}</p>
                                         <p>${address.city} (${address.zip})</p>
                                         <p>Tel: ${address.telephoneNumber}</p>
                                     </div>
-                                    <div class="col-md-2 address-buttons">
+                                    <div class="col-md-2 col-sm-3 address-buttons">
                                         <button class="btn btn-default">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                         </button>
