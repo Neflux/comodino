@@ -19,6 +19,13 @@
 <html lang="it">
 <head>
     <link href="css/product.css" rel="stylesheet" type="text/css">
+    <style>
+        #map {
+            width: 100%;
+            height: 400px;
+            background-color: grey;
+        }
+    </style>
 </head>
 <body>
 
@@ -201,7 +208,14 @@
 </c:choose>
 
 
+<div id="map"></div>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=myMap">
+</script>
+
 </body>
 <script type="text/javascript" src="js/product.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
 
 </html>

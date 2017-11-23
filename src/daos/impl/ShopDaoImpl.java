@@ -2,12 +2,14 @@ package daos.impl;
 
 import daos.ShopDao;
 import db.DBManager;
+import main.PhysicalShop;
 import main.Product;
 import main.ProductGroup;
 import main.Shop;
 import utils.Utils;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -131,6 +133,59 @@ public class ShopDaoImpl implements ShopDao {
         shop.setWebsite(rs.getString("Website"));
         shop.setRating(rs.getInt("Rating"));
         return shop;
+    }
+
+    public ArrayList<Shop> getPhysicalShopsbyProduct (int productID){
+        ArrayList<Shop> shops = new ArrayList<>();
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT s.*, si.*\n" +
+                    "FROM shop s\n" +
+                    "INNER JOIN shopinfo si ON s.ShopID = si.ShopID\n" +
+                    "INNER JOIN shopproduct sp ON s.ShopID = sp.ShopID\n" +
+                    "WHERE sp.ProductID = ? AND sp.Quantity > 0");
+            stm.setInt(1, productID);
+
+            ResultSet rs = stm.executeQuery();
+            shops = extractPhysicalShopsFromResultSet(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shops;
+    }
+    private ArrayList<Shop> extractPhysicalShopsFromResultSet(ResultSet rs) {
+        ArrayList<Shop> shopList = new ArrayList<>();
+
+        try {
+            PhysicalShop physicalShop;
+
+            while (rs.next()) {
+
+                // creo inserisco dati ordine generale
+                physicalShop = new PhysicalShop();
+
+                physicalShop.setShopID(rs.getInt("s.ShopID"));
+                physicalShop.setName(rs.getString("Name"));
+                physicalShop.setDescription(rs.getString("Description"));
+                physicalShop.setWebsite(rs.getString("Website"));
+                physicalShop.setRating(rs.getInt("Rating"));
+
+                physicalShop.setLatitude(rs.getFloat("Latitude"));
+                physicalShop.setLongitude(rs.getFloat("Longitude"));
+                physicalShop.setAddress(rs.getString("Address"));
+                physicalShop.setCity(rs.getString("City"));
+                physicalShop.setState(rs.getString("State"));
+                physicalShop.setZip(rs.getString("ZIP"));
+                physicalShop.setOpeninghours(rs.getString("OpeningHours"));
+
+                // aggiungo l'ordine del prodotto al corrispettivo ordine generale
+                shopList.add(physicalShop);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shopList;
     }
 }
 
