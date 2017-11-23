@@ -14,6 +14,8 @@
 <jsp:useBean id="product" class="main.Product" scope="request"/>
 <jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl" scope="page"/>
 <c:set var="reviewList" value="${reviewDao.getProductReview(product.productID)}" scope="page"/>
+<jsp:useBean id="ShopDao" class="daos.impl.ShopDaoImpl" scope="page"/>
+<c:set var="shopsList" value="${ShopDao.getPhysicalShopsbyProduct(product.productID)}" scope="page"/>
 
 
 <html lang="it">
@@ -200,12 +202,37 @@
 </c:otherwise>
 </c:choose>
 
+<div class="container" style="margin-top: 30px; margin-bottom: 30px">
+    <div id="map"></div>
 
-<div id="map"></div>
+</div>
 
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=myMap">
+<script>
+
+    function initMap() {
+        var myLatLng = {lat: -25.363, lng: 131.044};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: myLatLng
+        });
+
+        <c:forEach items="${shopsList}" var="shop">
+            var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
+            var marker = new google.maps.Marker({
+                position: mark,
+                map: map,
+                title: 'Hello World!'
+            });
+        </c:forEach>
+    }
 </script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap">
+</script>
+
+
+
 
 </body>
 <script type="text/javascript" src="js/product.js"></script>
