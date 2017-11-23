@@ -19,13 +19,6 @@
 <html lang="it">
 <head>
     <link href="css/product.css" rel="stylesheet" type="text/css">
-    <style>
-        #map {
-            width: 100%;
-            height: 400px;
-            background-color: grey;
-        }
-    </style>
 </head>
 <body>
 
