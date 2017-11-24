@@ -64,15 +64,15 @@
             <h1>${product.productName}</h1>
             <c:choose>
                 <c:when test="${product.price != product.actualPrice}">
-                    <h2><span class="strikethrough">${product.price} €</span>&nbsp<span
-                            class="text-right">${product.actualPrice} €</></h2>
+                    <h2><span class="strikethrough"><fmt:formatNumber minFractionDigits = "2" maxFractionDigits="2" value="${product.price}"/> €</span>&nbsp;<span
+                            class="text-right"><fmt:formatNumber minFractionDigits = "2" maxFractionDigits="2" value="${product.actualPrice}"/> €</span></h2>
                 </c:when>
                 <c:otherwise>
                     <h2>${product.price} €</h2>
                 </c:otherwise>
             </c:choose>
 
-            <fmt:formatNumber var="rat" groupingUsed="false" maxFractionDigits="0" value="${product.rating} "/>
+            <fmt:formatNumber var="rat" groupingUsed="false" maxFractionDigits="0" value="${product.rating}"/>
 
             <c:choose>
                 <c:when test="${rat ge 0}">
