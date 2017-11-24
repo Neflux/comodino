@@ -68,7 +68,7 @@ public class ReviewDaoImpl implements ReviewDao {
                 // creo inserisco dati ordine generale
                 productReview = new ProductReview();
 
-                productReview.setCreationdate(rs.getTimestamp("CreationDate"));
+                productReview.setCreationDate(rs.getTimestamp("CreationDate"));
                 productReview.setDescription(rs.getString("Description"));
                 productReview.setRating(rs.getFloat("Rating"));
                 productReview.setTitle(rs.getString("Title"));

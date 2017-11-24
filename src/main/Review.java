@@ -21,12 +21,12 @@ public class Review {
     }
 
 
-    public Timestamp getCreationdate() {
+    public Timestamp getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationdate(Timestamp creationdate) {
-        this.creationDate = creationdate;
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
     }
 
 
