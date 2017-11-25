@@ -2,13 +2,14 @@ body>.container{
     padding-top: 30px !important;
     padding-bottom: 30px !important;
     border-radius: 8px;
-    background-color: transparent;
+    background-color: green !important;
 }
 html{
-    background-color: #F3F3F4;
+
+    background-color: gold;/*#F3F3F4;*/
 }
 body{
-    background-color: #F3F3F4 !important;
+    background-color: darkred !important;
 
     min-width:350px; /* suppose you want minimun width of 1000px */
     width: auto !important;  /* Firefox will set width as auto */
@@ -43,10 +44,20 @@ h4 {
     box-shadow: 0 1px 1px rgba(0,0,0,.15);
 }
 
+.ratAdd {
+    margin-right: 20px;
+}
+
 .ratAdd > a {
     margin-top: 20px;
 }
 
 #navbar >.col-md-12 {
     background-color: #ffffff;
+}
+
+#mainContent {
+    background-color: white;
+    padding-left: 50px;
+    padding-right: 50px;
 }
