@@ -51,7 +51,7 @@
                     </ol>
                 </div>
                 <h1 id="shopTitle" class="text-center">${shop.name}</h1>
-                <h4 id="shopEmailWebsite" class="text-center text-info">${shop.website}</h4>
+                <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
                 <p>${shop.description}</p>
                 <div class="row text-center">
                     <fmt:formatNumber var="rat" groupingUsed = "false" maxFractionDigits = "0" value="${shop.rating}" />

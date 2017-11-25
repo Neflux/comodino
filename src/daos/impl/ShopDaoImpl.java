@@ -31,7 +31,8 @@ public class ShopDaoImpl implements ShopDao {
             //System.out.println(stm.toString());
             ResultSet rs = stm.executeQuery();
             Shop tmp = extractShopFromResultSet(rs);
-            tmp.setShopphoto(getImages(shopID));
+            if(tmp != null)
+                tmp.setShopphoto(getImages(shopID));
             return tmp;
         } catch (SQLException e) {
             e.printStackTrace();
