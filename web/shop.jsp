@@ -29,12 +29,13 @@
             <div class="row">
                 <div class="col-md-4" id="navbar">
                     <div class="col-md-12">
-                        <a id="shopPhoto" href="#"><img src="http://via.placeholder.com/1000x1000" class="img-responsive"></a>
+                        <a id="shopPhoto" href="#"><img src="http://via.placeholder.com/400x300" class="img-responsive"></a>
                         <h1 id="shopTitle" class="text-center">${shop.name}</h1>
                         <h4 id="shopEmailWebsite" class="text-center text-info"><a href="${shop.website}"></a></h4>
                         <p>${shop.description}</p>
                         <div class="row text-center">
                             <fmt:formatNumber var="rat" groupingUsed = "false" maxFractionDigits = "0" value="${shop.rating}" />
+                            <script type="text/javascript"> alert("var:"+${rat});</script>
                             <c:choose>
                                 <c:when test="${rat ge 0}">
                                     <c:forEach begin="0" end="${rat}" varStatus="loop">

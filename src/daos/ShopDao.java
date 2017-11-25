@@ -20,7 +20,5 @@ public interface ShopDao extends Serializable {
 
     Map<String, ProductGroup> getProducts(String id) throws SQLException;
 
-    String[] getImage(int shopID) throws SQLException;
-
     ArrayList<Shop> getPhysicalShopsbyProduct (int productID);
 }

@@ -24,12 +24,15 @@ public class ShopDaoImpl implements ShopDao {
     @Override
     public Shop getShop(int shopID) {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
-                    "FROM shop\n" +
-                    "WHERE shop.ShopID = ?;");
+            PreparedStatement stm = con.prepareStatement("SELECT * " +
+                    "FROM shop, shopinfo " +
+                    "WHERE shop.ShopID = ? AND shopinfo.ShopID = shop.ShopID");
             stm.setInt(1,shopID);
+            //System.out.println(stm.toString());
             ResultSet rs = stm.executeQuery();
-            return extractShopFromResultSet(rs);
+            Shop tmp = extractShopFromResultSet(rs);
+            tmp.setShopphoto(getImages(shopID));
+            return tmp;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -40,11 +43,11 @@ public class ShopDaoImpl implements ShopDao {
         Map<String, ProductGroup> products = new HashMap<>();
         //Final query PreparedStatement
         PreparedStatement stm = con.prepareStatement(
-        "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, " +
-            "SP.ShopID, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName, " +
-            " round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
-            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-            "WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? AND SP.Quantity > 0 "
+                "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, " +
+                        "SP.ShopID, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName, " +
+                        " round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
+                        "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                        "WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? AND SP.Quantity > 0 "
         );
         stm.setString(1,id);
 
@@ -83,7 +86,7 @@ public class ShopDaoImpl implements ShopDao {
             ProductGroup gp = (ProductGroup) pair.getValue();
             System.out.println("\nPRODUCT: " + pair.getKey().toString());
 
-                        //Decode image from first product
+            //Decode image from first product
             Product p = gp.getList().get(0);
             String imgDataBase64;
             stm = con.prepareStatement("select * from productphoto where ProductID = ?");
@@ -91,6 +94,9 @@ public class ShopDaoImpl implements ShopDao {
             System.out.println("DECODE PRODUCT IMAGE: "+stm.toString().substring(45));
             try (ResultSet rs = stm.executeQuery()){
                 if(rs.next()) {
+                    // perché non dovrebbe andare questo, più elegante?
+                    // gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
+
                     Blob imgData = rs.getBlob("Image");
                     imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1, (int) imgData.length())));
                     gp.setImageData(imgDataBase64);
@@ -102,22 +108,18 @@ public class ShopDaoImpl implements ShopDao {
             finally {
                 stm.close();
             }
-
         }
 
         return products;
     }
 
-    @Override
-    public String[] getImage(int shopID) throws SQLException {
+    private ArrayList<String> getImages(int shopID) throws SQLException {
         PreparedStatement stm = con.prepareStatement("SELECT * FROM shopphoto WHERE shopphoto.ShopID = ?");
         stm.setInt(1, shopID);
         ResultSet rs = stm.executeQuery();
-        String [] imgBase64 = new String[10];
-        imgBase64[0] = Utils.getStringfromBlob(rs.getBlob("Image"));
-        int i = 1;
+        ArrayList<String> imgBase64 = new ArrayList<>();
         while (rs.next()) {
-         imgBase64[i] = Utils.getStringfromBlob(rs.getBlob("Image"));
+            imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
         }
         return imgBase64;
     }
@@ -132,6 +134,13 @@ public class ShopDaoImpl implements ShopDao {
         shop.setDescription(rs.getString("Description"));
         shop.setWebsite(rs.getString("Website"));
         shop.setRating(rs.getInt("Rating"));
+        shop.setLatitude(rs.getInt("Latitude"));
+        shop.setLongitude(rs.getInt("Longitude"));
+        shop.setAddress(rs.getString("Address"));
+        shop.setCity(rs.getString("City"));
+        shop.setState(rs.getString("State"));
+        shop.setZip(rs.getString("ZIP"));
+        shop.setOpeningHours(rs.getString("OpeningHours"));
         return shop;
     }
 
