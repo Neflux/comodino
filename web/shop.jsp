@@ -2,32 +2,22 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="shop" class="main.Shop" scope="session"/>
-
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
-          rel="stylesheet" type="text/css">
-    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
-          rel="stylesheet" type="text/css">
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="css/custom.min.css" rel="stylesheet" type="text/css">
-    <link href="css/my.css" rel="stylesheet" type="text/css">
-    <link href="css/vendor_public.css" rel="stylesheet" type="text/css">
-
-    <link href="css/search.css" rel="stylesheet" type="text/css">
-</head>
-<body>
 <c:if test="${not empty sessionScope.user}">
     <jsp:include page="/restricted/header.jsp" flush="true" />
 </c:if>
 <c:if test="${empty sessionScope.user}">
     <jsp:include page="/header_anonimo.jsp" flush="true" />
 </c:if>
+
+<jsp:useBean id="shop" class="main.Shop" scope="session"/>
+
+<html lang="en">
+<head>
+    <title>${shop.name}</title>
+    <link href="css/vendor_public.css" rel="stylesheet" type="text/css">
+    <link href="css/search.css" rel="stylesheet" type="text/css">
+</head>
+<body>
 <div class="container">
     <div class="row">
         <div class="col-md-4" id="navbar">
@@ -122,7 +112,7 @@
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
-                            <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${shop.shopID}');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </c:forEach>
@@ -130,7 +120,7 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="js/search/search.js"></script>
 <script type="text/javascript" src="js/vendor.js"></script>
 <script>
     var map, infoWindow;
