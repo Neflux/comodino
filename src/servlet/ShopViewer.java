@@ -32,7 +32,7 @@ public class ShopViewer extends HttpServlet {
             request.setAttribute("shop", shopDao.getShop(Integer.parseInt(request.getParameter("id"))));
 
             //redirect
-            RequestDispatcher view = request.getRequestDispatcher("/supershop.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("/shop.jsp");
             view.forward(request, response);
 
         } catch (ClassCastException e) {
