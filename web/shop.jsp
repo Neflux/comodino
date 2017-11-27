@@ -2,6 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<!-- TODO: pagina non del tutto responsive (pannelli laterali) -->
+
 <c:if test="${not empty sessionScope.user}">
     <jsp:include page="/restricted/header.jsp" flush="true" />
 </c:if>
@@ -71,7 +73,7 @@
                 <p>City: ${shop.city}</p>
                 <p>CAP: ${shop.zip}</p>
                 <p>Orari: ${shop.openingHours}</p>
-                <p>Posizione: ${shop.latitude} - ${shop.longitude}</p>
+                <p>Posizione: ${shop.latitude}, ${shop.longitude}</p>
                 <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
             </div>
         </div>
@@ -126,7 +128,7 @@
     var map, infoWindow;
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 46.074, lng:  11.121},
+            center: {lat: ${shop.latitude}, lng:  ${shop.longitude}},
             zoom: 7
         });
         infoWindow = new google.maps.InfoWindow;

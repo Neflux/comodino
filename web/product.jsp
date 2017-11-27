@@ -68,7 +68,7 @@
                             class="text-right"><fmt:formatNumber minFractionDigits = "2" maxFractionDigits="2" value="${product.actualPrice}"/> €</span></h2>
                 </c:when>
                 <c:otherwise>
-                    <h2>${product.price} €</h2>
+                    <h2><fmt:formatNumber minFractionDigits = "2" maxFractionDigits="2" value="${product.price}"/> €</h2>
                 </c:otherwise>
             </c:choose>
 
