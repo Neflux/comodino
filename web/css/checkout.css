@@ -1,17 +1,19 @@
-.container{
-    width: auto;
-    background-color: #FFF;
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 4px;
-    margin: 40px;
+.container {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
+
+.main {
+    padding: 0 25px;
+    padding-bottom: 15px;
+    border-radius: 8px !important;
+    margin-top: 35px !important;
+    margin-bottom: 25px;
 }
 
 .display-1 {
-    margin-top: 0px !important;
-    margin-bottom: 20px !important;
+    margin-top: 25px !important;
+    margin-bottom: 15px !important;
 }
 
 html{
@@ -48,10 +50,6 @@ body{
 	padding: 5px 0px;
 	margin: 10px 0px;
 	font-size: 20px;
-	border: 1px;
-	border-color: #CAD2D2;
-	border-style: solid;
-	border-radius: 8px;
 }
 
 input[type=radio]:not(old) {
