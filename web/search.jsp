@@ -187,30 +187,9 @@
         </div>
 
         <div class="col-md-10">
-            <div class="search_row row vcenter">
-                <div class="col-md-2">
-                    <img src="http://www.whirlpool.it/digitalassets/Picture/web1000x1000/852575438010_1000x1000_frontal.jpg"
-                         width="100" height="100">
-                </div>
-                <div class="col-md-7 text-left">
-                    <h2>Piano cottura</h2>
-                    <p>Venduto da <a href="https://www.google.com">Nardi</a>&nbsp&nbsp<span style="font-size:12px">o da altri <a
-                            data-toggle="modal" data-target="#vendorsModal">12</a> venditori</span></p>
-                    <h1 class="prezzo">320 €</h1>
-                </div>
-                <div class="col-md-3">
-                    <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star rating_star"
-                                                                                 aria-hidden="true"></i> <i
-                        class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star-o rating_star"
-                                                                                  aria-hidden="true"></i> <i
-                        class="fa fa-star-o rating_star" aria-hidden="true"></i>&nbsp&nbsp43 recensioni
-                    <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('9','2');">Aggiungi
-                        al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                </div>
-            </div>
             <c:if test="${not empty requestScope.products}">
-                <c:forEach var="prod" items="${requestScope.products}">
-                    <div class="search_row row vcenter separated">
+                <c:forEach var="prod" items="${requestScope.products}" varStatus="status">
+                    <div class="search_row row vcenter ${status.first ? 'class=""' : 'class="separated"'}">
                         <div class="col-md-2">
                             <c:choose>
                                 <c:when test="${not empty prod.value.getImageData()}">

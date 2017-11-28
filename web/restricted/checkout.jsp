@@ -79,7 +79,7 @@
                     <h1>I tuoi indirizzi di consegna</h1>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a class="btn btn-primary" style="margin-top: 25px; border-radius: 8px"><i
+                    <a href="<c:url value="/restricted/add_address.jsp"/>" class="btn btn-primary" style="margin-top: 25px; border-radius: 8px"><i
                             class="fa fa-fw fa-lg fa-plus"></i>Aggiungi nuovo indirizzo</a>
                 </div>
             </div>

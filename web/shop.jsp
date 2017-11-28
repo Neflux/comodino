@@ -38,7 +38,7 @@
                     <ol class="carousel-indicators">
                         <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
                             <li ${status.first ? 'class="active"' : 'class=""'} data-slide-to="${status.index}" data-target="#article-photo-carousel">
-                                <img alt="" src="http://placehold.it/250x180">
+                                <img alt="" src="${image}">
                             </li>
                         </c:forEach>
                     </ol>
