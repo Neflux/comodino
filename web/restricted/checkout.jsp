@@ -56,6 +56,7 @@
                                             <a href="">${item.getKey().getShopName()}</a>
                                         </p>
                                     </div>
+                                    <%--<c:if test="${getShop(item.getKey().getShopID()).getClass().simpleName == 'PhysicalShop'}"/>--%>
                                     <div class="col-md-6">
                                         <div class="col-md-10" style="padding: 0">
                                             <h2 class="text-right" style="margin-top: 10px">Ritiro in negozio</h2>
@@ -106,7 +107,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <a class="btn btn-primary"
+            <a href="<c:url value="/restricted/cart.jsp"/>%>" class="btn btn-primary"
                style="height: 50px; background-color: grey; float: right; font-size: 20px; border-radius: 8px">Indietro</a>
         </div>
         <div class="col-md-6">

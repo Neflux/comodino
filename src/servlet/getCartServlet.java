@@ -32,7 +32,7 @@ public class getCartServlet extends HttpServlet {
             ret = "<li class=\"text-center\"><a>Carrello vuoto...</a></li>";
         } else {
             for (Pair<Product, Integer> cartItem : cart) {
-                ret += "<li><a href=\"#\"> <b>" + cartItem.getKey().getProductName() +
+                ret += "<li><a href=\"/product.jsp?product="+cartItem.getKey().getProductID()+"&shop="+cartItem.getKey().getShopID()+"\"> <b>" + cartItem.getKey().getProductName() +
                         "</b> - " + cartItem.getValue() + "&nbsp;pz</a></li>";
             }
             ret += "<li class=\"divider\"></li>\n" +

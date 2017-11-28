@@ -72,6 +72,8 @@ input[value]{
 
 body>.container {
     padding: 30px 40px;
+    padding-bottom: 20px !important;
+    margin-bottom: 20px !important;
 }
 
 .nessunbordo{

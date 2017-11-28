@@ -189,7 +189,7 @@
         <div class="col-md-10">
             <c:if test="${not empty requestScope.products}">
                 <c:forEach var="prod" items="${requestScope.products}" varStatus="status">
-                    <div class="search_row row vcenter ${status.first ? 'class=""' : 'class="separated"'}">
+                    <div class="search_row row vcenter ${status.first ? '' : 'separated'}">
                         <div class="col-md-2">
                             <c:choose>
                                 <c:when test="${not empty prod.value.getImageData()}">
