@@ -1,16 +1,15 @@
 package filters;
 
-import daos.impl.ProductDaoImpl;
+import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
-import main.Product;
+import main.ProductGroup;
 import main.Shop;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ShopFilter implements Filter {
     @Override
@@ -28,14 +27,20 @@ public class ShopFilter implements Filter {
             return;
         }
 
-        Shop shop = new ShopDaoImpl().getShop(Integer.parseInt(req.getParameter("id")));
+        ShopDao shopDao = new ShopDaoImpl();
+        Shop shop = shopDao.getShop(Integer.parseInt(req.getParameter("id")));
+        HashMap<String, ProductGroup> shopProducts = shopDao.getShopProducts(req.getParameter("id"));
+        //in caso di bug prova a cambiare il nome dell'attributo
+
 
         if (shop == null){
             System.out.println("URL " + req.getRequestURI());
-            res.sendRedirect("/index.jsp");
+            res.sendRedirect("/index.jsp?error=Errore caricamento negozio");
         }
         else {
-            req.setAttribute("shop",shop);
+            req.setAttribute("shop", shop);
+            req.setAttribute("shopproducts", shopProducts);
+
             filterChain.doFilter(servletRequest,servletResponse);
         }
     }

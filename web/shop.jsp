@@ -1,8 +1,9 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<!-- TODO: pagina non del tutto responsive (pannelli laterali) -->
+<%-- TODO: pagina non del tutto responsive (pannelli laterali) --%>
+<%-- TODO: Suddividere funzionalità search.js su più file in modo da non includere search.js in altre pagine al di fuori della ricerca --%>
 
 <c:if test="${not empty sessionScope.user}">
     <jsp:include page="/restricted/header.jsp" flush="true" />
@@ -11,13 +12,13 @@
     <jsp:include page="/header_anonimo.jsp" flush="true" />
 </c:if>
 
-<jsp:useBean id="shop" class="main.Shop" scope="session"/>
+<jsp:useBean id="shop" class="main.Shop" scope="request"/>
+<jsp:useBean id="shopproducts" class="java.util.HashMap" scope="request"/>
 
-<html lang="en">
+<html lang="it">
 <head>
     <title>${shop.name}</title>
     <link href="css/vendor_public.css" rel="stylesheet" type="text/css">
-    <link href="css/search.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container">
@@ -25,7 +26,7 @@
         <div class="col-md-4" id="navbar">
             <div class="col-md-12">
                 <div class="carousel slide article-slide" id="article-photo-carousel" style="margin: 20px auto 10px auto;">
-                    <!-- Wrapper for slides -->
+                    <%-- Wrapper for slides --%>
                     <div class="carousel-inner cont-slider">
                         <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
                             <div class="item${status.first ? 'active' : ''}">
@@ -33,7 +34,7 @@
                             </div>
                         </c:forEach>
                     </div>
-                    <!-- Indicators -->
+                    <%-- Indicators --%>
                     <ol class="carousel-indicators">
                         <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
                             <li ${status.first ? 'class="active"' : 'class=""'} data-slide-to="${status.index}" data-target="#article-photo-carousel">
@@ -64,23 +65,25 @@
                     </c:choose>
                     <a href="#"> vedi tutte</a>
                 </div>
-                <div id="addShopDiv" class="row" style="margin-bottom: 15px">
-                    <div class="col-md-10">
-                        <h2 id="realShop">Negozio fisico</h2>
+                <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
+                    <div id="addShopDiv" class="row" style="margin-bottom: 15px">
+                        <div class="col-md-10">
+                            <h2 id="realShop">Negozio fisico</h2>
+                        </div>
                     </div>
-                </div>
-                <p>Indirizzo: ${shop.address}</p>
-                <p>City: ${shop.city}</p>
-                <p>CAP: ${shop.zip}</p>
-                <p>Orari: ${shop.openingHours}</p>
-                <p>Posizione: ${shop.latitude}, ${shop.longitude}</p>
+                    <p>Indirizzo: ${shop.address}</p>
+                    <p>City: ${shop.city}</p>
+                    <p>CAP: ${shop.zip}</p>
+                    <p>Orari: ${shop.openingHours}</p>
+                    <p>Posizione: ${shop.latitude}, ${shop.longitude}</p>
                 <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
+                </c:if>
             </div>
         </div>
         <div class="col-md-1" id="mySpace"></div>
         <div class="col-md-7" id="mainContent">
-            <c:if test="${not empty requestScope.products}">
-                <c:forEach var="prod" items="${requestScope.products}">
+            <c:if test="${not empty shopproducts}">
+                <c:forEach var="prod" items="${shopproducts}">
                     <div class="search_row row vcenter separated">
                         <div class="col-md-2">
                             <c:choose>
@@ -124,54 +127,54 @@
 </div>
 <script type="text/javascript" src="js/search/search.js"></script>
 <script type="text/javascript" src="js/vendor.js"></script>
-<script>
-    var map, infoWindow;
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: ${shop.latitude}, lng:  ${shop.longitude}},
-            zoom: 7
-        });
-        infoWindow = new google.maps.InfoWindow;
-
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-
-                infoWindow.setPosition(pos);
-                infoWindow.setContent('Tu sei qui');
-                infoWindow.open(map);
-                map.setCenter(pos);
-            }, function() {
-                handleLocationError(true, infoWindow, map.getCenter());
+<c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
+    <script>
+        var map, infoWindow;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: ${shop.latitude}, lng:  ${shop.longitude}},
+                zoom: 7
             });
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
+            infoWindow = new google.maps.InfoWindow;
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Tu sei qui');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+            var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
+            var marker = new google.maps.Marker({
+                position: mark,
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: '${shop.name}'
+            });
         }
 
-        var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
-        var marker = new google.maps.Marker({
-            position: mark,
-            map: map,
-            animation: google.maps.Animation.DROP,
-            title: '${shop.name}'
-        });
-    }
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-            'Error: The Geolocation service failed.' :
-            'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-    }
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap">
-</script>
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap"></script>
+</c:if>
 </body>
 </html>

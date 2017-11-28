@@ -57,11 +57,11 @@ public class PhysicalShop  extends Shop {
         this.zip = zip;
     }
 
-    public String getOpeninghours() {
+    public String getOpeningHours() {
         return openinghours;
     }
 
-    public void setOpeninghours(String openinghours) {
+    public void setOpeningHours(String openinghours) {
         this.openinghours = openinghours;
     }
 }

@@ -29,7 +29,6 @@
     <filter-mapping>
         <filter-name>ShopFilter</filter-name>
         <url-pattern>/shop.jsp</url-pattern>
-        <url-pattern>/shop</url-pattern>
     </filter-mapping>
     <listener>
         <description>ServletContextListener</description>

@@ -13,9 +13,9 @@ public class ProductGroup implements Serializable {
     private ArrayList<String> geo;
 
     public ProductGroup(){
-        list = new ArrayList<Product>();
-        vendors = new ArrayList<Shop>();
-        geo = new ArrayList<String>();
+        list = new ArrayList<>();
+        vendors = new ArrayList<>();
+        geo = new ArrayList<>();
     }
 
     public List<Product> getList() {
@@ -35,7 +35,7 @@ public class ProductGroup implements Serializable {
     }
 
     public void setImageData(String imageData) {
-        this.imageData = "data:image/gif;base64," + imageData;
+        this.imageData = imageData;
     }
 
     public List<Shop> getVendors() {

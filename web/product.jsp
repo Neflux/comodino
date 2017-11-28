@@ -14,7 +14,7 @@
 <jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl"/>
 <c:set var="reviewList" value="${reviewDao.getProductReview(product.productID)}" scope="page"/>
 <jsp:useBean id="ShopDao" class="daos.impl.ShopDaoImpl"/>
-<c:set var="shopsList" value="${ShopDao.getPhysicalShopsbyProduct(product.productID)}" scope="page"/>
+<c:set var="shopsList" value="${ShopDao.getPhysicalShopsByProduct(product.productID)}" scope="page"/>
 
 
 <html lang="it">
@@ -102,7 +102,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <h4><span style="font-size: 20px">Venduto da:</span> <a href="#">${product.shopName}</a></h4>
+            <h4><span style="font-size: 20px">Venduto da:</span> <a href="${pageContext.request.contextPath}/shop.jsp?id=${product.shopID}">${product.shopName}</a></h4>
             <a class="btn btn-primary"><i class="fa fa-fw fa-home pull-left"></i>Visualizza venditori nelle
                 vicinanze</a>
             <p><br>${product.description}</p>

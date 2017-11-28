@@ -8,9 +8,11 @@ import main.ProductGroup;
 import main.Shop;
 import utils.Utils;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,61 +26,75 @@ public class ShopDaoImpl implements ShopDao {
     @Override
     public Shop getShop(int shopID) {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT * " +
-                    "FROM shop, shopinfo " +
-                    "WHERE shop.ShopID = ? AND shopinfo.ShopID = shop.ShopID");
-            stm.setInt(1,shopID);
-            //System.out.println(stm.toString());
+            // testo se ha il negozio fisico
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM shop\n" +
+                    "INNER JOIN shopinfo USING (ShopID)\n" +
+                    "WHERE ShopID = ?");
+            stm.setInt(1, shopID);
             ResultSet rs = stm.executeQuery();
-            Shop tmp = extractShopFromResultSet(rs);
-            if(tmp != null)
+            Shop tmp = extractPhysicalShopFromResultSet(rs);
+
+            // se non ha negozio fisico carico solo quello online
+            if (tmp == null){
+                PreparedStatement stm2 = con.prepareStatement("SELECT *\n" +
+                        "FROM shop\n" +
+                        "WHERE ShopID = ?");
+                stm2.setInt(1, shopID);
+                ResultSet rs2 = stm2.executeQuery();
+                tmp = extractSimpleShopFromResultSet(rs2);
+            }
+
+            // carico le immagini del negozio
+            if(tmp != null) {
+                System.out.println("[INFO] Shop preso con successo");
+                System.out.flush();
                 tmp.setShopphoto(getImages(shopID));
+            }
+
             return tmp;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     @Override
-    public Map<String, ProductGroup> getProducts(String id) throws SQLException {
-        Map<String, ProductGroup> products = new HashMap<>();
+    public HashMap<String, ProductGroup> getShopProducts(String id) {
+        HashMap<String, ProductGroup> products = new HashMap<>();
         //Final query PreparedStatement
-        PreparedStatement stm = con.prepareStatement(
-                "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, " +
-                        "SP.ShopID, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName, " +
-                        " round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
-                        "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-                        "WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? AND SP.Quantity > 0 "
-        );
-        stm.setString(1,id);
+        try{
+            PreparedStatement stm = con.prepareStatement(
+                    "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, SP.ShopID, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName,  round(SP.Price * (1-SP.Discount),2) as ActualPrice \n" +
+                            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI \n" +
+                            "WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? AND SP.Quantity > 0 "
+            );
+            stm.setString(1,id);
 
-        System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
+            //System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()) {
 
-        //Final query execute
-        try {
-            try (ResultSet rs = stm.executeQuery()){
-                while(rs.next()) {
+                //Product crafting
+                Product p = new Product();
+                p.setProductID(rs.getInt("ProductID"));
+                p.setShopID(rs.getInt("ShopID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setCategoryName(rs.getString("CategoryName"));
+                p.setRating(rs.getFloat("Rating"));
+                p.setPrice(rs.getFloat("Price"));
+                p.setDiscount(rs.getFloat("Discount"));
+                p.setActualPrice(rs.getFloat("ActualPrice"));
+                p.setQuantity(rs.getInt("Quantity"));
+                p.setShopName(rs.getString("ShopName"));
 
-                    //Product crafting
-                    Product p = new Product();
-                    p.setProductID(rs.getInt("ProductID"));
-                    p.setShopID(rs.getInt("ShopID"));
-                    p.setProductName(rs.getString("ProductName"));
-                    p.setCategoryName(rs.getString("CategoryName"));
-                    p.setRating(rs.getFloat("Rating"));
-                    p.setPrice(rs.getFloat("Price"));
-                    p.setDiscount(rs.getFloat("Discount"));
-                    p.setActualPrice(rs.getFloat("ActualPrice"));
-                    p.setQuantity(rs.getInt("Quantity"));
-                    p.setShopName(rs.getString("ShopName"));
-
-                    //ProductGroup crafting
-                    products.computeIfAbsent(p.getProductName(), k -> new ProductGroup());
-                    products.get(p.getProductName()).getList().add(p);
-                }
+                //ProductGroup crafting
+                products.computeIfAbsent(p.getProductName(), k -> new ProductGroup());
+                products.get(p.getProductName()).getList().add(p);
             }
-        } finally {
-            stm.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         //ProductGroup extra fetching
@@ -89,63 +105,46 @@ public class ShopDaoImpl implements ShopDao {
 
             //Decode image from first product
             Product p = gp.getList().get(0);
-            String imgDataBase64;
-            stm = con.prepareStatement("select * from productphoto where ProductID = ?");
-            stm.setInt(1,p.getProductID());
-            System.out.println("DECODE PRODUCT IMAGE: "+stm.toString().substring(45));
-            try (ResultSet rs = stm.executeQuery()){
+
+            try {
+                PreparedStatement stm = con.prepareStatement("SELECT * \n" +
+                        "FROM productphoto \n" +
+                        "WHERE ProductID = ?");
+                stm.setInt(1, p.getProductID());
+                System.out.println("DECODE PRODUCT IMAGE: "+stm.toString().substring(45));
+                ResultSet rs = stm.executeQuery();
                 if(rs.next()) {
                     // perché non dovrebbe andare questo, più elegante?
-                    // gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
-
-                    Blob imgData = rs.getBlob("Image");
-                    imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1, (int) imgData.length())));
-                    gp.setImageData(imgDataBase64);
-                    imgData.free();
+                    gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
                 }
-            } catch(Exception e){
+            } catch (SQLException e) {
                 e.printStackTrace();
-            }
-            finally {
-                stm.close();
             }
         }
 
         return products;
     }
 
-    private ArrayList<String> getImages(int shopID) throws SQLException {
-        PreparedStatement stm = con.prepareStatement("SELECT * FROM shopphoto WHERE shopphoto.ShopID = ?");
-        stm.setInt(1, shopID);
-        ResultSet rs = stm.executeQuery();
+    private ArrayList<String> getImages(int shopID){
+
         ArrayList<String> imgBase64 = new ArrayList<>();
-        while (rs.next()) {
-            imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
+
+        try{
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM shopphoto WHERE shopphoto.ShopID = ?");
+            stm.setInt(1, shopID);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return imgBase64;
     }
 
-    private Shop extractShopFromResultSet(ResultSet rs) throws SQLException {
-        if(!rs.next()){
-            return null;
-        }
-        Shop shop = new Shop();
-        shop.setShopID(rs.getInt("ShopID"));
-        shop.setName(rs.getString("Name"));
-        shop.setDescription(rs.getString("Description"));
-        shop.setWebsite(rs.getString("Website"));
-        shop.setRating(rs.getInt("Rating"));
-        shop.setLatitude(rs.getInt("Latitude"));
-        shop.setLongitude(rs.getInt("Longitude"));
-        shop.setAddress(rs.getString("Address"));
-        shop.setCity(rs.getString("City"));
-        shop.setState(rs.getString("State"));
-        shop.setZip(rs.getString("ZIP"));
-        shop.setOpeningHours(rs.getString("OpeningHours"));
-        return shop;
-    }
-
-    public ArrayList<Shop> getPhysicalShopsbyProduct (int productID){
+    @Override
+    public ArrayList<Shop> getPhysicalShopsByProduct (int productID){
         ArrayList<Shop> shops = new ArrayList<>();
         try {
             PreparedStatement stm = con.prepareStatement("SELECT s.*, si.*\n" +
@@ -163,6 +162,55 @@ public class ShopDaoImpl implements ShopDao {
         }
         return shops;
     }
+
+    private Shop extractSimpleShopFromResultSet(ResultSet rs) {
+        try {
+            if(!rs.next()){
+                return null;
+            }
+            Shop shop = new Shop();
+
+            // creo inserisco dati ordine generale
+            shop.setShopID(rs.getInt("ShopID"));
+            shop.setName(rs.getString("Name"));
+            shop.setDescription(rs.getString("Description"));
+            shop.setWebsite(rs.getString("Website"));
+            shop.setRating(rs.getInt("Rating"));
+            return shop;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private PhysicalShop extractPhysicalShopFromResultSet(ResultSet rs) {
+        try {
+            if(!rs.next()){
+                return null;
+            }
+            PhysicalShop shop = new PhysicalShop();
+
+            // creo inserisco dati ordine generale
+            shop.setShopID(rs.getInt("ShopID"));
+            shop.setName(rs.getString("Name"));
+            shop.setDescription(rs.getString("Description"));
+            shop.setWebsite(rs.getString("Website"));
+            shop.setRating(rs.getInt("Rating"));
+
+            shop.setLatitude(rs.getFloat("Latitude"));
+            shop.setLongitude(rs.getFloat("Longitude"));
+            shop.setAddress(rs.getString("Address"));
+            shop.setCity(rs.getString("City"));
+            shop.setState(rs.getString("State"));
+            shop.setZip(rs.getString("ZIP"));
+            shop.setOpeningHours(rs.getString("OpeningHours"));
+            return shop;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private ArrayList<Shop> extractPhysicalShopsFromResultSet(ResultSet rs) {
         ArrayList<Shop> shopList = new ArrayList<>();
 
@@ -186,7 +234,7 @@ public class ShopDaoImpl implements ShopDao {
                 physicalShop.setCity(rs.getString("City"));
                 physicalShop.setState(rs.getString("State"));
                 physicalShop.setZip(rs.getString("ZIP"));
-                physicalShop.setOpeninghours(rs.getString("OpeningHours"));
+                physicalShop.setOpeningHours(rs.getString("OpeningHours"));
 
                 // aggiungo l'ordine del prodotto al corrispettivo ordine generale
                 shopList.add(physicalShop);

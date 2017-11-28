@@ -4,9 +4,8 @@ import main.ProductGroup;
 import main.Shop;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public interface ShopDao extends Serializable {
 
@@ -18,7 +17,7 @@ public interface ShopDao extends Serializable {
      */
     Shop getShop(int shopID);
 
-    Map<String, ProductGroup> getProducts(String id) throws SQLException;
+    HashMap<String, ProductGroup> getShopProducts(String id);
 
-    ArrayList<Shop> getPhysicalShopsbyProduct (int productID);
+    ArrayList<Shop> getPhysicalShopsByProduct (int productID);
 }

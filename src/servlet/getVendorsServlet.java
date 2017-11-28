@@ -1,7 +1,6 @@
 package servlet;
 
 import db.DBManager;
-import main.Shop;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +20,7 @@ public class getVendorsServlet extends HttpServlet {
 
         if (request.getParameter("getQuantity").equals("1"))
         {
-            PreparedStatement stm = null;
+            PreparedStatement stm;
             try {
                 stm = con.prepareStatement("SELECT COUNT(*) as Conto FROM product, shopproduct, shop WHERE product.name = ? AND shopproduct.Quantity > 0 AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID ");
 
@@ -51,7 +50,7 @@ public class getVendorsServlet extends HttpServlet {
         {
             if (request.getParameter("nome_prodotto") != null)
             {
-                PreparedStatement stm = null;
+                PreparedStatement stm;
                 try {
                     stm = con.prepareStatement("SELECT product.ProductID, shop.*, shopproduct.Price, shopproduct.Discount, shopproduct.Quantity, round(shopproduct.Price * (1-shopproduct.Discount),2) as ActualPrice \n" +
                             "FROM product, shopproduct, shop \n" +
@@ -65,7 +64,7 @@ public class getVendorsServlet extends HttpServlet {
                     try (ResultSet rs = stm.executeQuery()){
                         System.out.println(stm.toString());
                         while(rs.next()) {
-                            ret += "<div class=\"col-md-8 mod\"><a href=\"/shop?id="+rs.getInt("ShopID")+"\">" + rs.getString("Name") + "</a></div>\n" +
+                            ret += "<div class=\"col-md-8 mod\"><a href=\"/shop.jsp?id="+rs.getInt("ShopID")+"\">" + rs.getString("Name") + "</a></div>\n" +
                                     "                                    <div class=\"col-md-4 mod text-left\">\n" +
                                     "                                        <span class=\"white valign\">da " + rs.getFloat("ActualPrice") + " €</span>\n" +
                                     "                                        <span class=\"float-right\"><a href=\"/product.jsp?product=" + rs.getString("ProductID") + "&shop=" + rs.getString("ShopID") + "\"><i class=\"fa fa-angle-double-right white valign\" aria-hidden=\"true\"></i></a></span>\n" +

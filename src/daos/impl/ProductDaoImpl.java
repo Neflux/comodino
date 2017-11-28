@@ -355,10 +355,7 @@ public class ProductDaoImpl implements ProductDao {
             System.out.println("DECODE PRODUCT IMAGE: "+stm.toString().substring(45));
             try (ResultSet rs = stm.executeQuery()){
                 if(rs.next()) {
-                    Blob imgData = rs.getBlob("Image");
-                    imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1, (int) imgData.length())));
-                    gp.setImageData(imgDataBase64);
-                    imgData.free();
+                    gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
                 }
             } catch(Exception e){
                 e.printStackTrace();
