@@ -13,30 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../css/checkout.css">
 </head>
 <body>
-<div class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><span>Brand</span></a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active">
-                    <a href="#">Home</a>
-                </li>
-                <li>
-                    <a href="#">Contacts</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="container main">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
             <h1 class="display-1">Modalità di consegna</h1>
@@ -50,20 +27,15 @@
                         <c:forEach items="${cart}" var="item">
                             <li class="list-group-item">
                                 <div class="row pi-draggable" id="c_row-4col" draggable="true">
-                                    <div class="col-md-6">
+                                    <div class="col-md-9">
                                         <h1 class="itemtitle">${item.getKey().getProductName()}</h1>
                                         <p class="itemseller">Venduto da:
                                             <a href="">${item.getKey().getShopName()}</a>
                                         </p>
                                     </div>
-                                    <%--<c:if test="${getShop(item.getKey().getShopID()).getClass().simpleName == 'PhysicalShop'}"/>--%>
-                                    <div class="col-md-6">
-                                        <div class="col-md-10" style="padding: 0">
-                                            <h2 class="text-right" style="margin-top: 10px">Ritiro in negozio</h2>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="checkbox" style="margin-top: 25px">
-                                        </div>
+                                        <%--<c:if test="${getShop(item.getKey().getShopID()).getClass().simpleName == 'PhysicalShop'}"/>--%>
+                                    <div class="col-md-3 text-right">
+                                        <h3 style="margin-top: 15px">Ritiro in negozio <input type="checkbox"></h3>
                                     </div>
                                 </div>
                             </li>
@@ -76,54 +48,40 @@
     <div class="row ">
         <div class="col-md-12 ">
             <div class="row ">
-                <div class="col-md-6">
-                    <h1>I tuoi indirizzi di consegna</h1>
+                <div class="col-md-9">
+                    <h2 style="margin-top: 0">I tuoi indirizzi di consegna</h2>
                 </div>
-                <div class="col-md-6 text-right">
-                    <a href="<c:url value="/restricted/add_address.jsp"/>" class="btn btn-primary" style="margin-top: 25px; border-radius: 8px"><i
-                            class="fa fa-fw fa-lg fa-plus"></i>Aggiungi nuovo indirizzo</a>
+                <div class="col-md-3 text-right">
+                    <a href="<c:url value="/restricted/add_address.jsp"/>" class="btn btn-primary"><i
+                            class="fa fa-fw fa-plus"></i> Aggiungi Nuovo Indirizzo</a>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="container" style="margin: 0">
-        <div class="row">
-            <div class="col-md-12">
-                <c:choose>
-                    <c:when test="${not empty addressList}">
-                        <c:forEach items="${addressList}" var="item" varStatus="status">
-                            <div class="radio">&nbsp;
-                                <label>
-                                    <input ${status.first ? 'checked' : ''}
-                                            type="radio"
-                                            name="optradio">${item.firstName} ${item.lastName}, ${item.address}, ${item.city}${item.zip}
-                                </label>
-                            </div>
-                        </c:forEach>
-                    </c:when>
-                </c:choose>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <a href="<c:url value="/restricted/cart.jsp"/>%>" class="btn btn-primary"
-               style="height: 50px; background-color: grey; float: right; font-size: 20px; border-radius: 8px">Indietro</a>
+        <div class="col-md-12">
+            <c:choose>
+                <c:when test="${not empty addressList}">
+                    <c:forEach items="${addressList}" var="item" varStatus="status">
+                        <div class="radio">&nbsp;
+                            <label>
+                                <input ${status.first ? 'checked' : ''}
+                                        type="radio"
+                                        name="optradio">${item.firstName} ${item.lastName}, ${item.address}, ${item.zip} ${item.city}
+                            </label>
+                        </div>
+                    </c:forEach>
+                </c:when>
+            </c:choose>
         </div>
-        <div class="col-md-6">
-            <a class="btn btn-primary"
-               style="height: 50px; background-color: #99CC33; font-size: 20px; border-radius: 8px">Prosegui</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <a href="<c:url value="/restricted/cart.jsp"/>" class="btn btn-default">Indietro</a>
+            <a href="<c:url value="/restricted/payment.jsp"/>" class="btn btn-primary">Prosegui <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js
-                                " integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN
-                                " crossorigin="anonymous "></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js
-                                " integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4
-                                " crossorigin="anonymous "></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js
-                                " integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1
-                                " crossorigin="anonymous "></script>
 </body>
 </html>
