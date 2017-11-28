@@ -1,4 +1,4 @@
-var selectedCardIcon = null;
+
 var cleaveCreditCard = new Cleave('.input-credit-card', {
     creditCard:              true,
     onCreditCardTypeChanged: function (type) {
