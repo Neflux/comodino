@@ -1,3 +1,49 @@
+select.minimal {
+    height: 40px;
+
+    /* init */
+    display: inline-block;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* custom style */
+    background-image:
+            linear-gradient(45deg, transparent 50%, gray 50%),
+            linear-gradient(135deg, gray 50%, transparent 50%),
+            linear-gradient(to right, #ccc, #ccc);
+    background-position:
+            calc(100% - 20px) calc(1em + 2px),
+            calc(100% - 15px) calc(1em + 2px),
+            calc(100% - 2.5em) 0.5em;
+    background-size:
+            5px 5px,
+            5px 5px,
+            1px 1.5em;
+    background-repeat: no-repeat;
+}
+
+select.minimal:focus {
+    background-image:
+            linear-gradient(45deg, gray 50%, transparent 50%),
+            linear-gradient(135deg, transparent 50%, gray 50%),
+            linear-gradient(to right, #ccc, #ccc);
+    background-position:
+            calc(100% - 15px) 1em,
+            calc(100% - 20px) 1em,
+            calc(100% - 2.5em) 0.5em;
+    background-size:
+            5px 5px,
+            5px 5px,
+            1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: gray;
+    outline: 0;
+}
+
 .mycard.btn-primary:hover{
     cursor: default;
     color: white;
@@ -22,13 +68,13 @@ input.form-control{
     border-left: none;
     border-right: none;
     border-radius: 0;
-    -webkit-transition: all 0.5s; /* Safari */
+    -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
 select.form-control{
     border: 1px solid darkgrey;
-    -webkit-transition: all 0.5s; /* Safari */
-    transition: all 0.5s;
+    -webkit-transition: border 0.5s;
+    transition: border 0.5s;
 }
 
 input.form-control:focus{
@@ -40,4 +86,10 @@ input.form-control:focus{
 }
 select.form-control:focus{
     border: 1px solid #292929;
+}
+
+body>.container{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
 }
