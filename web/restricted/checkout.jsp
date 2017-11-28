@@ -7,9 +7,11 @@
 <c:set var="cart" value="${user.getCart(true)}" scope="page"/>
 <jsp:useBean id="AddressDao" class="daos.impl.AddressDaoImpl"/>
 <c:set var="addressList" value="${AddressDao.getAllAddresses(user)}" scope="page"/>
+<jsp:useBean id="shopDao" class="daos.impl.ShopDaoImpl" scope="page"/>
 
 <html>
 <head>
+    <title>Checkout</title>
     <link rel="stylesheet" type="text/css" href="../css/checkout.css">
 </head>
 <body>
@@ -28,15 +30,16 @@
                             <li class="list-group-item">
                                 <div class="row pi-draggable" id="c_row-4col" draggable="true">
                                     <div class="col-md-9">
-                                        <h1 class="itemtitle">${item.getKey().getProductName()}</h1>
+                                        <h1 class="itemtitle">${item.key.productName} <small>x${item.value}</small></h1>
                                         <p class="itemseller">Venduto da:
-                                            <a href="">${item.getKey().getShopName()}</a>
+                                            <a href="${pageContext.request.contextPath}/shop.jsp?id=${item.key.shopID}">${item.key.shopName}</a>
                                         </p>
                                     </div>
-                                        <%--<c:if test="${getShop(item.getKey().getShopID()).getClass().simpleName == 'PhysicalShop'}"/>--%>
-                                    <div class="col-md-3 text-right">
-                                        <h3 style="margin-top: 15px">Ritiro in negozio <input type="checkbox"></h3>
-                                    </div>
+                                    <c:if test="${shopDao.getShop(item.key.shopID).getClass().simpleName == 'PhysicalShop'}">
+                                        <div class="col-md-3 text-right">
+                                            <h3 style="margin-top: 15px">Ritiro in negozio <input type="checkbox"></h3>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </li>
                         </c:forEach>

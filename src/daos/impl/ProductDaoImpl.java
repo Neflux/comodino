@@ -96,7 +96,7 @@ public class ProductDaoImpl implements ProductDao {
         try{
             prod.setShopName(rs.getString("ShopName"));
         }catch (Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         try{
             prod.setDescription(rs.getString("Description"));
