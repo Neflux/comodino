@@ -39,7 +39,7 @@
                                         <c:if test="${shopDao.getShop(cartItem.key.shopID).getClass().simpleName == 'PhysicalShop'}">
                                             <div class="col-md-3 text-right">
                                                 <%-- Ogni entry se checkata restituisce productID_shopID nel campo 'ritiro' del form--%>
-                                                <h3 style="margin-top: 15px">Ritiro in negozio <input type="checkbox" name="ritiro" value="${cartItem.key.productID}_${cartItem.key.shopID}"></h3>
+                                                <h3 style="margin-top: 15px">Ritiro in negozio <input type="checkbox" name="ritironegozio" value="${cartItem.key.productID}_${cartItem.key.shopID}"></h3>
                                             </div>
                                         </c:if>
                                     </div>
