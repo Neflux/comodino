@@ -171,11 +171,11 @@ public class UserDaoImpl implements UserDao {
                 else // sennò lo aggiungo
                 {
                     if (maxQuantity > 0) { // solo se il prodotto è disponibile aggiungo
-                        PreparedStatement stm3 = con.prepareStatement("INSERT INTO cart VALUES ('1',NOW(),?,?,?)");
+                        PreparedStatement stm3 = con.prepareStatement("INSERT INTO cart (Quantity, AddDate, UserID, ProductID, ShopID) VALUES ('1',NOW(),?,?,?)");
                         stm3.setInt(1, user.getUserID());
                         stm3.setInt(2, productID);
                         stm3.setInt(3, shopID);
-                        stm3.execute();
+                        stm3.executeUpdate();
                         user.updateCart();
                     }
                 }

@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 @WebServlet(name = "SetOrderAddressesServlet", urlPatterns = {"/restricted/setorderaddresses"})
@@ -18,18 +22,24 @@ public class SetOrderAddressesServlet extends HttpServlet {
 
         User user = (User) request.getSession(false).getAttribute("user");
         String address = request.getParameter("address");
-        // TODO: gestire il porcoddio di valore di ritorno della selezione multipla delle checkbox
-        String ritironegozio = request.getParameter("ritironegozio");
-        System.out.println("[INFO] SetAddress: " + ritironegozio);
+
+        ArrayList<String> ritironegozio = new ArrayList<>();
+        if(request.getParameterValues("ritironegozio") != null){
+            List<String> list = Arrays.asList(request.getParameterValues("ritironegozio"));
+            ritironegozio.addAll(list);
+        }
+
+
         if(address == null){
             response.sendRedirect("checkout.jsp?error=Seleziona un indirizzo valido");
+            return;
         }
-        boolean result = true;// new OrderDaoImpl().setOrderAddresses();
+        boolean result =  new OrderDaoImpl().setOrderAddresses(user,address,ritironegozio);
         if (!result){
             response.sendRedirect("checkout.jsp?error=Errore in fase di inserimento, riprova.");
             return;
         }
-        response.sendRedirect("add_address.jsp");
+        response.sendRedirect("payment.jsp");
 
     }
 }

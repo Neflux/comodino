@@ -23,7 +23,10 @@ public class OrderDaoImpl implements OrderDao {
     public ArrayList<Order> getAllOrders(User user) {
 
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM orderprod INNER JOIN orderlist USING(OrderID) WHERE UserID = ? ORDER BY OrderID DESC");
+            PreparedStatement stm = con.prepareStatement("SELECT * \n" +
+                    "FROM orderprod \n" +
+                    "INNER JOIN orderlist USING(OrderID)\n" +
+                    "WHERE UserID = ? ORDER BY OrderID DESC");
             stm.setInt(1, user.getUserID());
             ResultSet rs = stm.executeQuery();
             printRS(rs);
@@ -37,6 +40,59 @@ public class OrderDaoImpl implements OrderDao {
         }
 
         return null;
+    }
+
+    @Override
+    public boolean setOrderAddresses(User user, String address, ArrayList<String> shoppickup) {
+
+        // setto tutti gli ordini dell'utente ad address
+        if(!setShippingAddress(user, address)){
+            return false;
+        }
+        // aggiorno indirizzo ritiro per tutti e soli quelli nella lista shoppickup
+        for (String rit: shoppickup) {
+            String[] prod_shop = rit.split("_");
+
+            if (prod_shop.length != 2 || !setShopPickup(user, prod_shop[0], prod_shop[1])) {
+                // errore inserimento nel database o stringa passata errata
+                return false;
+            }
+        }
+
+
+        return true;
+    }
+
+    private boolean setShippingAddress(User user, String address) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE cart SET AddressID = ? \n" +
+                    "WHERE UserID = ?");
+            stm.setString(1, address);
+            stm.setInt(2, user.getUserID());
+            stm.executeUpdate();
+            System.out.println("[INFO] SetAddress: setted all addresses to address:" + address);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean setShopPickup(User user, String productID, String shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE cart SET AddressID = 0 \n" +
+                    "WHERE UserID = ? AND ProductID = ? AND ShopID = ?");
+            stm.setInt(1, user.getUserID());
+            stm.setString(2, productID);
+            stm.setString(3, shopID);
+            stm.executeUpdate();
+            System.out.println("[INFO] SetAddress: shop pick up setted for prod: " + productID + " shop: " + shopID);
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void printRS(ResultSet resultSet) throws SQLException {
