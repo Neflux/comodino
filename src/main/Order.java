@@ -9,6 +9,7 @@ public class Order implements Serializable {
     private int userID = 0;
     private Date date = null;
     private int paymentStatus = 0;
+    private int paymentID = 0;
     private ArrayList<ProdOrder> productList = new ArrayList<>();
 
     public int getOrderID() {
@@ -41,6 +42,14 @@ public class Order implements Serializable {
 
     public void setPaymentStatus(int paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public int getPaymentID() {
+        return paymentID;
+    }
+
+    public void setPaymentID(int paymentID) {
+        this.paymentID = paymentID;
     }
 
     public ArrayList<ProdOrder> getProductList() {

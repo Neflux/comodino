@@ -62,6 +62,74 @@ public class OrderDaoImpl implements OrderDao {
         return true;
     }
 
+    @Override
+    public int createOrder(User user, int paymentID) {
+        Cart cart = user.getCart(true);
+        int orderID;
+        try {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO orderlist (Date, PaymentStatus, UserID, PaymentID) VALUES (NOW(),0,?,?)", Statement.RETURN_GENERATED_KEYS);
+            stm.setInt(1, user.getUserID());
+            stm.setInt(2, paymentID);
+            stm.executeUpdate();
+            ResultSet rs = stm.getGeneratedKeys();
+            rs.next();
+            orderID = rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("[ERROR] Impossibile creare entry orderlist");
+            return 0;
+        }
+
+        try {
+            PreparedStatement stm;
+            for (CartItem item:cart){
+                stm = con.prepareStatement("INSERT INTO orderprod (OrderID, ProductID, ShopID, Quantity, FinalPrice, AddressID) VALUES (?,?,?,?,?,?)");
+                stm.setInt(1, orderID);
+                stm.setInt(2, item.getProduct().getProductID());
+                stm.setInt(3, item.getProduct().getShopID());
+                stm.setInt(4, item.getQuantity());
+                stm.setFloat(5, item.getProduct().getActualPrice());
+                stm.setInt(6, item.getAddress());
+
+                stm.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("[ERROR] Impossibile creare entry orderprod");
+            return 0;
+        }
+        return orderID;
+
+    }
+
+    @Override
+    public boolean cleanCart(User user) {
+        try {
+            PreparedStatement stm = con.prepareStatement("DELETE FROM cart \n" +
+                    "WHERE UserID = ?");
+            stm.setInt(1, user.getUserID());
+            stm.executeUpdate();
+            System.out.println("[INFO] Cart cleaned");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean confirmOrder(int orderID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE orderlist SET PaymentStatus = 1 WHERE OrderID = ?");
+            stm.setInt(1, orderID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private boolean setShippingAddress(User user, String address) {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE cart SET AddressID = ? \n" +
@@ -202,7 +270,7 @@ public class OrderDaoImpl implements OrderDao {
                 orderList.add(order);
                 System.out.println("[ INFO ] Ordine " + order.getOrderID() + " aggiunto");
             }
-            
+
             return orderList;
         } catch (SQLException | ParseException e) {
             e.printStackTrace();

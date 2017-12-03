@@ -1,5 +1,13 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="utils.Utils" %>
+
 
 <jsp:include page="header.jsp" flush="true"/>
+
+
+<jsp:useBean id="user" class="main.User" scope="session"/>
+<c:set var="cart" value="${user.getCart(false)}" scope="page"/>
+
 
 <!DOCTYPE html>
 <html>
@@ -80,7 +88,7 @@
             </fieldset>
         </div>
         <div class="col-sm-4 text-center">
-            <h4>Totale: 100,00 &euro;</h4>
+            <h4>Totale: ${Utils.getNDecPrice(cart.getTotal(),2)} &euro;</h4>
         </div>
         <div class="form-group">
             <div class="col-sm-12 text-center">
