@@ -1,14 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<jsp:useBean id="user" class="main.User" scope="session"/>
-
-
-<c:if test="${not user.hasShop()}">
-    <c:redirect url="profile.jsp?error=L'utente non possiede negozi"/>
-</c:if>
-
 <jsp:include page="header.jsp" flush="true" />
+
+<jsp:useBean id="user" class="main.User" scope="session"/>
+<jsp:useBean id="shop" class="main.Shop" scope="request"/>
+<jsp:useBean id="shopproducts" class="java.util.HashMap" scope="request"/>
 
 <html>
 <head>
@@ -19,39 +16,99 @@
 <body>
 
 <jsp:useBean id="shop" class="main.Shop" scope="session"/>
-<div style="margin-top:+35px !important;" class="container">
+<div style="margin-top:60px !important;" class="container">
     <div class="row">
         <div class="col-md-4" id="navbar">
             <div class="col-md-12">
-                <a id="shopPhoto" href="#"><img src="http://via.placeholder.com/1000x1000" class="img-responsive"></a>
+                <div class="carousel slide article-slide" id="article-photo-carousel" style="margin: 20px auto 10px auto;">
+                    <%-- Wrapper for slides --%>
+                    <div class="carousel-inner cont-slider">
+
+                    </div>
+                    <%-- Indicators --%>
+                    <ol class="carousel-indicators">
+                        <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
+                            <li ${status.first ? 'class="active"' : 'class=""'} data-slide-to="${status.index}" data-target="#article-photo-carousel"></li>
+                        </c:forEach>
+                    </ol>
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+
+                        <c:forEach var="i" begin = "0" end = "${shop.shopphoto.size()-1}">
+                            <li data-target="#myCarousel" data-slide-to="${i}" ${i == 0 ? 'class="active"' : ''}></li>
+                        </c:forEach>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
+                            <div class="item ${status.first ? 'active' : ''}">
+                                <img alt="" title="" src="${image}">
+                            </div>
+                        </c:forEach>
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span><<</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span>>></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+
+
+
                 <h1 id="shopTitle" class="text-center">${shop.name}</h1>
-                <h4 id="shopEmailWebsite" class="text-center text-info"><a href="${shop.website}"></a></h4>
+                <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
                 <p>${shop.description}</p>
                 <div class="row text-center">
-
-                    <%
-                        int i = 0;
-                        for(; i < shop.getRating();i++){
-                    %>
-                    <i class="fa fa-lg fa-star" aria-hidden="true"></i>
-                    <%
-                        }
-                        for(; i < 5 ;i++){
-                    %>
-                    <i class="fa fa-lg fa-star-o" aria-hidden="true"></i>
-                    <%
-                        }
-                    %>
-                    <a href="#">Vedi tutte</a>
+                    <fmt:formatNumber var="rat" groupingUsed = "false" maxFractionDigits = "0" value="${shop.rating}" />
+                    <c:choose>
+                        <c:when test="${rat ge 0}">
+                            <c:forEach begin="0" end="${rat}" varStatus="loop">
+                                <i class="fa fa-star rating_star" aria-hidden="true"></i>
+                            </c:forEach>
+                            <c:forEach begin="0" end="${4-rat}" varStatus="loop">
+                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach begin="0" end="4" varStatus="loop">
+                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                    <a href="#"> vedi tutte</a>
                 </div>
-                <div id="addShopDiv" class="row">
-                    <div class="col-md-10">
-                        <h2 id="realShop">Negozio fisico</h2>
+                <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
+                    <div id="addShopDiv" class="row" style="margin-bottom: 15px">
+                        <div class="col-md-10">
+                            <h2 id="realShop">Negozio fisico</h2>
+                        </div>
                     </div>
-                    <div class="col-md-7">
-                        <a id="btnAddShopLocation" class="btn btn-default">Aggiungi negozio fisico</a>
-                    </div>
-                </div>
+                    <p>Indirizzo: ${shop.address}</p>
+                    <p>City: ${shop.city}</p>
+                    <p>CAP: ${shop.zip}</p>
+                    <p>Orari: ${shop.openingHours}</p>
+                    <p>Posizione: ${shop.latitude}, ${shop.longitude}</p>
+                    <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
+                </c:if>
             </div>
         </div>
         <div class="col-md-1" id="mySpace">

@@ -16,6 +16,10 @@
         <filter-name>ShopFilter</filter-name>
         <filter-class>filters.ShopFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>ShopPanelFilter</filter-name>
+        <filter-class>filters.ShopPanelFilter</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>authenticationFilter</filter-name>
@@ -29,6 +33,10 @@
     <filter-mapping>
         <filter-name>ShopFilter</filter-name>
         <url-pattern>/shop.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ShopPanelFilter</filter-name>
+        <url-pattern>/restricted/shop_panel.jsp</url-pattern>
     </filter-mapping>
     <listener>
         <description>ServletContextListener</description>
