@@ -3,6 +3,7 @@ package daos.impl;
 import daos.UserDao;
 import db.DBManager;
 import javafx.util.Pair;
+import main.Cart;
 import main.Product;
 import main.User;
 
@@ -10,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class UserDaoImpl implements UserDao {
     private Connection con;
@@ -93,14 +93,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public ArrayList<Pair<Product, Integer>> getCart(User user) {
+    public Cart getCart(User user) {
         if (user == null)
             return null;
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM cart WHERE UserID = ? ORDER BY AddDate DESC");
             stm.setInt(1,user.getUserID());
             ResultSet rs = stm.executeQuery();
-            ArrayList<Pair<Product, Integer>> cart = new ArrayList<>();
+            Cart cart = new Cart();
             while (true){
                 Pair<Product,Integer> cartItem = extractCartItemFromResultSet(rs);
                 if (cartItem != null)

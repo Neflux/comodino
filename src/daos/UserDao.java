@@ -1,11 +1,9 @@
 package daos;
 
-import javafx.util.Pair;
-import main.Product;
+import main.Cart;
 import main.User;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public interface UserDao extends Serializable {
     /**
@@ -37,7 +35,7 @@ public interface UserDao extends Serializable {
 
     int getShopID (User user);
 
-    ArrayList<Pair<Product, Integer>> getCart(User user);
+    Cart getCart(User user);
 
     void decreaseCartItem(User user, int productID, int shopID);
 

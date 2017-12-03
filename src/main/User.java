@@ -15,7 +15,7 @@ public class User implements Serializable {
     private int type; // 0 normale o venditore, 1 admin
     private int shopID; // 0 se non è venditore, shopID se è venditore
     private int privacy;
-    private ArrayList<Pair<Product,Integer>> cart;
+    private Cart cart;
 
     public User() {
         updateShopID();
@@ -74,12 +74,12 @@ public class User implements Serializable {
         this.shopID = new UserDaoImpl().getShopID(this);
     }
 
-    public ArrayList<Pair<Product, Integer>> getCart() {
+    public Cart getCart() {
         this.updateCart();
         return cart;
     }
 
-    public ArrayList<Pair<Product, Integer>> getCart(boolean update) {
+    public Cart getCart(boolean update) {
         if(update)
             this.updateCart();
         return cart;
