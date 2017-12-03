@@ -29,11 +29,9 @@ public class ReviewDaoImpl implements ReviewDao {
 
             int result = stm.executeUpdate();
             ResultSet rs = stm.getGeneratedKeys(); // bisogna riferirsi ai campi con il numero in sto caso
-            if (result == 0){
+            if (rs.next()){
                 return 0;
             }
-            rs.next();
-            System.out.flush();
             return rs.getInt(1);
 
         } catch (SQLException e) {
