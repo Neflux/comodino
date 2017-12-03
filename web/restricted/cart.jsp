@@ -32,34 +32,34 @@
                 <c:choose>
                 <c:when test="${not empty cart}">
                     <c:forEach items="${cart}" var="item">
-                        <c:set var="total" value="${total + item.getKey().getActualPrice() * item.getValue()}" scope="page"/>
-                <li id="${item.getKey().getProductID()}_${item.getKey().getShopID()}" class="list-group-item">
+                        <c:set var="total" value="${total + item.getProduct().getActualPrice() * item.getQuantity()}" scope="page"/>
+                <li id="${item.getProduct().getProductID()}_${item.getProduct().getShopID()}" class="list-group-item">
                     <div class="cart-item">
                         <div id="c_row-4col" class="row pi-draggable" draggable="true">
                             <div class="col-md-2 itemimg" id="prodimg">
-                                <img class="img-fluid d-block my-2" src="${item.getKey().getImgBase64()}">
+                                <img class="img-fluid d-block my-2" src="${item.getProduct().getImgBase64()}">
                             </div>
                             <div class="col-md-8">
-                                <h1 class="itemtitle">${item.getKey().getProductName()}</h1>
+                                <h1 class="itemtitle">${item.getProduct().getProductName()}</h1>
                                 <p id="c_lead" class="lead pi-draggable itemseller" draggable="true">Venduto da:&nbsp;
-                                    <a href="#" style="font-size: 18px">${item.getKey().getShopName()}</a>
+                                    <a href="#" style="font-size: 18px">${item.getProduct().getShopName()}</a>
                                 </p>
-                                <h2 class="itemprice" id="price_${item.getKey().getProductID()}">${Utils.getNDecPrice(item.getKey().getActualPrice(),2)}&euro;</h2>
+                                <h2 class="itemprice" id="price_${item.getProduct().getProductID()}">${Utils.getNDecPrice(item.getProduct().getActualPrice(),2)}&euro;</h2>
                             </div>
                             <div class="col-md-1">
                                 <div class="itemquantity">
                                     <p>Quantità:</p>
                                     <div class="quantity">
-                                        <input type="number" min="1" step="1" value="${item.getValue()}" id="quantity_${item.getKey().getProductID()}">
+                                        <input type="number" min="1" step="1" value="${item.getQuantity()}" id="quantity_${item.getProduct().getProductID()}">
                                         <div class="quantity-nav">
-                                            <div class="quantity-button quantity-up" onclick="updatePrice(${item.getKey().getProductID()},'+',${item.getKey().getShopID()});">+</div>
-                                            <div class="quantity-button quantity-down" onclick="updatePrice(${item.getKey().getProductID()},'-',${item.getKey().getShopID()});">-</div>
+                                            <div class="quantity-button quantity-up" onclick="updatePrice(${item.getProduct().getProductID()},'+',${item.getProduct().getShopID()});">+</div>
+                                            <div class="quantity-button quantity-down" onclick="updatePrice(${item.getProduct().getProductID()},'-',${item.getProduct().getShopID()});">-</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-1 text-center">
-                                <div class="btn btn-danger btn-xs cestino" onclick="removeItem(${item.getKey().getProductID()}, ${item.getKey().getShopID()})">
+                                <div class="btn btn-danger btn-xs cestino" onclick="removeItem(${item.getProduct().getProductID()}, ${item.getProduct().getShopID()})">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </div>
                             </div>

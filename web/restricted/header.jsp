@@ -242,7 +242,7 @@
                             <li class="text-center"><a>Carrello vuoto...</a></li>
                         </c:if>
                         <c:forEach var="cartItem" items="${user.getCart(false)}">
-                            <li><a href="#">${cartItem.getKey().getProductName()} N: ${cartItem.getValue()}</a></li>
+                            <li><a href="#">${cartItem.getProduct().getProductName()} N: ${cartItem.getQuantity()}</a></li>
                         </c:forEach>
                         <li class="divider"></li>
                         <li class="text-center"><a href="${pageContext.request.contextPath}/restricted/cart.jsp">Vedi carrello <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
