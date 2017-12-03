@@ -2,8 +2,8 @@ package daos.impl;
 
 import daos.UserDao;
 import db.DBManager;
-import javafx.util.Pair;
 import main.Cart;
+import main.CartItem;
 import main.Product;
 import main.User;
 
@@ -102,7 +102,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = stm.executeQuery();
             Cart cart = new Cart();
             while (true){
-                Pair<Product,Integer> cartItem = extractCartItemFromResultSet(rs);
+                CartItem cartItem = extractCartItemFromResultSet(rs);
                 if (cartItem != null)
                     cart.add(cartItem);
                 else
@@ -218,14 +218,16 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
-    private Pair<Product, Integer> extractCartItemFromResultSet(ResultSet rs) throws SQLException {
+    private CartItem extractCartItemFromResultSet(ResultSet rs) throws SQLException {
         if(!rs.next()){
             return null;
         }
         int productID = rs.getInt("ProductID");
         int shopID = rs.getInt("ShopID");
         Product p = new ProductDaoImpl().getProduct(productID,shopID);
-        return new Pair<>(p,rs.getInt("Quantity"));
+        CartItem item = new CartItem();
+        item.put(p,rs.getInt("Quantity"), rs.getInt("AddressID"));
+        return item;
     }
 
     @Override

@@ -1,15 +1,12 @@
 package servlet;
 
-import daos.OrderDao;
 import daos.ProductDao;
-import daos.impl.OrderDaoImpl;
 import daos.impl.PaymentDaoImpl;
 import daos.impl.ProductDaoImpl;
 import daos.impl.UserDaoImpl;
-import javafx.util.Pair;
 import main.Cart;
+import main.CartItem;
 import main.Payment;
-import main.Product;
 import main.User;
 
 import javax.servlet.ServletException;
@@ -51,8 +48,8 @@ public class CompleteOrderServlet extends HttpServlet {
         Cart cart = new UserDaoImpl().getCart(user);
         ProductDao pd = new ProductDaoImpl();
         System.out.println("[INFO] CompleteOrder: Controllo disponibilità");
-        for (Pair<Product, Integer> item: cart){
-            boolean result = pd.checkAvailability(item.getKey().getProductID(), item.getKey().getShopID(), item.getValue());
+        for (CartItem item: cart){
+            boolean result = pd.checkAvailability(item.getProduct().getProductID(), item.getProduct().getShopID(), item.getQuantity());
             if(!result) {
                 System.out.println("[ERROR] CompleteOrder: Non sono soddisfatte le disponibilità");
                 response.sendRedirect("/cart.jsp?error=Richiesti troppi pezzi. Riduci le quantità");
@@ -72,10 +69,10 @@ public class CompleteOrderServlet extends HttpServlet {
         // Aggiornamento quantità merce negli store
 
         System.out.println("[INFO] CompleteOrder: Diminuzione disponibilità");
-        for (Pair<Product, Integer> item: cart){
-            boolean result = pd.reduceAvailability(item.getKey().getProductID(), item.getKey().getShopID(), item.getValue());
+        for (CartItem item: cart){
+            boolean result = pd.reduceAvailability(item.getProduct().getProductID(), item.getProduct().getShopID(), item.getQuantity());
             if(!result) {
-                System.out.println("[ERROR] CompleteOrder: Impossibile diminuire il prodotto: " + item.getKey().getProductID() + " (" + item.getKey().getProductName() + ")");
+                System.out.println("[ERROR] CompleteOrder: Impossibile diminuire il prodotto: " + item.getProduct().getProductID() + " (" + item.getProduct().getProductName() + ")");
                 response.sendRedirect("/cart.jsp?error=Errore riduzione quantità");
                 return;
             }

@@ -1,10 +1,8 @@
 package main;
 
 import daos.impl.UserDaoImpl;
-import javafx.util.Pair;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class User implements Serializable {
 

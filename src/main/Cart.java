@@ -1,8 +1,12 @@
 package main;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 
-public class Cart extends ArrayList<Pair<Product, Integer>> {
+/*
+CARTITEM MAP:
+"product" -> prodotto
+"quantity" -> quantità in carrello
+"address" -> null o addressID o 0 (ritiro in negozio)
+ */
+public class Cart extends ArrayList<CartItem> {
 }

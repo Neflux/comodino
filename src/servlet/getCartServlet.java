@@ -1,8 +1,7 @@
 package servlet;
 
-import javafx.util.Pair;
 import main.Cart;
-import main.Product;
+import main.CartItem;
 import main.User;
 
 import javax.servlet.ServletException;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @WebServlet(name = "getCartServlet", urlPatterns = {"/getcart"})
 public class getCartServlet extends HttpServlet {
@@ -32,9 +30,9 @@ public class getCartServlet extends HttpServlet {
         if (cart.size() == 0) {
             ret = "<li class=\"text-center\"><a>Carrello vuoto...</a></li>";
         } else {
-            for (Pair<Product, Integer> cartItem : cart) {
-                ret += "<li><a href=\"/product.jsp?product="+cartItem.getKey().getProductID()+"&shop="+cartItem.getKey().getShopID()+"\"> <b>" + cartItem.getKey().getProductName() +
-                        "</b> - " + cartItem.getValue() + "&nbsp;pz</a></li>";
+            for (CartItem cartItem : cart) {
+                ret += "<li><a href=\"/product.jsp?product="+cartItem.getProduct().getProductID()+"&shop="+cartItem.getProduct().getShopID()+"\"> <b>" + cartItem.getProduct().getProductName() +
+                        "</b> - " + cartItem.getQuantity() + "&nbsp;pz</a></li>";
             }
             ret += "<li class=\"divider\"></li>\n" +
                     "                        <li class=\"text-center\"><a href=\"/restricted/cart.jsp\">Vedi carrello <i class=\"fa fa-angle-double-right\" aria-hidden=\"true\"></i>\n</a></li>";
