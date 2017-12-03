@@ -13,7 +13,7 @@
 <div class="container">
     <h2>Pagamento</h2>
 
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal" action="${pageContext.request.contextPath}/restricted/completeorder" method="post">
         <div class="col-sm-8">
             <div class=" col-sm-offset-3 btn-group" style="margin-bottom: 10px;">
                 <a class="btn btn-sm btn-primary mycard mastercard">Mastercard</a>
@@ -58,13 +58,13 @@
                             </div>
                             <div class="col-xs-6">
                                 <select class="form-control minimal" name="expiry-year">
-                                    <option value="17">2017</option>
-                                    <option value="18">2018</option>
-                                    <option value="19">2019</option>
-                                    <option value="20">2020</option>
-                                    <option value="21">2021</option>
-                                    <option value="22">2022</option>
-                                    <option value="23">2023</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
                                 </select>
                             </div>
                         </div>
