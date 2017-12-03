@@ -26,4 +26,8 @@ public interface ProductDao extends Serializable {
      * @throws SQLException nel caso qualcosa non andasse come previsto nel database
      */
     Map<String, ProductGroup> getProducts(Map params) throws SQLException;
+
+    boolean checkAvailability(int productID, int shopID, Integer quantity);
+
+    boolean reduceAvailability(int productID, int shopID, Integer quantity);
 }
