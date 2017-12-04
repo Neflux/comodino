@@ -67,7 +67,7 @@ public class OrderDaoImpl implements OrderDao {
         Cart cart = user.getCart(true);
         int orderID;
         try {
-            PreparedStatement stm = con.prepareStatement("INSERT INTO orderlist (Date, PaymentStatus, UserID, PaymentID) VALUES (NOW(),0,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stm = con.prepareStatement("INSERT INTO orderlist (Date, UserID, PaymentID) VALUES (NOW(),?,?)", Statement.RETURN_GENERATED_KEYS);
             stm.setInt(1, user.getUserID());
             stm.setInt(2, paymentID);
             stm.executeUpdate();
@@ -110,19 +110,6 @@ public class OrderDaoImpl implements OrderDao {
             stm.setInt(1, user.getUserID());
             stm.executeUpdate();
             System.out.println("[INFO] Cart cleaned");
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean confirmOrder(int orderID) {
-        try {
-            PreparedStatement stm = con.prepareStatement("UPDATE orderlist SET PaymentStatus = 1 WHERE OrderID = ?");
-            stm.setInt(1, orderID);
-            stm.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -208,7 +195,6 @@ public class OrderDaoImpl implements OrderDao {
                 order.setOrderID(rs.getInt("OrderID"));
                 order.setUserID(rs.getInt("UserID"));
                 order.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Date")));
-                order.setPaymentStatus(rs.getInt("PaymentStatus"));
                 System.out.println("[ INFO ] Data: " + order.getDate().toString());
                 // creo prodotto con dati venditore
                 pd = new ProductDaoImpl();

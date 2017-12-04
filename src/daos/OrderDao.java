@@ -15,6 +15,4 @@ public interface OrderDao extends Serializable {
     int createOrder(User user, int paymentID);
 
     boolean cleanCart(User user);
-
-    boolean confirmOrder(int orderID);
 }

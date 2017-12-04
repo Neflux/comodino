@@ -51,7 +51,7 @@ public class CompleteOrderServlet extends HttpServlet {
         for (CartItem item: cart){
             boolean result = pd.checkAvailability(item.getProduct().getProductID(), item.getProduct().getShopID(), item.getQuantity());
             if(!result) {
-                System.out.println("[ERROR] CompleteOrder: Non sono soddisfatte le disponibilità");
+                System.out.println("[ERROR] CompleteOrder: Non sono soddisfatte le disponibilità di: " + item.getProduct().getProductID() +" shop: " + item.getProduct().getShopID());
                 response.sendRedirect("cart.jsp?error=Richiesti troppi pezzi. Riduci le quantità");
                 return;
             }
@@ -96,11 +96,7 @@ public class CompleteOrderServlet extends HttpServlet {
             response.sendRedirect("cart.jsp?error=Il carrello non è stato liberato");
             return;
         }
-        result = od.confirmOrder(orderID);
-        if (!result){
-            response.sendRedirect("cart.jsp?error=Pagamento non confermato");
-            return;
-        }
+
         response.sendRedirect("ordercompleted.jsp?orderid=" + orderID);
     }
 
