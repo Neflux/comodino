@@ -31,15 +31,11 @@
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="t1.JPG" alt="...">
-                            </div>
-                            <div class="item">
-                                <img src="t2.JPG" alt="...">
-                            </div>
-                            <div class="item">
-                                <img src="t3.JPG" alt="...">
-                            </div>
+                            <c:forEach items="${product.imgBase64}" var="imgBase64" varStatus="status">
+                                <div class="item <c:if test='${status.first}'>active</c:if>">
+                                    <img src='${imgBase64}' alt='images Here' width="100" height="100"/>
+                                </div>
+                            </c:forEach>
                         </div>
 
                         <!-- Controls -->
@@ -231,31 +227,31 @@
             handleLocationError(false, infoWindow, map.getCenter());
         }
         <c:forEach items="${shopsList}" var="shop">
-        var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
-        var infowindow = new google.maps.InfoWindow({
-            content: '${shop.name}'
-        });
-        google.maps.event.addListenerOnce(map, 'idle', function () {
-            // map is ready
-        });
+            var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
+            var infowindow = new google.maps.InfoWindow({
+                content: '${shop.name}'
+            });
+            google.maps.event.addListenerOnce(map, 'idle', function () {
+                // map is ready
+            });
 
-        var marker = new google.maps.Marker({
-            position: mark,
-            title: '${shop.name}',
-            infowindow: infowindow,
-            map: map
-        });
-        google.maps.event.addListener(map, 'tilesloaded', function() {
-            // Visible tiles loaded!
-        });
-        infowindow.open(map);
-        <%--
-        google.maps.event.addListener(marker, 'click', function () {
-            return function () {
-                infowindow.open(map, marker);
-            }
-        }());
-        --%>
+            var marker = new google.maps.Marker({
+                position: mark,
+                title: '${shop.name}',
+                infowindow: infowindow,
+                map: map
+            });
+            google.maps.event.addListener(map, 'tilesloaded', function() {
+                // Visible tiles loaded!
+            });
+            infowindow.open(map);
+            <%--
+            google.maps.event.addListener(marker, 'click', function () {
+                return function () {
+                    infowindow.open(map, marker);
+                }
+            }());
+            --%>
         </c:forEach>
     }
 

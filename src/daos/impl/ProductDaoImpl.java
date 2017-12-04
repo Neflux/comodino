@@ -37,7 +37,6 @@ public class ProductDaoImpl implements ProductDao {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT *, s.Name AS ShopName \n" +
                     "FROM product AS p\n" +
-                    "INNER JOIN productphoto AS pp USING(ProductID)\n" +
                     "INNER JOIN shopproduct AS sp USING (ProductID)\n" +
                     "INNER JOIN shop AS s USING (ShopID)\n" +
                     "WHERE p.ProductID = ? AND sp.ShopID = ?;");
@@ -56,8 +55,7 @@ public class ProductDaoImpl implements ProductDao {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT *\n" +
                     "FROM product AS p\n" +
-                    "  INNER JOIN productphoto AS pp USING(ProductID)\n" +
-                    "  INNER JOIN shopproduct AS sp USING (ProductID)\n" +
+                    "INNER JOIN shopproduct AS sp USING (ProductID)\n" +
                     "GROUP BY ProductID;");
             ResultSet rs = stm.executeQuery();
             return extractAllProductsFromResultSet(rs);
@@ -113,7 +111,7 @@ public class ProductDaoImpl implements ProductDao {
             e.printStackTrace();
         }
         try {
-            prod.setImgBase64(Utils.getStringfromBlob(rs.getBlob("Image")));
+            prod.setImgBase64(getImages(prod.getProductID()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -442,5 +440,23 @@ public class ProductDaoImpl implements ProductDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private ArrayList<String> getImages(int productID){
+
+        ArrayList<String> imgBase64 = new ArrayList<>();
+
+        try{
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM productphoto WHERE ProductID = ?");
+            stm.setInt(1, productID);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return imgBase64;
     }
 }
