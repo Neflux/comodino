@@ -27,48 +27,42 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <div class="carousel slide article-slide" id="article-photo-carousel">
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner cont-slider">
-                    <div class="item active">
-                        <img alt="" title="" src="http://placehold.it/600x400">
+            <section class="section-white">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="t1.JPG" alt="...">
+                            </div>
+                            <div class="item">
+                                <img src="t2.JPG" alt="...">
+                            </div>
+                            <div class="item">
+                                <img src="t3.JPG" alt="...">
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
                     </div>
-                    <div class="item">
-                        <img alt="" title="" src="http://placehold.it/600x400">
-                    </div>
-                    <div class="item">
-                        <img alt="" title="" src="http://placehold.it/600x400">
-                    </div>
-                    <div class="item">
-                        <img alt="" title="" src="http://placehold.it/600x400">
-                    </div>
-                </div>
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li class="active" data-slide-to="0" data-target="#article-photo-carousel">
-                        <img alt="" src="http://placehold.it/250x180">
-                    </li>
-                    <li class="" data-slide-to="1" data-target="#article-photo-carousel">
-                        <img alt="" src="http://placehold.it/250x180">
-                    </li>
-                    <li class="" data-slide-to="2" data-target="#article-photo-carousel">
-                        <img alt="" src="http://placehold.it/250x180">
-                    </li>
-                    <li class="" data-slide-to="3" data-target="#article-photo-carousel">
-                        <img alt="" src="http://placehold.it/250x180">
-                    </li>
-                </ol>
-            </div>
+            </section>
         </div>
         <div class="col-md-6">
             <h1>${product.productName}</h1>
             <c:choose>
                 <c:when test="${product.price != product.actualPrice}">
-                    <h2><span class="strikethrough"><fmt:formatNumber minFractionDigits = "2" maxFractionDigits="2" value="${product.price}"/> €</span>&nbsp;<span
-                            class="text-right"><fmt:formatNumber minFractionDigits = "2" maxFractionDigits="2" value="${product.actualPrice}"/> €</span></h2>
+                    <h2><span class="strikethrough"><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2"
+                                                                      value="${product.price}"/> €</span>&nbsp;<span
+                            class="text-right"><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2"
+                                                                 value="${product.actualPrice}"/> €</span></h2>
                 </c:when>
                 <c:otherwise>
-                    <h2><fmt:formatNumber minFractionDigits = "2" maxFractionDigits="2" value="${product.price}"/> €</h2>
+                    <h2><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2" value="${product.price}"/> €</h2>
                 </c:otherwise>
             </c:choose>
 
@@ -116,7 +110,8 @@
             </c:choose>
             <c:choose>
                 <c:when test="${not empty sessionScope.user}">
-                    <a href="javascript:void(0);" class="btn btn-primary" onclick="addToCart('${product.productID}','${product.shopID}');">
+                    <a href="javascript:void(0);" class="btn btn-primary"
+                       onclick="addToCart('${product.productID}','${product.shopID}');">
                         <i class="fa fa-fw pull-left fa-shopping-cart"></i> Aggiungi al carrello
                     </a>
                 </c:when>
@@ -180,7 +175,8 @@
                 <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
                 <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
 
-                <b>${author.firstName} ${author.lastName}</b> - <span style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span> <!-- TODO fai funzione che restituisce array di autori-->
+                <b>${author.firstName} ${author.lastName}</b> - <span style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
+                <!-- TODO fai funzione che restituisce array di autori-->
             </p>
             <p>
                 <fmt:formatNumber var="rat2" groupingUsed="false" maxFractionDigits="0" value="${review.rating} "/>
@@ -215,16 +211,17 @@
 
 <script>
     var map, infoWindow;
+
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 46.074, lng:  11.121},
+            center: {lat: 46.074, lng: 11.121},
             zoom: 7
         });
         infoWindow = new google.maps.InfoWindow;
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
+            navigator.geolocation.getCurrentPosition(function (position) {
                 var pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
@@ -234,7 +231,7 @@
                 infoWindow.setContent('Location found.');
                 infoWindow.open(map);
                 map.setCenter(pos);
-            }, function() {
+            }, function () {
                 handleLocationError(true, infoWindow, map.getCenter());
             });
         } else {
@@ -243,12 +240,29 @@
         }
         <c:forEach items="${shopsList}" var="shop">
         var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
+        var infowindow = new google.maps.InfoWindow({
+            content: '${shop.name}'
+        });
+        google.maps.event.addListenerOnce(map, 'idle', function () {
+            // map is ready
+        });
+
         var marker = new google.maps.Marker({
             position: mark,
-            map: map,
-            animation: google.maps.Animation.DROP,
-            title: '${shop.name}'
+            title: '${shop.name}',
+            infowindow: infowindow,
+            map: map
         });
+        google.maps.event.addListener(map, 'tilesloaded', function() {
+            // Visible tiles loaded!
+        });
+        infowindow.open(map);
+        google.maps.event.addListener(marker, 'click', function () {
+            return function () {
+                infowindow.open(map, marker);
+            }
+        }());
+
         </c:forEach>
     }
 
@@ -264,8 +278,6 @@
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap">
 </script>
-
-
 
 
 </body>
