@@ -93,11 +93,3 @@ body{
     }
 
 }
-
-@media screen and (min-width: 992px) {
-
-    .container {
-        max-width: 930px;
-    }
-
-}
