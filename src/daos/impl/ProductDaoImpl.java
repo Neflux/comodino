@@ -454,7 +454,11 @@ public class ProductDaoImpl implements ProductDao {
             while (rs.next()) {
                 imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
             }
+            if (imgBase64.size()==0){
+                imgBase64.add("http://via.placeholder.com/1000x1000");
+            }
         } catch (SQLException e) {
+            imgBase64.add("http://via.placeholder.com/1000x1000");
             e.printStackTrace();
         }
         return imgBase64;
