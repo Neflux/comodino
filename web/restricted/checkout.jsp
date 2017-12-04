@@ -19,7 +19,7 @@
     <form action="${pageContext.request.contextPath}/restricted/setorderaddresses" method="post">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="display-1">Modalità di consegna</h1>
+                <h2 class="display-1">Modalità di consegna</h2>
             </div>
         </div>
         <div class="row">
@@ -31,7 +31,7 @@
                                 <li class="list-group-item">
                                     <div class="row pi-draggable" id="c_row-4col" draggable="true">
                                         <div class="col-md-9">
-                                            <h1 class="itemtitle">${cartItem.getProduct().productName} <small>x${cartItem.getQuantity()}</small></h1>
+                                            <h4 class="itemtitle">${cartItem.getProduct().productName} <small>x${cartItem.getQuantity()}</small></h4>
                                             <p class="itemseller">Venduto da:
                                                 <a href="${pageContext.request.contextPath}/shop.jsp?id=${cartItem.getProduct().shopID}">${cartItem.getProduct().shopName}</a>
                                             </p>
@@ -39,7 +39,7 @@
                                         <c:if test="${shopDao.getShop(cartItem.getProduct().shopID).getClass().simpleName == 'PhysicalShop'}">
                                             <div class="col-md-3 text-right">
                                                 <%-- Ogni entry se checkata restituisce productID_shopID nel campo 'ritiro' del form--%>
-                                                <h3 style="margin-top: 15px">Ritiro in negozio <input type="checkbox" name="ritironegozio" value="${cartItem.getProduct().productID}_${cartItem.getProduct().shopID}"></h3>
+                                                <h4 style="margin-top: 15px">Ritiro in negozio <input type="checkbox" name="ritironegozio" value="${cartItem.getProduct().productID}_${cartItem.getProduct().shopID}"></h4>
                                             </div>
                                         </c:if>
                                     </div>
