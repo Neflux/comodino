@@ -66,28 +66,25 @@
                 </c:otherwise>
             </c:choose>
 
-            <fmt:formatNumber var="rat" groupingUsed="false" maxFractionDigits="0" value="${product.rating}"/>
-
             <c:choose>
-                <c:when test="${rat ge 0}">
-                    <c:forEach begin="0" end="${rat - 1}" varStatus="loop">
-                        <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                    </c:forEach>
-                    <c:forEach begin="0" end="${4 - rat}" varStatus="loop">
-                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                    </c:forEach>
+                <c:when test="${product.rating == -1}">
+                    Nessuna recensione
                 </c:when>
                 <c:otherwise>
-                    <c:forEach begin="0" end="4" varStatus="loop">
-                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                    </c:forEach>
+                    <c:if test="${product.rating > 0}">
+                        <c:forEach begin="0" end="${product.rating - 1}" varStatus="loop">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${product.rating < 5}">
+                        <c:forEach begin="0" end="${4 - product.rating}" varStatus="loop">
+                            <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                        </c:forEach>
+                    </c:if>
                 </c:otherwise>
             </c:choose>
 
             <c:choose>
-                <c:when test="${fn:length(reviewList) == 0}">
-                    &nbsp&nbsp<span class="text-right">Nessuna recensione</span>
-                </c:when>
                 <c:when test="${fn:length(reviewList) == 1}">
                     &nbsp&nbsp<span class="text-right">1 recensione</span>
                 </c:when>
@@ -129,29 +126,24 @@
         <div class="col-md-12">
             <h1 style="margin-top: 0">Recensioni</h1>
             <c:choose>
-                <c:when test="${rat ge 0}">
-                    <c:forEach begin="0" end="${rat - 1}" varStatus="loop">
-                        <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                    </c:forEach>
-                    <c:choose>
-                        <c:when test="${rat lt 5}">
-                            <c:forEach begin="0" end="${4 - rat}" varStatus="loop">
-                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                            </c:forEach>
-                        </c:when>
-                    </c:choose>
+                <c:when test="${product.rating == -1}">
+                    Nessuna recensione
                 </c:when>
                 <c:otherwise>
-                    <c:forEach begin="0" end="4" varStatus="loop">
-                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                    </c:forEach>
+                    <c:if test="${product.rating > 0}">
+                        <c:forEach begin="0" end="${product.rating - 1}" varStatus="loop">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${product.rating < 5}">
+                        <c:forEach begin="0" end="${4 - product.rating}" varStatus="loop">
+                            <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                        </c:forEach>
+                    </c:if>
                 </c:otherwise>
             </c:choose>
 
             <c:choose>
-                <c:when test="${fn:length(reviewList) == 0}">
-                    &nbsp&nbsp<span class="text-right">Nessuna recensione</span>
-                </c:when>
                 <c:when test="${fn:length(reviewList) == 1}">
                     &nbsp&nbsp<span class="text-right">1 recensione</span>
                 </c:when>
@@ -257,12 +249,13 @@
             // Visible tiles loaded!
         });
         infowindow.open(map);
+        <%--
         google.maps.event.addListener(marker, 'click', function () {
             return function () {
                 infowindow.open(map, marker);
             }
         }());
-
+        --%>
         </c:forEach>
     }
 
