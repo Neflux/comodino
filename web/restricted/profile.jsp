@@ -136,6 +136,7 @@
         <div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="editInfoLabel">
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
+                    <%--TODO:Auto-populate previous values--%>
                     <form id="editInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editinfo">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Modifica dati</h4>
