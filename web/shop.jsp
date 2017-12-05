@@ -30,27 +30,6 @@
                         center: {lat: ${shop.latitude}, lng:  ${shop.longitude}},
                         zoom: 7
                     });
-                    infoWindow = new google.maps.InfoWindow;
-
-                    // Try HTML5 geolocation.
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            var pos = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            };
-
-                            infoWindow.setPosition(pos);
-                            infoWindow.setContent('Tu sei qui');
-                            infoWindow.open(map);
-                            map.setCenter(pos);
-                        }, function() {
-                            handleLocationError(true, infoWindow, map.getCenter());
-                        });
-                    } else {
-                        // Browser doesn't support Geolocation
-                        handleLocationError(false, infoWindow, map.getCenter());
-                    }
 
                     var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
                     var marker = new google.maps.Marker({
@@ -77,60 +56,24 @@
             <div class="row">
                 <div class="col-md-4" id="navbar">
                     <div class="col-md-12">
-                        <div class="carousel slide article-slide" id="article-photo-carousel" style="margin: 20px auto 10px auto;">
-                                <%-- Wrapper for slides --%>
-                            <div class="carousel-inner cont-slider">
-
-                            </div>
-                                <%-- Indicators --%>
-                            <ol class="carousel-indicators">
-                                <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
-                                    <li ${status.first ? 'class="active"' : 'class=""'} data-slide-to="${status.index}" data-target="#article-photo-carousel"></li>
-                                </c:forEach>
-                            </ol>
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-
-                                <c:forEach var="i" begin = "0" end = "${shop.shopphoto.size()-1}">
-                                    <li data-target="#myCarousel" data-slide-to="${i}" ${i == 0 ? 'class="active"' : ''}></li>
-                                </c:forEach>
-                            </ol>
-
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
-                                    <div class="item ${status.first ? 'active' : ''}">
-                                        <img alt="" title="" src="${image}">
+                                    <div class="item <c:if test='${status.first}'>active</c:if>">
+                                        <img src='${shop.shopphoto[0]}' alt='images Here' width="100" height="100"/>
                                     </div>
                                 </c:forEach>
                             </div>
 
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span><<</span>
-                                <span class="sr-only">Previous</span>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
                             </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span>>></span>
-                                <span class="sr-only">Next</span>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </div>
-
-
-
-
                         <h1 id="shopTitle" class="text-center">${shop.name}</h1>
                         <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
                         <p>${shop.description}</p>
@@ -184,7 +127,7 @@
                                     </c:choose>
                                 </div>
                                 <div class="col-md-7 text-left">
-                                    <h2>${prod.value.getList().get(0).getProductName()}</h2>
+                                    <h2> <a style="color:#2c3e50" href="/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
                                     <h1 class="prezzo">${prod.value.getList().get(0).getActualPrice()} €</h1>
                                 </div>
                                 <div class="col-md-3 ratAdd">
@@ -213,8 +156,5 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="js/search/search.js"></script>
-        <script type="text/javascript" src="js/vendor.js"></script>
-
     </jsp:body>
 </t:genericpage>

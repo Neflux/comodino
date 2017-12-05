@@ -16,6 +16,34 @@
 
     <jsp:attribute name="pagejavascript">
         <script src="${pageContext.request.contextPath}/js/vendor.js"></script>
+        <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
+            <script>
+                var map, infoWindow;
+                function initMap() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: ${shop.latitude}, lng:  ${shop.longitude}},
+                        zoom: 7
+                    });
+
+                    var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
+                    var marker = new google.maps.Marker({
+                        position: mark,
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        title: '${shop.name}'
+                    });
+                }
+
+                function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+                    infoWindow.open(map);
+                }
+            </script>
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap"></script>
+        </c:if>
     </jsp:attribute>
 
     <jsp:body>
