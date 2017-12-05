@@ -14,6 +14,8 @@ public class Shop implements Serializable {
 
     private ArrayList<String> shopphoto;
 
+    private ArrayList<Product> expiringProducts;
+
     public int getShopID() {
         return shopID;
     }
@@ -71,4 +73,9 @@ public class Shop implements Serializable {
         this.shopphoto = shopphoto;
     }
 
+    public ArrayList<Product> getExpiringProducts() { return expiringProducts; }
+
+    public void setExpiringProducts(ArrayList<Product> expiringProducts) {
+        this.expiringProducts = expiringProducts;
+    }
 }

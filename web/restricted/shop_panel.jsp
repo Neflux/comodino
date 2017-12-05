@@ -110,24 +110,31 @@
                     <div class="row">
                         <h1 id="productsLeftTitle">Prodotti in esaurimento</h1>
                     </div>
-                    <c:forEach items="${shop.}"
                     <div class="row" id="productsLeftRows">
-
-                        <div class="row productRow">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="productNameDiv col-md-6">
-                                        <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                    </div>
-                                    <div class="itemsLeftDiv col-md-6">
-                                        <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <a class="showProduct btn-sm btn-default">Vedi</a>
-                            </div>
-                        </div>
+                        <c:choose>
+                            <c:when test="${shop.expiringProducts.isEmpty()}">
+                                <h3>Nessun prodotto in esaurimento</h3>
+                            </c:when>
+                            <c:otherwise>
+                                    <c:forEach items="${shop.expiringProducts}" var="product">
+                                        <div class="row productRow">
+                                            <div class="col-md-10">
+                                                <div class="row">
+                                                    <div class="productNameDiv col-md-6">
+                                                        <h5 class="productName text-left">${product.productName}</h5>
+                                                    </div>
+                                                    <div class="itemsLeftDiv col-md-6">
+                                                        <h5 class="itemsLeft text-right">Prodotti rimanenti: ${product.quantity}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 text-center">
+                                                <a class="showProduct btn-sm btn-default">Vedi</a>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>
