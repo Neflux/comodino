@@ -91,13 +91,20 @@
                                                                 </ul>
                                                             </div>
                                                             <div class="col-md-3 col-xs-6 text-right">
-                                                                <h4 class="list-group-item-heading">Spedito a:</h4>
-                                                                <ul class="list-unstyled list-group-item-text">
-                                                                    <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
-                                                                    <li>${po.getAddress().getAddress()}</li>
-                                                                    <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
-                                                                    <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
-                                                                </ul>
+                                                                <c:choose>
+                                                                    <c:when test = "${po.getAddress().getAddressID() == 0}">
+                                                                        <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <h4 class="list-group-item-heading">Spedito a:</h4>
+                                                                        <ul class="list-unstyled list-group-item-text">
+                                                                            <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
+                                                                            <li>${po.getAddress().getAddress()}</li>
+                                                                            <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
+                                                                            <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
+                                                                        </ul>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </div>
                                                             <div class="col-md-2 text-center">
                                                                 <c:choose>
@@ -181,13 +188,20 @@
                                                                     </ul>
                                                                 </div>
                                                                 <div class="col-md-3 col-xs-6 text-right">
-                                                                    <h4 class="list-group-item-heading">Spedito a:</h4>
-                                                                    <ul class="list-unstyled list-group-item-text">
-                                                                        <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
-                                                                        <li>${po.getAddress().getAddress()}</li>
-                                                                        <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
-                                                                        <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
-                                                                    </ul>
+                                                                    <c:choose>
+                                                                        <c:when test = "${po.getAddress().getAddressID() == 0}">
+                                                                            <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <h4 class="list-group-item-heading">Spedito a:</h4>
+                                                                            <ul class="list-unstyled list-group-item-text">
+                                                                                <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
+                                                                                <li>${po.getAddress().getAddress()}</li>
+                                                                                <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
+                                                                                <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
+                                                                            </ul>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
                                                                 </div>
                                                                 <div class="col-md-2 text-center">
                                                                     <div class="row">
@@ -257,13 +271,20 @@
                                                                     </ul>
                                                                 </div>
                                                                 <div class="col-md-3 col-xs-6 text-right">
-                                                                    <h4 class="list-group-item-heading">Spedito a:</h4>
-                                                                    <ul class="list-unstyled list-group-item-text">
-                                                                        <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
-                                                                        <li>${po.getAddress().getAddress()}</li>
-                                                                        <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
-                                                                        <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
-                                                                    </ul>
+                                                                    <c:choose>
+                                                                        <c:when test = "${po.getAddress().getAddressID() == 0}">
+                                                                            <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <h4 class="list-group-item-heading">Spedito a:</h4>
+                                                                            <ul class="list-unstyled list-group-item-text">
+                                                                                <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
+                                                                                <li>${po.getAddress().getAddress()}</li>
+                                                                                <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
+                                                                                <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
+                                                                            </ul>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
                                                                 </div>
                                                                 <div class="col-md-2 text-center">
                                                                     <div class="row">
