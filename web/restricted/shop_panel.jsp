@@ -15,65 +15,11 @@
 </head>
 <body>
 
-<jsp:useBean id="shop" class="main.Shop" scope="session"/>
 <div style="margin-top:60px !important;" class="container">
     <div class="row">
         <div class="col-md-4" id="navbar">
             <div class="col-md-12">
-                <div class="carousel slide article-slide" id="article-photo-carousel" style="margin: 20px auto 10px auto;">
-                    <%-- Wrapper for slides --%>
-                    <div class="carousel-inner cont-slider">
-
-                    </div>
-                    <%-- Indicators --%>
-                    <ol class="carousel-indicators">
-                        <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
-                            <li ${status.first ? 'class="active"' : 'class=""'} data-slide-to="${status.index}" data-target="#article-photo-carousel"></li>
-                        </c:forEach>
-                    </ol>
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-
-                        <c:forEach var="i" begin = "0" end = "${shop.shopphoto.size()-1}">
-                            <li data-target="#myCarousel" data-slide-to="${i}" ${i == 0 ? 'class="active"' : ''}></li>
-                        </c:forEach>
-                    </ol>
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
-                            <div class="item ${status.first ? 'active' : ''}">
-                                <img alt="" title="" src="${image}">
-                            </div>
-                        </c:forEach>
-                    </div>
-
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                        <span><<</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                        <span>>></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-
-
-
-
+                <img style="margin-top: 20px" src='${shop.shopphoto[0]}' alt='images Here' width="400" height="300"/>
                 <h1 id="shopTitle" class="text-center">${shop.name}</h1>
                 <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
                 <p>${shop.description}</p>
@@ -117,7 +63,24 @@
             <div class="row" id="panelContainer">
                 <div class="col-md-4" id="photoPanel">
                     <div class="col-md-12">
-                        <a href="#"><img src="http://via.placeholder.com/400x300" class="img-responsive"></a>
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
+                                    <div class="item <c:if test='${status.first}'>active</c:if>">
+                                        <img src='${image}' alt='images Here' width="400" height="300"/>
+                                    </div>
+                                </c:forEach>
+                            </div>
+
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
                         <a id="btnAddPhoto" class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-camera"></i>Aggiungi foto</a>
                         <a id="btnShopSettings" class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-book"></i>Modifica negozio</a>
                     </div>
@@ -147,6 +110,7 @@
                     <div class="row">
                         <h1 id="productsLeftTitle">Prodotti in esaurimento</h1>
                     </div>
+                    <c:forEach items="${shop.}"
                     <div class="row" id="productsLeftRows">
 
                         <div class="row productRow">
@@ -164,112 +128,6 @@
                                 <a class="showProduct btn-sm btn-default">Vedi</a>
                             </div>
                         </div>
-                        <div class="row productRow">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="productNameDiv col-md-6">
-                                        <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                    </div>
-                                    <div class="itemsLeftDiv col-md-6">
-                                        <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <a class="showProduct btn-sm btn-default">Vedi</a>
-                            </div>
-                        </div>
-                        <div class="row productRow">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="productNameDiv col-md-6">
-                                        <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                    </div>
-                                    <div class="itemsLeftDiv col-md-6">
-                                        <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <a class="showProduct btn-sm btn-default">Vedi</a>
-                            </div>
-                        </div>
-                        <div class="row productRow">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="productNameDiv col-md-6">
-                                        <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                    </div>
-                                    <div class="itemsLeftDiv col-md-6">
-                                        <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <a class="showProduct btn-sm btn-default">Vedi</a>
-                            </div>
-                        </div>
-                        <div class="row productRow">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="productNameDiv col-md-6">
-                                        <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                    </div>
-                                    <div class="itemsLeftDiv col-md-6">
-                                        <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <a class="showProduct btn-sm btn-default">Vedi</a>
-                            </div>
-                        </div>
-                        <div class="row productRow">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="productNameDiv col-md-6">
-                                        <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                    </div>
-                                    <div class="itemsLeftDiv col-md-6">
-                                        <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <a class="showProduct btn-sm btn-default">Vedi</a>
-                            </div>
-                        </div>
-                        <div class="row productRow">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="productNameDiv col-md-6">
-                                        <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                    </div>
-                                    <div class="itemsLeftDiv col-md-6">
-                                        <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <a class="showProduct btn-sm btn-default">Vedi</a>
-                            </div>
-                        </div>
-                        <div class="row productRow">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="productNameDiv col-md-6">
-                                        <h5 class="productName text-left">Sdraio di cartapesta</h5>
-                                    </div>
-                                    <div class="itemsLeftDiv col-md-6">
-                                        <h5 class="itemsLeft text-right">Pezzi rimanenti: 4</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <a class="showProduct btn-sm btn-default">Vedi</a>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
