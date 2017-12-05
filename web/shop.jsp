@@ -184,7 +184,7 @@
                                     </c:choose>
                                 </div>
                                 <div class="col-md-7 text-left">
-                                    <h2>${prod.value.getList().get(0).getProductName()}</h2>
+                                    <h2> <a style="color:#2c3e50" href="/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
                                     <h1 class="prezzo">${prod.value.getList().get(0).getActualPrice()} €</h1>
                                 </div>
                                 <div class="col-md-3 ratAdd">
