@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css">
     <jsp:invoke fragment="pagecss"/>
-    <jsp:invoke fragment="pagetitle"/>
+    <title><jsp:invoke fragment="pagetitle"/></title>
 </head>
 <body>
     <jsp:invoke fragment="pageheader"/>
