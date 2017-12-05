@@ -80,7 +80,7 @@
                                                         <a class="list-group-item">
                                                             <div class="media col-md-2">
                                                                 <figure class="pull-left">
-                                                                    <img class="media-object img-rounded img-responsive" src="${po.getProduct().getImgBase64()}" alt="product image" height="" width="200px"> </figure>
+                                                                    <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                             </div>
                                                             <div class="col-md-5 col-xs-6">
                                                                 <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
@@ -170,7 +170,7 @@
                                                             <a class="list-group-item">
                                                                 <div class="media col-md-2">
                                                                     <figure class="pull-left">
-                                                                        <img class="media-object img-rounded img-responsive" src="${po.getProduct().getImgBase64()}" alt="product image" height="" width="200px"> </figure>
+                                                                        <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                                 </div>
                                                                 <div class="col-md-5 col-xs-6">
                                                                     <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
@@ -246,7 +246,7 @@
                                                             <a class="list-group-item">
                                                                 <div class="media col-md-2">
                                                                     <figure class="pull-left">
-                                                                        <img class="media-object img-rounded img-responsive" src="${po.getProduct().getImgBase64()}" alt="product image" height="" width="200px"> </figure>
+                                                                        <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                                 </div>
                                                                 <div class="col-md-5 col-xs-6">
                                                                     <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
