@@ -1,9 +1,11 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@attribute name="pagetitle" fragment="true" %>
 <%@attribute name="pagecss" fragment="true" %>
-<%@attribute name="pageheader" fragment="true" %>
 <%@attribute name="pagejavascript" fragment="true" %>
-<html>
+
+<!DOCTYPE html>
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,11 +22,19 @@
     <script src="https://use.fontawesome.com/f98c8dd683.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css" >
     <jsp:invoke fragment="pagecss"/>
     <title><jsp:invoke fragment="pagetitle"/></title>
 </head>
 <body>
-    <jsp:invoke fragment="pageheader"/>
+    <c:if test="${not empty sessionScope.user}">
+        <jsp:include page="/restricted/header.jsp" flush="true"/>
+    </c:if>
+    <c:if test="${empty sessionScope.user}">
+        <jsp:include page="/header_anonimo.jsp" flush="true"/>
+    </c:if>
+
+    <t:toastnotifications/>
 
     <jsp:doBody/>
 

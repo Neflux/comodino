@@ -1,31 +1,12 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page contentType="text/html;charset=UTF-8"%>
+
 <jsp:useBean id="categoryDao" class="daos.impl.CategoryDaoImpl"/>
 <c:set var="categories" value="${categoryDao.getCategories()}" scope="page"/>
 
-<html><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-    <link rel="manifest" href="../manifest.json">
-    <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="theme-color" content="#ffffff">
-
-    <link rel="stylesheet" href="../css/bootstrap.css" media="screen">
-    <script src="https://use.fontawesome.com/f98c8dd683.js"></script>
-    <link rel="stylesheet" href="../css/custom.min.css">
-    <link rel="stylesheet" href="../css/my.css">
-    <link rel="stylesheet" href="../css/header.css">
-</head>
-<body>
-
 <jsp:useBean id="user" class="main.User" scope="session"/>
-<!--jsp:useBean id="notifications" class="java.util.ArrayList"/-->
 <jsp:useBean id="notificationdao" class="daos.impl.NotificationDaoImpl"/>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -252,10 +233,3 @@
         </div>
     </div>
 </nav>
-
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/custom.js"></script>
-<script src="../js/now-ui-kit.js"></script>
-<script src="../js/header.js"></script>
-</body></html>
