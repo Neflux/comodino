@@ -80,7 +80,7 @@
                                                                 <a class="list-group-item">
                                                                     <div class="media col-md-2">
                                                                         <figure class="pull-left">
-                                                                            <img class="media-object img-rounded img-responsive" src="${po.getProduct().getImgBase64()}" alt="product image" height="" width="200px"> </figure>
+                                                                            <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                                     </div>
                                                                     <div class="col-md-5 col-xs-6">
                                                                         <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
@@ -91,13 +91,20 @@
                                                                         </ul>
                                                                     </div>
                                                                     <div class="col-md-3 col-xs-6 text-right">
-                                                                        <h4 class="list-group-item-heading">Spedito a:</h4>
-                                                                        <ul class="list-unstyled list-group-item-text">
-                                                                            <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
-                                                                            <li>${po.getAddress().getAddress()}</li>
-                                                                            <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
-                                                                            <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
-                                                                        </ul>
+                                                                        <c:choose>
+                                                                            <c:when test = "${po.getAddress().getAddressID() == 0}">
+                                                                                <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <h4 class="list-group-item-heading">Spedito a:</h4>
+                                                                                <ul class="list-unstyled list-group-item-text">
+                                                                                    <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
+                                                                                    <li>${po.getAddress().getAddress()}</li>
+                                                                                    <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
+                                                                                    <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
+                                                                                </ul>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                     </div>
                                                                     <div class="col-md-2 text-center">
                                                                         <c:choose>
@@ -133,45 +140,44 @@
 
                                             </div>
                                         </div>
-                                        <div class="panel-collapse">
-                                            <ul class="list-group">
-                                                <c:forEach items="${order.getProductList()}" var="po">
-                                                    <!-- inizio prodotto -->
-                                                    <li class="list-group-item">
-                                                        <a class="list-group-item">
-                                                            <div class="media col-md-2">
-                                                                <figure class="pull-left">
-                                                                    <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
-                                                            </div>
-                                                            <div class="col-md-5 col-xs-6">
-                                                                <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
-                                                                <ul class="list-unstyled list-group-item-text">
-                                                                    <li>Venditore: <b>${po.getProduct().getShopName()}</b></li>
-                                                                    <li>Prezzo: ${Utils.getNDecPrice(po.getFinalPrice(),2)}&euro;</li>
-                                                                    <li>Quantità: ${po.getQuantity()} pz</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-3 col-xs-6 text-right">
-                                                                <c:choose>
-                                                                    <c:when test = "${po.getAddress().getAddressID() == 0}">
-                                                                        <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <h4 class="list-group-item-heading">Spedito a:</h4>
-                                                                        <ul class="list-unstyled list-group-item-text">
-                                                                            <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
-                                                                            <li>${po.getAddress().getAddress()}</li>
-                                                                            <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
-                                                                            <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
-                                                                        </ul>
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </div>
-                                                            <div class="col-md-2 text-center">
-                                                                <c:choose>
-                                                                    <c:when test="${po.getStatus() == 0}">
-                                                                        <div class="row">
-                                                                            <button type="button" class="btn btn-default btn-block margin-btn">Consegna avvenuta!</button>
+                                        <!-- fine ordine -->
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <h3>&nbsp;&nbsp;&nbsp;Non hai ancora effettuato alcun ordine</h3>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div id="OrdiniInCorso" class="tab-pane fade">
+                            <c:choose>
+                                <c:when test="${not empty orders}">
+                                    <c:forEach items="${orders}" var="order">
+                                        <!-- inizio ordine -->
+                                        <div class="panel-group">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="row text-left">
+                                                        <div class="col-md-4 text-left">
+                                                            <h5> Ordine n: ${order.getOrderID()}</h5>
+                                                        </div>
+                                                        <div class="col-md-4 text-center">
+                                                            <h5> Totale: ${Utils.getNDecPrice(order.getTotal(),2)}&euro;</h5>
+                                                        </div>
+                                                        <div class="col-md-4 text-right">
+                                                            <h5> Effettuato il: ${order.getDate().toString()}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-collapse">
+                                                    <ul class="list-group">
+                                                        <c:forEach items="${order.getProductList()}" var="po">
+                                                            <c:if test="${po.getStatus() == 0}">
+                                                                <!-- inizio prodotto -->
+                                                                <li class="list-group-item">
+                                                                    <a class="list-group-item">
+                                                                        <div class="media col-md-2">
+                                                                            <figure class="pull-left">
+                                                                                <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                                         </div>
                                                                         <div class="col-md-5 col-xs-6">
                                                                             <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
@@ -182,13 +188,20 @@
                                                                             </ul>
                                                                         </div>
                                                                         <div class="col-md-3 col-xs-6 text-right">
-                                                                            <h4 class="list-group-item-heading">Spedito a:</h4>
-                                                                            <ul class="list-unstyled list-group-item-text">
-                                                                                <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
-                                                                                <li>${po.getAddress().getAddress()}</li>
-                                                                                <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
-                                                                                <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
-                                                                            </ul>
+                                                                            <c:choose>
+                                                                                <c:when test = "${po.getAddress().getAddressID() == 0}">
+                                                                                    <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <h4 class="list-group-item-heading">Spedito a:</h4>
+                                                                                    <ul class="list-unstyled list-group-item-text">
+                                                                                        <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
+                                                                                        <li>${po.getAddress().getAddress()}</li>
+                                                                                        <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
+                                                                                        <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
+                                                                                    </ul>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
                                                                         </div>
                                                                         <div class="col-md-2 text-center">
                                                                             <div class="row">
@@ -209,55 +222,37 @@
 
                                             </div>
                                         </div>
-                                        <div class="panel-collapse">
-                                            <ul class="list-group">
-                                                <c:forEach items="${order.getProductList()}" var="po">
-                                                    <c:if test="${po.getStatus() == 0}">
-                                                        <!-- inizio prodotto -->
-                                                        <li class="list-group-item">
-                                                            <a class="list-group-item">
-                                                                <div class="media col-md-2">
-                                                                    <figure class="pull-left">
-                                                                        <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
-                                                                </div>
-                                                                <div class="col-md-5 col-xs-6">
-                                                                    <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
-                                                                    <ul class="list-unstyled list-group-item-text">
-                                                                        <li>Venditore: <b>${po.getProduct().getShopName()}</b></li>
-                                                                        <li>Prezzo: ${Utils.getNDecPrice(po.getFinalPrice(),2)}&euro;</li>
-                                                                        <li>Quantità: ${po.getQuantity()} pz</li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="col-md-3 col-xs-6 text-right">
-                                                                    <c:choose>
-                                                                        <c:when test = "${po.getAddress().getAddressID() == 0}">
-                                                                            <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            <h4 class="list-group-item-heading">Spedito a:</h4>
-                                                                            <ul class="list-unstyled list-group-item-text">
-                                                                                <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
-                                                                                <li>${po.getAddress().getAddress()}</li>
-                                                                                <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
-                                                                                <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
-                                                                            </ul>
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                </div>
-                                                                <div class="col-md-2 text-center">
-                                                                    <div class="row">
-                                                                        <button type="button" class="btn btn-default btn-block margin-btn">Consegna avvenuta!</button>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <button type="button" class="btn btn-default btn-block margin-btn" data-toggle="modal" data-target="#opendisputemodal">Apri disputa</button>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <!-- fine prodotto -->
-                                                    </c:if>
-                                                </c:forEach>
-                                            </ul>
+                                        <!-- fine ordine -->
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <h3>&nbsp;&nbsp;&nbsp;Non hai ancora effettuato alcun ordine</h3>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div id="OrdiniCompletati" class="tab-pane fade">
+                            <c:choose>
+                                <c:when test="${not empty orders}">
+                                    <c:forEach items="${orders}" var="order">
+                                        <!-- inizio ordine -->
+                                        <div class="panel-group">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="row text-left">
+                                                        <div class="col-md-4 text-left">
+                                                            <h5>Ordine n: ${order.getOrderID()}</h5>
+                                                        </div>
+                                                        <div class="col-md-4 text-center">
+                                                            <h5>Totale: ${Utils.getNDecPrice(order.getTotal(),2)}&euro;</h5>
+                                                        </div>
+                                                        <div class="col-md-4 text-right">
+                                                            <h5>Effettuato il: ${order.getDate().toString()}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-collapse">
+                                                    <ul class="list-group">
+
                                                         <c:forEach items="${order.getProductList()}" var="po">
                                                             <c:if test="${po.getStatus() == 1}">
                                                                 <!-- inizio prodotto -->
@@ -265,7 +260,7 @@
                                                                     <a class="list-group-item">
                                                                         <div class="media col-md-2">
                                                                             <figure class="pull-left">
-                                                                                <img class="media-object img-rounded img-responsive" src="${po.getProduct().getImgBase64()}" alt="product image" height="" width="200px"> </figure>
+                                                                                <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                                         </div>
                                                                         <div class="col-md-5 col-xs-6">
                                                                             <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
@@ -276,13 +271,20 @@
                                                                             </ul>
                                                                         </div>
                                                                         <div class="col-md-3 col-xs-6 text-right">
-                                                                            <h4 class="list-group-item-heading">Spedito a:</h4>
-                                                                            <ul class="list-unstyled list-group-item-text">
-                                                                                <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
-                                                                                <li>${po.getAddress().getAddress()}</li>
-                                                                                <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
-                                                                                <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
-                                                                            </ul>
+                                                                            <c:choose>
+                                                                                <c:when test = "${po.getAddress().getAddressID() == 0}">
+                                                                                    <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <h4 class="list-group-item-heading">Spedito a:</h4>
+                                                                                    <ul class="list-unstyled list-group-item-text">
+                                                                                        <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
+                                                                                        <li>${po.getAddress().getAddress()}</li>
+                                                                                        <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
+                                                                                        <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
+                                                                                    </ul>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
                                                                         </div>
                                                                         <div class="col-md-2 text-center">
                                                                             <div class="row">
@@ -297,58 +299,7 @@
                                                     </ul>
 
                                                 </div>
-                                                <div class="col-md-4 text-right">
-                                                    <h5>Effettuato il: ${order.getDate().toString()}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel-collapse">
-                                            <ul class="list-group">
 
-                                                <c:forEach items="${order.getProductList()}" var="po">
-                                                    <c:if test="${po.getStatus() == 1}">
-                                                        <!-- inizio prodotto -->
-                                                        <li class="list-group-item">
-                                                            <a class="list-group-item">
-                                                                <div class="media col-md-2">
-                                                                    <figure class="pull-left">
-                                                                        <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
-                                                                </div>
-                                                                <div class="col-md-5 col-xs-6">
-                                                                    <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
-                                                                    <ul class="list-unstyled list-group-item-text">
-                                                                        <li>Venditore: <b>${po.getProduct().getShopName()}</b></li>
-                                                                        <li>Prezzo: ${Utils.getNDecPrice(po.getFinalPrice(),2)}&euro;</li>
-                                                                        <li>Quantità: ${po.getQuantity()} pz</li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="col-md-3 col-xs-6 text-right">
-                                                                    <c:choose>
-                                                                        <c:when test = "${po.getAddress().getAddressID() == 0}">
-                                                                            <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            <h4 class="list-group-item-heading">Spedito a:</h4>
-                                                                            <ul class="list-unstyled list-group-item-text">
-                                                                                <li><b>${po.getAddress().getFirstName()} ${po.getAddress().getLastName()}</b></li>
-                                                                                <li>${po.getAddress().getAddress()}</li>
-                                                                                <li>${po.getAddress().getZip()}, ${po.getAddress().getCity()}</li>
-                                                                                <li>+39 ${po.getAddress().getTelephoneNumber()}</li>
-                                                                            </ul>
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                </div>
-                                                                <div class="col-md-2 text-center">
-                                                                    <div class="row">
-                                                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="openReviewModal(${order.orderID},${po.product.productID},${po.product.shopID})">Lascia una recensione</button>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </li>
-                                                        <!-- fine prodotto -->
-                                                    </c:if>
-                                                </c:forEach>
-                                            </ul>
                                             </div>
                                         </div>
                                         <!-- fine ordine -->

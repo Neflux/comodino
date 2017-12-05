@@ -87,7 +87,7 @@
         </script>
 
         <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap">
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap">
         </script>
         <script src="${pageContext.request.contextPath}/js/product.js"></script>
         <script src="${pageContext.request.contextPath}/js/map.js"></script>
@@ -123,15 +123,13 @@
                     <h1>${product.productName}</h1>
                     <c:choose>
                         <c:when test="${product.price != product.actualPrice}">
-                            <h2><span class="strikethrough"><fmt:formatNumber minFractionDigits="2"
-                                                                              maxFractionDigits="2"
+                            <h2><span class="strikethrough"><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2"
                                                                               value="${product.price}"/> €</span>&nbsp;<span
                                     class="text-right"><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2"
                                                                          value="${product.actualPrice}"/> €</span></h2>
                         </c:when>
                         <c:otherwise>
-                            <h2><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2" value="${product.price}"/>
-                                €</h2>
+                            <h2><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2" value="${product.price}"/> €</h2>
                         </c:otherwise>
                     </c:choose>
 
@@ -162,9 +160,7 @@
                         </c:otherwise>
                     </c:choose>
 
-                    <h4><span style="font-size: 20px">Venduto da:</span> <a
-                            href="${pageContext.request.contextPath}/shop.jsp?id=${product.shopID}">${product.shopName}</a>
-                    </h4>
+                    <h4><span style="font-size: 20px">Venduto da:</span> <a href="${pageContext.request.contextPath}/shop.jsp?id=${product.shopID}">${product.shopName}</a></h4>
                     <a class="btn btn-primary"><i class="fa fa-fw fa-home pull-left"></i>Visualizza venditori nelle
                         vicinanze</a>
                     <p><br>${product.description}</p>
@@ -184,8 +180,7 @@
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a class="btn btn-primary" href="#" role="button" data-toggle="modal"
-                               data-target="#LoginSignup">
+                            <a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#LoginSignup">
                                 <i class="fa fa-fw pull-left fa-shopping-cart"></i>Loggati per aggiungere al carrello
                             </a>
                         </c:otherwise>
@@ -214,36 +209,16 @@
                         </c:if>
                     </c:otherwise>
                 </c:choose>
-            </p>
-            <p> ${review.description}</p>
-        </div>
-    </c:forEach>
-</div>
-<!-- fine ordine -->
 
-</c:when>
-<c:otherwise>
-    <h3>&nbsp;&nbsp;&nbsp;Non ci sono recensioni</h3>
-</c:otherwise>
-</c:choose>
+                <c:choose>
+                    <c:when test="${fn:length(reviewList) == 1}">
+                        &nbsp&nbsp<span class="text-right">1 recensione</span>
+                    </c:when>
+                    <c:otherwise>
+                        &nbsp&nbsp<span class="text-right">${fn:length(reviewList)} recensioni</span>
+                    </c:otherwise>
+                </c:choose>
 
-<div class="container" style="margin-top: 30px; margin-bottom: 30px">
-    <h1 style="margin-top: 0; margin-bottom: 20px;">Negozi nelle vicinanze</h1>
-    <div id="map"></div>
-
-</div>
-
-<script>
-    var map;
-
-    function initMap() {
-        var infoWindow = null;
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 46.074, lng: 11.121},
-            zoom: 7
-        });
-
-        infoWindow = new google.maps.InfoWindow;
             </div>
         </div>
         <!-- inizio review -->
@@ -254,34 +229,16 @@
                         <h3>${review.title}</h3>
                         <p>
                             <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}" scope="page"/>
-                infoWindow.setPosition(pos);
-                infoWindow.setContent('Location found.');
-                infoWindow.open(map);
-                map.setCenter(pos);
-            }, function () {
-                handleLocationError(true, infoWindow, map.getCenter());
-            });
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-        }
 
-        <c:forEach items="${shopsList}" var="shop">
-            var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
-            var infowindow = null;
-            infowindow = new google.maps.InfoWindow({
-                content: '${shop.name}'
-            });
-            google.maps.event.addListenerOnce(map, 'idle', function () {
-                // map is ready
-            });
-                            <b>${author.firstName} ${author.lastName}</b> - <span
-                                style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
+                            <c:set var="dateParts" value="${fn:split(review.creationDate, ' ')}" scope="page"/>
+                            <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                            <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
+
+                            <b>${author.firstName} ${author.lastName}</b> - <span style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
                             <!-- TODO fai funzione che restituisce array di autori-->
                         </p>
                         <p>
-                            <fmt:formatNumber var="rat2" groupingUsed="false" maxFractionDigits="0"
-                                              value="${review.rating} "/>
+                            <fmt:formatNumber var="rat2" groupingUsed="false" maxFractionDigits="0" value="${review.rating} "/>
 
                             <c:forEach begin="0" end="${rat2 - 1}" varStatus="loop">
                                 <i class="fa fa-star rating_star" aria-hidden="true"></i>
@@ -307,6 +264,7 @@
         </c:choose>
 
         <div class="container" style="margin-top: 30px; margin-bottom: 30px">
+            <h1 style="margin-top: 0; margin-bottom: 20px;">Negozi nelle vicinanze</h1>
             <div id="map"></div>
 
         </div>
