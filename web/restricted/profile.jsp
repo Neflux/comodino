@@ -4,7 +4,6 @@
 
 <jsp:useBean id="user" class="main.User" scope="session"/>
 
-
 <t:genericpage>
     <jsp:attribute name="pagetitle">
         ${user.firstName} ${user.lastName}
@@ -18,7 +17,7 @@
     </jsp:attribute>
 
     <jsp:body>
-        <!-- general error, see passed parameter -->
+        <%-- general error, see passed parameter --%>
         <c:if test="${not empty param.success}">
             <div id="popup" class="alert alert-success alert-dismissable fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -97,7 +96,7 @@
         </div>
 
 
-        <!-- changePwd -->
+        <%-- changePwd --%>
         <div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-labelledby="changePwdLabel">
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
@@ -133,7 +132,7 @@
             </div>
         </div>
 
-        <!-- editInfo -->
+        <%-- editInfo --%>
         <div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="editInfoLabel">
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
