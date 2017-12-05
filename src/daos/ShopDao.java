@@ -1,5 +1,6 @@
 package daos;
 
+import main.Product;
 import main.ProductGroup;
 import main.Shop;
 
@@ -20,4 +21,7 @@ public interface ShopDao extends Serializable {
     HashMap<String, ProductGroup> getShopProducts(String id);
 
     ArrayList<Shop> getPhysicalShopsByProduct (int productID);
+
+    ArrayList<Product> obtainExpiringProducts (int id);
+
 }

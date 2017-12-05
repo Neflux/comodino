@@ -214,16 +214,36 @@
                         </c:if>
                     </c:otherwise>
                 </c:choose>
+            </p>
+            <p> ${review.description}</p>
+        </div>
+    </c:forEach>
+</div>
+<!-- fine ordine -->
 
-                <c:choose>
-                    <c:when test="${fn:length(reviewList) == 1}">
-                        &nbsp&nbsp<span class="text-right">1 recensione</span>
-                    </c:when>
-                    <c:otherwise>
-                        &nbsp&nbsp<span class="text-right">${fn:length(reviewList)} recensioni</span>
-                    </c:otherwise>
-                </c:choose>
+</c:when>
+<c:otherwise>
+    <h3>&nbsp;&nbsp;&nbsp;Non ci sono recensioni</h3>
+</c:otherwise>
+</c:choose>
 
+<div class="container" style="margin-top: 30px; margin-bottom: 30px">
+    <h1 style="margin-top: 0; margin-bottom: 20px;">Negozi nelle vicinanze</h1>
+    <div id="map"></div>
+
+</div>
+
+<script>
+    var map;
+
+    function initMap() {
+        var infoWindow = null;
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 46.074, lng: 11.121},
+            zoom: 7
+        });
+
+        infoWindow = new google.maps.InfoWindow;
             </div>
         </div>
         <!-- inizio review -->
@@ -234,11 +254,27 @@
                         <h3>${review.title}</h3>
                         <p>
                             <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}" scope="page"/>
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                infoWindow.open(map);
+                map.setCenter(pos);
+            }, function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
 
-                            <c:set var="dateParts" value="${fn:split(review.creationDate, ' ')}" scope="page"/>
-                            <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
-                            <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
-
+        <c:forEach items="${shopsList}" var="shop">
+            var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
+            var infowindow = null;
+            infowindow = new google.maps.InfoWindow({
+                content: '${shop.name}'
+            });
+            google.maps.event.addListenerOnce(map, 'idle', function () {
+                // map is ready
+            });
                             <b>${author.firstName} ${author.lastName}</b> - <span
                                 style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
                             <!-- TODO fai funzione che restituisce array di autori-->

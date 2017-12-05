@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%-- INCLUDERE QUI TUTTE LE LIBRERIE E JAVABEANS ECC. --%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
@@ -17,5 +18,4 @@
     <jsp:body>
         <p>Hi I'm the heart of the message</p>
     </jsp:body>
-
 </t:genericpage>
