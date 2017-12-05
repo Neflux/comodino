@@ -37,7 +37,7 @@
                                         <div class="cart-item">
                                             <div id="c_row-4col" class="row pi-draggable" draggable="true">
                                                 <div class="col-md-2 itemimg" id="prodimg">
-                                                    <img class="img-fluid d-block my-2" src="${item.getProduct().getImgBase64()}">
+                                                    <img class="img-fluid d-block my-2" src="${item.getProduct().imgBase64[0]}">
                                                 </div>
                                                 <div class="col-md-8">
                                                     <h1 class="itemtitle">${item.getProduct().getProductName()}</h1>
