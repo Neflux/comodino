@@ -77,56 +77,27 @@
             <div class="row">
                 <div class="col-md-4" id="navbar">
                     <div class="col-md-12">
-                        <div class="carousel slide article-slide" id="article-photo-carousel" style="margin: 20px auto 10px auto;">
-                                <%-- Wrapper for slides --%>
-                            <div class="carousel-inner cont-slider">
-
-                            </div>
-                                <%-- Indicators --%>
-                            <ol class="carousel-indicators">
-                                <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
-                                    <li ${status.first ? 'class="active"' : 'class=""'} data-slide-to="${status.index}" data-target="#article-photo-carousel"></li>
-                                </c:forEach>
-                            </ol>
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-
-                                <c:forEach var="i" begin = "0" end = "${shop.shopphoto.size()-1}">
-                                    <li data-target="#myCarousel" data-slide-to="${i}" ${i == 0 ? 'class="active"' : ''}></li>
-                                </c:forEach>
-                            </ol>
-
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
-                                    <div class="item ${status.first ? 'active' : ''}">
-                                        <img alt="" title="" src="${image}">
+                                    <div class="item <c:if test='${status.first}'>active</c:if>">
+                                        <img src='${shop.shopphoto[0]}' alt='images Here' width="100" height="100"/>
                                     </div>
                                 </c:forEach>
                             </div>
 
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span><<</span>
-                                <span class="sr-only">Previous</span>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
                             </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span>>></span>
-                                <span class="sr-only">Next</span>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </div>
+
+
+
 
 
 
