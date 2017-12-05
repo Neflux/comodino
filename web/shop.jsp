@@ -30,27 +30,6 @@
                         center: {lat: ${shop.latitude}, lng:  ${shop.longitude}},
                         zoom: 7
                     });
-                    infoWindow = new google.maps.InfoWindow;
-
-                    // Try HTML5 geolocation.
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            var pos = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            };
-
-                            infoWindow.setPosition(pos);
-                            infoWindow.setContent('Tu sei qui');
-                            infoWindow.open(map);
-                            map.setCenter(pos);
-                        }, function() {
-                            handleLocationError(true, infoWindow, map.getCenter());
-                        });
-                    } else {
-                        // Browser doesn't support Geolocation
-                        handleLocationError(false, infoWindow, map.getCenter());
-                    }
 
                     var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
                     var marker = new google.maps.Marker({
@@ -95,13 +74,6 @@
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
                         </div>
-
-
-
-
-
-
-
                         <h1 id="shopTitle" class="text-center">${shop.name}</h1>
                         <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
                         <p>${shop.description}</p>
@@ -184,8 +156,5 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="js/search/search.js"></script>
-        <script type="text/javascript" src="js/vendor.js"></script>
-
     </jsp:body>
 </t:genericpage>
