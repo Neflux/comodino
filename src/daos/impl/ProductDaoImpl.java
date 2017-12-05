@@ -442,6 +442,23 @@ public class ProductDaoImpl implements ProductDao {
         return false;
     }
 
+    @Override
+    public boolean updateProductRating(int productID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE product P \n" +
+                    "SET Rating = (SELECT avg(Rating) as ratingreview \n" +
+                    "              FROM productreview \n" +
+                    "              WHERE ProductID = P.ProductID) \n" +
+                    "WHERE ProductID = ?");
+            stm.setInt(1, productID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private ArrayList<String> getImages(int productID){
 
         ArrayList<String> imgBase64 = new ArrayList<>();

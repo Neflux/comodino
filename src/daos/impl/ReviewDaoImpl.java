@@ -26,8 +26,7 @@ public class ReviewDaoImpl implements ReviewDao {
             stm.setInt(3, rating);
             stm.setInt(4, productID);
             stm.setInt(5, userID);
-
-            int result = stm.executeUpdate();
+            stm.executeUpdate();
             ResultSet rs = stm.getGeneratedKeys(); // bisogna riferirsi ai campi con il numero in sto caso
             if (rs.next()){
                 return 0;

@@ -1,7 +1,9 @@
 package servlet;
 
+import daos.ProductDao;
 import daos.ReviewDao;
 import daos.impl.NotificationDaoImpl;
+import daos.impl.ProductDaoImpl;
 import daos.impl.ReviewDaoImpl;
 import main.User;
 
@@ -38,6 +40,8 @@ public class OpenProductReviewServlet extends HttpServlet {
         int newReviewID = reviewDao.createProductReview(title, description, rating, productID, userID);
         if (newReviewID != 0){
             result = new NotificationDaoImpl().createProductReviewNotification(newReviewID, title, rating);
+            ProductDao pd = new ProductDaoImpl();
+            result = result ? pd.updateProductRating(productID) : false;
         }
         else{ // la creazione della recensione è fallita
             response.sendRedirect("/index.jsp?error=Errore Creazione Recensione");
