@@ -1,11 +1,10 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
-        <title>Test</title>
+        Test
     </jsp:attribute>
     <jsp:attribute name="pagecss">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/test.css" >
@@ -22,7 +21,7 @@
         <p>Hi I'm the heart of the message</p>
     </jsp:body>
     <jsp:attribute name="pagejavascript">
-        <script>
+        <script src>
             // script inclusion in this tag
         </script>
     </jsp:attribute>
