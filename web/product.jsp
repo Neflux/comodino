@@ -193,18 +193,21 @@
 </c:choose>
 
 <div class="container" style="margin-top: 30px; margin-bottom: 30px">
+    <h1 style="margin-top: 0; margin-bottom: 20px;">Negozi nelle vicinanze</h1>
     <div id="map"></div>
 
 </div>
 
 <script>
-    var map, infoWindow;
+    var map;
 
     function initMap() {
+        var infoWindow = null;
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 46.074, lng: 11.121},
             zoom: 7
         });
+
         infoWindow = new google.maps.InfoWindow;
 
         // Try HTML5 geolocation.
@@ -226,9 +229,11 @@
             // Browser doesn't support Geolocation
             handleLocationError(false, infoWindow, map.getCenter());
         }
+
         <c:forEach items="${shopsList}" var="shop">
             var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
-            var infowindow = new google.maps.InfoWindow({
+            var infowindow = null;
+            infowindow = new google.maps.InfoWindow({
                 content: '${shop.name}'
             });
             google.maps.event.addListenerOnce(map, 'idle', function () {
