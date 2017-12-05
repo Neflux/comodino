@@ -55,13 +55,20 @@ function show_signup()
 
 function openCart() {
 
-    $.post("/getcart", {type:"drop"})
+    $.post("/restricted/getcart", {type:"drop"})
         .done(function(data) {
             $("#cartdrop").html(data);
         });
-    $.post("/getcart", {type:"header"})
+    $.post("/restricted/getcart", {type:"header"})
         .done(function(data) {
             $("#cartheader").html(data);
+        });
+}
+
+function readNotifications() {
+
+    $.post("/restricted/readnotifications")
+        .done(function(data) {
         });
 }
 
@@ -77,3 +84,5 @@ $(document).ready(function() {
             $('#form').submit();
     });
 });
+
+

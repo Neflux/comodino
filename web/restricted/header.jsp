@@ -29,7 +29,7 @@
                 <c:if test="${user.hasShop()}">
                     <c:set var="vendor_notifications" value="${notificationdao.getVendorNotifications(user)}" scope="page"/>
                     <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
                                 ${fn:length(vendor_notifications)}&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu">
@@ -44,7 +44,8 @@
                                             <a>
                                                 <c:choose>
                                                     <c:when test="${n.getClass().simpleName == 'NotificationProductReview'}">
-                                                        Recensione prodotto:
+                                                        <%-- TODO: fare più bella la notifica nuova --%>
+                                                        <c:if test="${n.adminStatus == 0}"><b>NEW </b></c:if>Recensione prodotto:
                                                         <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
                                                         <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
                                                         <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
@@ -107,7 +108,7 @@
                 <c:if test="${user.type == 1}">
                     <c:set var="admin_notifications" value="${notificationdao.getAdminNotifications()}" scope="page"/>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
                                 ${fn:length(admin_notifications)}&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu">
@@ -120,7 +121,8 @@
                                     <c:forEach items="${admin_notifications}" var="n">
                                         <li>
                                             <a>
-                                                Disputa:
+                                                <%-- TODO: fare più bella la notifica nuova --%>
+                                                <c:if test="${n.adminStatus == 0}"><b>NEW </b></c:if>Disputa:
                                                 <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
                                                 <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
                                                 <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>

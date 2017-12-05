@@ -153,6 +153,49 @@ public class NotificationDaoImpl implements NotificationDao {
         return null;
     }
 
+    @Override
+    public boolean readNotifications(User user) {
+        boolean result = true;
+        if (user.getType() == 1){ // user is admin
+            try {
+                PreparedStatement stm = con.prepareStatement("UPDATE disputenotification\n" +
+                        "SET AdminStatus = 1");
+                stm.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                result = false;
+            }
+        }
+        if (user.hasShop() && result){ // user is vendor and if he is admin the part before has succeed
+            try {
+                PreparedStatement stm = con.prepareStatement("UPDATE productreviewnotification\n" +
+                        "SET ShopStatus = 1\n" +
+                        "WHERE ShopID = ?");
+                stm.setInt(1, user.getUserID());
+                stm.executeUpdate();
+
+                stm = con.prepareStatement("UPDATE shopreviewnotification\n" +
+                        "SET ShopStatus = 1\n" +
+                        "WHERE ShopID = ?");
+                stm.setInt(1, user.getUserID());
+                stm.executeUpdate();
+
+                stm = con.prepareStatement("UPDATE disputenotification\n" +
+                        "SET ShopStatus = 1\n" +
+                        "WHERE ShopID = ?");
+                stm.setInt(1, user.getUserID());
+                stm.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                result = false;
+            }
+        }
+
+        return result;
+    }
+
     private ArrayList<Notification> extractProductReviewNotificationFromResultSet(ResultSet rs) {
         ArrayList<Notification> notifications = new ArrayList<>();
 
