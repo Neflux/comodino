@@ -47,11 +47,11 @@ function removeItem(prodID, shopID){
     }
 
     $.post("/removecartitem", {"productID": prodID, "shopID": shopID});
-    $.post("/getcart", {type:"drop"})
+    $.post("/restricted/getcart", {type:"drop"})
         .done(function(data) {
             $("#cartdrop").html(data);
         });
-    $.post("/getcart", {type:"header"})
+    $.post("/restricted/getcart", {type:"header"})
         .done(function(data) {
             $("#cartheader").html(data);
         });
@@ -68,7 +68,7 @@ function updatePrice(prodID, tipo, shopID)
     if (tipo == "+")
     {
         aggiunto = (parseFloat(attuale) + parseFloat(aggiungere)).toFixed(2);
-        $.post("/addcartitem", post);
+        $.post("/restricted/addcartitem", post);
     }
     else if (tipo == "-" && quantita > 1)
     {
@@ -78,11 +78,11 @@ function updatePrice(prodID, tipo, shopID)
 
     $("#total").text("Totale: " + aggiunto + "€");
 
-    $.post("/getcart", {type:"drop"})
+    $.post("/restricted/getcart", {type:"drop"})
         .done(function(data) {
             $("#cartdrop").html(data);
         });
-    $.post("/getcart", {type:"header"})
+    $.post("/restricted/getcart", {type:"header"})
         .done(function(data) {
             $("#cartheader").html(data);
         });

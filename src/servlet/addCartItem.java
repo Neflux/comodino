@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "addCartItem", urlPatterns = {"/addcartitem"})
+@WebServlet(name = "addCartItem", urlPatterns = {"/restricted/addcartitem"})
 public class addCartItem extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
