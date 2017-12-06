@@ -62,20 +62,27 @@
                                 <ul class="list-group">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-9">
-                                                <h3 class="address-name">${address.firstName} ${address.lastName}</h3>
-                                                <p>${address.address}</p>
-                                                <p>${address.city} (${address.zip})</p>
-                                                <p>Tel: ${address.telephoneNumber}</p>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 address-buttons">
-                                                <button class="btn btn-default">
-                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                </button>
-                                                <button class="btn btn-danger" onclick="removeAddress(${address.addressID})">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
+                                            <form action="${pageContext.request.contextPath}/restricted/editaddress"  method="post">
+                                                <div class="col-md-10 col-sm-9">
+                                                    <h3 data-address="address" class="address-name">${address.firstName} ${address.lastName}</h3>
+                                                    <p data-address="input" class="hidden">Nome: <input type="text" name="firstname" value="${address.firstName}"> Cognome:<input type="text" name="lastname" value="${address.lastName}"></p>
+                                                    <p data-address="address">${address.address}</p>
+                                                    <p data-address="input" class="hidden">Indirizzo: <input type="text" name="address" value="${address.address}"></p>
+                                                    <p data-address="address">${address.city} (${address.zip})</p>
+                                                    <p data-address="input" class="hidden"> Città: <input type="text" name="city" value="${address.city}"> CAP: <input type="text" name="zip" value="${address.zip}"></p>
+                                                    <p data-address="address">Tel: ${address.telephoneNumber}</p>
+                                                    <p data-address="input" class="hidden">Tel: <input type="text" name="phone" value="${address.telephoneNumber}"></p>
+
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 address-buttons">
+                                                    <a data-id="editAddress" class="btn btn-default" onclick="editAddress(${address.addressID})">
+                                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a data-id="removeAddress" class="btn btn-danger" onclick="removeAddress(${address.addressID})">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </form>
                                         </div>
                                     </li>
                                 </ul>
