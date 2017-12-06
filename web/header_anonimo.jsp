@@ -69,6 +69,18 @@
                         <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;Login | Sign Up
                     </a>
                 </li>
+                <li class="dropdown">
+                    <a id="cartdrop" onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="badge">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> 0
+                        </span>
+                        &nbsp;&nbsp;Carrello <span class="caret"></span>
+                    </a>
+                    <ul id="cartheader" class="dropdown-menu right">
+                        <!-- ORA L'INTERNO DEL CARRELLO è GESTITO CON AJAX-->
+                        <!--li class="text-center"><a>Carrello vuoto...</a></li-->
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
