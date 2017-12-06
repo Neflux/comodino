@@ -45,7 +45,7 @@
                                                 <c:choose>
                                                     <c:when test="${n.getClass().simpleName == 'NotificationProductReview'}">
                                                         <%-- TODO: fare più bella la notifica nuova --%>
-                                                        <c:if test="${n.adminStatus == 0}"><b>NEW </b></c:if>Recensione prodotto:
+                                                        <c:if test="${n.shopStatus == 0}"><b>NEW </b></c:if>Recensione prodotto:
                                                         <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
                                                         <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
                                                         <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
