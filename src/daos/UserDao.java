@@ -48,4 +48,6 @@ public interface UserDao extends Serializable {
     boolean acceptPrivacy (User user);
 
     User getUser(int userID);
+
+    boolean editAddress(User user, String addressID, String firstName, String lastName, String address, String city, String zip, String phone);
 }

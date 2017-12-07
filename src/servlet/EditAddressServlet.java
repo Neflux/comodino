@@ -9,40 +9,34 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "EditAddressServlet", urlPatterns = {"/restricted/editaddresss"})
+@WebServlet(name = "EditAddressServlet", urlPatterns = {"/restricted/editaddress"})
 public class EditAddressServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String addressID = request.getParameter("AddressID");
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
-        String email = request.getParameter("Email");
-        System.out.println("Parametri: " + firstName + " " + lastName + " " + email);
-        HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute("user");
-        if (!firstName.isEmpty()){
-            user.setFirstName(firstName);
-        }
-        if (!lastName.isEmpty()){
-            user.setLastName(lastName);
-        }
-        if (!email.isEmpty()){
-            user.setEmail(email);
+        String address = request.getParameter("Address");
+        String city = request.getParameter("City");
+        String zip = request.getParameter("Zip");
+        String phone = request.getParameter("Phone");
+        System.out.println("Parametri: " + firstName + " " + lastName + " " + address + " ecc...");
+        User user = (User) request.getSession().getAttribute("user");
+        if(addressID.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || address.isEmpty() || city.isEmpty() || zip.isEmpty() || phone.isEmpty()) {
+            System.out.println("[INFO] EditAddress: Missing parameters");
+            response.sendRedirect("/restricted/add_address.jsp?error=Parametri mancanti");
+            return;
         }
         UserDao userDao = new UserDaoImpl();
-        if (userDao.editInfo(user)){
-            System.out.println("[ " + user.getFirstName() + " ] Info modificate");
-            response.sendRedirect("/restricted/profile.jsp?success=Info aggiornate");
+        if (userDao.editAddress(user,addressID,firstName,lastName,address,city,zip,phone)){
+            System.out.println("[INFO] EditAddress: Address edited");
+            response.sendRedirect("/restricted/add_address.jsp?success=Indirizzo aggiornato");
         }
         else {
-            response.sendRedirect("/restricted/profile.jsp?warning=Info non aggiornate");
+            System.out.println("[INFO] EditAddress: Internal error, address not edited");
+            response.sendRedirect("/restricted/add_address.jsp?warning=Indirizzo non aggiornato, riprova...");
         }
-    }
-
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

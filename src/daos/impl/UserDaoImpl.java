@@ -269,10 +269,7 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement stm = this.con.prepareStatement("UPDATE user SET Privacy = 1 WHERE UserID = ?");
             stm.setInt(1, user.getUserID());
             int result = stm.executeUpdate();
-            if (result == 0){
-                return false;
-            }
-            return true;
+            return result != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -290,5 +287,28 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean editAddress(User user, String addressID, String firstName, String lastName, String address, String city, String zip, String phone) {
+        try {
+            // se la password attuale coincide posso aggiornare il campo con la nuova password
+            PreparedStatement stm = this.con.prepareStatement("UPDATE shippingaddress \n" +
+                    "SET FirstName = ?, LastName = ?, Address = ?, City = ?, ZIP = ?, TelephoneNumber = ?\n" +
+                    "WHERE AddressID = ? AND UserID = ?");
+            stm.setString(1, firstName);
+            stm.setString(2, lastName);
+            stm.setString(3, address);
+            stm.setString(4, city);
+            stm.setString(5, zip);
+            stm.setString(6, phone);
+            stm.setString(7, addressID);
+            stm.setInt(8, user.getUserID());
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

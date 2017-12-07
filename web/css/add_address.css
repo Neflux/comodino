@@ -1,3 +1,22 @@
+form.editaddress input{
+    margin: auto 5px;
+    border: 1px solid darkgrey;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+form.editaddress input:focus{
+    border: 1px solid #292929;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+}
+
 .title.title-up {
     margin: 5px auto;
 }

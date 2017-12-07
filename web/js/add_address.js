@@ -31,6 +31,7 @@ function saveAddress(addressID) {
     editButton.removeClass("btn-success");
     editButton.addClass("btn-default");
     editButton.find("i").addClass("fa-pencil"); editButton.find("i").removeClass("fa-save");
+    $("#"+addressID+"-form").submit();
     var removeButton = $("a[data-id='removeAddress']");
     removeButton.attr('onclick',"removeAddress(" + addressID + ")");
     removeButton.find("i").addClass("fa-trash"); removeButton.find("i").removeClass("fa-times");
