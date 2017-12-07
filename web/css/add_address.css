@@ -17,6 +17,15 @@ form.editaddress input:focus{
     border-radius: 0;
 }
 
+form.editaddress select{
+    border: 1px solid darkgrey;
+    -webkit-transition: border 0.5s;
+    transition: border 0.5s;
+}
+form.editaddress select:focus{
+    border: 1px solid #292929;
+}
+
 .title.title-up {
     margin: 5px auto;
 }

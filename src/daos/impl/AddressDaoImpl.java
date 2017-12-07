@@ -105,6 +105,53 @@ public class AddressDaoImpl implements AddressDao {
         return false;
     }
 
+    @Override
+    public boolean editAddress(User user, String addressID, String firstName, String lastName, String address, String city, String zip, String state, String phone) {
+        if(!addressHasOrders(addressID)) {
+            try {
+                // se la password attuale coincide posso aggiornare il campo con la nuova password
+                PreparedStatement stm = this.con.prepareStatement("UPDATE shippingaddress \n" +
+                        "SET FirstName = ?, LastName = ?, Address = ?, City = ?, ZIP = ?, State = ?, TelephoneNumber = ?\n" +
+                        "WHERE AddressID = ? AND UserID = ?");
+                stm.setString(1, firstName);
+                stm.setString(2, lastName);
+                stm.setString(3, address);
+                stm.setString(4, city);
+                stm.setString(5, zip);
+                stm.setString(6, state);
+                stm.setString(7, phone);
+                stm.setString(8, addressID);
+                stm.setInt(9, user.getUserID());
+                stm.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(addAddress(user.getUserID(),firstName,lastName,address,city,zip,state,phone)){
+            return removeAddress(Integer.parseInt(addressID),user.getUserID());
+        }
+        return false;
+    }
+
+    private boolean addressHasOrders(String addressID) {
+        try {
+            // se la password attuale coincide posso aggiornare il campo con la nuova password
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM orderprod\n" +
+                    "WHERE AddressID = ?");
+            stm.setString(1, addressID);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next())
+                return true;
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // se va storto qualcosa nel dubbio meglio fare una nuova entry
+        return true;
+    }
+
     private Address extractAddressFromResultSet(ResultSet rs) throws SQLException {
         if(!rs.next()){
             return null;
