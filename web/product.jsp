@@ -238,18 +238,16 @@
                             <!-- TODO fai funzione che restituisce array di autori-->
                         </p>
                         <p>
-                            <fmt:formatNumber var="rat2" groupingUsed="false" maxFractionDigits="0" value="${review.rating} "/>
-
-                            <c:forEach begin="0" end="${rat2 - 1}" varStatus="loop">
-                                <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                            </c:forEach>
-                            <c:choose>
-                                <c:when test="${rat2 lt 5}">
-                                    <c:forEach begin="0" end="${4 - rat2}" varStatus="loop">
-                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                    </c:forEach>
-                                </c:when>
-                            </c:choose>
+                            <c:if test="${review.rating > 0}">
+                                <c:forEach begin="0" end="${review.rating - 1}" varStatus="loop">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${review.rating < 5}">
+                                <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
+                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                </c:forEach>
+                            </c:if>
                         </p>
                         <p> ${review.description}</p>
                     </div>
