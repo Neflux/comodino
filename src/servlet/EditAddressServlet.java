@@ -23,7 +23,7 @@ public class EditAddressServlet extends HttpServlet {
         String state = request.getParameter("State");
         String phone = request.getParameter("Phone");
         System.out.println("Parametri: " + firstName + " " + lastName + " " + address + " ecc...");
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession(false).getAttribute("user");
         if(addressID.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || address.isEmpty() || city.isEmpty() || zip.isEmpty() || state.isEmpty() || phone.isEmpty()) {
             System.out.println("[INFO] EditAddress: Missing parameters");
             response.sendRedirect("/restricted/add_address.jsp?error=Parametri mancanti");
