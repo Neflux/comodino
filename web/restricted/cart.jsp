@@ -40,7 +40,7 @@
                                                     <img class="img-fluid d-block my-2" src="${item.getProduct().imgBase64[0]}">
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <h1 class="itemtitle">${item.getProduct().getProductName()}</h1>
+                                                    <h3 class="itemtitle">${item.getProduct().getProductName()}</h3>
                                                     <p id="c_lead" class="lead pi-draggable itemseller" draggable="true">Venduto da:&nbsp;
                                                         <a href="#" style="font-size: 18px">${item.getProduct().getShopName()}</a>
                                                     </p>
