@@ -54,6 +54,23 @@ public class ReviewDaoImpl implements ReviewDao {
         return null;
     }
 
+    @Override
+    public ArrayList<ProductReview> getVendorProductReview(int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM productreview\n" +
+                    "WHERE ProductID IN (SELECT DISTINCT P.ProductID\n" +
+                    "                    FROM Product P, ShopProduct SP, Shop S, ShopInfo SI\n" +
+                    "                    WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? )");
+            stm.setInt(1, shopID);
+            ResultSet rs = stm.executeQuery();
+            return extractProductReviewFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private ArrayList<ProductReview> extractProductReviewFromResultSet(ResultSet rs) {
         ArrayList<ProductReview> reviewList = new ArrayList<>();
 

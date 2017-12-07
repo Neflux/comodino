@@ -255,7 +255,7 @@
                     </div>
                 </c:forEach>
                 </div>
-                <!-- fine ordine -->
+                <!-- fine review -->
 
             </c:when>
             <c:otherwise>
