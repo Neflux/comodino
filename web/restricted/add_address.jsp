@@ -1,7 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="user" class="main.User" scope="session"/>
 <jsp:useBean id="addressDao" class="daos.impl.AddressDaoImpl"/>
 
@@ -20,24 +19,6 @@
         <script src="${pageContext.request.contextPath}/js/add_address.js"></script>
     </jsp:attribute>
     <jsp:body>
-        <c:if test="${not empty param.success}">
-            <div id="popup" class="alert alert-success alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    ${param.success}
-            </div>
-        </c:if>
-        <c:if test="${not empty param.warning}">
-            <div id="popup" class="alert alert-warning alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                Attenzione: ${param.warning}
-            </div>
-        </c:if>
-        <c:if test="${not empty param.error}">
-            <div id="popup" class="alert alert-danger alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                Errore: ${param.error}
-            </div>
-        </c:if>
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-md-9 col-sm-8">
@@ -62,17 +43,17 @@
                                 <ul class="list-group">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <form action="${pageContext.request.contextPath}/restricted/editaddress"  method="post">
+                                            <form class="editaddress" id="${address.addressID}-form" action="${pageContext.request.contextPath}/restricted/editaddress"  method="post">
                                                 <div class="col-md-10 col-sm-9">
+                                                    <input type="text" name="AddressID" value="${address.addressID}" hidden>
                                                     <h3 data-address="address" class="address-name">${address.firstName} ${address.lastName}</h3>
-                                                    <p data-address="input" class="hidden">Nome: <input type="text" name="firstname" value="${address.firstName}"> Cognome:<input type="text" name="lastname" value="${address.lastName}"></p>
+                                                    <p data-address="input" class="hidden">Nome: <input type="text" name="FirstName" value="${address.firstName}"> Cognome:<input type="text" name="LastName" value="${address.lastName}"></p>
                                                     <p data-address="address">${address.address}</p>
-                                                    <p data-address="input" class="hidden">Indirizzo: <input type="text" name="address" value="${address.address}"></p>
+                                                    <p data-address="input" class="hidden">Indirizzo: <input type="text" name="Address" value="${address.address}"></p>
                                                     <p data-address="address">${address.city} (${address.zip})</p>
-                                                    <p data-address="input" class="hidden"> Città: <input type="text" name="city" value="${address.city}"> CAP: <input type="text" name="zip" value="${address.zip}"></p>
+                                                    <p data-address="input" class="hidden"> Città: <input type="text" name="City" value="${address.city}"> CAP: <input type="text" name="Zip" value="${address.zip}"></p>
                                                     <p data-address="address">Tel: ${address.telephoneNumber}</p>
-                                                    <p data-address="input" class="hidden">Tel: <input type="text" name="phone" value="${address.telephoneNumber}"></p>
-
+                                                    <p data-address="input" class="hidden">Tel: <input type="text" name="Phone" value="${address.telephoneNumber}"></p>
                                                 </div>
                                                 <div class="col-md-2 col-sm-3 address-buttons">
                                                     <a data-id="editAddress" class="btn btn-default" onclick="editAddress(${address.addressID})">
