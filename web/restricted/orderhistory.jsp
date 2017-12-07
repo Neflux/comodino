@@ -57,20 +57,19 @@
                                                         <c:forEach items="${order.getProductList()}" var="po">
                                                             <!-- inizio prodotto -->
                                                             <li class="list-group-item">
-                                                                <a class="list-group-item">
                                                                     <div class="media col-md-2">
                                                                         <figure class="pull-left">
                                                                             <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                                     </div>
                                                                     <div class="col-md-5 col-xs-6">
-                                                                        <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
+                                                                        <h3 class="list-group-item-heading">${po.getProduct().getProductName()}</h3>
                                                                         <ul class="list-unstyled list-group-item-text">
                                                                             <li>Venditore: <b>${po.getProduct().getShopName()}</b></li>
                                                                             <li>Prezzo: ${Utils.getNDecPrice(po.getFinalPrice(),2)}&euro;</li>
                                                                             <li>Quantità: ${po.getQuantity()} pz</li>
                                                                         </ul>
                                                                     </div>
-                                                                    <div class="col-md-3 col-xs-6 text-right">
+                                                                    <div class="col-md-3 col-xs-6 text-right" style="padding-top: 10px">
                                                                         <c:choose>
                                                                             <c:when test = "${po.getAddress().getAddressID() == 0}">
                                                                                 <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
@@ -90,7 +89,7 @@
                                                                         <c:choose>
                                                                             <c:when test="${po.getStatus() == 0}">
                                                                                 <div class="row">
-                                                                                    <button type="button" class="btn btn-default btn-block margin-btn">Consegna avvenuta!</button>
+                                                                                    <a href="${pageContext.request.contextPath}/restricted/finishorder?order=${order.orderID}&product=${po.product.productID}&shop=${po.product.shopID}" class="btn btn-default btn-block margin-btn">Prodotto ritirato!</a>
                                                                                 </div>
                                                                                 <div class="row">
                                                                                     <button type="button" class="btn btn-default btn-block margin-btn" onclick="openDisputeModal(${order.orderID},${po.product.productID},${po.product.shopID})">Apri disputa</button>
@@ -110,7 +109,6 @@
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </div>
-                                                                </a>
                                                             </li>
                                                             <!-- fine prodotto -->
                                                         </c:forEach>
@@ -154,20 +152,19 @@
                                                             <c:if test="${po.getStatus() == 0}">
                                                                 <!-- inizio prodotto -->
                                                                 <li class="list-group-item">
-                                                                    <a class="list-group-item">
                                                                         <div class="media col-md-2">
                                                                             <figure class="pull-left">
                                                                                 <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                                         </div>
                                                                         <div class="col-md-5 col-xs-6">
-                                                                            <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
+                                                                            <h3 class="list-group-item-heading">${po.getProduct().getProductName()}</h3>
                                                                             <ul class="list-unstyled list-group-item-text">
                                                                                 <li>Venditore: <b>${po.getProduct().getShopName()}</b></li>
                                                                                 <li>Prezzo: ${Utils.getNDecPrice(po.getFinalPrice(),2)}&euro;</li>
                                                                                 <li>Quantità: ${po.getQuantity()} pz</li>
                                                                             </ul>
                                                                         </div>
-                                                                        <div class="col-md-3 col-xs-6 text-right">
+                                                                        <div class="col-md-3 col-xs-6 text-right" style="padding-top: 10px">
                                                                             <c:choose>
                                                                                 <c:when test = "${po.getAddress().getAddressID() == 0}">
                                                                                     <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
@@ -185,13 +182,12 @@
                                                                         </div>
                                                                         <div class="col-md-2 text-center">
                                                                             <div class="row">
-                                                                                <button type="button" class="btn btn-default btn-block margin-btn">Consegna avvenuta!</button>
+                                                                                <a href="${pageContext.request.contextPath}/restricted/finishorder?order=${order.orderID}&product=${po.product.productID}&shop=${po.product.shopID}" class="btn btn-default btn-block margin-btn">Prodotto ritirato!</a>
                                                                             </div>
                                                                             <div class="row">
                                                                                 <button type="button" class="btn btn-default btn-block margin-btn" data-toggle="modal" data-target="#opendisputemodal">Apri disputa</button>
                                                                             </div>
                                                                         </div>
-                                                                    </a>
                                                                 </li>
                                                                 <!-- fine prodotto -->
                                                             </c:if>
@@ -237,20 +233,19 @@
                                                             <c:if test="${po.getStatus() == 1}">
                                                                 <!-- inizio prodotto -->
                                                                 <li class="list-group-item">
-                                                                    <a class="list-group-item">
                                                                         <div class="media col-md-2">
                                                                             <figure class="pull-left">
                                                                                 <img class="media-object img-rounded img-responsive" src="${po.getProduct().imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                                         </div>
                                                                         <div class="col-md-5 col-xs-6">
-                                                                            <h1 class="list-group-item-heading">${po.getProduct().getProductName()}</h1>
+                                                                            <h3 class="list-group-item-heading">${po.getProduct().getProductName()}</h3>
                                                                             <ul class="list-unstyled list-group-item-text">
                                                                                 <li>Venditore: <b>${po.getProduct().getShopName()}</b></li>
                                                                                 <li>Prezzo: ${Utils.getNDecPrice(po.getFinalPrice(),2)}&euro;</li>
                                                                                 <li>Quantità: ${po.getQuantity()} pz</li>
                                                                             </ul>
                                                                         </div>
-                                                                        <div class="col-md-3 col-xs-6 text-right">
+                                                                        <div class="col-md-3 col-xs-6 text-right" style="padding-top: 10px">
                                                                             <c:choose>
                                                                                 <c:when test = "${po.getAddress().getAddressID() == 0}">
                                                                                     <h4 class="list-group-item-heading">Ritiro presso il negozio.</h4>
@@ -271,7 +266,6 @@
                                                                                 <button type="button" class="btn btn-default btn-block margin-btn" onclick="openReviewModal(${order.orderID},${po.product.productID},${po.product.shopID})">Lascia una recensione</button>
                                                                             </div>
                                                                         </div>
-                                                                    </a>
                                                                 </li>
                                                                 <!-- fine prodotto -->
                                                             </c:if>
@@ -316,7 +310,7 @@
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
-                                <input type="text" class="form-control" name="description" rows="5" placeholder="Descrivi anomalia...">
+                                <input type="text" class="form-control" name="description" placeholder="Descrivi anomalia...">
                             </div>
                         </div>
                         <div class="footer text-center" style="margin-top: 15px;">
@@ -349,7 +343,7 @@
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
-                                <input type="text" class="form-control" name="description" rows="5" placeholder="Descrivi prodotto...">
+                                <input type="text" class="form-control" name="description" placeholder="Descrivi prodotto...">
                             </div>
                             <div class="col-md-12 text-center stelle">
                                 <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"

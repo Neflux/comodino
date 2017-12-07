@@ -26,16 +26,12 @@ a.list-group-item:hover{
     cursor: default;
 }
 
-li>img {
-    max-height: 10px !important;
-}
-
-a.list-group-item {
+li.list-group-item {
     height:auto;
-    min-height: 210px;
+    min-height: 170px;
 }
 
-a.list-group-item.active small {
+li.list-group-item.active small {
     color:#fff;
 }
 
@@ -46,10 +42,6 @@ a.list-group-item.active small {
 #title {
     margin-top: 0px;
     margin-bottom: 15px;
-}
-
-li.list-group-item{
-    padding: 0px;
 }
 
 body>.container {

@@ -15,4 +15,6 @@ public interface OrderDao extends Serializable {
     int createOrder(User user, int paymentID);
 
     boolean cleanCart(User user);
+
+    boolean finishOrderProd(int userID, String orderID, String productID, String shopID);
 }

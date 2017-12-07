@@ -117,6 +117,26 @@ public class OrderDaoImpl implements OrderDao {
         return false;
     }
 
+    @Override
+    public boolean finishOrderProd(int userID, String orderID, String productID, String shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE orderprod SET Status = 1 \n" +
+                    "WHERE OrderID IN (SELECT OrderID \n" +
+                    "                  FROM orderlist \n" +
+                    "                  WHERE UserID = ? AND orderlist.OrderID = ?) \n" +
+                    "      AND ProductID = ? AND ShopID = ?\n");
+            stm.setInt(1, userID);
+            stm.setString(2, orderID);
+            stm.setString(3, productID);
+            stm.setString(4, shopID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private boolean setShippingAddress(User user, String address) {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE cart SET AddressID = ? \n" +
