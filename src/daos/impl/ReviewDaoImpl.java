@@ -2,6 +2,7 @@ package daos.impl;
 
 import daos.ReviewDao;
 import db.DBManager;
+import main.Product;
 import main.ProductReview;
 import main.User;
 
@@ -106,5 +107,7 @@ public class ReviewDaoImpl implements ReviewDao {
     public User getReviewAuthor(int userID){
         return new UserDaoImpl().getUser(userID);
     }
+
+    public Product getReviewdProduct(int productID, int shopID){ return new ProductDaoImpl().getProduct(productID, shopID);}
 
 }

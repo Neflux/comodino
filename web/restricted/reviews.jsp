@@ -12,6 +12,7 @@
 <jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl"/>
 <c:set var="reviewList" value="${reviewDao.getVendorProductReview(shop.shopID)}" scope="page"/>
 
+
 <t:genericpage>
     <jsp:attribute name="pagetitle">
         Recensioni
@@ -39,8 +40,10 @@
                             <c:choose>
                             <c:when test="${not empty reviewList}">
                             <c:forEach items="${reviewList}" var="review">
+                                <c:set var="product" value="${reviewDao.getReviewdProduct(review.productID, shop.shopID)}"/>
+
                                 <div class="review">
-                                    <h3>${review.title}</h3>
+                                    <h3>Recensione prodotto: <a style="color:#2c3e50" href="/product.jsp?product=${product.productID}&shop=${shop.shopID}">${product.productName}</a></h3>
                                     <p>
                                         <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}"
                                                scope="page"/>
@@ -66,6 +69,7 @@
                                             </c:forEach>
                                         </c:if>
                                     </p>
+                                    <p><b>${review.title}</b></p>
                                     <p> ${review.description}</p>
                                 </div>
                             </c:forEach>
