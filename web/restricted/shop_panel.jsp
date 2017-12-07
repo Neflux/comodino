@@ -84,7 +84,6 @@
                             <p>City: ${shop.city}</p>
                             <p>CAP: ${shop.zip}</p>
                             <p>Orari: ${shop.openingHours}</p>
-                            <p>Posizione: ${shop.latitude}, ${shop.longitude}</p>
                             <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
                         </c:if>
                     </div>
