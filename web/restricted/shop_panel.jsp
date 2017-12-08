@@ -222,6 +222,7 @@
                         <div class="footer text-center">
                             <a class="btn btn-default" onclick="$('#editShopInfoForm').submit();">Salva</a>
                         </div>
+                        </div>
                     </form>
                 </div>
             </div>
