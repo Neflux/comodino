@@ -19,7 +19,7 @@ import java.util.Map;
 public class ShopDaoImpl implements ShopDao {
     private Connection con;
 
-    public ShopDaoImpl(){
+    public ShopDaoImpl() {
         this.con = DBManager.getCon();
     }
 
@@ -36,7 +36,7 @@ public class ShopDaoImpl implements ShopDao {
             Shop tmp = extractPhysicalShopFromResultSet(rs);
 
             // se non ha negozio fisico carico solo quello online
-            if (tmp == null){
+            if (tmp == null) {
                 PreparedStatement stm2 = con.prepareStatement("SELECT *\n" +
                         "FROM shop\n" +
                         "WHERE ShopID = ?");
@@ -46,7 +46,7 @@ public class ShopDaoImpl implements ShopDao {
             }
 
             // carico le immagini del negozio
-            if(tmp != null) {
+            if (tmp != null) {
                 System.out.println("[INFO] Shop preso con successo");
                 System.out.flush();
                 tmp.setShopphoto(getImages(shopID));
@@ -59,15 +59,15 @@ public class ShopDaoImpl implements ShopDao {
         return null;
     }
 
-    public ArrayList<Product> obtainExpiringProducts (int id) {
+    public ArrayList<Product> obtainExpiringProducts(int id) {
         ArrayList<Product> expProducts = new ArrayList<>();
         try {
             PreparedStatement stm = con.prepareStatement(
-                    "SELECT DISTINCT P.ProductID, P.Name as ProductName, SP.Quantity \n" +
-                        "FROM Product P, ShopProduct SP \n" +
-                        "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND Sp.Quantity <= 20\n" +
-                        "ORDER BY SP.Quantity \n" +
-                        "LIMIT 10"
+                    "SELECT DISTINCT P.ProductID, P.Name AS ProductName, SP.Quantity \n" +
+                            "FROM Product P, ShopProduct SP \n" +
+                            "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND Sp.Quantity <= 20\n" +
+                            "ORDER BY SP.Quantity \n" +
+                            "LIMIT 10"
             );
             stm.setInt(1, id);
 
@@ -80,27 +80,27 @@ public class ShopDaoImpl implements ShopDao {
 
                 expProducts.add(p);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return expProducts;
     }
+
     @Override
     public HashMap<String, ProductGroup> getShopProducts(String id) {
         HashMap<String, ProductGroup> products = new HashMap<>();
         //Final query PreparedStatement
-        try{
+        try {
             PreparedStatement stm = con.prepareStatement(
-                    "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, SP.ShopID, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName,  round(SP.Price * (1-SP.Discount),2) as ActualPrice \n" +
+                    "SELECT DISTINCT P.ProductID, P.Name AS ProductName, P.CategoryName, P.Rating, SP.ShopID, SP.Price, SP.Discount, SP.Quantity, S.Name AS ShopName,  round(SP.Price * (1-SP.Discount),2) AS ActualPrice \n" +
                             "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI \n" +
                             "WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? AND SP.Quantity > 0 "
             );
-            stm.setString(1,id);
+            stm.setString(1, id);
 
             //System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
             ResultSet rs = stm.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
 
                 //Product crafting
                 Product p = new Product();
@@ -138,9 +138,9 @@ public class ShopDaoImpl implements ShopDao {
                         "FROM productphoto \n" +
                         "WHERE ProductID = ?");
                 stm.setInt(1, p.getProductID());
-                System.out.println("DECODE PRODUCT IMAGE: "+stm.toString().substring(45));
+                System.out.println("DECODE PRODUCT IMAGE: " + stm.toString().substring(45));
                 ResultSet rs = stm.executeQuery();
-                if(rs.next()) {
+                if (rs.next()) {
                     // perché non dovrebbe andare questo, più elegante?
                     gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
                 }
@@ -152,11 +152,11 @@ public class ShopDaoImpl implements ShopDao {
         return products;
     }
 
-    private ArrayList<String> getImages(int shopID){
+    private ArrayList<String> getImages(int shopID) {
 
         ArrayList<String> imgBase64 = new ArrayList<>();
 
-        try{
+        try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM shopphoto WHERE shopphoto.ShopID = ?");
             stm.setInt(1, shopID);
             ResultSet rs = stm.executeQuery();
@@ -171,7 +171,7 @@ public class ShopDaoImpl implements ShopDao {
     }
 
     @Override
-    public ArrayList<Shop> getPhysicalShopsByProduct (int productID){
+    public ArrayList<Shop> getPhysicalShopsByProduct(int productID) {
         ArrayList<Shop> shops = new ArrayList<>();
         try {
             PreparedStatement stm = con.prepareStatement("SELECT s.*, si.*\n" +
@@ -192,7 +192,7 @@ public class ShopDaoImpl implements ShopDao {
 
     private Shop extractSimpleShopFromResultSet(ResultSet rs) {
         try {
-            if(!rs.next()){
+            if (!rs.next()) {
                 return null;
             }
             Shop shop = new Shop();
@@ -212,7 +212,7 @@ public class ShopDaoImpl implements ShopDao {
 
     private PhysicalShop extractPhysicalShopFromResultSet(ResultSet rs) {
         try {
-            if(!rs.next()){
+            if (!rs.next()) {
                 return null;
             }
             PhysicalShop shop = new PhysicalShop();
@@ -272,5 +272,45 @@ public class ShopDaoImpl implements ShopDao {
         }
         return shopList;
     }
-}
 
+    public boolean editInfo(Shop shop) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE shop SET Name = ?, Description = ?, Website = ? WHERE ShopID= ?");
+            stm.setString(1,shop.getName());
+            stm.setString(2,shop.getDescription());
+            stm.setString(3,shop.getWebsite());
+            stm.setInt(4,shop.getShopID());
+            int i = stm.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean editPhysicalInfo(PhysicalShop shop) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE shop S, shopinfo I SET S.Name = ?, S.Description = ?, S.Website = ?, I.Address = ?, I.City = ?, I.ZIP = ? WHERE S.ShopID= ? AND I.ShopID = ?");
+            stm.setString(1,shop.getName());
+            stm.setString(2,shop.getDescription());
+            stm.setString(3,shop.getWebsite());
+            stm.setString(4,shop.getAddress());
+            stm.setString(5,shop.getCity());
+            stm.setString(6,shop.getZip());
+            stm.setInt(7,shop.getShopID());
+            stm.setInt(8,shop.getShopID());
+            int i = stm.executeUpdate();
+            if (i == 1) {
+                return true;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+}

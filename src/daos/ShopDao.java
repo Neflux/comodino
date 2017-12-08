@@ -1,5 +1,6 @@
 package daos;
 
+import main.PhysicalShop;
 import main.Product;
 import main.ProductGroup;
 import main.Shop;
@@ -24,4 +25,7 @@ public interface ShopDao extends Serializable {
 
     ArrayList<Product> obtainExpiringProducts (int id);
 
+    boolean editPhysicalInfo(PhysicalShop shop);
+
+    boolean editInfo(Shop shop);
 }
