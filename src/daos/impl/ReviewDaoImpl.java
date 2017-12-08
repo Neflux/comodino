@@ -89,6 +89,8 @@ public class ReviewDaoImpl implements ReviewDao {
                 productReview.setTitle(rs.getString("Title"));
                 productReview.setUserID(rs.getInt("UserID"));
                 productReview.setProductID(rs.getInt("ProductID"));
+                productReview.setReviewID(rs.getInt("ReviewID"));
+
 
                 // aggiungo l'ordine del prodotto al corrispettivo ordine generale
                 reviewList.add(productReview);

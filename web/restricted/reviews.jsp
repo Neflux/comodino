@@ -38,43 +38,56 @@
                         <div id="RecensioniProdotti" class="tab-pane fade in active">
                             <!-- inizio review -->
                             <c:choose>
-                            <c:when test="${not empty reviewList}">
-                            <c:forEach items="${reviewList}" var="review">
-                                <c:set var="product" value="${reviewDao.getReviewdProduct(review.productID, shop.shopID)}"/>
+                                <c:when test="${not empty reviewList}">
+                                    <c:forEach items="${reviewList}" var="review">
+                                        <c:set var="product" value="${reviewDao.getReviewdProduct(review.productID, shop.shopID)}"/>
 
-                                <div class="review">
-                                    <h3>Recensione prodotto: <a style="color:#2c3e50" href="/product.jsp?product=${product.productID}&shop=${shop.shopID}">${product.productName}</a></h3>
-                                    <p>
-                                        <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}"
-                                               scope="page"/>
+                                        <div class="review">
+                                            <div class="row ordBody">
+                                                <div class="row ordItem">
+                                                    <div class="col-md-2">
+                                                        <figure class="pull-left">
+                                                            <img class="media-object img-rounded img-responsive" src="${product.imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
+                                                    </div>
+                                                    <div class="col-xs-6 col-md-7">
+                                                        <h3>Recensione prodotto: <a style="color:#2c3e50" href="/product.jsp?product=${product.productID}&shop=${shop.shopID}">${product.productName}</a></h3>
+                                                        <p>
+                                                            <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}"
+                                                                   scope="page"/>
 
-                                        <c:set var="dateParts" value="${fn:split(review.creationDate, ' ')}"
-                                               scope="page"/>
-                                        <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
-                                        <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
+                                                            <c:set var="dateParts" value="${fn:split(review.creationDate, ' ')}"
+                                                                   scope="page"/>
+                                                            <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                                                            <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
 
-                                        <b>${author.firstName} ${author.lastName}</b> - <span
-                                            style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
-                                        <!-- TODO fai funzione che restituisce array di autori-->
-                                    </p>
-                                    <p>
-                                        <c:if test="${review.rating > 0}">
-                                            <c:forEach begin="0" end="${review.rating - 1}" varStatus="loop">
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                            </c:forEach>
-                                        </c:if>
-                                        <c:if test="${review.rating < 5}">
-                                            <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
-                                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                            </c:forEach>
-                                        </c:if>
-                                    </p>
-                                    <p><b>${review.title}</b></p>
-                                    <p> ${review.description}</p>
-                                </div>
-                            </c:forEach>
+                                                            <b>${author.firstName} ${author.lastName}</b> - <span
+                                                                style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
+                                                            <!-- TODO fai funzione che restituisce array di autori-->
+                                                        </p>
+                                                        <p>
+                                                            <c:if test="${review.rating > 0}">
+                                                                <c:forEach begin="0" end="${review.rating - 1}" varStatus="loop">
+                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                            <c:if test="${review.rating < 5}">
+                                                                <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
+                                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                        </p>
+                                                        <p><b>${review.title}</b></p>
+                                                        <p> ${review.description}</p>
+                                                    </div>
+                                                    <div class="text-center col-md-3">
+                                                            <button type="button" class="btn btn-default margin-btn" onclick="openReviewReplyModal(${review.reviewID})">Rispondi alla recensione</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
 
-                        <!-- fine review -->
+                                    <!-- fine review -->
 
                         </c:when>
                         <c:otherwise>
@@ -90,96 +103,31 @@
             </div>
         </div>
 
-        <div class="modal fade" id="opendisputemodal" tabindex="-1" role="dialog">
+        <div class="modal fade" id="openreviewreplymodal" tabindex="-1" role="dialog">
             <div class="row">
-                <div id="opendisputecard" class="card card-signup centerize" data-background-color="orange">
-                    <form id="opendisputeform" class="form" method="POST"
-                          action="${pageContext.request.contextPath}/restricted/opendispute">
-                        <div class="header header-primary text-center">
-                            <h4 class="title title-up">Apri Disputa</h4>
-                        </div>
-                        <div class="content">
-                            <input id="orderIdDisputeModal" type="text" class="hidden" name="orderID" placeholder="">
-                            <input id="productIdDisputeModal" type="text" class="hidden" name="productID"
-                                   placeholder="">
-                            <input id="shopIdDisputeModal" type="text" class="hidden" name="shopID" placeholder="">
-
-                            <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
-                          </span>
-                                <input type="text" class="form-control" name="title" placeholder="Titolo...">
-                            </div>
-                            <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
-                          </span>
-                                <input type="text" class="form-control" name="description" rows="5"
-                                       placeholder="Descrivi anomalia...">
-                            </div>
-                        </div>
-                        <div class="footer text-center" style="margin-top: 15px;">
-                            <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;"
-                               onclick="$('#opendisputeform').submit();">Invia</a>
-                            <a class="btn btn-default"
-                               style="margin-left: 20px; padding-left: 25px; padding-right: 25px;"
-                               onclick="$(function(){$('#opendisputemodal').modal('toggle');});">Chiudi</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="openreviewmodal" tabindex="-1" role="dialog">
-            <div class="row">
-                <div id="openreviewcard" class="card card-signup centerize" data-background-color="orange">
-                    <form id="openreviewform" class="form" method="POST"
+                <div id="openreviewreplycard" class="card card-signup centerize" data-background-color="orange">
+                    <form id="openreviewreplyform" class="form" method="POST"
                           action="${pageContext.request.contextPath}/restricted/openproductreview">
                         <div class="header header-primary text-center">
-                            <h4 class="title title-up">Nuova Recensione</h4>
+                            <h4 class="title title-up">Rispondi alla recensione</h4>
                         </div>
                         <div class="content">
-                            <input id="orderIdReviewModal" type="text" class="hidden" name="orderID" placeholder="">
-                            <input id="productIdReviewModal" type="text" class="hidden" name="productID" placeholder="">
-                            <input id="shopIdReviewModal" type="text" class="hidden" name="shopID" placeholder="">
+                            <input id="reviewIdReviewReplyModal" type="text" hidden required name="reviewID" placeholder="">
 
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
-                                <input type="text" class="form-control" name="title" placeholder="Titolo...">
-                            </div>
-                            <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
-                          </span>
                                 <input type="text" class="form-control" name="description" rows="5"
-                                       placeholder="Descrivi prodotto...">
-                            </div>
-                            <div class="col-md-12 text-center stelle">
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1"
-                                   onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2"
-                                   onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3"
-                                   onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4"
-                                   onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_5"
-                                   onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
-                                <input type="text" name="rating" hidden>
+                                       placeholder="Risposta...">
                             </div>
                         </div>
                         <div class="footer text-center" style="margin-top: 15px;">
                             <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;"
-                               onclick="$('#openreviewform').submit();">Invia</a>
+                               onclick="$('#openreviewreplyform').submit();">Invia</a>
                             <a class="btn btn-default"
                                style="margin-left: 20px; padding-left: 25px; padding-right: 25px;"
-                               onclick="$(function(){$('#openreviewmodal').modal('toggle');});">Chiudi</a>
+                               onclick="$(function(){$('#openreviewreplymodal').modal('toggle');});">Chiudi</a>
                         </div>
                     </form>
                 </div>
