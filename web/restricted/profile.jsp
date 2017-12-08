@@ -67,7 +67,7 @@
                             <a class="btn btn-block btn-success text-capitalize" href="shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Negozio</a>
                         </c:when>
                         <c:otherwise>
-                            <a class="btn btn-block btn-success text-capitalize" href="profile.jsp?error=Ancora da fare"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio</a>
+                            <a class="btn btn-block btn-success text-capitalize" href="${pageContext.request.contextPath}/restricted/createshop.jsp"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio</a>
                         </c:otherwise>
                     </c:choose>
 
