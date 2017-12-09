@@ -30,4 +30,8 @@ public class Utils {
     public static String getNDecPrice(float p,int n){
         return String.format("%."+n+"f",p);
     }
+
+    public static boolean isNullOrEmpty(String s) {
+        return s == null || s.isEmpty();
+    }
 }

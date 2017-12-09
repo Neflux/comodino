@@ -20,7 +20,7 @@
 
     <jsp:body>
         <div class="container">
-            <form class="form-horizontal" action="${pageContext.request.contextPath}/restricted/completeorder" method="post">
+            <form class="form-horizontal" action="${pageContext.request.contextPath}/restricted/createshop" method="post">
                 <div class="col-sm-12">
                     <h2>Negozio</h2>
                     <fieldset>
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="shop-description">Descrizione</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" rows="2" id="shop-description" placeholder="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa." required></textarea>
+                                <textarea class="form-control" rows="2"  name="shop-description" id="shop-description" placeholder="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa." required></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -43,25 +43,26 @@
                             </div>
                         </div>
                     </fieldset>
-                    <h3>Negozio fisico (opzionale)</h3>
+                    <h3>Negozio Fisico (opzionale)</h3>
                     <fieldset>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="shop-address">Indirizzo</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="shop-address" id="shop-address" placeholder="via Brombei" required>
+                                <input type="text" class="form-control" name="shop-address" id="shop-address" placeholder="via Brombei">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="shop-city">Città</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="shop-city" id="shop-city" placeholder="Napoli" required>
+                                <input type="text" class="form-control" name="shop-city" id="shop-city" placeholder="Napoli">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="shop-state">Stato</label>
                             <div class="col-sm-9">
-                                <select class="form-control minimal" name="shop-state" id="shop-state" required>
-                                    <option value="IT" selected="selected">Italia</option>
+                                <select class="form-control minimal" name="shop-state" id="shop-state">
+                                    <option value=""> -- Seleziona Stato -- </option>
+                                    <option value="IT">Italia</option>
                                     <option value="AF">Afghanistan</option>
                                     <option value="AL">Albania</option>
                                     <option value="DZ">Algeria</option>
@@ -306,13 +307,13 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="shop-ZIP">ZIP</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="shop-ZIP" id="shop-ZIP" placeholder="38121" required>
+                                <input type="text" class="form-control" name="shop-ZIP" id="shop-ZIP" placeholder="38121">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="shop-openingHours">Orario di apertura</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="shop-openingHours" id="shop-openingHours" placeholder="8:30 - 12:30, 15:30 - 18:00" required>
+                                <input type="text" class="form-control" name="shop-openingHours" id="shop-openingHours" placeholder="8:30 - 12:30, 15:30 - 18:00">
                             </div>
                         </div>
                     </fieldset>
