@@ -94,9 +94,8 @@ p {
     align-items: center;
 }
 
-.search_row {
+.sidebar {
     background-color: #ffffff;
-    height: 150px;
     line-height: 1;
 
     border: 1px solid #ebeff6;
@@ -111,4 +110,35 @@ p {
 
 body {
     background-color: #F3F3F4 !important;
+}
+
+.resetcolor{
+    color: #2c3e50;
+}
+.resetcolor:hover{
+    color: #2c3e50;
+}
+.resetcolor:focus{
+    color: #2c3e50;
+}
+
+li.list-group-item img {
+    margin: auto;
+}
+
+.container.invisible-container {
+    margin-top: 20px;
+    background-color: transparent;
+    padding: 0;
+}
+.sidebar li{
+    border: none;
+}
+
+.search li.product:not(:first-child){
+    margin-top: 10px;
+}
+
+.search li.product{
+    border-radius: 4px;
 }
