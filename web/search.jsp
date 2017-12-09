@@ -1,10 +1,12 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-
-<%-- INCLUDERE QUI TUTTE LE LIBRERIE E JAVABEANS ECC. --%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<jsp:useBean id="products" class="java.util.HashMap" scope="request"/>
+<jsp:useBean id="categories" class="java.util.HashSet" scope="request"/>
+<jsp:useBean id="vendors" class="java.util.HashSet" scope="request"/>
+<jsp:useBean id="geozone" class="java.util.HashSet" scope="request"/>
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
@@ -21,23 +23,43 @@
     </jsp:attribute>
 
     <jsp:body>
-        <div class="banner">
+        <div class="container banner">
             <h5>
                 <a href="index.jsp">Home</a>
-                <i class="fa fa-angle-right"></i>
-                <span>Forno</span>
+                <c:if test="${param.cat != null}">
+                    <i class="fa fa-angle-right"></i>
+                    <a class="text-capitalize" href="search.jsp?cat=${param.cat}&q=">${param.cat}</a>
+                </c:if>
+
+                <span class="text-capitalize">: <b>"${param.q}"</b> <small>(${products.size()} risultati)</small></span>
             </h5>
         </div>
 
         <div class="container">
+            <div class="row hidden">
+                <div class='col-md-2 sidebar'>
+                    <h3>Left Sidebar</h3>
+                    <ul class="nav nav-tabs nav-stacked">
+                        <li><a href='#'>Another Link 1</a></li>
+                        <li><a href='#'>Another Link 2</a></li>
+                        <li><a href='#'>Another Link 3</a></li>
+                    </ul>
+                </div>
+                <div class='col-md-10 main'>
+                    <h2>Main Content Section</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.<p>
+
+                    <p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-2">
-                    <div class="search_row" style="margin-left:-25%;height:100%;">
+                    <div class="search_row">
                         <h3 class="text-center collapsed" data-toggle="collapse" data-target="#categorie_accordion"
                             style="cursor:pointer;">Categorie <span class="caret"></span></h3>
                         <ul class="list-group collapse" aria-expanded="false" id="categorie_accordion">
-                            <c:if test="${not empty requestScope.categories}">
-                                <c:forEach var="icat" items="${requestScope.categories}">
+                            <c:if test="${not empty categories}">
+                                <c:forEach var="icat" items="${categories}">
                                     <c:choose>
                                         <c:when test="${param.cat == icat}">
                                             <li class="list-group-item"><input type="radio" name="${icat}" value="${icat}"
@@ -57,10 +79,10 @@
                         <ul class="list-group collapse" aria-expanded="false" id="venditori_accordion">
                             <c:set var="vendoritem" scope="page" value="${paramValues.get('vendors')}"/>
 
-                            <c:if test="${not empty requestScope.vendors}">
+                            <c:if test="${not empty vendors}">
                                 <c:choose>
                                     <c:when test="${not empty vendoritem}">
-                                        <c:forEach var="iven" items="${requestScope.vendors}">
+                                        <c:forEach var="iven" items="${vendors}">
                                             <c:set var="found" value="false" scope="page"/>
                                             <c:forEach var="ivan" items="${vendoritem}">
                                                 <c:if test="${ivan eq iven}">
@@ -84,7 +106,7 @@
                                         </c:forEach>
                                     </c:when>
                                     <c:otherwise>
-                                        <c:forEach var="iven" items="${requestScope.vendors}">
+                                        <c:forEach var="iven" items="${vendors}">
                                             <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}"
                                                                                onclick="filter(this,'vendor');"
                                                                                checked/> ${iven}</li>
@@ -98,10 +120,10 @@
                         <ul class="list-group collapse" aria-expanded="false" id="geozone_accordion">
                             <c:set var="geozoneitem" scope="page" value="${paramValues.get('geo')}"/>
 
-                            <c:if test="${not empty requestScope.geozone}">
+                            <c:if test="${not empty geozone}">
                                 <c:choose>
                                     <c:when test="${not empty geozoneitem}">
-                                        <c:forEach var="iven" items="${requestScope.geozone}">
+                                        <c:forEach var="iven" items="${geozone}">
                                             <c:set var="found" value="false" scope="page"/>
                                             <c:forEach var="ivan" items="${geozoneitem}">
                                                 <c:if test="${ivan eq iven}">
@@ -125,7 +147,7 @@
                                         </c:forEach>
                                     </c:when>
                                     <c:otherwise>
-                                        <c:forEach var="iven" items="${requestScope.geozone}">
+                                        <c:forEach var="iven" items="${geozone}">
                                             <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}"
                                                                                onclick="filter(this,'geo');" checked/> ${iven}
                                             </li>
@@ -184,8 +206,9 @@
                 </div>
 
                 <div class="col-md-10">
-                    <c:if test="${not empty requestScope.products}">
-                        <c:forEach var="prod" items="${requestScope.products}" varStatus="status">
+                    <c:if test="${not empty products}">
+                        <ul class="list-group">
+                        <c:forEach var="prod" items="${products}" varStatus="status">
                             <div class="search_row row vcenter ${status.first ? '' : 'separated'}">
                                 <div class="col-md-2">
                                     <c:choose>
@@ -199,8 +222,8 @@
                                     </c:choose>
                                 </div>
                                 <div class="col-md-7 text-left">
-                                    <h2><a style="color:#2c3e50" href="/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
-                                    <p>Venduto da <a href="/shop.jsp?id=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getShopName()}</a>&nbsp&nbsp<span
+                                    <h2><a style="color:#2c3e50" href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
+                                    <p>Venduto da <a href="${pageContext.request.contextPath}/shop.jsp?id=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getShopName()}</a>&nbsp&nbsp<span
                                             style="font-size:12px">o da altri <a href="javascript:void(0);"
                                                                                  onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</span>
                                     </p>
@@ -233,7 +256,9 @@
                                 </div>
                             </div>
                         </c:forEach>
+                        </ul>
                     </c:if>
+
                 </div>
             </div>
 
