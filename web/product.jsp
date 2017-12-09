@@ -97,7 +97,7 @@
     <jsp:body>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <section class="section-white">
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <!-- Wrapper for slides -->
@@ -119,7 +119,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <h1>${product.productName}</h1>
                     <c:choose>
                         <c:when test="${product.price != product.actualPrice}">
