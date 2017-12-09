@@ -1,10 +1,13 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="utils.Utils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-
-<%-- INCLUDERE QUI TUTTE LE LIBRERIE E JAVABEANS ECC. --%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<jsp:useBean id="products" class="java.util.HashMap" scope="request"/>
+<jsp:useBean id="categories" class="java.util.HashSet" scope="request"/>
+<jsp:useBean id="vendors" class="java.util.HashSet" scope="request"/>
+<jsp:useBean id="geozone" class="java.util.HashSet" scope="request"/>
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
@@ -21,23 +24,33 @@
     </jsp:attribute>
 
     <jsp:body>
-        <div class="banner">
+        <div class="container banner">
             <h5>
                 <a href="index.jsp">Home</a>
-                <i class="fa fa-angle-right"></i>
-                <span>Forno</span>
+                <c:if test="${param.cat != null}">
+                    &nbsp;<i class="fa fa-angle-right"></i>&nbsp;
+                    <a class="text-capitalize" href="search.jsp?cat=${param.cat}&q=">${param.cat}</a>
+                </c:if>
+
+                <span class="text-capitalize">
+                    :&nbsp;
+                    <c:if test='${!param.q.equals("")}'>
+                        <b>"${param.q}"</b>
+                    </c:if>
+                    <small>(${products.size()} Risultati)</small>
+                </span>
             </h5>
         </div>
 
-        <div class="container">
+        <div class="container invisible-container">
             <div class="row">
-                <div class="col-md-2">
-                    <div class="search_row" style="margin-left:-25%;height:100%;">
-                        <h3 class="text-center collapsed" data-toggle="collapse" data-target="#categorie_accordion"
-                            style="cursor:pointer;">Categorie <span class="caret"></span></h3>
+                <div class="col-lg-2 col-md-3">
+                    <div class="sidebar">
+                        <h4 class="text-center collapsed" data-toggle="collapse" data-target="#categorie_accordion"
+                            style="cursor:pointer;">Categorie <span class="caret"></span></h4>
                         <ul class="list-group collapse" aria-expanded="false" id="categorie_accordion">
-                            <c:if test="${not empty requestScope.categories}">
-                                <c:forEach var="icat" items="${requestScope.categories}">
+                            <c:if test="${not empty categories}">
+                                <c:forEach var="icat" items="${categories}">
                                     <c:choose>
                                         <c:when test="${param.cat == icat}">
                                             <li class="list-group-item"><input type="radio" name="${icat}" value="${icat}"
@@ -52,15 +65,15 @@
                                 </c:forEach>
                             </c:if>
                         </ul>
-                        <h3 class="text-center collapsed" data-toggle="collapse" data-target="#venditori_accordion"
-                            style="cursor:pointer;">Venditori <span class="caret"></span></h3>
+                        <h4 class="text-center collapsed" data-toggle="collapse" data-target="#venditori_accordion"
+                            style="cursor:pointer;">Venditori <span class="caret"></span></h4>
                         <ul class="list-group collapse" aria-expanded="false" id="venditori_accordion">
                             <c:set var="vendoritem" scope="page" value="${paramValues.get('vendors')}"/>
 
-                            <c:if test="${not empty requestScope.vendors}">
+                            <c:if test="${not empty vendors}">
                                 <c:choose>
                                     <c:when test="${not empty vendoritem}">
-                                        <c:forEach var="iven" items="${requestScope.vendors}">
+                                        <c:forEach var="iven" items="${vendors}">
                                             <c:set var="found" value="false" scope="page"/>
                                             <c:forEach var="ivan" items="${vendoritem}">
                                                 <c:if test="${ivan eq iven}">
@@ -84,7 +97,7 @@
                                         </c:forEach>
                                     </c:when>
                                     <c:otherwise>
-                                        <c:forEach var="iven" items="${requestScope.vendors}">
+                                        <c:forEach var="iven" items="${vendors}">
                                             <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}"
                                                                                onclick="filter(this,'vendor');"
                                                                                checked/> ${iven}</li>
@@ -93,15 +106,15 @@
                                 </c:choose>
                             </c:if>
                         </ul>
-                        <h3 class="text-center collapsed" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">
-                            Area Geografica <span class="caret"></span></h3>
+                        <h4 class="text-center collapsed" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">
+                            Area Geografica <span class="caret"></span></h4>
                         <ul class="list-group collapse" aria-expanded="false" id="geozone_accordion">
                             <c:set var="geozoneitem" scope="page" value="${paramValues.get('geo')}"/>
 
-                            <c:if test="${not empty requestScope.geozone}">
+                            <c:if test="${not empty geozone}">
                                 <c:choose>
                                     <c:when test="${not empty geozoneitem}">
-                                        <c:forEach var="iven" items="${requestScope.geozone}">
+                                        <c:forEach var="iven" items="${geozone}">
                                             <c:set var="found" value="false" scope="page"/>
                                             <c:forEach var="ivan" items="${geozoneitem}">
                                                 <c:if test="${ivan eq iven}">
@@ -125,7 +138,7 @@
                                         </c:forEach>
                                     </c:when>
                                     <c:otherwise>
-                                        <c:forEach var="iven" items="${requestScope.geozone}">
+                                        <c:forEach var="iven" items="${geozone}">
                                             <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}"
                                                                                onclick="filter(this,'geo');" checked/> ${iven}
                                             </li>
@@ -134,13 +147,13 @@
                                 </c:choose>
                             </c:if>
                         </ul>
-                        <h3 class="text-center">Prezzo</h3>
+                        <h4 class="text-center">Prezzo:</h4>
                         <div class="row">
-                            <div class="col-md-6">
-                                <h6 style="margin-left:10%;">Minimo</h6>
-                                <h6 style="margin-left:10%;">Massimo</h6>
+                            <div class="col-md-4 col-xs-3">
+                                <h6 style="margin-left:25%;">Minimo</h6>
+                                <h6 style="margin-left:25%;">Massimo</h6>
                             </div>
-                            <div class="col-md-6" style="text-align:right;">
+                            <div class="col-md-8 col-xs-9" style="text-align:right;">
                                 <c:choose>
                                     <c:when test="${not empty param.minPrice}">
                                         <input class="form-control no-border input_prezzo" type="text"
@@ -164,8 +177,8 @@
                             </div>
                         </div>
                         <div class="row" style="padding-bottom:15px">
-                            <h3 class="text-center">Valutazione</h3>
-                            <div class="col-md-12" style="margin-left:5%">
+                            <h4 class="text-center">Valutazione</h4>
+                            <div class="col-md-12 text-center">
                                 <i class="fa fa-star rating_star" aria-hidden="true" id="stella_0" onmouseover="setStar(this)"
                                    onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
                                 <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
@@ -180,60 +193,77 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="col-md-10">
-                    <c:if test="${not empty requestScope.products}">
-                        <c:forEach var="prod" items="${requestScope.products}" varStatus="status">
-                            <div class="search_row row vcenter ${status.first ? '' : 'separated'}">
-                                <div class="col-md-2">
-                                    <c:choose>
-                                        <c:when test="${not empty prod.value.getImageData()}">
-                                            <img src='${prod.value.getImageData()}' alt='images Here' width="100" height="100"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src='http://via.placeholder.com/1000x1000' alt='images Here' width="100"
-                                                 height="100"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                                <div class="col-md-7 text-left">
-                                    <h2><a style="color:#2c3e50" href="/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
-                                    <p>Venduto da <a href="/shop.jsp?id=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getShopName()}</a>&nbsp&nbsp<span
-                                            style="font-size:12px">o da altri <a href="javascript:void(0);"
-                                                                                 onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</span>
-                                    </p>
-                                    <h1 class="prezzo">${prod.value.getList().get(0).getActualPrice()} €</h1>
-                                </div>
-                                <div class="col-md-3">
-
-                                    <c:forEach begin="0" end="${prod.value.getList().get(0).getRating() - 1}" varStatus="loop">
-                                        <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                                    </c:forEach>
-                                    <c:forEach begin="0" end="${5 - prod.value.getList().get(0).getRating()}" varStatus="loop">
-                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                    </c:forEach>
-                                    <fmt:formatNumber var="rc" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getReviewCount()}"/>
-                                    <!-- da testare i due primi when -->
-                                    <c:choose>
-                                        <c:when test="${rc == 0}">
-                                            &nbsp&nbsp<span class="text-right">Nessuna recensione</span>
-                                        </c:when>
-                                        <c:when test="${rc == 1}">
-                                            &nbsp&nbsp<span class="text-right">1 recensione</span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            &nbsp&nbsp<span class="text-right">${rc} recensioni</span>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <a href="javascript:void(0);" class="btn btn-default margins"
-                                       onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">Aggiungi
-                                        al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </c:forEach>
+                <div class="col-lg-10 col-md-9">
+                    <c:if test="${not empty products}">
+                        <ul class="list-group search">
+                            <c:forEach var="prod" items="${products}" varStatus="status">
+                                <li class="list-group-item product">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-xs-12">
+                                            <a href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">
+                                                <img class="img-rounded img-responsive" src="${prod.value.getImageData()}" alt="product image">
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-7 col-md-5 col-xs-6">
+                                            <h2 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
+                                            <ul class="list-unstyled list-group-item-text">
+                                                <li>Venduto da: <a href="${pageContext.request.contextPath}/shop.jsp?id=${prod.value.getList().get(0).getShopID()}"><b>${prod.value.getList().get(0).getShopName()}</b></a>
+                                                    <small>e da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</small>
+                                                </li>
+                                                <li class="price">
+                                                    ${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}&euro;
+                                                    <c:if test="${prod.value.getList().get(0).getActualPrice() != prod.value.getList().get(0).getPrice()}">
+                                                        <span class="badge badge-discount">Scontato!</span>
+                                                    </c:if>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 col-xs-6 text-center">
+                                            <div class="row rating-field">
+                                                <c:choose>
+                                                    <c:when test="${prod.value.getList().get(0).getRating() == -1}">
+                                                        Nessuna recensione
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:if test="${prod.value.getList().get(0).getRating() > 0}">
+                                                            <c:forEach begin="0" end="${prod.value.getList().get(0).getRating() - 1}" varStatus="loop">
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                        <c:if test="${prod.value.getList().get(0).getRating() < 5}">
+                                                            <c:forEach begin="0" end="${5 - prod.value.getList().get(0).getRating()}" varStatus="loop">
+                                                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                        <fmt:formatNumber var="rc" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getReviewCount()}"/>
+                                                        <!-- da testare i due primi when -->
+                                                        <c:choose>
+                                                            <c:when test="${rc == 0}">
+                                                            </c:when>
+                                                            <c:when test="${rc == 1}">
+                                                                &nbsp&nbsp<span class="text-right">1 recensione</span>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                &nbsp&nbsp<span class="text-right">${rc} recensioni</span>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                            <div class="row">
+                                                <button class="btn btn-default" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">
+                                                    Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </c:forEach>
+                        </ul>
                     </c:if>
+
                 </div>
             </div>
 
