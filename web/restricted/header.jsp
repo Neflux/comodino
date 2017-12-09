@@ -30,7 +30,9 @@
                     <c:set var="vendor_notifications" value="${notificationdao.getVendorNotifications(user)}" scope="page"/>
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="badge">
                                 ${fn:length(vendor_notifications)}&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i>
+                            </span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Notifiche Venditore</li>
@@ -109,7 +111,9 @@
                     <c:set var="admin_notifications" value="${notificationdao.getAdminNotifications()}" scope="page"/>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="badge">
                                 ${fn:length(admin_notifications)}&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i>
+                            </span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Notifiche Admin</li>
