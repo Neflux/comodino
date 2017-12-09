@@ -28,17 +28,23 @@
             <h5>
                 <a href="index.jsp">Home</a>
                 <c:if test="${param.cat != null}">
-                    <i class="fa fa-angle-right"></i>
+                    &nbsp;<i class="fa fa-angle-right"></i>&nbsp;
                     <a class="text-capitalize" href="search.jsp?cat=${param.cat}&q=">${param.cat}</a>
                 </c:if>
 
-                <span class="text-capitalize">: <b>"${param.q}"</b> <small>(${products.size()} risultati)</small></span>
+                <span class="text-capitalize">
+                    :&nbsp;
+                    <c:if test='${!param.q.equals("")}'>
+                        <b>"${param.q}"</b>
+                    </c:if>
+                    <small>(${products.size()} Risultati)</small>
+                </span>
             </h5>
         </div>
 
         <div class="container invisible-container">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-lg-2 col-md-3">
                     <div class="sidebar">
                         <h4 class="text-center collapsed" data-toggle="collapse" data-target="#categorie_accordion"
                             style="cursor:pointer;">Categorie <span class="caret"></span></h4>
@@ -143,11 +149,11 @@
                         </ul>
                         <h4 class="text-center">Prezzo:</h4>
                         <div class="row">
-                            <div class="col-md-6">
-                                <h6 style="margin-left:10%;">Minimo</h6>
-                                <h6 style="margin-left:10%;">Massimo</h6>
+                            <div class="col-md-4 col-xs-3">
+                                <h6 style="margin-left:25%;">Minimo</h6>
+                                <h6 style="margin-left:25%;">Massimo</h6>
                             </div>
-                            <div class="col-md-6" style="text-align:right;">
+                            <div class="col-md-8 col-xs-9" style="text-align:right;">
                                 <c:choose>
                                     <c:when test="${not empty param.minPrice}">
                                         <input class="form-control no-border input_prezzo" type="text"
@@ -172,7 +178,7 @@
                         </div>
                         <div class="row" style="padding-bottom:15px">
                             <h4 class="text-center">Valutazione</h4>
-                            <div class="col-md-12" style="margin-left:5%">
+                            <div class="col-md-12 text-center">
                                 <i class="fa fa-star rating_star" aria-hidden="true" id="stella_0" onmouseover="setStar(this)"
                                    onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
                                 <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
@@ -189,65 +195,72 @@
                     </div>
                 </div>
 
-                <div class="col-md-10">
+                <div class="col-lg-10 col-md-9">
                     <c:if test="${not empty products}">
                         <ul class="list-group search">
-                        <c:forEach var="prod" items="${products}" varStatus="status">
-                            <li class="list-group-item product">
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-2 col-xs-12">
-                                        <img class="img-rounded img-responsive" src="${prod.value.getImageData()}" alt="product image">
-                                    </div>
-                                    <div class="col-lg-7 col-md-5 col-xs-6">
-                                        <h3 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=$${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h3>
-                                        <ul class="list-unstyled list-group-item-text">
-                                            <li>Venditore: <a class="resetcolor" href="${pageContext.request.contextPath}/shop.jsp?id=${prod.value.getList().get(0).getShopID()}"><b>${prod.value.getList().get(0).getShopName()}</b></a>
-                                                <small>o da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</small>
-                                            </li>
-                                            <li>Prezzo: ${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}&euro;</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-3 col-md-5 col-xs-6 text-center">
-                                        <div class="row">
-                                            <c:choose>
-                                                <c:when test="${prod.value.getList().get(0).getRating() == -1}">
-                                                    Nessuna recensione
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:if test="${prod.value.getList().get(0).getRating() > 0}">
-                                                        <c:forEach begin="0" end="${prod.value.getList().get(0).getRating() - 1}" varStatus="loop">
-                                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                                        </c:forEach>
-                                                    </c:if>
-                                                    <c:if test="${prod.value.getList().get(0).getRating() < 5}">
-                                                        <c:forEach begin="0" end="${5 - prod.value.getList().get(0).getRating()}" varStatus="loop">
-                                                            <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                                        </c:forEach>
-                                                    </c:if>
-                                                    <fmt:formatNumber var="rc" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getReviewCount()}"/>
-                                                    <!-- da testare i due primi when -->
-                                                    <c:choose>
-                                                        <c:when test="${rc == 0}">
-                                                        </c:when>
-                                                        <c:when test="${rc == 1}">
-                                                            &nbsp&nbsp<span class="text-right">1 recensione</span>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            &nbsp&nbsp<span class="text-right">${rc} recensioni</span>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:otherwise>
-                                            </c:choose>
+                            <c:forEach var="prod" items="${products}" varStatus="status">
+                                <li class="list-group-item product">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-xs-12">
+                                            <a href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">
+                                                <img class="img-rounded img-responsive" src="${prod.value.getImageData()}" alt="product image">
+                                            </a>
                                         </div>
-                                        <div class="row">
-                                            <button class="btn btn-default" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">
-                                                Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                            </button>
+                                        <div class="col-lg-7 col-md-5 col-xs-6">
+                                            <h2 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
+                                            <ul class="list-unstyled list-group-item-text">
+                                                <li>Venduto da: <a href="${pageContext.request.contextPath}/shop.jsp?id=${prod.value.getList().get(0).getShopID()}"><b>${prod.value.getList().get(0).getShopName()}</b></a>
+                                                    <small>e da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</small>
+                                                </li>
+                                                <li class="price">
+                                                    ${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}&euro;
+                                                    <c:if test="${prod.value.getList().get(0).getActualPrice() != prod.value.getList().get(0).getPrice()}">
+                                                        <span class="badge badge-discount">Scontato!</span>
+                                                    </c:if>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-3 col-md-5 col-xs-6 text-center">
+                                            <div class="row rating-field">
+                                                <c:choose>
+                                                    <c:when test="${prod.value.getList().get(0).getRating() == -1}">
+                                                        Nessuna recensione
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:if test="${prod.value.getList().get(0).getRating() > 0}">
+                                                            <c:forEach begin="0" end="${prod.value.getList().get(0).getRating() - 1}" varStatus="loop">
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                        <c:if test="${prod.value.getList().get(0).getRating() < 5}">
+                                                            <c:forEach begin="0" end="${5 - prod.value.getList().get(0).getRating()}" varStatus="loop">
+                                                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                        <fmt:formatNumber var="rc" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getReviewCount()}"/>
+                                                        <!-- da testare i due primi when -->
+                                                        <c:choose>
+                                                            <c:when test="${rc == 0}">
+                                                            </c:when>
+                                                            <c:when test="${rc == 1}">
+                                                                &nbsp&nbsp<span class="text-right">1 recensione</span>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                &nbsp&nbsp<span class="text-right">${rc} recensioni</span>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                            <div class="row">
+                                                <button class="btn btn-default" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">
+                                                    Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        </c:forEach>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </c:if>
 
