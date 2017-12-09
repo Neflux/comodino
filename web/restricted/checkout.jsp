@@ -78,7 +78,7 @@
                                         <label>
                                             <input ${status.first ? 'checked' : ''}
                                                     type="radio"
-                                                    name="address" value="${address.addressID}">${address.firstName} ${address.lastName}, ${address.address}, ${address.zip} ${address.city} ${address}
+                                                    name="address" value="${address.addressID}">${address.firstName} ${address.lastName}, ${address.address}, ${address.zip} ${address.city} ${address.state}
                                         </label>
                                     </div>
                                 </c:forEach>
