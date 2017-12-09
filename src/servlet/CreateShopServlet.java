@@ -1,12 +1,6 @@
 package servlet;
 
-import daos.OrderDao;
-import daos.ProductDao;
-import daos.impl.OrderDaoImpl;
-import daos.impl.PaymentDaoImpl;
-import daos.impl.ProductDaoImpl;
-import main.Cart;
-import main.CartItem;
+import daos.impl.ShopDaoImpl;
 import main.User;
 import utils.Utils;
 
@@ -22,44 +16,52 @@ public class CreateShopServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        User user = (User) request.getSession(false).getAttribute("user");
+        if(user.hasShop()){
+            response.sendRedirect("shop_panel.jsp");
+        }
+
         String shopName, shopDescription, shopWebsite,
                 shopAddress,shopState,shopOpeningHours,shopZIP,shopCity;
 
         if(
             Utils.isNullOrEmpty(shopName = request.getParameter("shop-name")) ||
             Utils.isNullOrEmpty(shopDescription = request.getParameter("shop-description")) ||
-            Utils.isNullOrEmpty(shopName = request.getParameter("shop-website"))
+            Utils.isNullOrEmpty(shopWebsite = request.getParameter("shop-website"))
             ){
-            response.sendRedirect("createshop.jsp?error=Campi non compilati nella Sezione Negozio"+request.getParameter("shop-website"));
+            response.sendRedirect("createshop.jsp?error=Campi non compilati nella Sezione Negozio");
             return;
         }
 
-        if(
+        if ( // tutti i campi del negozio fisico sono riempiti (creo negozio fisico)
             !Utils.isNullOrEmpty(shopAddress = request.getParameter("shop-address")) &
             !Utils.isNullOrEmpty(shopCity = request.getParameter("shop-city")) &
             !Utils.isNullOrEmpty(shopState = request.getParameter("shop-state")) &
             !Utils.isNullOrEmpty(shopZIP = request.getParameter("shop-ZIP")) &
             !Utils.isNullOrEmpty(shopOpeningHours = request.getParameter("shop-openingHours"))
                 ){
-            response.sendRedirect("createshop.jsp?error=Tutto ok");
+            boolean result = new ShopDaoImpl().createNewPhysicalShop(
+                    user.getUserID(),shopName,shopDescription,
+                    shopWebsite,shopAddress,shopCity,shopState,shopZIP,shopOpeningHours);
+            if(result)
+                response.sendRedirect("shop_panel.jsp");
+            else
+                response.sendRedirect("createshop.jsp?error=Errore creazione negozio fisico");
+            return;
         }
         else if (!Utils.isNullOrEmpty(shopAddress) ||
                 !Utils.isNullOrEmpty(shopCity) ||
                 !Utils.isNullOrEmpty(shopState) ||
                 !Utils.isNullOrEmpty(shopZIP) ||
                 !Utils.isNullOrEmpty(shopOpeningHours)){
-            response.sendRedirect("createshop.jsp?error=Campi non compilati nella sezione Negozio Fisico");
+            response.sendRedirect("createshop.jsp?error=Campi non compilati nella sezione negozio fisico");
             return;
         }
+        int result = new ShopDaoImpl().createNewShop(user.getUserID(),shopName, shopDescription,shopWebsite);
 
-        User user = (User) request.getSession(false).getAttribute("user");
-        if(user.hasShop()){
-            response.sendRedirect("/restricted/shop_panel.jsp");
-        }
-        response.sendRedirect("fuckingworking.jsp");
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        if(result != 0)
+            response.sendRedirect("shop_panel.jsp");
+        else
+            response.sendRedirect("createshop.jsp?error=Errore creazione negozio online");
     }
 }

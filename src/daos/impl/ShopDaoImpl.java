@@ -2,16 +2,10 @@ package daos.impl;
 
 import daos.ShopDao;
 import db.DBManager;
-import main.PhysicalShop;
-import main.Product;
-import main.ProductGroup;
-import main.Shop;
+import main.*;
 import utils.Utils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,11 +57,11 @@ public class ShopDaoImpl implements ShopDao {
         ArrayList<Product> expProducts = new ArrayList<>();
         try {
             PreparedStatement stm = con.prepareStatement(
-                    "SELECT DISTINCT P.ProductID, P.Name AS ProductName, SP.Quantity \n" +
-                            "FROM Product P, ShopProduct SP \n" +
-                            "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND Sp.Quantity <= 20\n" +
-                            "ORDER BY SP.Quantity \n" +
-                            "LIMIT 10"
+            "SELECT DISTINCT P.ProductID, P.Name AS ProductName, SP.Quantity \n" +
+                    "FROM Product P, ShopProduct SP \n" +
+                    "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND Sp.Quantity <= 20\n" +
+                    "ORDER BY SP.Quantity \n" +
+                    "LIMIT 10"
             );
             stm.setInt(1, id);
 
@@ -312,5 +306,66 @@ public class ShopDaoImpl implements ShopDao {
         }
         return false;
     }
+
+    @Override
+    public int createNewShop(int userID, String shopName, String shopDescription, String shopWebsite) {
+        int shopID = 0;
+        try {
+            PreparedStatement stm = con.prepareStatement(
+            "INSERT INTO shop (Name, Description, Website) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS
+            );
+            stm.setString(1, shopName);
+            stm.setString(2, shopDescription);
+            stm.setString(3, shopWebsite);
+            stm.executeUpdate();
+
+            ResultSet rs = stm.getGeneratedKeys();
+            rs.next();
+
+            shopID = rs.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(shopID != 0) {
+            try {
+                PreparedStatement stm = con.prepareStatement("INSERT INTO usershop (UserID, ShopID) VALUES (?,?)");
+                stm.setInt(1, userID);
+                stm.setInt(2, shopID);
+                stm.executeUpdate();
+                return shopID;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean createNewPhysicalShop(int userID, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours) {
+        int shopID = createNewShop(userID,shopName, shopDescription, shopWebsite);
+        float latitude = 0, longitude = 0;
+        // TODO: Aggiungere la posizione da indirizzo @delsi del sale
+        if (shopID != 0) {
+            try {
+                PreparedStatement stm = con.prepareStatement("INSERT INTO shopinfo (ShopID, Latitude, Longitude, Address, City, State, ZIP, OpeningHours) VALUES (?,?,?,?,?,?,?,?)");
+                stm.setInt(1, shopID);
+                stm.setFloat(2, latitude);
+                stm.setFloat(3, longitude);
+                stm.setString(4, shopAddress);
+                stm.setString(5, shopCity);
+                stm.setString(6, shopState);
+                stm.setString(7, shopZIP);
+                stm.setString(8, shopOpeningHours);
+                stm.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
 
 }
