@@ -6,6 +6,7 @@ import main.Cart;
 import main.CartItem;
 import main.Product;
 import main.User;
+import utils.Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -231,9 +232,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User register(String firstname, String lastname, String email, String password) {
+    public boolean register(String firstname, String lastname, String email, String password) {
         if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() | password.isEmpty())
-            return null;
+            return false;
 
         // controllo che non ci siano utenti già presenti con la stessa mail
         try {
@@ -241,26 +242,31 @@ public class UserDaoImpl implements UserDao {
             stm.setString(1, email);
             ResultSet rs = stm.executeQuery();
             if (extractUserFromResultSet(rs) != null){
-                return null;
+                return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        String emailToken = Utils.sendVerificationEmail(firstname, lastname, email);
+        if(emailToken == null){
+            System.out.println("[ERROR] Si è verificato un errore con la connessione SMTP ai server Google");
+            return false;
+        }
         try {
-            PreparedStatement stm = this.con.prepareStatement("INSERT INTO user (UserID,FirstName,LastName,Email,Password,Type,Privacy,EmailConfirm) VALUES (NULL,?,?,?,?,0,0,'yes')");
+            // TODO: Da aggiungere un campo al db con un tempo per fare scadere il token dopo un tot
+            PreparedStatement stm = this.con.prepareStatement("INSERT INTO user (UserID,FirstName,LastName,Email,Password,Type,Privacy,EmailConfirm) VALUES (NULL,?,?,?,?,0,0,?)");
             stm.setString(1, firstname);
             stm.setString(2, lastname);
             stm.setString(3, email);
             stm.setString(4, password);
+            stm.setString(5, emailToken);
             int result = stm.executeUpdate();
-            if (result == 0){
-                return null;
-            }
-            return authUser(email,password);
+            return result != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     @Override
@@ -287,5 +293,29 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean confirm(String token) {
+        User user = null;
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM user WHERE EmailConfirm = ?");
+            stm.setString(1,token);
+            ResultSet rs = stm.executeQuery();
+            user = extractUserFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(user != null){
+            try {
+                PreparedStatement stm = this.con.prepareStatement("UPDATE user SET EmailConfirm = 'yes' WHERE UserID = ?");
+                stm.setInt(1, user.getUserID());
+                int result = stm.executeUpdate();
+                return result != 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }

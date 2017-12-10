@@ -24,18 +24,14 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect("/index.jsp?error=Alcuni campi sono rimasti vuoti");
             return;
         }
-        User user = new UserDaoImpl().register(firstname, lastname, email, password);
+        boolean successfulRegistration = new UserDaoImpl().register(firstname, lastname, email, password);
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
-        if (user == null) {
+        if (!successfulRegistration) {
+            // TODO: non è carino che venga questo messaggio anche nel caso in cui l'SMTP dà problemi, da fixare
             response.sendRedirect(request.getContextPath() + "/index.jsp?error=Email già in uso");
         }
         else {
-            // imposto l'utente connesso come attributo di sessione
-            HttpSession session = request.getSession(true);
-            session.setAttribute("user", user);
-
-            // mando un redirect alla servlet che carica i prodotti
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            response.sendRedirect(request.getContextPath() + "/index.jsp?success=Registrazione effettuata! Controlla la mail "+email);
         }
     }
 

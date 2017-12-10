@@ -339,6 +339,7 @@ public class ShopDaoImpl implements ShopDao {
                 e.printStackTrace();
             }
         }
+         // TODO: Settare shopID nell'user con id userID e updatare
         return 0;
     }
 
