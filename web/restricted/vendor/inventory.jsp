@@ -1,4 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="utils.Utils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -9,7 +10,7 @@
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
-        Inventario del negozio
+        Inventario - ${shop.name}
     </jsp:attribute>
     <jsp:attribute name="pagecss">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inventory.css" >
@@ -20,36 +21,47 @@
     </jsp:attribute>
 
     <jsp:body>
-    <div class="container">
-        <div class="col-md-12">
-            <div id="headingFilters" class="row">
-                <div class="col-md-2 text-center">
-                    <a id="btnAddProduct" class="btn btn-sm btn-block btn-success"><i class="fa fa-plus-circle fa-fw fa-lg pull-left"></i>Aggiungi Prodotto</a>
-                </div>
-            </div>
-            <div id="stockRows" class="row">
+        <div class="container">
+            <h1>Inventario:</h1>
+            <ul class="list-group">
                 <c:forEach items="${shop.products}" var="product">
-                    <div class="row stock">
-                        <div class="col-md-3 stockPhoto">
-                            <a href="#"><img src="http://via.placeholder.com/400x300" class="img-responsive"></a>
+
+                    <!-- inizio prodotto -->
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2">
+                                <img class="img-rounded img-responsive" src="${product.imgBase64[0]}" alt="product image">
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-xs-12">
+                                <h3 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${product.shopID}">${product.productName}</a></h3>
+                                <ul class="list-unstyled list-group-item-text">
+                                    <li>Prezzo: ${Utils.getNDecPrice(product.actualPrice,2)}&euro;</li>
+                                    <li>Diponibilità: ${product.quantity} pz</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-xs-12 text-center">
+                                <div class="row">
+                                    <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-pencil-square-o fa-fw fa-lg pull-left"></i>Modifica Info</button>
+                                </div>
+                                <div class="row">
+                                    <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</button>
+                                </div>
+                                <div class="row">
+                                    <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Disponibilità</button>
+                                </div>
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary btn-block margin-btn" onclick=""><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</button>
+                                </div>
+                                <div class="row">
+                                    <button type="button" class="btn btn-danger btn-block margin-btn" onclick=""><i class="fa fa-trash fa-fw fa-lg pull-left"></i>Rimuovi</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-xs-6 col-md-7 stockInfo">
-                            <h2 class="stockTitle">${product.productName}</h2>
-                            <h5 class="stockQuantity">${product.quantity}</h5>
-                            <h2 class="stockPrice">${product.price}</h2>
-                        </div>
-                        <div class="col-xs-6 text-right col-md-2 stockSettings">
-                            <a class="btnEditInfo btn btn-sm btn-block btn-primary"><i class="fa fa-pencil-square-o fa-fw fa-lg pull-left"></i>Modifica Info</a>
-                            <a class="btnEditPrice btn btn-sm btn-block btn-primary"><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</a>
-                            <a class="btnEditQuantity btn btn-sm btn-block btn-primary"><i class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Quantità</a>
-                            <a class="btnReviews btn btn-lg btn-block btn-success"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</a>
-                            <a class="btnRemove btn btn-lg btn-block btn-danger"><i class="fa fa-times fa-fw fa-lg pull-left"></i>Rimuovi</a>
-                        </div>
-                    </div>
+                    </li>
+                    <!-- fine prodotto -->
                 </c:forEach>
-            </div>
+            </ul>
         </div>
-    </div>
     </jsp:body>
 </t:genericpage>
 
