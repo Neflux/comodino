@@ -64,7 +64,7 @@
                 <div class="col-md-4">
                     <c:choose>
                         <c:when test="${user.shopID > 0}">
-                            <a class="btn btn-block btn-success text-capitalize" href="shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Negozio</a>
+                            <a class="btn btn-block btn-success text-capitalize" href="vendor/shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Negozio</a>
                         </c:when>
                         <c:otherwise>
                             <a class="btn btn-block btn-success text-capitalize" href="${pageContext.request.contextPath}/restricted/createshop.jsp"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio</a>

@@ -45,6 +45,7 @@ public class ShopDaoImpl implements ShopDao {
                 System.out.flush();
                 tmp.setShopphoto(getImages(shopID));
             }
+            tmp.setProducts(obtainProducts(shopID));
             tmp.setExpiringProducts(obtainExpiringProducts(shopID));
             return tmp;
         } catch (SQLException e) {
@@ -78,6 +79,32 @@ public class ShopDaoImpl implements ShopDao {
             e.printStackTrace();
         }
         return expProducts;
+    }
+
+    public ArrayList<Product> obtainProducts(int id) {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            PreparedStatement stm = con.prepareStatement(
+                    "SELECT DISTINCT P.ProductID, P.Name AS ProductName, SP.Quantity, SP.Price \n" +
+                            "FROM Product P, ShopProduct SP \n" +
+                            "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND SP.Quantity >= 0"
+            );
+            stm.setInt(1, id);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setProductID(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setQuantity(rs.getInt("Quantity"));
+                p.setPrice(rs.getInt("Price"));
+
+                products.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     @Override

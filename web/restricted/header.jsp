@@ -18,7 +18,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="../css/logo.svg"/>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/css/logo.svg"/>
                 <c:if test="${!user.hasShop() && user.type == 0}">
                     <span id="headertitle">Comodino.it</span>
                 </c:if>

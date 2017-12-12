@@ -22,6 +22,8 @@ public interface ShopDao extends Serializable {
 
     ArrayList<Product> obtainExpiringProducts (int id);
 
+    ArrayList<Product> obtainProducts(int id);
+
     boolean editPhysicalInfo(PhysicalShop shop);
 
     boolean editInfo(Shop shop);
