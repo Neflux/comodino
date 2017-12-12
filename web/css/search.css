@@ -5,14 +5,13 @@
     font-size: 10px !important;
     height: 20px !important;
     text-align:center !important;
-    padding: 0px !important;
+    padding: 0 !important;
     margin-top:5px !important;
 }
 
 .card-signup {
     max-width: 450px !important;
-    margin: 0 auto;
-    margin-bottom: 0px;
+    margin: 0 auto 0;
 }
 
 .valign {
@@ -25,11 +24,11 @@
 
 .mod {
     padding-left: 10px !important;
-    padding-right: 0px !important;
+    padding-right: 0 !important;
 }
 
 .header-primary {
-    padding-bottom:0px !important;
+    padding-bottom:0 !important;
 }
 
 .subtitolo {
@@ -47,11 +46,6 @@
 
 .banner {
     border: 1px solid #ebeff6;
-    border-top-color: rgb(235, 239, 246);
-    border-right-color: rgb(235, 239, 246);
-    border-bottom-color: rgb(235, 239, 246);
-    border-left-color: rgb(235, 239, 246);
-    border-color: #ebeff6;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -o-border-radius: 4px;
@@ -67,7 +61,7 @@
 }
 
 .margins {
-    margin-top: 20.5px;
+    margin-top: 20px;
     margin-bottom: -25px;
 }
 
@@ -151,11 +145,7 @@ li.list-group-item img {
     font-size: 0.300em;
     line-height: 12px;
     background-color: transparent;
-    border: 1px solid;
-    border-top-color: currentcolor;
-    border-right-color: currentcolor;
-    border-bottom-color: currentcolor;
-    border-left-color: currentcolor;
+    border: 1px solid currentcolor;
     margin-bottom: 5px;
     border-radius: 1rem;
 }
