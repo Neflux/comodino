@@ -274,10 +274,8 @@ public class ShopDaoImpl implements ShopDao {
             stm.setString(2,shop.getDescription());
             stm.setString(3,shop.getWebsite());
             stm.setInt(4,shop.getShopID());
-            int i = stm.executeUpdate();
-            if (i == 1) {
-                return true;
-            }
+            stm.executeUpdate();
+            return true;
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -296,10 +294,9 @@ public class ShopDaoImpl implements ShopDao {
             stm.setString(6,shop.getZip());
             stm.setInt(7,shop.getShopID());
             stm.setInt(8,shop.getShopID());
-            int i = stm.executeUpdate();
-            if (i == 1) {
-                return true;
-            }
+            stm.executeUpdate();
+            return true;
+
         }
         catch (SQLException e) {
             e.printStackTrace();
