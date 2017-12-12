@@ -21,7 +21,7 @@
     </jsp:attribute>
 
     <jsp:body>
-        <div class="container">
+        <div id="inventory" class="container">
             <h1>Inventario:</h1>
             <ul class="list-group">
                 <c:forEach items="${shop.products}" var="product">
@@ -32,28 +32,38 @@
                             <div class="col-lg-2 col-md-2">
                                 <img class="img-rounded img-responsive" src="${product.imgBase64[0]}" alt="product image">
                             </div>
-                            <div class="col-lg-8 col-md-7 col-xs-12">
+                            <div class="col-lg-5 col-md-3 col-xs-12">
                                 <h3 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${product.shopID}">${product.productName}</a></h3>
                                 <ul class="list-unstyled list-group-item-text">
-                                    <li>Prezzo: ${Utils.getNDecPrice(product.actualPrice,2)}&euro;</li>
-                                    <li>Diponibilità: ${product.quantity} pz</li>
+                                    <li><h4>Prezzo: ${Utils.getNDecPrice(product.actualPrice,2)}&euro;</h4></li>
+                                    <li>Diponibilità: <b>${product.quantity} pezzi &nbsp;</b>
+                                    <c:if test="${product.quantity < 20}">
+                                        <span class="badge badge-discount">In esaurimento!</span>
+                                    </c:if>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="col-lg-2 col-md-3 col-xs-12 text-center">
-                                <div class="row">
-                                    <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-pencil-square-o fa-fw fa-lg pull-left"></i>Modifica Info</button>
+                                <div class="buttons">
+                                    <div class="row">
+                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-pencil-square-o fa-fw fa-lg pull-left"></i>Modifica Info</button>
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</button>
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Disponibilità</button>
+                                    </div>
                                 </div>
-                                <div class="row">
-                                    <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</button>
-                                </div>
-                                <div class="row">
-                                    <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Disponibilità</button>
-                                </div>
-                                <div class="row">
-                                    <button type="button" class="btn btn-primary btn-block margin-btn" onclick=""><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</button>
-                                </div>
-                                <div class="row">
-                                    <button type="button" class="btn btn-danger btn-block margin-btn" onclick=""><i class="fa fa-trash fa-fw fa-lg pull-left"></i>Rimuovi</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-xs-12 col-md-offset-1 col-lg-offset-1 text-center">
+                                <div class="buttons">
+                                    <div class="row">
+                                        <button type="button" class="btn btn-primary btn-block margin-btn" onclick=""><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</button>
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-danger btn-block margin-btn" onclick=""><i class="fa fa-trash fa-fw fa-lg pull-left"></i>Rimuovi</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
