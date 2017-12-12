@@ -63,6 +63,7 @@
 
 <script>
     $(document).ready(function() {
+        window.scrollTo(0,0);
         $('#overlay').fadeOut(100);
     });
 </script>
