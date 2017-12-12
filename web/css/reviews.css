@@ -39,6 +39,14 @@ li>img {
     max-height: 10px !important;
 }
 
+.image-centre{
+    margin: auto;
+}
+
+.col-lg-2.col-md-3.col-xs-12.text-center {
+    padding-top: 65px !important;
+}
+
 a.list-group-item {
     height:auto;
     min-height: 210px;

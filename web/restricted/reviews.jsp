@@ -45,11 +45,11 @@
                                         <div class="review">
                                             <div class="row ordBody">
                                                 <div class="row ordItem">
-                                                    <div class="col-md-2">
+                                                    <div class="col-xs-12 col-md-2">
                                                         <figure class="pull-left">
-                                                            <img class="media-object img-rounded img-responsive" src="${product.imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
+                                                            <img class="media-object img-rounded img-responsive image-centre" src="${product.imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                     </div>
-                                                    <div class="col-xs-6 col-md-7">
+                                                    <div class="col-xs-12 col-md-7">
                                                         <h3>Recensione prodotto: <a style="color:#2c3e50" href="/product.jsp?product=${product.productID}&shop=${shop.shopID}">${product.productName}</a></h3>
                                                         <p>
                                                             <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}"
@@ -79,7 +79,7 @@
                                                         <p><b>${review.title}</b></p>
                                                         <p> ${review.description}</p>
                                                     </div>
-                                                    <div class="text-center col-md-3">
+                                                    <div class="col-lg-2 col-md-3 col-xs-12 text-center">
                                                             <button type="button" class="btn btn-default margin-btn" onclick="openReviewReplyModal(${review.reviewID})">Rispondi alla recensione</button>
                                                     </div>
                                                 </div>
