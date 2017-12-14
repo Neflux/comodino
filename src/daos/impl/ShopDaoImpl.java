@@ -85,7 +85,7 @@ public class ShopDaoImpl implements ShopDao {
         ArrayList<Product> products = new ArrayList<>();
         try {
             PreparedStatement stm = con.prepareStatement(
-                    "SELECT DISTINCT P.ProductID, P.Name AS ProductName, SP.Quantity, SP.Price \n" +
+                    "SELECT DISTINCT P.ProductID, P.Name AS ProductName, SP.Quantity, SP.Price, SP.Discount \n" +
                             "FROM Product P, ShopProduct SP \n" +
                             "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND SP.Quantity >= 0"
             );
@@ -98,7 +98,7 @@ public class ShopDaoImpl implements ShopDao {
                 p.setProductName(rs.getString("ProductName"));
                 p.setQuantity(rs.getInt("Quantity"));
                 p.setPrice(rs.getInt("Price"));
-
+                p.setActualPrice((1-rs.getFloat("Discount"))*rs.getInt("Price"));
                 products.add(p);
             }
         } catch (SQLException e) {

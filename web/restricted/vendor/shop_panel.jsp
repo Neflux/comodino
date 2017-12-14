@@ -187,19 +187,19 @@
                           <span class="input-group-addon">
                               <i class="fa fa-user green" aria-hidden="true"></i>
                           </span>
-                                <input name="ShopName" type="text" class="form-control"  placeholder="Nome del negozio...">
+                                <input name="ShopName" type="text" class="form-control"  placeholder=${shop.name}>
                             </div>
                             <div class="input-group form-group-no-border">
                                 <span class="input-group-addon">
                                     <i class="fa fa-book green" aria-hidden="true"></i>
                                 </span>
-                                <input name="ShopDescription" type="text" class="form-control" placeholder="Descrizione del negozio..."/>
+                                <input name="ShopDescription" type="text" class="form-control" placeholder=${shop.description}/>
                             </div>
                             <div class="input-group form-group-no-border">
                                 <span class="input-group-addon">
                                     <i class="fa fa-book green" aria-hidden="true"></i>
                                 </span>
-                                <input name="ShopWebsite" type="text" class="form-control" placeholder="Sito Web..."/>
+                                <input name="ShopWebsite" type="text" class="form-control" placeholder=${shop.website}/>
                             </div>
                             <div class="input-group form-group-no-border nologin">
                               <span class="input-group-addon">
