@@ -50,7 +50,7 @@
                 }
                 <c:forEach items="${shopsList}" var="shop">
                 var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
-                var infowindow = new google.maps.InfoWindow({
+                infoWindow = new google.maps.InfoWindow({
                     content: '${shop.name}'
                 });
                 google.maps.event.addListenerOnce(map, 'idle', function () {
@@ -60,20 +60,17 @@
                 var marker = new google.maps.Marker({
                     position: mark,
                     title: '${shop.name}',
-                    infowindow: infowindow,
+                    infowindow: infoWindow,
                     map: map
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+
+                    infoWindow.setContent('${shop.name}');
+                    infoWindow.open(map, this);
                 });
                 google.maps.event.addListener(map, 'tilesloaded', function () {
                     // Visible tiles loaded!
                 });
-                infowindow.open(map);
-                <%--
-                google.maps.event.addListener(marker, 'click', function () {
-                    return function () {
-                        infowindow.open(map, marker);
-                    }
-                }());
-                --%>
                 </c:forEach>
             }
 
