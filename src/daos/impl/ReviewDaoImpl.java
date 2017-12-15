@@ -46,6 +46,19 @@ public class ReviewDaoImpl implements ReviewDao {
             PreparedStatement stm = con.prepareStatement("INSERT INTO reviewreply (Description, ReviewID)\n" +
                     "VALUES (?,?)");
             stm.setString(1, description);
+            stm.setInt(2, reviewID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int isReviewReplied(int reviewID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT COUNT(*)\n" +
+                    "FROM reviewreply rr\n" +
+                    "WHERE rr.ReviewID = ?");
             stm.setInt(1, reviewID);
         } catch (SQLException e) {
             e.printStackTrace();
