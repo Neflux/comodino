@@ -26,31 +26,48 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css" >
     <jsp:invoke fragment="pagecss"/>
     <title><jsp:invoke fragment="pagetitle"/></title>
+    <style>
+        #overlay{
+            background-color: #F3F3F4;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            z-index: 999999;
+            top: 0;
+            left: 0;
+        }
+    </style>
 </head>
 <body>
-    <c:if test="${not empty sessionScope.user}">
-        <jsp:include page="/restricted/header.jsp" flush="true"/>
-    </c:if>
-    <c:if test="${empty sessionScope.user}">
-        <jsp:include page="/header_anonimo.jsp" flush="true"/>
-    </c:if>
 
-    <t:toastnotifications/>
+<div id="overlay"></div>
 
-    <jsp:doBody/>
+<c:if test="${not empty sessionScope.user}">
+    <jsp:include page="/restricted/header.jsp" flush="true"/>
+</c:if>
+<c:if test="${empty sessionScope.user}">
+    <jsp:include page="/header_anonimo.jsp" flush="true"/>
+</c:if>
 
-    <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/custom.js"></script>
-    <script src="${pageContext.request.contextPath}/js/now-ui-kit.js"></script>
-    <script src="${pageContext.request.contextPath}/js/header.js"></script>
+<t:toastnotifications/>
 
-    <jsp:invoke fragment="pagejavascript"/>
+<jsp:doBody/>
 
-    <script>
-        $(document).ready(function () {
-            openCart();
-        });
-    </script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/custom.js"></script>
+<script src="${pageContext.request.contextPath}/js/now-ui-kit.js"></script>
+<script src="${pageContext.request.contextPath}/js/header.js"></script>
+
+<jsp:invoke fragment="pagejavascript"/>
+
+<script>
+    $(document).ready(function() {
+        openCart();
+        window.scrollTo(0,0);
+        $('#overlay').fadeOut(100);
+    });
+</script>
+
 </body>
 </html>

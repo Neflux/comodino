@@ -1,8 +1,6 @@
 package daos;
 
-import main.Product;
-import main.ProductGroup;
-import main.Shop;
+import main.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,4 +22,13 @@ public interface ShopDao extends Serializable {
 
     ArrayList<Product> obtainExpiringProducts (int id);
 
+    ArrayList<Product> obtainProducts(int id);
+
+    boolean editPhysicalInfo(PhysicalShop shop);
+
+    boolean editInfo(Shop shop);
+
+    int createNewShop(int userID, String shopName, String shopDescription, String shopWebsite);
+
+    boolean createNewPhysicalShop(int userID, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours);
 }

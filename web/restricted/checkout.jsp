@@ -37,7 +37,7 @@
                                         <li class="list-group-item">
                                             <div class="row pi-draggable" id="c_row-4col" draggable="true">
                                                 <div class="col-md-9">
-                                                    <h4 class="itemtitle">${cartItem.getProduct().productName} <small>x${cartItem.getQuantity()}</small></h4>
+                                                    <h3 class="itemtitle">${cartItem.getProduct().productName} <small>x${cartItem.getQuantity()}</small></h3>
                                                     <p class="itemseller">Venduto da:
                                                         <a href="${pageContext.request.contextPath}/shop.jsp?id=${cartItem.getProduct().shopID}">${cartItem.getProduct().shopName}</a>
                                                     </p>
@@ -78,7 +78,7 @@
                                         <label>
                                             <input ${status.first ? 'checked' : ''}
                                                     type="radio"
-                                                    name="address" value="${address.addressID}">${address.firstName} ${address.lastName}, ${address.address}, ${address.zip} ${address.city}
+                                                    name="address" value="${address.addressID}">${address.firstName} ${address.lastName}, ${address.address}, ${address.zip} ${address.city} ${address.state}
                                         </label>
                                     </div>
                                 </c:forEach>

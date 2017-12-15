@@ -43,9 +43,11 @@ public interface UserDao extends Serializable {
 
     void removeCartItem(User user, int productID, int shopID);
 
-    User register(String firstname, String lastname, String email, String password);
+    boolean register(String firstname, String lastname, String email, String password);
 
     boolean acceptPrivacy (User user);
 
     User getUser(int userID);
+
+    boolean confirm(String token);
 }

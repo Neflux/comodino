@@ -2,6 +2,7 @@ package daos.impl;
 
 import daos.ReviewDao;
 import db.DBManager;
+import main.Product;
 import main.ProductReview;
 import main.User;
 
@@ -54,6 +55,23 @@ public class ReviewDaoImpl implements ReviewDao {
         return null;
     }
 
+    @Override
+    public ArrayList<ProductReview> getVendorProductReview(int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM productreview\n" +
+                    "WHERE ProductID IN (SELECT DISTINCT P.ProductID\n" +
+                    "                    FROM Product P, ShopProduct SP, Shop S, ShopInfo SI\n" +
+                    "                    WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? )");
+            stm.setInt(1, shopID);
+            ResultSet rs = stm.executeQuery();
+            return extractProductReviewFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private ArrayList<ProductReview> extractProductReviewFromResultSet(ResultSet rs) {
         ArrayList<ProductReview> reviewList = new ArrayList<>();
 
@@ -71,6 +89,8 @@ public class ReviewDaoImpl implements ReviewDao {
                 productReview.setTitle(rs.getString("Title"));
                 productReview.setUserID(rs.getInt("UserID"));
                 productReview.setProductID(rs.getInt("ProductID"));
+                productReview.setReviewID(rs.getInt("ReviewID"));
+
 
                 // aggiungo l'ordine del prodotto al corrispettivo ordine generale
                 reviewList.add(productReview);
@@ -89,5 +109,7 @@ public class ReviewDaoImpl implements ReviewDao {
     public User getReviewAuthor(int userID){
         return new UserDaoImpl().getUser(userID);
     }
+
+    public Product getReviewdProduct(int productID, int shopID){ return new ProductDaoImpl().getProduct(productID, shopID);}
 
 }

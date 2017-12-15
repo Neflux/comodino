@@ -50,7 +50,7 @@
                 }
                 <c:forEach items="${shopsList}" var="shop">
                 var mark = {lat: ${shop.latitude}, lng: ${shop.longitude}};
-                var infowindow = new google.maps.InfoWindow({
+                infoWindow = new google.maps.InfoWindow({
                     content: '${shop.name}'
                 });
                 google.maps.event.addListenerOnce(map, 'idle', function () {
@@ -60,20 +60,17 @@
                 var marker = new google.maps.Marker({
                     position: mark,
                     title: '${shop.name}',
-                    infowindow: infowindow,
+                    infowindow: infoWindow,
                     map: map
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+
+                    infoWindow.setContent('<a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}">${shop.name}</a>');
+                    infoWindow.open(map, this);
                 });
                 google.maps.event.addListener(map, 'tilesloaded', function () {
                     // Visible tiles loaded!
                 });
-                infowindow.open(map);
-                <%--
-                google.maps.event.addListener(marker, 'click', function () {
-                    return function () {
-                        infowindow.open(map, marker);
-                    }
-                }());
-                --%>
                 </c:forEach>
             }
 
@@ -97,7 +94,7 @@
     <jsp:body>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <section class="section-white">
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <!-- Wrapper for slides -->
@@ -119,7 +116,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <h1>${product.productName}</h1>
                     <c:choose>
                         <c:when test="${product.price != product.actualPrice}">
@@ -238,24 +235,22 @@
                             <!-- TODO fai funzione che restituisce array di autori-->
                         </p>
                         <p>
-                            <fmt:formatNumber var="rat2" groupingUsed="false" maxFractionDigits="0" value="${review.rating} "/>
-
-                            <c:forEach begin="0" end="${rat2 - 1}" varStatus="loop">
-                                <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                            </c:forEach>
-                            <c:choose>
-                                <c:when test="${rat2 lt 5}">
-                                    <c:forEach begin="0" end="${4 - rat2}" varStatus="loop">
-                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                    </c:forEach>
-                                </c:when>
-                            </c:choose>
+                            <c:if test="${review.rating > 0}">
+                                <c:forEach begin="0" end="${review.rating - 1}" varStatus="loop">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${review.rating < 5}">
+                                <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
+                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                </c:forEach>
+                            </c:if>
                         </p>
                         <p> ${review.description}</p>
                     </div>
                 </c:forEach>
                 </div>
-                <!-- fine ordine -->
+                <!-- fine review -->
 
             </c:when>
             <c:otherwise>

@@ -36,7 +36,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>ShopPanelFilter</filter-name>
-        <url-pattern>/restricted/shop_panel.jsp</url-pattern>
+        <url-pattern>/restricted/vendor/*</url-pattern>
     </filter-mapping>
     <listener>
         <description>ServletContextListener</description>

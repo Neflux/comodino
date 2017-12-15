@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
         User user = new UserDaoImpl().authUser(email,password);
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         if (user == null) {
-
+            // TODO: bruttissimo che non sappia la differenza tra username/password errati e email ancora da verificare
             response.sendRedirect("/index.jsp?error=Username o password errati");
         }
         else {

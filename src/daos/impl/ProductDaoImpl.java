@@ -317,22 +317,22 @@ public class ProductDaoImpl implements ProductDao {
         }
 
         //ProductGroup extra fetching
-        for (Object o : products.entrySet()) {
-            Map.Entry pair = (Map.Entry) o;
+        for (Map.Entry pair : products.entrySet()) {
             ProductGroup gp = (ProductGroup) pair.getValue();
             System.out.println("\nPRODUCT: " + pair.getKey().toString());
 
             //Review count info
             stm = con.prepareStatement(
-                    "SELECT COUNT(*) AS conto, product.name " +
-                            "FROM productreview, product " +
-                            "WHERE product.ProductID = productreview.ProductID AND product.name = ?"
+                    "SELECT COUNT(*) AS conto\n" +
+                            "FROM productreview\n" +
+                            "WHERE ProductID = ?"
             );
-            stm.setString(1, pair.getKey().toString());
-            System.out.println("REVIEW COUNT: " + stm.toString().substring(45));
+            stm.setInt(1, gp.getList().get(0).getProductID());
+
             try {
                 try (ResultSet rs = stm.executeQuery()) {
                     rs.next();
+                    System.out.println("REVIEW COUNT: " + rs.getInt("conto"));
                     gp.setReviewCount(rs.getInt("conto"));
                 }
             } finally {

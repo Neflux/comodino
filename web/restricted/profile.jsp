@@ -17,26 +17,6 @@
     </jsp:attribute>
 
     <jsp:body>
-        <%-- general error, see passed parameter --%>
-        <c:if test="${not empty param.success}">
-            <div id="popup" class="alert alert-success alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    ${param.success}
-            </div>
-        </c:if>
-        <c:if test="${not empty param.warning}">
-            <div id="popup" class="alert alert-warning alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                Attenzione: ${param.warning}
-            </div>
-        </c:if>
-        <c:if test="${not empty param.error}">
-            <div id="popup" class="alert alert-danger alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                Errore: ${param.error}
-            </div>
-        </c:if>
-
         <div class="container">
             <div class="row" style="margin: 0 0 10px 0;">
                 <div class="col-md-12 text-center">
@@ -84,10 +64,10 @@
                 <div class="col-md-4">
                     <c:choose>
                         <c:when test="${user.shopID > 0}">
-                            <a class="btn btn-block btn-success text-capitalize" href="shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Negozio</a>
+                            <a class="btn btn-block btn-success text-capitalize" href="vendor/shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Negozio</a>
                         </c:when>
                         <c:otherwise>
-                            <a class="btn btn-block btn-success text-capitalize" href="profile.jsp?error=Ancora da fare"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio</a>
+                            <a class="btn btn-block btn-success text-capitalize" href="${pageContext.request.contextPath}/restricted/createshop.jsp"><i class="fa fa-fw pull-left fa-home"></i>Apri negozio</a>
                         </c:otherwise>
                     </c:choose>
 

@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <jsp:useBean id="user" class="main.User" scope="session"/>
@@ -84,7 +85,6 @@
                             <p>City: ${shop.city}</p>
                             <p>CAP: ${shop.zip}</p>
                             <p>Orari: ${shop.openingHours}</p>
-                            <p>Posizione: ${shop.latitude}, ${shop.longitude}</p>
                             <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
                         </c:if>
                     </div>
@@ -114,7 +114,7 @@
                                     </a>
                                 </div>
                                 <a id="btnAddPhoto" class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-camera"></i>Aggiungi foto</a>
-                                <a id="btnShopSettings" class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-book"></i>Modifica negozio</a>
+                                <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#editShopInfo"><i class="fa fa-fw pull-left fa-book"></i>Modifica negozio</a>
                             </div>
                         </div>
                         <div class="col-md-1" id="mySpace2">
@@ -122,7 +122,7 @@
                         <div class="col-md-6" id="buttonPanel">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a id="btnInventario" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-cube fa-fw fa-lg pull-left"></i>Inventario</a>
+                                    <a href="inventory.jsp" id="btnInventario" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-cube fa-fw fa-lg pull-left"></i>Inventario</a>
                                 </div>
                                 <div class="col-md-6">
                                     <a id="btnOrderList" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-fw fa-lg fa-list-ul pull-left"></i>Ordini</a>
@@ -172,6 +172,60 @@
                     </div>
                 </div>
             </div>
-        </div
+        </div>
+
+        <div class="modal fade" id="editShopInfo" tabindex="-1" role="dialog" aria-labelledby="editShopInfoLabel">
+            <div class="row">
+                <div class="card card-signup centerize" data-background-color="orange">
+                        <%--TODO:Auto-populate previous values--%>
+                    <form id="editShopInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editshopinfo">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up">Modifica dati</h4>
+                        </div>
+                        <div class="content">
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user green" aria-hidden="true"></i>
+                          </span>
+                                <input name="ShopName" type="text" class="form-control"  placeholder=${shop.name}>
+                            </div>
+                            <div class="input-group form-group-no-border">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-book green" aria-hidden="true"></i>
+                                </span>
+                                <input name="ShopDescription" type="text" class="form-control" placeholder=${shop.description}/>
+                            </div>
+                            <div class="input-group form-group-no-border">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-book green" aria-hidden="true"></i>
+                                </span>
+                                <input name="ShopWebsite" type="text" class="form-control" placeholder=${shop.website}/>
+                            </div>
+                            <div class="input-group form-group-no-border nologin">
+                              <span class="input-group-addon">
+                                  <i class="fa fa-map-marker green" aria-hidden="true"></i>
+                              </span>
+                                <input name="ShopAddress" type="text" class="form-control" placeholder="Indirizzo..."/>
+                            </div>
+                            <div class="input-group form-group-no-border nologin">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-building green" aria-hidden="true"></i>
+                                </span>
+                                <input name="ShopCity" type="text" class="form-control" placeholder="City..."/>
+                            </div>
+                        <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-envelope green" aria-hidden="true"></i>
+                          </span>
+                            <input name="ShopCAP" type="text" class="form-control" placeholder="CAP..."/>
+                        </div>
+                        <div class="footer text-center">
+                            <a class="btn btn-default" onclick="$('#editShopInfoForm').submit();">Salva</a>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </jsp:body>
 </t:genericpage>

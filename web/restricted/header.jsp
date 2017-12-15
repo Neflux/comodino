@@ -18,7 +18,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="../css/logo.svg"/>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/css/logo.svg"/>
                 <c:if test="${!user.hasShop() && user.type == 0}">
                     <span id="headertitle">Comodino.it</span>
                 </c:if>
@@ -30,7 +30,9 @@
                     <c:set var="vendor_notifications" value="${notificationdao.getVendorNotifications(user)}" scope="page"/>
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="badge">
                                 ${fn:length(vendor_notifications)}&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i>
+                            </span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Notifiche Venditore</li>
@@ -45,7 +47,7 @@
                                                 <c:choose>
                                                     <c:when test="${n.getClass().simpleName == 'NotificationProductReview'}">
                                                         <%-- TODO: fare più bella la notifica nuova --%>
-                                                        <c:if test="${n.adminStatus == 0}"><b>NEW </b></c:if>Recensione prodotto:
+                                                        <c:if test="${n.shopStatus == 0}"><b>NEW </b></c:if>Recensione prodotto:
                                                         <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
                                                         <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
                                                         <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
@@ -109,7 +111,9 @@
                     <c:set var="admin_notifications" value="${notificationdao.getAdminNotifications()}" scope="page"/>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="badge">
                                 ${fn:length(admin_notifications)}&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i>
+                            </span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">Notifiche Admin</li>

@@ -92,18 +92,11 @@ body{
     background-color: #F3F3F4 !important;
 }
 
-.list-group-item {
-    margin: 10px;
-    border-radius: 8px !important;
-    border: 1px #CAD2D2;
-}
-
 .cart-item {
     background-color: #FFF !important;
 }
 
 .itemtitle {
-    font-size: 28px;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -120,7 +113,7 @@ body{
 }
 
 .itemquantity {
-   padding-top: 20px;
+   padding-top: 10px;
    height: 100px;
    margin: auto;
 }
@@ -139,7 +132,6 @@ body{
 }
 
 .cestino {
-    height: 34px !important;
-    margin-top: 40px;
+    margin-top: 30px;
     padding: 10px 15px !important;
 }

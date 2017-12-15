@@ -25,24 +25,6 @@
         <script src="${pageContext.request.contextPath}/js/admin_panel.js"></script>
     </jsp:attribute>
     <jsp:body>
-        <c:if test="${not empty param.success}">
-            <div id="popup" class="alert alert-success alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    ${param.success}
-            </div>
-        </c:if>
-        <c:if test="${not empty param.warning}">
-            <div id="popup" class="alert alert-warning alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                Attenzione: ${param.warning}
-            </div>
-        </c:if>
-        <c:if test="${not empty param.error}">
-            <div id="popup" class="alert alert-danger alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                Errore: ${param.error}
-            </div>
-        </c:if>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -214,78 +196,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <%-- changePwd --%>
-        <div class="modal fade" id="changePwd" tabindex="-1" role="dialog" aria-labelledby="changePwdLabel">
-            <div class="row">
-                <div class="card card-signup centerize" data-background-color="orange">
-                    <form id="changePwdForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/changepassword">
-                        <div class="header header-primary text-center">
-                            <h4 class="title title-up">Cambia la password</h4>
-                        </div>
-                        <div class="content">
-                            <div class="input-group form-group-no-border nologin">
-                          <span class="input-group-addon">
-                              <i class="fa fa-lock green" aria-hidden="true"></i>
-                          </span>
-                                <input id="CurrentPassword" name="CurrentPassword" type="password" class="form-control"  placeholder="Password attuale...">
-                            </div>
-                            <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-key green" aria-hidden="true"></i>
-                          </span>
-                                <input id="NewPassword" name="NewPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Nuova password..."/>
-                            </div>
-                            <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i id="PwdCheck" class="fa fa-repeat green" aria-hidden="true"></i>
-                          </span>
-                                <input id="RepeatPassword" name="RepeatPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Ripeti password..."/>
-                            </div>
-                        </div>
-                        <div class="footer text-center">
-                            <a id="submitPwd" class="btn btn-default" onclick="$('#changePwdForm').submit();">Cambia</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <%-- editInfo --%>
-        <div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="editInfoLabel">
-            <div class="row">
-                <div class="card card-signup centerize" data-background-color="orange">
-                    <form id="editInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editinfo">
-                        <div class="header header-primary text-center">
-                            <h4 class="title title-up">Modifica dati</h4>
-                        </div>
-                        <div class="content">
-                            <div class="input-group form-group-no-border nologin">
-                          <span class="input-group-addon">
-                              <i class="fa fa-lock green" aria-hidden="true"></i>
-                          </span>
-                                <input name="FirstName" type="text" class="form-control"  placeholder="Nome...">
-                            </div>
-                            <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-key green" aria-hidden="true"></i>
-                          </span>
-                                <input name="LastName" type="text" class="form-control" placeholder="Cognome..."/>
-                            </div>
-                            <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-repeat green" aria-hidden="true"></i>
-                          </span>
-                                <input name="Email" type="email" class="form-control" placeholder="Email..."/>
-                            </div>
-                        </div>
-                        <div class="footer text-center">
-                            <a class="btn btn-default" onclick="$('#editInfoForm').submit();">Salva</a>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

@@ -18,13 +18,13 @@ import java.io.IOException;
 
 @WebServlet(name = "CompleteOrderServlet", urlPatterns = "/restricted/completeorder")
 public class CompleteOrderServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("card-holder-name") == null ||
-            request.getParameter("card-number") == null ||
-            request.getParameter("expiry-month") == null ||
-            request.getParameter("expiry-year") == null ||
-            request.getParameter("cvv") == null){
-            response.sendRedirect("/payment?error=Campi mancanti");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if(request.getParameter("card-holder-name").isEmpty() ||
+            request.getParameter("card-number").isEmpty() ||
+            request.getParameter("expiry-month").isEmpty() ||
+            request.getParameter("expiry-year").isEmpty() ||
+            request.getParameter("cvv").isEmpty()){
+            response.sendRedirect("/payment.jsp?error=Campi mancanti");
             return;
         }
 

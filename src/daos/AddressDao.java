@@ -15,4 +15,6 @@ public interface AddressDao extends Serializable {
     ArrayList<Address> getAllAddresses(User user);
 
     boolean removeAddress(int addressID, int userID);
+
+    boolean editAddress(User user, String addressID, String firstName, String lastName, String address, String city, String zip, String state, String phone);
 }
