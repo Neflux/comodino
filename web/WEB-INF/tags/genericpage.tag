@@ -46,5 +46,11 @@
     <script src="${pageContext.request.contextPath}/js/header.js"></script>
 
     <jsp:invoke fragment="pagejavascript"/>
+
+    <script>
+        $(document).ready(function () {
+            openCart();
+        });
+    </script>
 </body>
 </html>
