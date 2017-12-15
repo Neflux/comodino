@@ -80,7 +80,15 @@
                                                         <p> ${review.description}</p>
                                                     </div>
                                                     <div class="col-lg-2 col-md-3 col-xs-12 text-center">
-                                                            <button type="button" class="btn btn-default margin-btn" onclick="openReviewReplyModal(${review.reviewID})">Rispondi alla recensione</button>
+                                                        <c:choose>
+                                                            <c:when test="${reviewDao.isReviewReplied(review.reviewID) == 0}">
+                                                                <button type="button" class="btn btn-default margin-btn" onclick="openReviewReplyModal(${review.reviewID})">Rispondi alla recensione</button>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <h2>La recensione ha già una risposta.</h2>
+                                                            </c:otherwise>
+                                                        </c:choose>
+
                                                     </div>
                                                 </div>
                                             </div>
