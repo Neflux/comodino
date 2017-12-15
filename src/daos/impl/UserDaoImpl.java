@@ -2,16 +2,19 @@ package daos.impl;
 
 import daos.UserDao;
 import db.DBManager;
+import javafx.util.Pair;
 import main.Cart;
 import main.CartItem;
 import main.Product;
 import main.User;
 import utils.Utils;
 
+import javax.servlet.http.Cookie;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserDaoImpl implements UserDao {
     private Connection con;
@@ -317,5 +320,55 @@ public class UserDaoImpl implements UserDao {
             }
         }
         return false;
+    }
+
+    /**
+     *
+     * @param user
+     * @param cookies
+     * @return -1: cookie vuoto o assente, situazione invariata
+     *          0: errore nel parsing del cookie
+     *          x>0: quantità di prodotti successivamente integrati
+     */
+    @Override
+    public int cookieToCart(User user, Cookie[] cookies) {
+
+        Cookie products = null;
+        for (Cookie c:cookies) {
+            if (c.getName().equals("cartproducts")){
+                products = c;
+            }
+        }
+
+        if(products == null || products.getValue().isEmpty()){
+            return -1; //non c'è niente da aggiungere, da considerare come operazione andata a "buon fine"
+        }
+
+        ArrayList<Pair<Integer,Integer>> legitProducts = new ArrayList<>();
+
+        String[] productList = products.getValue().split("\\|");
+        for(String prod : productList){
+            String[] prodinfo = prod.split("_");
+
+            if(prodinfo.length == 4) {
+                for (int i = 0; i < Integer.parseInt(prodinfo[3]); i++) {
+                    try {
+                        int productID = Integer.parseInt(prodinfo[0]);
+                        int shopID = Integer.parseInt(prodinfo[2]);
+                        legitProducts.add(new Pair<>(productID,shopID));
+                    } catch (NumberFormatException e){
+                        return 0;
+                        //e.printStackTrace();
+                    }
+
+                }
+            }
+        }
+
+        for(Pair<Integer,Integer> p: legitProducts) {
+            addCartItem(user, p.getKey(), p.getValue());
+        }
+
+        return legitProducts.size();
     }
 }

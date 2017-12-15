@@ -3,6 +3,7 @@ package daos;
 import main.Cart;
 import main.User;
 
+import javax.servlet.http.Cookie;
 import java.io.Serializable;
 
 public interface UserDao extends Serializable {
@@ -50,4 +51,6 @@ public interface UserDao extends Serializable {
     User getUser(int userID);
 
     boolean confirm(String token);
+
+    int cookieToCart(User user, Cookie[] cookies);
 }

@@ -36,7 +36,7 @@ public class getCartServlet extends HttpServlet {
             }
             else {
                 String[] cartproducts = prodCookie.getValue().split("\\|");
-                System.out.println("LENGHT: " +cartproducts.length);
+                //System.out.println("LENGHT: " +cartproducts.length);
                 size = "<span class=\"badge\">\n" +
                         "                            <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i> " + cartproducts.length + "\n" +
                         "                        </span>\n" +

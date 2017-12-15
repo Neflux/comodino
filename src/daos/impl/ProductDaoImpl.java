@@ -292,7 +292,7 @@ public class ProductDaoImpl implements ProductDao {
                     //JaroWinkler implementation
                     JaroWinkler jw = new JaroWinkler();
                     double distance = jw.similarity(rs.getString("ProductName").toLowerCase(), searchQuery.toLowerCase());
-                    if (distance >= 0.7) {
+                    if (searchQuery.equals("") || distance >= 0.7) {
                         //Product crafting
                         Product p = new Product();
                         p.setProductID(rs.getInt("ProductID"));
