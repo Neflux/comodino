@@ -86,7 +86,7 @@
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap">
         </script>
-        <script src="${pageContext.request.contextPath}/js/product.js"></script>
+        <script src="${pageContext.request.contextPath}/js/addtocart.js"></script>
         <script src="${pageContext.request.contextPath}/js/map.js"></script>
 
     </jsp:attribute>

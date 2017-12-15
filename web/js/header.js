@@ -55,11 +55,11 @@ function show_signup()
 
 function openCart() {
 
-    $.post("/restricted/getcart", {type:"drop"})
+    $.post("/getcart", {type:"drop"})
         .done(function(data) {
             $("#cartdrop").html(data);
         });
-    $.post("/restricted/getcart", {type:"header"})
+    $.post("/getcart", {type:"header"})
         .done(function(data) {
             $("#cartheader").html(data);
         });

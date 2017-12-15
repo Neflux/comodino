@@ -20,7 +20,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/search/search.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/addtocart.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/vendor.js"></script>
         <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
             <script>
