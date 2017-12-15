@@ -65,7 +65,7 @@
                 });
                 google.maps.event.addListener(marker, 'click', function() {
 
-                    infoWindow.setContent('<a class="infoWindow" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}">${shop.name}</a>');
+                    infoWindow.setContent('<a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}">${shop.name}</a>');
                     infoWindow.open(map, this);
                 });
                 google.maps.event.addListener(map, 'tilesloaded', function () {
