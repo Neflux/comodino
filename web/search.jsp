@@ -16,7 +16,8 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/search/search.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/addtocart.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/search.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-slider-master/bootstrap-slider-master/dist/bootstrap-slider.js"></script>
     </jsp:attribute>
 
