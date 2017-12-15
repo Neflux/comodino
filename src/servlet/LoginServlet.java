@@ -7,10 +7,7 @@ import main.Shop;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
@@ -42,7 +39,35 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("shop", shop);
             }
             // mando un redirect alla servlet che carica i prodotti
-            response.sendRedirect("/index.jsp");
+
+            //converto il cart anonimo dei cookie in un cart di sessione utente (database)
+
+            Cookie cartproducts = null;
+            int productsAdded = 0;
+            switch((productsAdded = new UserDaoImpl().cookieToCart(user, request.getCookies()))) {
+                case -1:
+                    response.sendRedirect("/index.jsp");
+                    break;
+                case 0:
+                    response.setContentType("text/html");
+                    cartproducts = new Cookie("cartproducts","");
+                    cartproducts.setMaxAge(0);
+                    cartproducts.setPath("/");
+                    response.addCookie(cartproducts);
+                    response.sendRedirect("/index.jsp?warning=Non e' stato aggiunto nessun nuovo articolo");
+                    break;
+                default:
+                    response.setContentType("text/html");
+                    cartproducts = new Cookie("cartproducts","");
+                    cartproducts.setMaxAge(0);
+                    cartproducts.setPath("/");
+                    response.addCookie(cartproducts);
+
+                    response.sendRedirect("/index.jsp?success="+
+                            (productsAdded==1?"Il nuovo articolo e' stato aggiunto":productsAdded+" nuovi articoli sono stati aggiunti")+
+                            " al carrello");
+                    break;
+            }
         }
     }
 
