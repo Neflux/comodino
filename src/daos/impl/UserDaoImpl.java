@@ -235,9 +235,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean register(String firstname, String lastname, String email, String password) {
+    public int register(String firstname, String lastname, String email, String password) {
         if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() | password.isEmpty())
-            return false;
+            return -2;
 
         // controllo che non ci siano utenti già presenti con la stessa mail
         try {
@@ -245,7 +245,7 @@ public class UserDaoImpl implements UserDao {
             stm.setString(1, email);
             ResultSet rs = stm.executeQuery();
             if (extractUserFromResultSet(rs) != null){
-                return false;
+                return -1;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -254,7 +254,7 @@ public class UserDaoImpl implements UserDao {
         String emailToken = Utils.sendVerificationEmail(firstname, lastname, email);
         if(emailToken == null){
             System.out.println("[ERROR] Si è verificato un errore con la connessione SMTP ai server Google");
-            return false;
+            return -3;
         }
         try {
             // TODO: Da aggiungere un campo al db con un tempo per fare scadere il token dopo un tot
@@ -265,11 +265,11 @@ public class UserDaoImpl implements UserDao {
             stm.setString(4, password);
             stm.setString(5, emailToken);
             int result = stm.executeUpdate();
-            return result != 0;
+            return (result != 0?1:0);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
 
     @Override

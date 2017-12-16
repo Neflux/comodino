@@ -8,7 +8,6 @@
 <jsp:useBean id="shopproducts" class="java.util.HashMap" scope="request"/>
 
 <%-- TODO: pagina non del tutto responsive (pannelli laterali) --%>
-<%-- TODO: Suddividere funzionalità search.js su più file in modo da non includere search.js in altre pagine al di fuori della ricerca --%>
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">

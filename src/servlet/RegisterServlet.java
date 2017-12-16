@@ -20,19 +20,24 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         System.out.println("[INFO] Registrazione: " + firstname + " " + lastname + ", " + email + " " + password);
-        if (firstname.isEmpty() || lastname.isEmpty() || email.isEmpty() || password.isEmpty()){
-            response.sendRedirect("/index.jsp?error=Alcuni campi sono rimasti vuoti");
-            return;
-        }
-        boolean successfulRegistration = new UserDaoImpl().register(firstname, lastname, email, password);
+
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
-        if (!successfulRegistration) {
-            // TODO: non è carino che venga questo messaggio anche nel caso in cui l'SMTP dà problemi, da fixare
-            response.sendRedirect(request.getContextPath() + "/index.jsp?error=Email già in uso");
-        }
-        else {
-            response.sendRedirect(request.getContextPath() + "/index.jsp?success=Registrazione effettuata! Controlla la mail "+email);
+        switch(new UserDaoImpl().register(firstname, lastname, email, password)) {
+            case -3:
+                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Errore: connessione SMPT fallita");
+                break;
+            case -2:
+                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Errore: alcuni campi sono rimasti vuoti");
+                break;
+            case -1: case 0:
+                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Errore: email gia' in uso");
+                break;
+            case 1:
+                response.sendRedirect(request.getContextPath() + "/index.jsp?success=Registrazione effettuata! Controlla la mail "+email);
+                break;
+            default:
+                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Errore interno del server");
+                break;
         }
     }
-
 }
