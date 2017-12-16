@@ -46,6 +46,11 @@ body>div.container{
     margin-bottom: 10px;
 }
 
+.navbar-form.navbar-search > div.input-group {
+    margin-bottom: 0px;
+    margin-top: 4px;
+}
+
 [data-background-color] .title {
     color: #fff;
 }
