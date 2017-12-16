@@ -17,7 +17,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
-        <script src="${pageContext.request.contextPath}/js/vendor.js"></script>
+        <script src="${pageContext.request.contextPath}/js/inventory.js"></script>
     </jsp:attribute>
 
     <jsp:body>
@@ -56,10 +56,10 @@
                                         <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-pencil-square-o fa-fw fa-lg pull-left"></i>Modifica Info</button>
                                     </div>
                                     <div class="row">
-                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</button>
+                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="editPriceModal(${product.productID})"><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</button>
                                     </div>
                                     <div class="row">
-                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Disponibilità</button>
+                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="editQuantityModal(${product.productID})"><i class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Disponibilità</button>
                                     </div>
                                 </div>
                             </div>
@@ -79,6 +79,68 @@
                 </c:forEach>
             </ul>
         </div>
+
+        <div class="modal fade" id="editquantitymodal" tabindex="-1" role="dialog">
+            <div class="row">
+                <div id="editquantitycard" class="card card-signup centerize" data-background-color="orange">
+                    <form id="editquantityform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editproductquantity">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up" >Modifica Quantità</h4>
+                        </div>
+                        <div class="content">
+
+                            <input id="productIdQuantityModal" type="text" name="productID" class="hidden" value="">
+
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user green" aria-hidden="true"></i>
+                          </span>
+                                <input name="Quantity" type="text" class="form-control"  placeholder="Quantità...">
+                            </div>
+                            <div class="footer text-center" style="margin-top: 15px;">
+                                <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#editquantityform').submit();">Invia</a>
+                                <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#editquantitymodal').modal('toggle');});">Chiudi</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editpricemodal" tabindex="-1" role="dialog">
+            <div class="row">
+                <div id="editpricecard" class="card card-signup centerize" data-background-color="orange">
+                    <form id="editpriceform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editproductprice">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up" >Modifica Prezzo</h4>
+                        </div>
+                        <div class="content">
+
+                            <input id="productIdPriceModal" type="text" name="productID" class="hidden" value="">
+
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user green" aria-hidden="true"></i>
+                          </span>
+                                <input name="Price" type="text" class="form-control"  placeholder="Prezzo...">
+                            </div>
+
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-user green" aria-hidden="true"></i>
+                          </span>
+                                <input name="Discount" type="text" class="form-control"  placeholder="Sconto (in decimali)...">
+                            </div>
+                            <div class="footer text-center" style="margin-top: 15px;">
+                                <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#editpriceform').submit();">Invia</a>
+                                <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#editpricemodal').modal('toggle');});">Chiudi</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     </jsp:body>
 </t:genericpage>
 

@@ -393,4 +393,20 @@ public class ShopDaoImpl implements ShopDao {
     }
 
 
+    public boolean editShopProduct(Product product,int ShopID) {
+        try  {
+            PreparedStatement stm = con.prepareStatement("UPDATE shopproduct SET Price=?, Discount=?, Quantity=? WHERE ShopID = ? AND ProductID = ?");
+            stm.setFloat(1,product.getPrice());
+            stm.setFloat(2,product.getDiscount());
+            stm.setInt(3,product.getQuantity());
+            stm.setInt(4,ShopID);
+            stm.setInt(5,product.getProductID());
+            stm.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
