@@ -99,6 +99,7 @@ public class ShopDaoImpl implements ShopDao {
                 p.setQuantity(rs.getInt("Quantity"));
                 p.setPrice(rs.getInt("Price"));
                 p.setActualPrice((1-rs.getFloat("Discount"))*rs.getInt("Price"));
+                p.setImgBase64(new ProductDaoImpl().getImages(p.getProductID()));
                 products.add(p);
             }
         } catch (SQLException e) {

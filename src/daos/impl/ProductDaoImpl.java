@@ -459,7 +459,7 @@ public class ProductDaoImpl implements ProductDao {
         return false;
     }
 
-    private ArrayList<String> getImages(int productID){
+    public ArrayList<String> getImages(int productID){
 
         ArrayList<String> imgBase64 = new ArrayList<>();
 

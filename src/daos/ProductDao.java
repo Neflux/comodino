@@ -32,4 +32,6 @@ public interface ProductDao extends Serializable {
     boolean reduceAvailability(int productID, int shopID, Integer quantity);
 
     boolean updateProductRating(int productID);
+
+    ArrayList<String> getImages(int productID);
 }
