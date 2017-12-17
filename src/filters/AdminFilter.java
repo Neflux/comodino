@@ -32,7 +32,7 @@ public class AdminFilter implements Filter {
             User u = (User)session.getAttribute("user");
             if (u.getType() == 0){
                 System.out.println("    L'utente non è admin.");
-                res.sendRedirect("profile.jsp?error=Non disponi dei privilegi per questa sezione");
+                res.sendRedirect("/restricted/profile.jsp?error=Non disponi dei privilegi per questa sezione");
                 return;
             }
             filterChain.doFilter(servletRequest, servletResponse);
