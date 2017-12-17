@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 
-@WebServlet(name = "EditShopInfoServlet", urlPatterns = {"/restricted/editshopinfo"})
+@WebServlet(name = "EditShopInfoServlet", urlPatterns = {"/restricted/vendor/editshopinfo"})
 public class EditShopInfoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,17 +58,17 @@ public class EditShopInfoServlet extends HttpServlet {
         if (isPhysical) {
             if (shopDao.editPhysicalInfo((PhysicalShop) shop)) {
                 System.out.println("[ " + shop.getName() + " ] Info modificate");
-                response.sendRedirect("/restricted/shop_panel.jsp?success=Info aggiornate");
+                response.sendRedirect("shop_panel.jsp?success=Info aggiornate");
             } else {
-                response.sendRedirect("/restricted/shop_panel.jsp?warning=Info non aggiornate");
+                response.sendRedirect("shop_panel.jsp?warning=Info non aggiornate");
             }
         }
         else {
             if (shopDao.editInfo(shop)) {
                 System.out.println("[ " + shop.getName() + " ] Info modificate");
-                response.sendRedirect("/restricted/shop_panel.jsp?success=Info aggiornate");
+                response.sendRedirect("shop_panel.jsp?success=Info aggiornate");
             } else {
-                response.sendRedirect("/restricted/shop_panel.jsp?warning=Info non aggiornate");
+                response.sendRedirect("shop_panel.jsp?warning=Info non aggiornate");
             }
         }
     }

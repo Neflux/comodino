@@ -1,9 +1,7 @@
 package servlet;
 
 import daos.ShopDao;
-import daos.UserDao;
 import daos.impl.ShopDaoImpl;
-import daos.impl.UserDaoImpl;
 import main.Product;
 import main.Shop;
 
@@ -16,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "EditProductPriceServlet", urlPatterns = {"/restricted/editproductprice"})
+@WebServlet(name = "EditProductPriceServlet", urlPatterns = {"/restricted/vendor/editproductprice"})
 public class EditProductPriceServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,10 +40,10 @@ public class EditProductPriceServlet extends HttpServlet {
                 }
             }
 
-            response.sendRedirect("/restricted/vendor/inventory.jsp?success=Prezzo aggiornato");
+            response.sendRedirect("inventory.jsp?success=Prezzo aggiornato");
         }
         else
-            response.sendRedirect("/restricted/vendor/inventory.jsp?success=Nessuna modifica effettuata");
+            response.sendRedirect("inventory.jsp?success=Nessuna modifica effettuata");
 
     }
 

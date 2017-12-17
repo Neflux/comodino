@@ -178,7 +178,7 @@
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
                         <%--TODO:Auto-populate previous values--%>
-                    <form id="editShopInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editshopinfo">
+                    <form id="editShopInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/vendor/editshopinfo">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Modifica dati</h4>
                         </div>

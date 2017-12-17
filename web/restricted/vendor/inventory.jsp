@@ -90,7 +90,7 @@
         <div class="modal fade" id="editquantitymodal" tabindex="-1" role="dialog">
             <div class="row">
                 <div id="editquantitycard" class="card card-signup centerize" data-background-color="orange">
-                    <form id="editquantityform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editproductquantity">
+                    <form id="editquantityform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/vendor/editproductquantity">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up" >Modifica Quantità</h4>
                         </div>
@@ -117,7 +117,7 @@
         <div class="modal fade" id="editpricemodal" tabindex="-1" role="dialog">
             <div class="row">
                 <div id="editpricecard" class="card card-signup centerize" data-background-color="orange">
-                    <form id="editpriceform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editproductprice">
+                    <form id="editpriceform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/vendor/editproductprice">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up" >Modifica Prezzo</h4>
                         </div>
