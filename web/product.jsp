@@ -169,19 +169,10 @@
                             <h3>Il prodotto non è al momento disponibile.</h3>
                         </c:otherwise>
                     </c:choose>
-                    <c:choose>
-                        <c:when test="${not empty sessionScope.user}">
-                            <a href="javascript:void(0);" class="btn btn-primary"
-                               onclick="addToCart('${product.productID}','${product.shopID}');">
-                                <i class="fa fa-fw pull-left fa-shopping-cart"></i> Aggiungi al carrello
-                            </a>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#LoginSignup">
-                                <i class="fa fa-fw pull-left fa-shopping-cart"></i>Loggati per aggiungere al carrello
-                            </a>
-                        </c:otherwise>
-                    </c:choose>
+                    <a href="javascript:void(0);" class="btn btn-primary"
+                       onclick="addToCart('${product.productID}','${product.shopID}');">
+                        <i class="fa fa-fw pull-left fa-shopping-cart"></i> Aggiungi al carrello
+                    </a>
                 </div>
             </div>
         </div>
