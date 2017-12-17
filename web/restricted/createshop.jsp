@@ -14,13 +14,15 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
-        <script src="${pageContext.request.contextPath}/js/cleave.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/payment.js"></script>
+        <%--<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>--%>
+        <script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/validate/additional-methods.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/createshop.js"></script>
     </jsp:attribute>
 
     <jsp:body>
         <div class="container">
-            <form class="form-horizontal" action="${pageContext.request.contextPath}/restricted/createshop" method="post">
+            <form id="createShopForm" class="form-horizontal" action="${pageContext.request.contextPath}/restricted/createshop" method="post">
                 <div class="col-sm-12">
                     <h2>Negozio</h2>
                     <fieldset>
