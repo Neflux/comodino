@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "UpdateDisputeServlet", urlPatterns = {"/restricted/updatedispute"})
+@WebServlet(name = "UpdateDisputeServlet", urlPatterns = {"/restricted/admin/updatedispute"})
 public class UpdateDisputeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class UpdateDisputeServlet extends HttpServlet {
     }
 
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect("admin_panel.jsp?error=Percorso invalido");
     }
 }

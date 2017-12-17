@@ -95,7 +95,7 @@
                                                         Disputa Declinata
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <form action="${pageContext.request.contextPath}/restricted/updatedispute" method="POST">
+                                                        <form action="${pageContext.request.contextPath}/restricted/admin/updatedispute" method="POST">
                                                             <div class="btn-group">
 
                                                                 <input name="orderID" value="${dispute.orderID}" type="text" hidden>

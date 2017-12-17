@@ -140,7 +140,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <li role="separator" class="divider"></li>
-                            <li><a href="${pageContext.request.contextPath}/restricted/admin_panel.jsp">Vedi tutte</a></li><!-- TODO: sistemare formattazione notifiche -->
+                            <li><a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Vedi tutte</a></li><!-- TODO: sistemare formattazione notifiche -->
                         </ul>
                     </li>
                 </c:if>
@@ -209,7 +209,7 @@
                         <c:if test="${user.type == 1}">
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Admin</li>
-                            <li><a href="${pageContext.request.contextPath}/restricted/admin_panel.jsp">Pannello principale</a></li>
+                            <li><a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Pannello principale</a></li>
                         </c:if>
                         <li role="separator" class="divider"></li>
                         <li><a href="${pageContext.request.contextPath}/restricted/logout">Esci</a></li>

@@ -27,8 +27,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>adminFilter</filter-name>
-        <url-pattern>/restricted/admin_panel.jsp</url-pattern>
-        <url-pattern>/restricted/updatedispute</url-pattern>
+        <url-pattern>/restricted/admin/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>ShopFilter</filter-name>
