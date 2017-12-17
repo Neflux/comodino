@@ -333,11 +333,14 @@ public class ShopDaoImpl implements ShopDao {
     }
 
     @Override
-    public int createNewShop(int userID, String shopName, String shopDescription, String shopWebsite) {
+    public int createNewShop(User user, String shopName, String shopDescription, String shopWebsite) {
+        if(user.hasShop()){
+            return 0;
+        }
         int shopID = 0;
         try {
             PreparedStatement stm = con.prepareStatement(
-            "INSERT INTO shop (Name, Description, Website) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS
+            "INSERT INTO shop (Rating, Name, Description, Website) VALUES (-1,?,?,?)", Statement.RETURN_GENERATED_KEYS
             );
             stm.setString(1, shopName);
             stm.setString(2, shopDescription);
@@ -356,21 +359,23 @@ public class ShopDaoImpl implements ShopDao {
         if(shopID != 0) {
             try {
                 PreparedStatement stm = con.prepareStatement("INSERT INTO usershop (UserID, ShopID) VALUES (?,?)");
-                stm.setInt(1, userID);
+                stm.setInt(1, user.getUserID());
                 stm.setInt(2, shopID);
                 stm.executeUpdate();
+                user.setShopID(shopID);
                 return shopID;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
         }
          // TODO: Settare shopID nell'user con id userID e updatare
         return 0;
     }
 
     @Override
-    public boolean createNewPhysicalShop(int userID, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours) {
-        int shopID = createNewShop(userID,shopName, shopDescription, shopWebsite);
+    public boolean createNewPhysicalShop(User user, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours) {
+        int shopID = createNewShop(user,shopName, shopDescription, shopWebsite);
         float latitude = 0, longitude = 0;
         // TODO: Aggiungere la posizione da indirizzo @delsi del sale
         if (shopID != 0) {

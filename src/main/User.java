@@ -72,6 +72,10 @@ public class User implements Serializable {
         this.shopID = new UserDaoImpl().getShopID(this);
     }
 
+    public void setShopID(int shopID) {
+        this.shopID = shopID;
+    }
+
     public Cart getCart() {
         this.updateCart();
         return cart;
@@ -96,5 +100,6 @@ public class User implements Serializable {
     public void setPrivacy(int privacy) {
         this.privacy = privacy;
     }
+
 
 }

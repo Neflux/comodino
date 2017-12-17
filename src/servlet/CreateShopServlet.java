@@ -18,7 +18,9 @@ public class CreateShopServlet extends HttpServlet {
 
         User user = (User) request.getSession(false).getAttribute("user");
         if(user.hasShop()){
-            response.sendRedirect("shop_panel.jsp");
+            System.out.println("[INFO] Redirect to private shop panel");
+            response.sendRedirect("/index.jsp?warning=Impossibile aprire piu' di un negozio per utente");
+            return;
         }
 
         String shopName, shopDescription, shopWebsite,
@@ -40,11 +42,12 @@ public class CreateShopServlet extends HttpServlet {
             !Utils.isNullOrEmpty(shopZIP = request.getParameter("shop-ZIP")) &
             !Utils.isNullOrEmpty(shopOpeningHours = request.getParameter("shop-openingHours"))
                 ){
+            System.out.println("[INFO] Tutti i campi del negozio fisico sono riempiti (ora creo negozio fisico)");
             boolean result = new ShopDaoImpl().createNewPhysicalShop(
-                    user.getUserID(),shopName,shopDescription,
+                    user,shopName,shopDescription,
                     shopWebsite,shopAddress,shopCity,shopState,shopZIP,shopOpeningHours);
             if(result)
-                response.sendRedirect("shop_panel.jsp");
+                response.sendRedirect("vendor/shop_panel.jsp");
             else
                 response.sendRedirect("createshop.jsp?error=Errore creazione negozio fisico");
             return;
@@ -57,10 +60,10 @@ public class CreateShopServlet extends HttpServlet {
             response.sendRedirect("createshop.jsp?error=Campi non compilati nella sezione negozio fisico");
             return;
         }
-        int result = new ShopDaoImpl().createNewShop(user.getUserID(),shopName, shopDescription,shopWebsite);
+        int result = new ShopDaoImpl().createNewShop(user,shopName, shopDescription,shopWebsite);
 
         if(result != 0)
-            response.sendRedirect("shop_panel.jsp");
+            response.sendRedirect("vendor/shop_panel.jsp");
         else
             response.sendRedirect("createshop.jsp?error=Errore creazione negozio online");
     }
