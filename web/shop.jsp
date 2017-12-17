@@ -77,23 +77,25 @@
                         <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
                         <p>${shop.description}</p>
                         <div class="row text-center">
-                            <fmt:formatNumber var="rat" groupingUsed = "false" maxFractionDigits = "0" value="${shop.rating}" />
                             <c:choose>
-                                <c:when test="${rat ge 0}">
-                                    <c:forEach begin="0" end="${rat}" varStatus="loop">
-                                        <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                                    </c:forEach>
-                                    <c:forEach begin="0" end="${4-rat}" varStatus="loop">
-                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                    </c:forEach>
+                                <c:when test="${shop.rating == -1}">
+                                    Nessuna recensione
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach begin="0" end="4" varStatus="loop">
-                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                    </c:forEach>
+                                    <c:if test="${shop.rating > 0}">
+                                        <c:forEach begin="0" end="${shop.rating - 1}" varStatus="loop">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${shop.rating < 5}">
+                                        <c:forEach begin="0" end="${4 - shop.rating}" varStatus="loop">
+                                            <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                        </c:forEach>
+                                    </c:if>
+                                    &nbsp;&nbsp;<a href="#">Vedi Tutte</a>
                                 </c:otherwise>
                             </c:choose>
-                            <a href="#"> vedi tutte</a>
+
                         </div>
                         <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
                             <div id="addShopDiv" class="row" style="margin-bottom: 15px">
