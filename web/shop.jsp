@@ -1,7 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.lang.Math" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:useBean id="shop" class="main.Shop" scope="request"/>
@@ -89,7 +90,7 @@
                                     </c:if>
                                     <c:if test="${shop.rating < 5}">
                                         <c:forEach begin="0" end="${4 - shop.rating}" varStatus="loop">
-                                            <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
                                         </c:forEach>
                                     </c:if>
                                     &nbsp;&nbsp;<a href="#">Vedi Tutte</a>
@@ -127,25 +128,26 @@
                                     </c:choose>
                                 </div>
                                 <div class="col-md-7 text-left">
-                                    <h2> <a style="color:#2c3e50" href="/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
+                                    <h2> <a style="color:#2c3e50" href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
                                     <h1 class="prezzo">${prod.value.getList().get(0).getActualPrice()} €</h1>
                                 </div>
                                 <div class="col-md-3 ratAdd">
-                                    Valutazione:
-                                    <fmt:formatNumber var="prat" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getList().get(0).getRating()}" />
+                                    <c:set var="rating" value="${prod.value.getList().get(0).rating}" scope="page"/>
                                     <c:choose>
-                                        <c:when test="${prat ge 0}">
-                                            <c:forEach begin="0" end="${prat-1}" varStatus="loop">
-                                                <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                                            </c:forEach>
-                                            <c:forEach begin="0" end="${4-prat}" varStatus="loop">
-                                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                            </c:forEach>
+                                        <c:when test="${Math.round(rating) == -1}">
+                                            Nessuna recensione
                                         </c:when>
                                         <c:otherwise>
-                                            <c:forEach begin="0" end="4" varStatus="loop">
-                                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                                            </c:forEach>
+                                            <c:if test="${Math.round(rating) > 0}">
+                                                <c:forEach begin="0" end="${Math.round(rating) - 1}" varStatus="loop">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </c:forEach>
+                                            </c:if>
+                                            <c:if test="${Math.round(rating) < 5}">
+                                                <c:forEach begin="0" end="${4 - Math.round(rating)}" varStatus="loop">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </c:forEach>
+                                            </c:if>
                                         </c:otherwise>
                                     </c:choose>
                                     <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${shop.shopID}');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>

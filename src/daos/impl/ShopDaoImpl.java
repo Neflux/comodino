@@ -224,7 +224,7 @@ public class ShopDaoImpl implements ShopDao {
             shop.setName(rs.getString("Name"));
             shop.setDescription(rs.getString("Description"));
             shop.setWebsite(rs.getString("Website"));
-            shop.setRating(rs.getInt("Rating"));
+            shop.setRating(rs.getFloat("Rating"));
             return shop;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -244,7 +244,7 @@ public class ShopDaoImpl implements ShopDao {
             shop.setName(rs.getString("Name"));
             shop.setDescription(rs.getString("Description"));
             shop.setWebsite(rs.getString("Website"));
-            shop.setRating(rs.getInt("Rating"));
+            shop.setRating(rs.getFloat("Rating"));
 
             shop.setLatitude(rs.getFloat("Latitude"));
             shop.setLongitude(rs.getFloat("Longitude"));
@@ -275,7 +275,7 @@ public class ShopDaoImpl implements ShopDao {
                 physicalShop.setName(rs.getString("Name"));
                 physicalShop.setDescription(rs.getString("Description"));
                 physicalShop.setWebsite(rs.getString("Website"));
-                physicalShop.setRating(rs.getInt("Rating"));
+                physicalShop.setRating(rs.getFloat("Rating"));
 
                 physicalShop.setLatitude(rs.getFloat("Latitude"));
                 physicalShop.setLongitude(rs.getFloat("Longitude"));

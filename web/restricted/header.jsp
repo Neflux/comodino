@@ -76,7 +76,7 @@
                                                             </c:if>
                                                             <c:if test="${n.rating < 5}">
                                                                 <c:forEach begin="0" end="${4 - n.rating}" varStatus="loop">
-                                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
                                                                 </c:forEach>
                                                             </c:if>
                                                         </span>
@@ -87,7 +87,7 @@
                                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                             </c:forEach>
                                                             <c:forEach begin="0" end="${4 - n.rating}" varStatus="loop">
-                                                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                                <i class="fa fa-star-o" aria-hidden="true"></i>
                                                             </c:forEach>
                                                         </span>
                                                     </c:when>

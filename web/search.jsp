@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="utils.Utils" %>
+<%@ page import="java.lang.Math" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -224,19 +225,20 @@
                                             </div>
                                             <div class="col-lg-3 col-md-5 col-xs-6 text-center">
                                                 <div class="row rating-field">
+                                                    <c:set var="rating" value="${prod.value.getList().get(0).getRating()}" scope="page"/>
                                                     <c:choose>
-                                                        <c:when test="${prod.value.getList().get(0).getRating() == -1}">
+                                                        <c:when test="${Math.round(rating) == -1}">
                                                             Nessuna recensione
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <c:if test="${prod.value.getList().get(0).getRating() > 0}">
-                                                                <c:forEach begin="0" end="${prod.value.getList().get(0).getRating() - 1}" varStatus="loop">
+                                                            <c:if test="${Math.round(rating) > 0}">
+                                                                <c:forEach begin="0" end="${Math.round(rating) - 1}" varStatus="loop">
                                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                                 </c:forEach>
                                                             </c:if>
-                                                            <c:if test="${prod.value.getList().get(0).getRating() < 5}">
-                                                                <c:forEach begin="0" end="${5 - prod.value.getList().get(0).getRating()}" varStatus="loop">
-                                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                            <c:if test="${Math.round(rating) < 5}">
+                                                                <c:forEach begin="0" end="${4 - Math.round(rating)}" varStatus="loop">
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
                                                                 </c:forEach>
                                                             </c:if>
                                                             <fmt:formatNumber var="rc" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getReviewCount()}"/>

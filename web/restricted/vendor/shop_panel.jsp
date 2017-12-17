@@ -61,15 +61,15 @@
                             <c:choose>
                                 <c:when test="${rat ge 0}">
                                     <c:forEach begin="0" end="${rat}" varStatus="loop">
-                                        <i class="fa fa-star rating_star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
                                     </c:forEach>
                                     <c:forEach begin="0" end="${4-rat}" varStatus="loop">
-                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
                                     <c:forEach begin="0" end="4" varStatus="loop">
-                                        <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>

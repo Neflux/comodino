@@ -1,8 +1,9 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="java.lang.Math" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <jsp:useBean id="product" class="main.Product" scope="request"/>
 <jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl"/>
@@ -129,20 +130,19 @@
                             <h2><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2" value="${product.price}"/> €</h2>
                         </c:otherwise>
                     </c:choose>
-
                     <c:choose>
-                        <c:when test="${product.rating == -1}">
+                        <c:when test="${Math.round(product.rating) == -1}">
                             Nessuna recensione
                         </c:when>
                         <c:otherwise>
-                            <c:if test="${product.rating > 0}">
-                                <c:forEach begin="0" end="${product.rating - 1}" varStatus="loop">
+                            <c:if test="${Math.round(product.rating) > 0}">
+                                <c:forEach begin="0" end="${Math.round(product.rating) - 1}" varStatus="loop">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </c:forEach>
                             </c:if>
-                            <c:if test="${product.rating < 5}">
-                                <c:forEach begin="0" end="${4 - product.rating}" varStatus="loop">
-                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                            <c:if test="${Math.round(product.rating) < 5}">
+                                <c:forEach begin="0" end="${4 - Math.round(product.rating)}" varStatus="loop">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
                                 </c:forEach>
                             </c:if>
                         </c:otherwise>
@@ -181,18 +181,18 @@
             <div class="col-md-12">
                 <h1 style="margin-top: 0">Recensioni</h1>
                 <c:choose>
-                    <c:when test="${product.rating == -1}">
+                    <c:when test="${Math.round(product.rating) == -1}">
                         Nessuna recensione
                     </c:when>
                     <c:otherwise>
-                        <c:if test="${product.rating > 0}">
-                            <c:forEach begin="0" end="${product.rating - 1}" varStatus="loop">
+                        <c:if test="${Math.round(product.rating) > 0}">
+                            <c:forEach begin="0" end="${Math.round(product.rating) - 1}" varStatus="loop">
                                 <i class="fa fa-star" aria-hidden="true"></i>
                             </c:forEach>
                         </c:if>
-                        <c:if test="${product.rating < 5}">
-                            <c:forEach begin="0" end="${4 - product.rating}" varStatus="loop">
-                                <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                        <c:if test="${Math.round(product.rating) < 5}">
+                            <c:forEach begin="0" end="${4 - Math.round(product.rating)}" varStatus="loop">
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
                             </c:forEach>
                         </c:if>
                     </c:otherwise>
@@ -233,7 +233,7 @@
                             </c:if>
                             <c:if test="${review.rating < 5}">
                                 <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
-                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
                                 </c:forEach>
                             </c:if>
                         </p>

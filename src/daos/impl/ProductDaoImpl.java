@@ -141,7 +141,7 @@ public class ProductDaoImpl implements ProductDao {
             e.printStackTrace();
         }
         try {
-            prod.setRating(rs.getInt("Rating"));
+            prod.setRating(rs.getFloat("Rating"));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -72,7 +72,7 @@
                                                             </c:if>
                                                             <c:if test="${review.rating < 5}">
                                                                 <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
-                                                                    <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
                                                                 </c:forEach>
                                                             </c:if>
                                                         </p>
