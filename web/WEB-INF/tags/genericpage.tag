@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css" >
     <jsp:invoke fragment="pagecss"/>
-    <title><jsp:invoke fragment="pagetitle"/></title>
+    <title><jsp:invoke fragment="pagetitle"/> - Comodino.it</title>
     <style>
         #overlay{
             background-color: #F3F3F4;

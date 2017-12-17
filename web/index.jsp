@@ -4,7 +4,7 @@
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
-        Comodino.it
+        Home
     </jsp:attribute>
 
     <jsp:attribute name="pagecss">
