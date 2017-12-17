@@ -202,15 +202,14 @@
                         <li><a href="${pageContext.request.contextPath}/restricted/orderhistory.jsp">I miei ordini</a></li>
                         <c:if test="${user.hasShop()}">
                             <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Negozio</li>
-                            <li><a href="#">Pannello inventario</a></li>
-                            <li><a href="#">Riepilogo vendite</a></li>
+                            <li class="dropdown-header">Venditore</li>
+                            <li><a href="${pageContext.request.contextPath}/restricted/vendor/shop_panel.jsp">Pannello Negozio</a></li>
+                            <li><a href="${pageContext.request.contextPath}/restricted/vendor/inventory.jsp">Inventario</a></li>
                         </c:if>
                         <c:if test="${user.type == 1}">
                             <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Admin</li>
                             <li><a href="${pageContext.request.contextPath}/restricted/admin_panel.jsp">Pannello principale</a></li>
-                            <li><a href="#">Gestione dispute</a></li>
                         </c:if>
                         <li role="separator" class="divider"></li>
                         <li><a href="${pageContext.request.contextPath}/restricted/logout">Esci</a></li>
