@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class ShopPanelFilter implements Filter {
 
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ShopPanelFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             System.out.println("[INFO] L'utente non è proprietario di uno shop");
-            res.sendRedirect("/profile.jsp?error=L'utente non possiede negozi");
+            res.sendRedirect("/restricted/profile.jsp?error=Non possiedi nessun negozio");
         }
     }
 
