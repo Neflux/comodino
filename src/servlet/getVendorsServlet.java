@@ -13,8 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(name = "getVendorServlet", urlPatterns = {"/getVendorServlet"})
-public class getVendorsServlet extends HttpServlet {
+@WebServlet(name = "GetVendorServlet", urlPatterns = {"/getVendorServlet"})
+public class GetVendorsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection con = DBManager.getCon();
 

@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "getCartServlet", urlPatterns = {"/getcart"})
-public class getCartServlet extends HttpServlet {
+@WebServlet(name = "GetCartServlet", urlPatterns = {"/getcart"})
+public class GetCartServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String ret = "", size = "";
+        StringBuilder ret = new StringBuilder();
+        String size;
 
         if (request.getSession(false).getAttribute("user") == null){
             Cookie[] cookies = request.getCookies();
@@ -27,7 +28,7 @@ public class getCartServlet extends HttpServlet {
                 }
             }
             if (prodCookie == null){
-                ret = "<li class=\"text-center\"><a>Carrello vuoto...</a></li>";
+                ret = new StringBuilder("<li class=\"text-center\"><a>Carrello vuoto...</a></li>");
                 size = "<span class=\"badge\">\n" +
                         "                            <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i> 0\n" +
                         "                        </span>\n" +
@@ -44,18 +45,16 @@ public class getCartServlet extends HttpServlet {
 
                 for (String cartItem : cartproducts) {
                     String[] pieces = cartItem.split("_");
-                    ret += "<li><a href=\"/product.jsp?product=" + pieces[0] + "&shop=" + pieces[2] + "\"> <b>" + pieces[1].replace("-"," ") +
-                            "</b> - " + pieces [3] + "&nbsp;pz</a></li>";
+                    ret.append("<li><a href=\"/product.jsp?product=").append(pieces[0]).append("&shop=").append(pieces[2]).append("\"> <b>").append(pieces[1].replace("-", " ")).append("</b> - ").append(pieces[3]).append("&nbsp;pz</a></li>");
                 }
-                ret += "<li class=\"divider\"></li>\n" +
-                        "                        <li class=\"text-center\"><a href=\"#\">Loggati per continuare <i class=\"fa fa-angle-double-right\" aria-hidden=\"true\"></i>\n</a></li>";
+                ret.append("<li class=\"divider\"></li>\n" + "                        <li class=\"text-center\"><a href=\"\" role=\"button\" data-toggle=\"modal\" data-target=\"#LoginSignup\">Loggati per continuare <i class=\"fa fa-angle-double-right\" aria-hidden=\"true\"></i>\n</a></li>");
             }
             response.setContentType("text/plain");
             response.setCharacterEncoding("UTF-8");
             if (request.getParameter("type").equals("drop"))
                 response.getWriter().write(size);
             else
-                response.getWriter().write(ret);
+                response.getWriter().write(ret.toString());
             return;
         }
 
@@ -77,14 +76,12 @@ public class getCartServlet extends HttpServlet {
                 "                        &nbsp;&nbsp;Carrello <span class=\"caret\"></span>";
 
         if (cart.size() == 0) {
-            ret = "<li class=\"text-center\"><a>Carrello vuoto...</a></li>";
+            ret = new StringBuilder("<li class=\"text-center\"><a>Carrello vuoto...</a></li>");
         } else {
             for (CartItem cartItem : cart) {
-                ret += "<li><a href=\"/product.jsp?product="+cartItem.getProduct().getProductID()+"&shop="+cartItem.getProduct().getShopID()+"\"> <b>" + cartItem.getProduct().getProductName() +
-                        "</b> - " + cartItem.getQuantity() + "&nbsp;pz</a></li>";
+                ret.append("<li><a href=\"/product.jsp?product=").append(cartItem.getProduct().getProductID()).append("&shop=").append(cartItem.getProduct().getShopID()).append("\"> <b>").append(cartItem.getProduct().getProductName()).append("</b> - ").append(cartItem.getQuantity()).append("&nbsp;pz</a></li>");
             }
-            ret += "<li class=\"divider\"></li>\n" +
-                    "                        <li class=\"text-center\"><a href=\"/restricted/cart.jsp\">Vedi carrello <i class=\"fa fa-angle-double-right\" aria-hidden=\"true\"></i>\n</a></li>";
+            ret.append("<li class=\"divider\"></li>\n" + "                        <li class=\"text-center\"><a href=\"/restricted/cart.jsp\">Vedi carrello <i class=\"fa fa-angle-double-right\" aria-hidden=\"true\"></i>\n</a></li>");
         }
 
         response.setContentType("text/plain");
@@ -92,7 +89,7 @@ public class getCartServlet extends HttpServlet {
         if (request.getParameter("type").equals("drop"))
             response.getWriter().write(size);
         else
-            response.getWriter().write(ret);
+            response.getWriter().write(ret.toString());
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 
 // PER TEST
-@WebServlet(name = "getNotificationsServlet", urlPatterns = {"/getnotifications"})
-public class getNotificationsServlet extends HttpServlet{
+@WebServlet(name = "GetNotificationsServlet", urlPatterns = {"/getnotifications"})
+public class GetNotificationsServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         NotificationDao nd = new NotificationDaoImpl();
