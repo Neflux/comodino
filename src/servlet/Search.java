@@ -58,7 +58,7 @@ public class Search extends HttpServlet {
 
 
             //ArrayList
-            request.setAttribute("categories", categories);
+            request.setAttribute("categories", categories   );
             request.setAttribute("vendors", vendors);
             request.setAttribute("geozone", geozone);
 

@@ -19,8 +19,8 @@ public class Utils {
     public static String getStringfromBlob(Blob blob){
         try {
             String imgDataBase64 = new String(Base64.getEncoder().encode(blob.getBytes(1, (int) blob.length())));
-            if(imgDataBase64.equals("")){
-                imgDataBase64 = "http://via.placeholder.com/1000x1000";
+            if(imgDataBase64.isEmpty()){
+                imgDataBase64 = "/ImageNotFound.png";
             }
             else {
                 imgDataBase64 = "data:image/gif;base64," + imgDataBase64;
@@ -30,7 +30,7 @@ public class Utils {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "http://via.placeholder.com/1000x1000";
+        return "/ImageNotFound.png";
     }
     public static String getNDecPrice(float p,int n){
         return String.format("%."+n+"f",p);

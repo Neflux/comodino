@@ -341,13 +341,15 @@ public class ProductDaoImpl implements ProductDao {
 
             //Decode image from first product
             Product p = gp.getList().get(0);
-            String imgDataBase64;
             stm = con.prepareStatement("SELECT * FROM productphoto WHERE ProductID = ?");
             stm.setInt(1, p.getProductID());
             System.out.println("DECODE PRODUCT IMAGE: " + stm.toString().substring(45));
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
                     gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
+                }
+                else{
+                    gp.setImageData("/ImageNotFound.png");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
