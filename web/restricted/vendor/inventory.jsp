@@ -22,7 +22,14 @@
 
     <jsp:body>
         <div id="inventory" class="container">
-            <h1>Inventario:</h1>
+            <div class="row">
+                <div class="col-xs-6">
+                    <h1>Inventario:</h1>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-success pull-right" style="margin-top: 20px"><i class="fa fa-plus"></i> Aggiungi nuovo prodotto</button>
+                </div>
+            </div>
             <ul class="list-group">
                 <c:forEach items="${shop.products}" var="product">
 
@@ -30,7 +37,7 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-lg-2 col-md-2">
-                                <img class="img-rounded img-responsive" src="${product.imgBase64[0]}" alt="product image">
+                                <img class="img-rounded img-responsive" src="${product.imgBase64[0]}" alt="Product Image">
                             </div>
                             <div class="col-lg-5 col-md-3 col-xs-12">
                                 <h3 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${product.shopID}">${product.productName}</a></h3>
@@ -43,7 +50,7 @@
                                             <li><h4>Prezzo: <del>${Utils.getNDecPrice(product.price, 2)}&euro;</del> ${Utils.getNDecPrice(product.actualPrice,2)}&euro;</h4></li>
                                         </c:otherwise>
                                     </c:choose>
-                                    <li>Diponibilità: <b>${product.quantity} pezzi &nbsp;</b>
+                                    <li>Disponibilità: <b>${product.quantity} pezzi &nbsp;</b>
                                         <c:if test="${product.quantity < 20}">
                                             <span class="badge badge-discount">In esaurimento!</span>
                                         </c:if>
