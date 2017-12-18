@@ -30,9 +30,9 @@ public class ReviewDaoImpl implements ReviewDao {
             stm.executeUpdate();
             ResultSet rs = stm.getGeneratedKeys(); // bisogna riferirsi ai campi con il numero in sto caso
             if (rs.next()){
-                return 0;
+                return rs.getInt(1);
             }
-            return rs.getInt(1);
+            return 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,14 +79,14 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
-    public ArrayList<ProductReview> getProductReview(int productID) {
+    public ArrayList<ProductReview> getProductReviews(int productID) {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT *\n" +
                     "FROM productreview\n" +
                     "WHERE ProductID = ?");
             stm.setInt(1, productID);
             ResultSet rs = stm.executeQuery();
-            return extractProductReviewFromResultSet(rs);
+            return extractProductReviewsFromResultSet(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
-    public ArrayList<ProductReview> getVendorProductReview(int shopID) {
+    public ArrayList<ProductReview> getVendorProductReviews(int shopID) {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT *\n" +
                     "FROM productreview\n" +
@@ -103,14 +103,14 @@ public class ReviewDaoImpl implements ReviewDao {
                     "                    WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? )");
             stm.setInt(1, shopID);
             ResultSet rs = stm.executeQuery();
-            return extractProductReviewFromResultSet(rs);
+            return extractProductReviewsFromResultSet(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private ArrayList<ProductReview> extractProductReviewFromResultSet(ResultSet rs) {
+    private ArrayList<ProductReview> extractProductReviewsFromResultSet(ResultSet rs) {
         ArrayList<ProductReview> reviewList = new ArrayList<>();
 
         try {
@@ -144,10 +144,46 @@ public class ReviewDaoImpl implements ReviewDao {
         return null;
     }
 
+    private ProductReview extractProductReviewFromResultSet(ResultSet rs) {
+        try {
+            if (rs.next()){
+                ProductReview productReview = new ProductReview();
+
+                productReview.setCreationDate(rs.getTimestamp("CreationDate"));
+                productReview.setDescription(rs.getString("Description"));
+                productReview.setRating(rs.getFloat("Rating"));
+                productReview.setTitle(rs.getString("Title"));
+                productReview.setUserID(rs.getInt("UserID"));
+                productReview.setProductID(rs.getInt("ProductID"));
+                productReview.setReviewID(rs.getInt("ReviewID"));
+                return productReview;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public User getReviewAuthor(int userID){
         return new UserDaoImpl().getUser(userID);
     }
 
-    public Product getReviewdProduct(int productID, int shopID){ return new ProductDaoImpl().getProduct(productID, shopID);}
+    public Product getReviewProduct(int productID, int shopID){ return new ProductDaoImpl().getProduct(productID, shopID);}
+
+    @Override
+    public ProductReview getProductReviewByUser(User user, int productID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM productreview\n" +
+                    "WHERE UserID = ? AND ProductID = ?");
+            stm.setInt(1, user.getUserID());
+            stm.setInt(2, productID);
+            ResultSet rs = stm.executeQuery();
+            return extractProductReviewFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
