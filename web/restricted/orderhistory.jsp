@@ -128,23 +128,23 @@
                                                                         </div>
                                                                         <div class="col-md-2 text-center">
                                                                             <h4>
-                                                                            <c:choose>
-                                                                                <c:when test="${Math.round(po.review.rating) == -1}">
-                                                                                    <p>Nessuna valutazione data</p>
-                                                                                </c:when>
-                                                                                <c:otherwise>
-                                                                                    <c:if test="${Math.round(po.review.rating) > 0}">
-                                                                                        <c:forEach begin="0" end="${Math.round(po.review.rating) - 1}" varStatus="loop">
-                                                                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                                                                        </c:forEach>
-                                                                                    </c:if>
-                                                                                    <c:if test="${Math.round(po.review.rating) < 5}">
-                                                                                        <c:forEach begin="0" end="${4 - Math.round(po.review.rating)}" varStatus="loop">
-                                                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                                                        </c:forEach>
-                                                                                    </c:if>
-                                                                                </c:otherwise>
-                                                                            </c:choose>
+                                                                                <c:choose>
+                                                                                    <c:when test="${Math.round(po.review.rating) == -1}">
+                                                                                        <p>Nessuna valutazione data</p>
+                                                                                    </c:when>
+                                                                                    <c:otherwise>
+                                                                                        <c:if test="${Math.round(po.review.rating) > 0}">
+                                                                                            <c:forEach begin="0" end="${Math.round(po.review.rating) - 1}" varStatus="loop">
+                                                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                            </c:forEach>
+                                                                                        </c:if>
+                                                                                        <c:if test="${Math.round(po.review.rating) < 5}">
+                                                                                            <c:forEach begin="0" end="${4 - Math.round(po.review.rating)}" varStatus="loop">
+                                                                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                                            </c:forEach>
+                                                                                        </c:if>
+                                                                                    </c:otherwise>
+                                                                                </c:choose>
                                                                             </h4>
                                                                         </div>
                                                                     </div>
