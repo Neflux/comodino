@@ -16,6 +16,8 @@
 
     <jsp:attribute name="pagejavascript">
         <script src="${pageContext.request.contextPath}/js/cleave.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/validate/additional-methods.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/payment.js"></script>
     </jsp:attribute>
 
@@ -23,7 +25,7 @@
         <div class="container">
             <h2>Pagamento</h2>
 
-            <form class="form-horizontal" action="${pageContext.request.contextPath}/restricted/completeorder" method="post">
+            <form id="PaymentForm" class="form-horizontal" action="${pageContext.request.contextPath}/restricted/completeorder" method="post">
                 <div class="col-sm-8">
                     <div class=" col-sm-offset-3 btn-group" style="margin-bottom: 10px;">
                         <a class="btn btn-sm btn-primary mycard mastercard">Mastercard</a>
