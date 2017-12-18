@@ -76,7 +76,7 @@
                                         <button type="button" class="btn btn-primary btn-block margin-btn" onclick=""><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</button>
                                     </div>
                                     <div class="row">
-                                        <button type="button" class="btn btn-danger btn-block margin-btn" onclick=""><i class="fa fa-trash fa-fw fa-lg pull-left"></i>Rimuovi</button>
+                                        <button type="button" class="btn btn-danger btn-block margin-btn" onclick="removeProductModal(${product.productID})"><i class="fa fa-trash fa-fw fa-lg pull-left"></i>Rimuovi</button>
                                     </div>
                                 </div>
                             </div>
@@ -147,6 +147,29 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="removeproductmodal" tabindex="-1" role="dialog">
+            <div class="row">
+                <div id="removeproductcard" class="card card-signup centerize" data-background-color="orange">
+                    <form id="removeproductform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/vendor/removeproduct">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up" >Rimuovere prodotto?</h4>
+                        </div>
+                        <div class="content">
+
+                            <input id="productIDRemoveModal" type="text" name="productID" class="hidden" value="">
+
+                            <div class="footer text-center" style="margin-top: 15px;">
+                                <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#removeproductform').submit();">Rimuovi</a>
+                                <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#removeproductmodal').modal('toggle');});">Annulla</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
     </jsp:body>
 </t:genericpage>
 
