@@ -1,21 +1,24 @@
 package servlet;
 
+import daos.impl.ShopDaoImpl;
 import daos.impl.UserDaoImpl;
 import main.User;
+import main.Shop;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getParameter("email") == null || request.getParameter("password") == null){
+            response.sendRedirect("/index.jsp?error=Parametri Mancanti");
+            return;
+        }
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         System.out.println("Parametri: " + email + " " + password);
@@ -24,26 +27,51 @@ public class LoginServlet extends HttpServlet {
         User user = new UserDaoImpl().authUser(email,password);
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         if (user == null) {
-
-            // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-            request.setAttribute("message", "Email/password non esistente!");
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
-
+            // TODO: bruttissimo che non sappia la differenza tra username/password errati e email ancora da verificare
+            response.sendRedirect("/index.jsp?error=Username o password errati");
         }
         else {
             // imposto l'utente connesso come attributo di sessione
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
-
+            if (user.hasShop()) {
+                Shop shop = new ShopDaoImpl().getShop(user.getShopID());
+                session.setAttribute("shop", shop);
+            }
             // mando un redirect alla servlet che carica i prodotti
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
 
+            //converto il cart anonimo dei cookie in un cart di sessione utente (database)
 
+            Cookie cartproducts = null;
+            int productsAdded = 0;
+            switch((productsAdded = new UserDaoImpl().cookieToCart(user, request.getCookies()))) {
+                case -1:
+                    response.sendRedirect("/index.jsp");
+                    break;
+                case 0:
+                    response.setContentType("text/html");
+                    cartproducts = new Cookie("cartproducts","");
+                    cartproducts.setMaxAge(0);
+                    cartproducts.setPath("/");
+                    response.addCookie(cartproducts);
+                    response.sendRedirect("/index.jsp?warning=Non e' stato aggiunto nessun nuovo articolo");
+                    break;
+                default:
+                    response.setContentType("text/html");
+                    cartproducts = new Cookie("cartproducts","");
+                    cartproducts.setMaxAge(0);
+                    cartproducts.setPath("/");
+                    response.addCookie(cartproducts);
+
+                    response.sendRedirect("/index.jsp?success="+
+                            (productsAdded==1?"Il nuovo articolo e' stato aggiunto":productsAdded+" nuovi articoli sono stati aggiunti")+
+                            " al carrello");
+                    break;
+            }
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.sendRedirect("index.jsp?error=Percorso invalido");
     }
 }

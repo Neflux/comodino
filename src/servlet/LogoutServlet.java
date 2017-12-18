@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "LogoutServlet", urlPatterns = {"/logout"})
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/restricted/logout"})
 public class LogoutServlet extends HttpServlet {
 
     @Override
@@ -19,6 +19,6 @@ public class LogoutServlet extends HttpServlet {
             session.removeAttribute("user");
             session.invalidate();
         }
-        resp.sendRedirect("/index.jsp?action=logout");
+        resp.sendRedirect("/index.jsp?success=Uscito con successo");
     }
 }

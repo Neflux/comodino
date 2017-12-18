@@ -46,14 +46,13 @@ body>div.container{
     margin-bottom: 10px;
 }
 
+.navbar-form.navbar-search > div.input-group {
+    margin-bottom: 0px;
+    margin-top: 4px;
+}
+
 [data-background-color] .title {
     color: #fff;
-}
-h4, .h4 {
-    font-size: 1.714em;
-    line-height: 1.45em;
-    margin-top: 30px;
-    margin-bottom: 15px;
 }
 .title {
     font-weight: 700;
@@ -342,4 +341,13 @@ input.form-control {
 }
 .btn-modal {
     background-color: #1a242f;
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }

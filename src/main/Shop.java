@@ -1,6 +1,7 @@
 package main;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Shop implements Serializable {
 
@@ -10,6 +11,11 @@ public class Shop implements Serializable {
     private String website = "";
     private float rating = -1;
     private float sampleActualPrice = 0; //ovviamente uno shop non ha un prezzo singolo, ma ci serve per il modal nella ricerca
+
+    private ArrayList<String> shopphoto;
+
+    private ArrayList<Product> expiringProducts;
+    private ArrayList<Product> products;
 
     public int getShopID() {
         return shopID;
@@ -57,5 +63,26 @@ public class Shop implements Serializable {
 
     public void setSampleActualPrice(float sampleActualPrice) {
         this.sampleActualPrice = sampleActualPrice;
+    }
+
+
+    public ArrayList<String> getShopphoto() {
+        return shopphoto;
+    }
+
+    public void setShopphoto(ArrayList<String> shopphoto) {
+        this.shopphoto = shopphoto;
+    }
+
+    public ArrayList<Product> getExpiringProducts() { return expiringProducts; }
+
+    public void setExpiringProducts(ArrayList<Product> expiringProducts) {
+        this.expiringProducts = expiringProducts;
+    }
+
+    public ArrayList<Product> getProducts() { return products;}
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
     }
 }

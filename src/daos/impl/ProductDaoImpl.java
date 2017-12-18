@@ -2,13 +2,17 @@ package daos.impl;
 
 import daos.ProductDao;
 import db.DBManager;
+import info.debatty.java.stringsimilarity.JaroWinkler;
 import main.Product;
 import main.ProductGroup;
 import main.Shop;
 import utils.Utils;
 
-import java.sql.*;
-import java.util.Base64;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +20,14 @@ import static utils.Mechanist.checkSMP;
 import static utils.Mechanist.getMMP;
 
 public class ProductDaoImpl implements ProductDao {
+    private final static String sortKeyword = "sort";
+    private final static String minPriceKeyword = "minPrice";
+    private final static String maxPriceKeyword = "maxPrice";
+    private final static String minRatingKeyword = "minRat";
+    private final static String categoryKeyword = "cat";
+    private final static String vendorKeyword = "vendor";
+    private final static String geolocalizationKeyword = "geo";
     private Connection con;
-
     public ProductDaoImpl() {
         this.con = DBManager.getCon();
     }
@@ -27,12 +37,11 @@ public class ProductDaoImpl implements ProductDao {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT *, s.Name AS ShopName \n" +
                     "FROM product AS p\n" +
-                    "INNER JOIN productphoto AS pp USING(ProductID)\n" +
                     "INNER JOIN shopproduct AS sp USING (ProductID)\n" +
                     "INNER JOIN shop AS s USING (ShopID)\n" +
                     "WHERE p.ProductID = ? AND sp.ShopID = ?;");
-            stm.setInt(1,productID);
-            stm.setInt(2,shopID);
+            stm.setInt(1, productID);
+            stm.setInt(2, shopID);
             ResultSet rs = stm.executeQuery();
             return extractProductFromResultSet(rs);
         } catch (SQLException e) {
@@ -41,100 +50,119 @@ public class ProductDaoImpl implements ProductDao {
         return null;
     }
 
+    @Override
+    public ArrayList<Product> allProducts() {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM product AS p\n" +
+                    "INNER JOIN shopproduct AS sp USING (ProductID)\n" +
+                    "GROUP BY ProductID;");
+            ResultSet rs = stm.executeQuery();
+            return extractAllProductsFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private ArrayList<Product> extractAllProductsFromResultSet(ResultSet rs) throws SQLException {
+        ArrayList<Product> products = new ArrayList<>();
+        Product prod;
+        while (true) {
+            prod = extractProductFromResultSet(rs);
+            if (prod == null)
+                break;
+            products.add(prod);
+        }
+        return products;
+    }
+
     private Product extractProductFromResultSet(ResultSet rs) throws SQLException {
-        if(!rs.next()){
+        if (!rs.next()) {
             return null;
         }
         Product prod = new Product();
 
         //invece che tutti questi try catch non si potrebbe studiare la casistica di sottogruppi possibili e farne solo 2-3?
 
-        try{
+        try {
             prod.setProductID(rs.getInt("ProductID"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             prod.setProductName(rs.getString("Name"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             prod.setShopID(rs.getInt("ShopID"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             prod.setShopName(rs.getString("ShopName"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             prod.setDescription(rs.getString("Description"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
-            prod.setImgBase64(Utils.getStringfromBlob(rs.getBlob("Image")));
-        }catch (Exception e){
+        try {
+            prod.setImgBase64(getImages(prod.getProductID()));
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             prod.setPrice(rs.getFloat("Price"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             prod.setQuantity(rs.getInt("Quantity"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             prod.setDiscount(rs.getFloat("Discount"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
-            prod.setActualPrice(prod.getPrice()*(1-prod.getDiscount()));
-        }catch (Exception e){
+        try {
+            prod.setActualPrice(prod.getPrice() * (1 - prod.getDiscount()));
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
+        try {
             prod.setCategoryName(rs.getString("CategoryName"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
-            prod.setRating(rs.getInt("Rating"));
-        }catch (Exception e){
+        try {
+            prod.setRating(rs.getFloat("Rating"));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return prod;
     }
 
-    private final static String sortKeyword             = "sort"      ;
-    private final static String minPriceKeyword         = "minPrice"  ;
-    private final static String maxPriceKeyword         = "maxPrice"  ;
-    private final static String minRatingKeyword        = "minRat"    ;
-    private final static String categoryKeyword         = "cat"       ;
-    private final static String vendorKeyword           = "vendor"    ;
-    private final static String geolocalizationKeyword  = "geo"       ;
-
     @Override
     public Map<String, ProductGroup> getProducts(Map params) throws SQLException {
-        Map<String,ProductGroup> products = new HashMap<>();
+        Map<String, ProductGroup> products = new HashMap<>();
 
         //Search query parameter
         String searchQuery;
-        if((searchQuery = checkSMP(params.get("q"))) == null){
+        if ((searchQuery = checkSMP(params.get("q"))) == null) {
             return null;
         }
 
         //Sorting parameter
         String sort = checkSMP(params.get(sortKeyword)),
                 orderBySql = "ORDER BY ActualPrice ASC, P.Rating DESC, S.Rating DESC, SP.Quantity DESC";
-        if(sort != null) {
+        if (sort != null) {
             switch (sort) {
                 case "price-asc":
                     orderBySql = " ORDER BY ActualPrice ASC, P.Rating DESC, S.Rating DESC, SP.Quantity DESC";
@@ -151,27 +179,25 @@ public class ProductDaoImpl implements ProductDao {
         }
 
         //minPrice parameter
-        String minPrice,maxPrice;
-        if((minPrice = checkSMP(params.get(minPriceKeyword))) != null){
+        String minPrice, maxPrice;
+        if ((minPrice = checkSMP(params.get(minPriceKeyword))) != null) {
             try {
                 int value = Integer.parseInt(minPrice);
-                if(value >= 0){
+                if (value >= 0) {
                     minPrice = " ActualPrice >= " + minPrice + " ";
-                }
-                else minPrice = "";
+                } else minPrice = "";
             } catch (NumberFormatException e) {
                 e.printStackTrace();
                 minPrice = "";
             }
         } else minPrice = "";
         //maxPrice parameter
-        if((maxPrice = checkSMP(params.get(maxPriceKeyword))) != null){
+        if ((maxPrice = checkSMP(params.get(maxPriceKeyword))) != null) {
             try {
                 int value = Integer.parseInt(maxPrice);
-                if(value > 0){
+                if (value > 0) {
                     maxPrice = " ActualPrice <= " + maxPrice + " ";
-                }
-                else maxPrice = "";
+                } else maxPrice = "";
             } catch (NumberFormatException e) {
                 e.printStackTrace();
                 maxPrice = "";
@@ -179,32 +205,28 @@ public class ProductDaoImpl implements ProductDao {
         } else maxPrice = "";
         //price range;
         String priceRange = " HAVING ";
-        if(minPrice.equals("")){
-            if(maxPrice.equals("")){
+        if (minPrice.equals("")) {
+            if (maxPrice.equals("")) {
                 priceRange = "";
-            }
-            else{
+            } else {
                 priceRange += maxPrice;
             }
-        }
-        else{
-            if(maxPrice.equals("")){
+        } else {
+            if (maxPrice.equals("")) {
                 priceRange += minPrice;
-            }
-            else{
+            } else {
                 priceRange += minPrice + " AND " + maxPrice;
             }
         }
 
         //minRating parameter
         String minRating;
-        if((minRating = checkSMP(params.get(minRatingKeyword))) != null){
+        if ((minRating = checkSMP(params.get(minRatingKeyword))) != null) {
             try {
                 int value = Integer.parseInt(minRating);
-                if(!(value >= 1 && value <= 5)){
+                if (!(value >= 1 && value <= 5)) {
                     minRating = "";
-                }
-                else {
+                } else {
                     minRating = " AND P.Rating >= " + minRating + " ";
                 }
             } catch (NumberFormatException e) {
@@ -216,10 +238,10 @@ public class ProductDaoImpl implements ProductDao {
         //Category parameter
         String[] cat;
         StringBuilder category = new StringBuilder();
-        if((cat = getMMP(params.get(categoryKeyword))) != null){
-            for(int i = 0; i<cat.length;i++){
+        if ((cat = getMMP(params.get(categoryKeyword))) != null) {
+            for (int i = 0; i < cat.length; i++) {
                 System.out.println(cat[i]);
-                if(i == 0)
+                if (i == 0)
                     category.append(" AND (P.CategoryName = '")
                             .append(cat[i])
                             .append("'")
@@ -235,7 +257,7 @@ public class ProductDaoImpl implements ProductDao {
         //Vendor parameter
         String[] ven;
         StringBuilder vendor = new StringBuilder();
-        if((ven = getMMP(params.get(vendorKeyword))) != null){
+        if ((ven = getMMP(params.get(vendorKeyword))) != null) {
             for (String aVen : ven) {
                 vendor.append(" AND (S.Name <> '").append(aVen).append("')");
             }
@@ -244,7 +266,7 @@ public class ProductDaoImpl implements ProductDao {
         //Regione amministrativa
         String[] geo;
         StringBuilder region = new StringBuilder();
-        if((geo = getMMP(params.get(geolocalizationKeyword))) != null){
+        if ((geo = getMMP(params.get(geolocalizationKeyword))) != null) {
             region.append(" AND S.ShopID = SI.ShopID ");
             for (String aGeo : geo)
                 region.append(" AND (SI.State <> '").append(aGeo).append("')");
@@ -256,34 +278,38 @@ public class ProductDaoImpl implements ProductDao {
                         "SP.ShopID, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName, " +
                         " round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
                         "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
-                        "WHERE P.Name LIKE ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
+                        "WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
                         region.toString() + category.toString() + vendor.toString() + minRating +
                         priceRange +            //HAVING
                         orderBySql              //ORDER BY
         );
-        stm.setString(1,"%"+searchQuery+"%");
         System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
 
         //Final query execute
         try {
-            try (ResultSet rs = stm.executeQuery()){
-                while(rs.next()) {
-                    //Product crafting
-                    Product p = new Product();
-                    p.setProductID(rs.getInt("ProductID"));
-                    p.setShopID(rs.getInt("ShopID"));
-                    p.setProductName(rs.getString("ProductName"));
-                    p.setCategoryName(rs.getString("CategoryName"));
-                    p.setRating(rs.getFloat("Rating"));
-                    p.setPrice(rs.getFloat("Price"));
-                    p.setDiscount(rs.getFloat("Discount"));
-                    p.setActualPrice(rs.getFloat("ActualPrice"));
-                    p.setQuantity(rs.getInt("Quantity"));
-                    p.setShopName(rs.getString("ShopName"));
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    //JaroWinkler implementation
+                    JaroWinkler jw = new JaroWinkler();
+                    double distance = jw.similarity(rs.getString("ProductName").toLowerCase(), searchQuery.toLowerCase());
+                    if (searchQuery.equals("") || distance >= 0.7) {
+                        //Product crafting
+                        Product p = new Product();
+                        p.setProductID(rs.getInt("ProductID"));
+                        p.setShopID(rs.getInt("ShopID"));
+                        p.setProductName(rs.getString("ProductName"));
+                        p.setCategoryName(rs.getString("CategoryName"));
+                        p.setRating(rs.getFloat("Rating"));
+                        p.setPrice(rs.getFloat("Price"));
+                        p.setDiscount(rs.getFloat("Discount"));
+                        p.setActualPrice(rs.getFloat("ActualPrice"));
+                        p.setQuantity(rs.getInt("Quantity"));
+                        p.setShopName(rs.getString("ShopName"));
 
-                    //ProductGroup crafting
-                    products.computeIfAbsent(p.getProductName(), k -> new ProductGroup());
-                    products.get(p.getProductName()).getList().add(p);
+                        //ProductGroup crafting
+                        products.computeIfAbsent(p.getProductName(), k -> new ProductGroup());
+                        products.get(p.getProductName()).getList().add(p);
+                    }
                 }
             }
         } finally {
@@ -291,22 +317,22 @@ public class ProductDaoImpl implements ProductDao {
         }
 
         //ProductGroup extra fetching
-        for (Object o : products.entrySet()) {
-            Map.Entry pair = (Map.Entry) o;
+        for (Map.Entry pair : products.entrySet()) {
             ProductGroup gp = (ProductGroup) pair.getValue();
             System.out.println("\nPRODUCT: " + pair.getKey().toString());
 
             //Review count info
             stm = con.prepareStatement(
-            "SELECT COUNT(*) AS conto, product.name " +
-                    "FROM productreview, product " +
-                    "WHERE product.ProductID = productreview.ProductID AND product.name = ?"
+                    "SELECT COUNT(*) AS conto\n" +
+                            "FROM productreview\n" +
+                            "WHERE ProductID = ?"
             );
-            stm.setString(1, pair.getKey().toString());
-            System.out.println("REVIEW COUNT: "+stm.toString().substring(45));
+            stm.setInt(1, gp.getList().get(0).getProductID());
+
             try {
                 try (ResultSet rs = stm.executeQuery()) {
                     rs.next();
+                    System.out.println("REVIEW COUNT: " + rs.getInt("conto"));
                     gp.setReviewCount(rs.getInt("conto"));
                 }
             } finally {
@@ -315,27 +341,25 @@ public class ProductDaoImpl implements ProductDao {
 
             //Decode image from first product
             Product p = gp.getList().get(0);
-            String imgDataBase64;
-            stm = con.prepareStatement("select * from productphoto where ProductID = ?");
-            stm.setInt(1,p.getProductID());
-            System.out.println("DECODE PRODUCT IMAGE: "+stm.toString().substring(45));
-            try (ResultSet rs = stm.executeQuery()){
-                if(rs.next()) {
-                    Blob imgData = rs.getBlob("Image");
-                    imgDataBase64 = new String(Base64.getEncoder().encode(imgData.getBytes(1, (int) imgData.length())));
-                    gp.setImageData(imgDataBase64);
-                    imgData.free();
+            stm = con.prepareStatement("SELECT * FROM productphoto WHERE ProductID = ?");
+            stm.setInt(1, p.getProductID());
+            System.out.println("DECODE PRODUCT IMAGE: " + stm.toString().substring(45));
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
                 }
-            } catch(Exception e){
+                else{
+                    gp.setImageData("/ImageNotFound.png");
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 stm.close();
             }
 
             //Fetch shop list related to this ProductGroup
             stm = con.prepareStatement("SELECT shop.*, shopproduct.Price, shopproduct.Discount, " +
-                    "shopproduct.Quantity, round(shopproduct.Price * (1-shopproduct.Discount),2) as ActualPrice " +
+                    "shopproduct.Quantity, round(shopproduct.Price * (1-shopproduct.Discount),2) AS ActualPrice " +
                     "FROM product, shopproduct, shop " +
                     "WHERE product.name = ? AND shopproduct.Quantity > 0 " +
                     "AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID " +
@@ -343,8 +367,8 @@ public class ProductDaoImpl implements ProductDao {
             );
             stm.setString(1, pair.getKey().toString());
             System.out.println("FETCH SHOP LIST: " + stm.toString().substring(45));
-            try (ResultSet rs = stm.executeQuery()){
-                while(rs.next()) {
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
                     //Shop crafting
                     Shop s = new Shop();
                     s.setShopID(rs.getInt("ShopID"));
@@ -357,14 +381,105 @@ public class ProductDaoImpl implements ProductDao {
                     //Actual insertion
                     gp.getVendors().add(s);
                 }
-            } catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                stm.close();
             }
-            finally {
+
+            //Fetch geozone list related to this ProductGroup
+            stm = con.prepareStatement(
+                    "SELECT DISTINCT SI.State " +
+                            "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
+                            "WHERE P.Name = ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
+            );
+            stm.setString(1, pair.getKey().toString());
+
+            //Execution
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    gp.getGeo().add(rs.getString("State"));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
                 stm.close();
             }
         }
 
         return products;
+    }
+
+    @Override
+    public boolean checkAvailability(int productID, int shopID, Integer quantity) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM shopproduct\n" +
+                    "WHERE ProductID = ? AND ShopID = ?");
+            stm.setInt(1, productID);
+            stm.setInt(2, shopID);
+            ResultSet rs = stm.executeQuery();
+            Product p = extractProductFromResultSet(rs);
+            return p.getQuantity() > quantity;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean reduceAvailability(int productID, int shopID, Integer quantity) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE shopproduct SET Quantity = Quantity - ?\n" +
+                    "WHERE ProductID = ? AND ShopID = ? AND Quantity >= ?");
+            stm.setInt(1, quantity);
+            stm.setInt(2, productID);
+            stm.setInt(3, shopID);
+            stm.setInt(4, quantity);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateProductRating(int productID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE product P \n" +
+                    "SET Rating = (SELECT avg(Rating) as ratingreview \n" +
+                    "              FROM productreview \n" +
+                    "              WHERE ProductID = P.ProductID) \n" +
+                    "WHERE ProductID = ?");
+            stm.setInt(1, productID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public ArrayList<String> getImages(int productID){
+
+        ArrayList<String> imgBase64 = new ArrayList<>();
+
+        try{
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM productphoto WHERE ProductID = ?");
+            stm.setInt(1, productID);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
+            }
+            if (imgBase64.size()==0){
+                imgBase64.add("/ImageNotFound.png");
+            }
+        } catch (SQLException e) {
+            imgBase64.add("/ImageNotFound.png");
+            e.printStackTrace();
+        }
+        return imgBase64;
     }
 }

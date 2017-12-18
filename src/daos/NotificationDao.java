@@ -1,6 +1,5 @@
 package daos;
 
-import daos.impl.NotificationDaoImpl;
 import main.Notification;
 import main.User;
 
@@ -9,10 +8,19 @@ import java.util.ArrayList;
 
 public interface NotificationDao extends Serializable {
 
-    ArrayList<Notification> getNotifications(User user);
+    boolean createProductReviewNotification(int reviewID, String title, int rating);
 
-    ArrayList<Notification> getReviewNotifications(int shopID);
+    boolean createDisputeNotification(String title, int orderID, int productID, int shopID);
+
+    ArrayList<Notification> getVendorNotifications(User user);
+
+    ArrayList<Notification> getAdminNotifications();
+
+    ArrayList<Notification> getProductReviewNotifications(int shopID);
+
+    ArrayList<Notification> getShopReviewNotifications(int shopID);
 
     ArrayList<Notification> getDisputeNotifications(int shopID);
 
+    boolean readNotifications(User user);
 }

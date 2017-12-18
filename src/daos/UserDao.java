@@ -1,11 +1,10 @@
 package daos;
 
-import javafx.util.Pair;
-import main.Product;
+import main.Cart;
 import main.User;
 
+import javax.servlet.http.Cookie;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public interface UserDao extends Serializable {
     /**
@@ -35,12 +34,23 @@ public interface UserDao extends Serializable {
      */
     boolean editInfo(User user);
 
-    boolean hasShop(User user);
-
     int getShopID (User user);
 
-    ArrayList<Pair<Product, Integer>> getCart(User user);
+    Cart getCart(User user);
+
+    void decreaseCartItem(User user, int productID, int shopID);
+
+    void addCartItem(User user, int productID, int shopID);
 
     void removeCartItem(User user, int productID, int shopID);
 
+    int register(String firstname, String lastname, String email, String password);
+
+    boolean acceptPrivacy (User user);
+
+    User getUser(int userID);
+
+    boolean confirm(String token);
+
+    int cookieToCart(User user, Cookie[] cookies);
 }

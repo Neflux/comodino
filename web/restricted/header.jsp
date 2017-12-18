@@ -1,24 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
-<%@ page import="main.User" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="main.Product" %>
-<%@ page import="javafx.util.Pair" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<html><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="../css/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="../css/custom.min.css">
-    <script src="https://use.fontawesome.com/f98c8dd683.js"></script>
-    <link rel="stylesheet" href="../css/my.css">
-    <link rel="stylesheet" href="../css/header.css">
-</head>
-<body>
-<%
-    User usr = (User) session.getAttribute("user");
-%>
+<jsp:useBean id="categoryDao" class="daos.impl.CategoryDaoImpl"/>
+<c:set var="categories" value="${categoryDao.getCategories()}" scope="page"/>
+
+<jsp:useBean id="user" class="main.User" scope="session"/>
+<jsp:useBean id="notificationdao" class="daos.impl.NotificationDaoImpl"/>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -29,183 +18,223 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="../css/logo.svg"/>
-                <%
-                    if (!(usr != null && (usr.hasShop() || usr.getType() == 1))) {
-                %>
-                <span id="headertitle">Comodino.it</span>
-                <%
-                    }
-                %>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/css/logo.svg"/>
+                <c:if test="${!user.hasShop() && user.type == 0}">
+                    <span id="headertitle">Comodino.it</span>
+                </c:if>
             </a>
         </div>
         <div class="navbar-collapse collapse">
-            <%
-                if (usr != null) {
-            %>
             <ul class="nav navbar-nav navbar-left">
-                <%
-                    if (usr.hasShop()){
-                %>
-                <li><a href="#">65&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i></a></li>
-                <%
-                    }
-                    if(usr.getType() == 1){
-                %>
-                <li><a href="#">23&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i></a></li>
-                <%
-                    }
-                %>
+                <c:if test="${user.hasShop()}">
+                    <c:set var="vendor_notifications" value="${notificationdao.getVendorNotifications(user)}" scope="page"/>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="badge">
+                                ${fn:length(vendor_notifications)}&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Notifiche Venditore</li>
+                            <c:choose>
+                                <c:when test="${fn:length(vendor_notifications) == 0}">
+                                    <li><a>Nessuna nuova notifica</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${vendor_notifications}" var="n">
+                                        <li>
+                                            <a>
+                                                <c:choose>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationProductReview'}">
+                                                        <%-- TODO: fare più bella la notifica nuova --%>
+                                                        <c:if test="${n.shopStatus == 0}"><b>NEW </b></c:if>Recensione prodotto:
+                                                        <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
+                                                        <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                                                        <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span>
+                                                    </c:when>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationShopReview'}">
+                                                        Recensione negozio:
+                                                    </c:when>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationDispute'}">
+                                                        Disputa:
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Qualcosa è andato storto...
+                                                    </c:otherwise>
+                                                </c:choose>
+
+                                                <br>
+                                                <b class="notif-title">${n.title}</b><br>
+                                                <c:choose>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationProductReview'}">
+                                                        <span>
+                                                            <c:if test="${n.rating > 0}">
+                                                                <c:forEach begin="0" end="${n.rating - 1}" varStatus="loop">
+                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                            <c:if test="${n.rating < 5}">
+                                                                <c:forEach begin="0" end="${4 - n.rating}" varStatus="loop">
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                        </span>
+                                                    </c:when>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationShopReview'}">
+                                                        <span>
+                                                            <c:forEach begin="0" end="${n.rating - 1}" varStatus="loop">
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                            </c:forEach>
+                                                            <c:forEach begin="0" end="${4 - n.rating}" varStatus="loop">
+                                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                            </c:forEach>
+                                                        </span>
+                                                    </c:when>
+                                                    <c:when test="${n.getClass().simpleName == 'NotificationDispute'}">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Qualcosa è andato storto...
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </a>
+                                        </li>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Vedi tutte</a></li><!-- TODO: inserire link pagina/sistemare formattazione notifiche -->
+                        </ul>
+                    </li>
+                </c:if>
+                <c:if test="${user.type == 1}">
+                    <c:set var="admin_notifications" value="${notificationdao.getAdminNotifications()}" scope="page"/>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span class="badge">
+                                ${fn:length(admin_notifications)}&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Notifiche Admin</li>
+                            <c:choose>
+                                <c:when test="${fn:length(admin_notifications) == 0}">
+                                    <li><a>Nessuna nuova notifica</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${admin_notifications}" var="n">
+                                        <li>
+                                            <a>
+                                                <%-- TODO: fare più bella la notifica nuova --%>
+                                                <c:if test="${n.adminStatus == 0}"><b>NEW </b></c:if>Disputa:
+                                                <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
+                                                <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                                                <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                ${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span><br>
+                                                <b class="notif-title">${n.title}</b>
+                                                <br>
+                                                Order: ${n.orderId} Product: ${n.productId} Shop: ${n.shopId}</a>
+                                        </li>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Vedi tutte</a></li><!-- TODO: sistemare formattazione notifiche -->
+                        </ul>
+                    </li>
+                </c:if>
             </ul>
-            <%
-                }
-            %>
-            <ul class="nav navbar-nav navbar-center">
-                <li>
-                    <form class="navbar-form" type="GET" action="${pageContext.request.contextPath}/search">
+            <div class="nav navbar-nav navbar-center">
+                <form class="navbar-form navbar-search" role="search" type="GET" action="${pageContext.request.contextPath}/search">
+                    <div class="input-group">
+
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="label-icon">Categoria</span>
+                                &nbsp;&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-left" role="menu">
+                                <li><a href="#">Tutte le categorie</a></li>
+                                <c:forEach items="${categories}" var="cat">
+                                    <li><a  href="#">${cat.categoryName}</a></li>
+                                    <input id="${fn:replace(cat.categoryName,' ', '')}-radio" name="cat" value="${cat.categoryName}" type="radio" hidden>
+                                </c:forEach>
+                            </ul>
+
+                        </div>
+
+                        <input name="q" class="form-control" type="text" placeholder="Cerca" autofocus>
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-search btn-default">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <!--form class="navbar-form" type="GET" action="${pageContext.request.contextPath}/search">
                         <div class="btn btn-default btn-left dropdown">
                             <a href="#" class="dropdown-toggle navbar-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorie&nbsp;&nbsp;<span class="caret"></span></a>
+
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Tutte le Categorie</a></li>
+                                <c:forEach items="${categories}" var="cat">
+                                    <li><a href="#">${cat.categoryName}</a></li>
+                                </c:forEach>
                             </ul>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control no-border" name="q" placeholder="Cerca" required>
                         </div>
                         <button type="submit" class="btn btn-default btn-right"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </li>
-            </ul>
+                    </form-->
+
+            </div>
             <ul class="nav navbar-nav navbar-right">
-                <%
-                    if (usr == null) {
-                %>
-                <li>
-                    <a href="#" role="button" data-toggle="modal" data-target="#LoginSignup">
-                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;Login | Sign Up
-                    </a>
-                </li>
-                <%
-                }else {
-                %>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp; <%=usr.getFirstName()%> <%=usr.getLastName()%> <span class="caret"></span>
+                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp; ${user.firstName} ${user.lastName}  <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu centered">
                         <li class="dropdown-header">Il mio profilo</li>
-                        <li><a href="profile.jsp">Il mio account</a></li>
-                        <li><a href="orderhistory.jsp">I miei ordini</a></li>
-                        <%
-                            if(usr.hasShop()){
-                        %>
+                        <li><a href="${pageContext.request.contextPath}/restricted/profile.jsp">Il mio account</a></li>
+                        <li><a href="${pageContext.request.contextPath}/restricted/orderhistory.jsp">I miei ordini</a></li>
+                        <c:if test="${user.hasShop()}">
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Venditore</li>
+                            <li><a href="${pageContext.request.contextPath}/restricted/vendor/shop_panel.jsp">Pannello Negozio</a></li>
+                            <li><a href="${pageContext.request.contextPath}/restricted/vendor/inventory.jsp">Inventario</a></li>
+                        </c:if>
+                        <c:if test="${user.type == 1}">
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Admin</li>
+                            <li><a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Pannello principale</a></li>
+                        </c:if>
                         <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Negozio</li>
-                        <li><a href="#">Inventario</a></li>
-                        <li><a href="#">Riepilogo vendite</a></li>
-                        <%
-                            }
-                        %>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="logout">Esci</a></li>
+                        <li><a href="${pageContext.request.contextPath}/restricted/logout">Esci</a></li>
                     </ul>
                 </li>
-                <%
-                    ArrayList<Pair<Product, Integer>> cart = usr.getCart();
-                %>
                 <li class="dropdown">
                     <a id="cartdrop" onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="badge">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> <%=cart.size()%>
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> ${user.getCart(false).size()}
                         </span>
                         &nbsp;&nbsp;Carrello <span class="caret"></span>
                     </a>
                     <ul id="cartheader" class="dropdown-menu right">
                         <!-- ORA L'INTERNO DEL CARRELLO è GESTITO CON AJAX-->
-                        <%
-                            if (cart.size() == 0){
-                                %>
-                        <li class="text-center"><a>Carrello vuoto...</a></li>
-                        <%
-                            }
-                            for (Pair<Product, Integer> cartItem:cart) {
-                        %>
-                        <li><a href="#"><%=cartItem.getKey().getProductName()%> N: <%=cartItem.getValue()%></a></li>
-                        <%
-                            }
-                        %>
+                        <c:if test="${user.getCart(false).size() == 0}">
+                            <li class="text-center"><a>Carrello vuoto...</a></li>
+                        </c:if>
+                        <c:forEach var="cartItem" items="${user.getCart(false)}">
+                            <li><a href="#">${cartItem.getProduct().getProductName()} N: ${cartItem.getQuantity()}</a></li>
+                        </c:forEach>
                         <li class="divider"></li>
                         <li class="text-center"><a href="${pageContext.request.contextPath}/restricted/cart.jsp">Vedi carrello <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
                     </ul>
                 </li>
-                <%
-                    }
-                %>
             </ul>
         </div>
     </div>
 </nav>
-
-<!-- Modal -->
-<div class="modal fade" id="LoginSignup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="row">
-        <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-            <form class="form" method="POST" action="${pageContext.request.contextPath}/login" id="form">
-                <div class="header header-primary text-center">
-                    <h4 class="title title-up" id="card_titolo" style="margin-bottom: -40px; margin-top: 20px;">Login</h4>
-                </div>
-                <div class="content">
-                    <div class="input-group form-group-no-border nologin" style="opacity: 0;margin-top: -50px;">
-                          <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
-                          </span>
-                        <input type="text" class="form-control" name="FirstName" placeholder="Nome...">
-                    </div>
-                    <div class="input-group form-group-no-border nologin" style="opacity: 0; ">
-                          <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
-                          </span>
-                        <input type="text" class="form-control" name="LastName" placeholder="Cognome...">
-                    </div>
-                    <div class="input-group form-group-no-border login">
-                          <span class="input-group-addon">
-                              <i class="fa fa-envelope-o green" aria-hidden="true"></i>
-                          </span>
-                        <input type="text" class="form-control" name="email" placeholder="Email...">
-                    </div>
-                    <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-key green" aria-hidden="true"></i>
-                          </span>
-                        <input type="password" placeholder="Password..." name="password" class="form-control" />
-                    </div>
-                    <div class="row text-center" style="margin-top: 15px">
-                        <span class="white" id="card_change_button">Non hai ancora un account? <a onclick="show_signup();">Registrati</a></span>
-                    </div>
-                    <!-- If you want to add a checkbox to this form, uncomment this code -->
-                    <!-- <div class="checkbox">
-                        <input id="checkboxSignup" type="checkbox">
-                          <label for="checkboxSignup">
-                          Unchecked
-                          </label>
-                          </div> -->
-                </div>
-                <div class="footer text-center" style="margin-top: 15px;">
-                    <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#form').submit();">Entra</a><a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#LoginSignup').modal('toggle');});">Chiudi</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/custom.js"></script>
-<script src="../js/now-ui-kit.js"></script>
-<script src="../js/signup_login/signup_login_actions.js"></script>
-<script src="../js/header.js"></script>
-</body></html>

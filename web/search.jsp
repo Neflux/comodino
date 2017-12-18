@@ -1,293 +1,281 @@
-<%@ page import="main.Product" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="main.ProductGroup" %>
-<%@ page import="main.Shop" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="utils.Utils" %>
+<%@ page import="java.lang.Math" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<!doctype html>
-<html lang="it">
-    <head>
-        <link rel="stylesheet" type="text/css" href="css/search.css">
-        <link rel="stylesheet" type="text/css" href="js/bootstrap-slider-master/bootstrap-slider-master/dist/css/bootstrap-slider.css">
-        <title>Ricerca</title>
+<jsp:useBean id="products" class="java.util.HashMap" scope="request"/>
+<jsp:useBean id="categories" class="java.util.HashSet" scope="request"/>
+<jsp:useBean id="vendors" class="java.util.HashSet" scope="request"/>
+<jsp:useBean id="geozone" class="java.util.HashSet" scope="request"/>
 
-    </head>
-    <body>
+<t:genericpage>
+    <jsp:attribute name="pagetitle">
+        Ricerca
+    </jsp:attribute>
+    <jsp:attribute name="pagecss">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/search.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/bootstrap-slider-master/bootstrap-slider-master/dist/css/bootstrap-slider.css">
+    </jsp:attribute>
 
-        <%
-            if(session != null && session.getAttribute("user") != null){
-        %>
-        <jsp:include page="/restricted/header.jsp" flush="true" />
-        <%
-        }
-        else{
-        %>
-        <jsp:include page="/header_anonimo.jsp" flush="true" />
-        <%
-            }
-        %>
+    <jsp:attribute name="pagejavascript">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/addtocart.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/search.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-slider-master/bootstrap-slider-master/dist/bootstrap-slider.js"></script>
+    </jsp:attribute>
 
-        <div class="banner">
+    <jsp:body>
+        <div class="container banner">
             <h5>
-                <a href="index.php">Home</a>
-                <i class="fa fa-angle-right"></i>
-                <span>Forno</span>
+                <a href="index.jsp">Home</a>
+                <c:if test="${param.cat != null}">
+                    &nbsp;<i class="fa fa-angle-right"></i>&nbsp;
+                    <a class="text-capitalize" href="search.jsp?cat=${param.cat}&q=">${param.cat}</a>
+                </c:if>
+
+                <span class="text-capitalize">
+                    :&nbsp;
+                    <c:if test='${!param.q.equals("")}'>
+                        <b>"${param.q}"</b>
+                    </c:if>
+                    <small>(${products.size()} Risultati)</small>
+                </span>
             </h5>
         </div>
 
-        <div class="container">
+        <div class="container invisible-container">
             <div class="row">
-                <div class="col-md-2">
-                    <div class="search_row" style="margin-left:-25%;height:100%;">
-                        <h3 class="text-center" data-toggle="collapse" data-target="#categorie_accordion" style="cursor:pointer;">Categorie</h3>
-                        <ul class="list-group collapse in" aria-expanded="true" id="categorie_accordion">
-                            <%
-                                if (request.getAttribute("categories") != null)
-                                {
-                                    ArrayList<String> categories = (ArrayList<String>) request.getAttribute("categories");
-
-                                    for (String i : categories) {
-                                        if (request.getParameter("cat") != null)
-                                        {
-                                            Boolean trovato = false;
-                                            for(String str: request.getParameterValues("cat")) {
-                                                if(str.trim().contains(i))
-                                                {
-                                                    trovato = true;
-                                                    break;
-                                                }
-                                            }
-
-                                            if (trovato)
-                                            {
-                                                %>
-                                                <li class="list-group-item"><input type="radio" name="<%=i%>" value="<%=i%>" onclick="filterRadio(this,'cat');" checked/> <%=i%></li>
-                                                <%
-                                            }
-                                            else
-                                            {
-                                                %>
-                                                <li class="list-group-item"><input type="radio" name="<%=i%>" value="<%=i%>" onclick="filterRadio(this,'cat');"/> <%=i%></li>
-                                                <%
-                                            }
-                                        }
-                                        else
-                                        {
-                                            %>
-                                            <li class="list-group-item"><input type="radio" name="<%=i%>" value="<%=i%>" onclick="filterRadio(this,'cat');"/> <%=i%></li>
-                                            <%
-                                        }
-                                    }
-                                }
-                            %>
+                <div class="col-lg-2 col-md-3">
+                    <div class="sidebar">
+                        <h4 class="text-center collapsed" data-toggle="collapse" data-target="#categorie_accordion"
+                            style="cursor:pointer;">Categorie <span class="caret"></span></h4>
+                        <ul class="list-group collapse" aria-expanded="false" id="categorie_accordion">
+                            <c:if test="${not empty categories}">
+                                <c:forEach var="icat" items="${categories}">
+                                    <c:choose>
+                                        <c:when test="${param.cat == icat}">
+                                            <li class="list-group-item"><input type="radio" name="${icat}" value="${icat}"
+                                                                               onclick="filterRadio(this,'cat');"
+                                                                               checked/> ${icat}</li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="list-group-item"><input type="radio" name="${icat}" value="${icat}"
+                                                                               onclick="filterRadio(this,'cat');"/> ${icat}</li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </c:if>
                         </ul>
-                        <h3 class="text-center" data-toggle="collapse" data-target="#venditori_accordion" style="cursor:pointer;">Venditori</h3>
-                        <ul class="list-group collapse in" aria-expanded="true" id="venditori_accordion">
-                            <%
-                                if (request.getAttribute("vendors") != null)
-                                {
-                                    ArrayList<String> vendors = (ArrayList<String>) request.getAttribute("vendors");
+                        <h4 class="text-center collapsed" data-toggle="collapse" data-target="#venditori_accordion"
+                            style="cursor:pointer;">Venditori <span class="caret"></span></h4>
+                        <ul class="list-group collapse" aria-expanded="false" id="venditori_accordion">
+                            <c:set var="vendoritem" scope="page" value="${paramValues.get('vendors')}"/>
 
-                                    for (String i : vendors) {
-                                        if (request.getParameter("vendor") != null)
-                                        {
-                                            Boolean trovato = false;
-                                            for(String str: request.getParameterValues("vendor")) {
-                                                if(str.trim().contains(i))
-                                                {
-                                                    trovato = true;
-                                                    break;
-                                                }
-                                            }
-
-                                            if (trovato)
-                                            {
-                                                %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'vendor');"/> <%=i%></li>
-                                                <%
-                                            }
-                                            else
-                                            {
-                                                %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'vendor');" checked/> <%=i%></li>
-                                                <%
-                                            }
-                                        }
-                                        else
-                                        {
-                                            %>
-                                            <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'vendor');" checked/> <%=i%></li>
-                                            <%
-                                        }
-                                    }
-                                }
-                            %>
+                            <c:if test="${not empty vendors}">
+                                <c:choose>
+                                    <c:when test="${not empty vendoritem}">
+                                        <c:forEach var="iven" items="${vendors}">
+                                            <c:set var="found" value="false" scope="page"/>
+                                            <c:forEach var="ivan" items="${vendoritem}">
+                                                <c:if test="${ivan eq iven}">
+                                                    <c:set var="found" value="true" scope="page"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            <c:choose>
+                                                <c:when test="${found eq true}">
+                                                    <li class="list-group-item"><input type="checkbox" iven="${iven}"
+                                                                                       name="${iven}" value="${iven}"
+                                                                                       onclick="filter(this,'vendor');"/> ${iven}
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="list-group-item"><input type="checkbox" civen="${iven}"
+                                                                                       name="${iven}" value="${iven}"
+                                                                                       onclick="filter(this,'vendor');"
+                                                                                       checked/> ${iven}</li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="iven" items="${vendors}">
+                                            <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}"
+                                                                               onclick="filter(this,'vendor');"
+                                                                               checked/> ${iven}</li>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
                         </ul>
-                        <h3 class="text-center" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">Area Geografica</h3>
-                        <ul class="list-group collapse in" aria-expanded="true" id="geozone_accordion">
-                            <%
-                                if (request.getAttribute("geozone") != null)
-                                {
-                                    ArrayList<String> geoZone = (ArrayList<String>) request.getAttribute("geozone");
+                        <h4 class="text-center collapsed" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">
+                            Area Geografica <span class="caret"></span></h4>
+                        <ul class="list-group collapse" aria-expanded="false" id="geozone_accordion">
+                            <c:set var="geozoneitem" scope="page" value="${paramValues.get('geo')}"/>
 
-                                    for (String i : geoZone) {
-                                        if (request.getParameter("geo") != null)
-                                        {
-                                            Boolean trovato = false;
-                                            for(String str: request.getParameterValues("geo")) {
-                                                if(str.trim().contains(i))
-                                                {
-                                                    trovato = true;
-                                                    break;
-                                                }
-                                            }
-
-                                            if (trovato)
-                                            {
-                                                %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'geo');"/> <%=i%></li>
-                                                <%
-                                            }
-                                            else
-                                            {
-                                                %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'geo');" checked/> <%=i%></li>
-                                                <%
-                                            }
-                                        }
-                                        else
-                                        {
-                                            %>
-                                                <li class="list-group-item"><input type="checkbox" name="<%=i%>" value="<%=i%>" onclick="filter(this,'geo');" checked/> <%=i%></li>
-                                            <%
-                                        }
-                                    }
-                                }
-                            %>
+                            <c:if test="${not empty geozone}">
+                                <c:choose>
+                                    <c:when test="${not empty geozoneitem}">
+                                        <c:forEach var="iven" items="${geozone}">
+                                            <c:set var="found" value="false" scope="page"/>
+                                            <c:forEach var="ivan" items="${geozoneitem}">
+                                                <c:if test="${ivan eq iven}">
+                                                    <c:set var="found" value="true" scope="page"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            <c:choose>
+                                                <c:when test="${found eq true}">
+                                                    <li class="list-group-item"><input type="checkbox" iven="${iven}"
+                                                                                       name="${iven}" value="${iven}"
+                                                                                       onclick="filter(this,'geo');"/> ${iven}
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="list-group-item"><input type="checkbox" civen="${iven}"
+                                                                                       name="${iven}" value="${iven}"
+                                                                                       onclick="filter(this,'geo');"
+                                                                                       checked/> ${iven}</li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach var="iven" items="${geozone}">
+                                            <li class="list-group-item"><input type="checkbox" name="${iven}" value="${iven}"
+                                                                               onclick="filter(this,'geo');" checked/> ${iven}
+                                            </li>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
                         </ul>
-                        <h3 class="text-center">Prezzo</h3>
+                        <h4 class="text-center">Prezzo:</h4>
                         <div class="row">
-                            <div class="col-md-6">
-                                <h6 style="margin-left:10%;">Minimo</h6>
-                                <h6 style="margin-left:10%;">Massimo</h6>
+                            <div class="col-md-4 col-xs-3">
+                                <h6 style="margin-left:25%;">Minimo</h6>
+                                <h6 style="margin-left:25%;">Massimo</h6>
                             </div>
-                            <div class="col-md-6" style="text-align:right;">
-                                <%
-                                    if (request.getParameter("minPrice") != null)
-                                    {
-                                        String val = request.getParameterValues("minPrice")[0];
-                                        %>
-                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'minPrice');" value="<%=val%>">
-                                        <%
-                                    }
-                                    else
-                                    {
-                                        %>
-                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'minPrice');" value="">
-                                        <%
-                                    }
-                                %>
-
-                                <%
-                                    if (request.getParameter("maxPrice") != null)
-                                    {
-                                        String val = request.getParameterValues("maxPrice")[0];
-                                        %>
-                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'maxPrice');" value="<%=val%>">
-                                        <%
-                                    }
-                                    else
-                                    {
-                                        %>
-                                        <input class="form-control no-border input_prezzo" type="text" onfocusout="filterPrice(this,'maxPrice');" value="">
-                                        <%
-                                    }
-                                %>
+                            <div class="col-md-8 col-xs-9" style="text-align:right;">
+                                <c:choose>
+                                    <c:when test="${not empty param.minPrice}">
+                                        <input class="form-control no-border input_prezzo" type="text"
+                                               onfocusout="filterPrice(this,'minPrice');" value="${param.minPrice}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input class="form-control no-border input_prezzo" type="text"
+                                               onfocusout="filterPrice(this,'minPrice');" value="">
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${not empty param.maxPrice}">
+                                        <input class="form-control no-border input_prezzo" type="text"
+                                               onfocusout="filterPrice(this,'maxPrice');" value="${param.maxPrice}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input class="form-control no-border input_prezzo" type="text"
+                                               onfocusout="filterPrice(this,'maxPrice');" value="">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                         <div class="row" style="padding-bottom:15px">
-                            <h3 class="text-center">Valutazione</h3>
-                            <div class="col-md-12" style="margin-left:5%" >
-                                <i class="fa fa-star rating_star" aria-hidden="true" id="stella_0" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)" onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                            <h4 class="text-center">Valutazione</h4>
+                            <div class="col-md-12 text-center">
+                                <i class="fa fa-star rating_star" aria-hidden="true" id="stella_0" onmouseover="setStar(this)"
+                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
+                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)"
+                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)"
+                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)"
+                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
                                 &nbsp;o più
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="col-md-10">
-                    <div class="search_row row vcenter">
-                        <div class="col-md-2">
-                            <img src="http://www.whirlpool.it/digitalassets/Picture/web1000x1000/852575438010_1000x1000_frontal.jpg" width="100" height="100">
-                        </div>
-                        <div class="col-md-7 text-left">
-                            <h2>Piano cottura</h2>
-                            <p>Venduto da <a href="www.google.com">Nardi</a>&nbsp&nbsp<span style="font-size:12px">o da altri <a data-toggle="modal" data-target="#vendorsModal">12</a> venditori</span></p>
-                            <h1 class="prezzo">320 €</h1>
-                        </div>
-                        <div class="col-md-3">
-                            <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star rating_star" aria-hidden="true"></i> <i class="fa fa-star-o rating_star" aria-hidden="true"></i> <i class="fa fa-star-o rating_star" aria-hidden="true"></i>&nbsp&nbsp43 recensioni
-                            <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('9','2');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    <%
-                        if (request.getAttribute("products") != null) {
-                            Map<String,ProductGroup> products = (Map<String,ProductGroup>) request.getAttribute("products");
-                            int count = 0;
-
-                            Iterator it = products.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry pair = (Map.Entry)it.next();
-                                //System.out.println(pair.getKey() + " = " + pair.getValue());
-                                ProductGroup gp = (ProductGroup) pair.getValue();
-                                Product p = gp.getList().get(0);    //il primo prodotto
-                                count++;
-                                int rc = (int)gp.getReviewCount();
-                                String review = ((rc>0)?((rc>1)?rc+" recensioni":"1 recensione"):"Nessuna recensione");
-                                String imageSrc = "data:image/gif;base64," + gp.getImageData();
-                                if(gp.getImageData().equals("")){
-                                    imageSrc = "http://via.placeholder.com/1000x1000";
-                                }
-                    %>
-                    <div class="search_row row vcenter separated">
-                        <div class="col-md-2">
-                            <img src='<%=imageSrc%>' alt='images Here' width="100" height="100"/>
-                        </div>
-                        <div class="col-md-7 text-left">
-                            <h2><%=p.getProductName()%></h2>
-                            <p>Venduto da <a href="javascript:void(0);"><%=p.getShopName()%></a>&nbsp&nbsp<span style="font-size:12px">o da altri <a href="javascript:void(0);" onclick="openModal('<%=p.getProductName()%>');"><%=gp.getList().size()%></a> venditori</span></p>
-                            <h1 class="prezzo"><%=p.getActualPrice()%> €</h1>
-                        </div>
-                        <div class="col-md-3">
-                            <%
-                                int i = 0;
-                                for(; i < p.getRating();i++){
-                            %>
-                            <i class="fa fa-star rating_star" aria-hidden="true"></i>
-                            <%
-                                }
-                                for(; i < 5 ;i++){
-                            %>
-                            <i class="fa fa-star-o rating_star" aria-hidden="true"></i>
-                            <%
-                                }
-                            %>&nbsp&nbsp<span class="text-right"><%=review%></>
-                            <a href="javascript:void(0);" class="btn btn-default margins" onclick="addToCart('<%=p.getProductID()%>','<%=p.getShopID()%>');">Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    <%
-                                it.remove();
-                            }
-                        }
-                    %>
+                <div class="col-lg-10 col-md-9">
+                    <c:choose>
+                        <c:when test="${not empty products}">
+                            <ul class="list-group search">
+                                <c:forEach var="prod" items="${products}" varStatus="status">
+                                    <li class="list-group-item product">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-xs-12">
+                                                <a href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">
+                                                    <img class="img-rounded img-responsive" src="${prod.value.getImageData()}" alt="product image">
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-7 col-md-5 col-xs-6">
+                                                <h2 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
+                                                <ul class="list-unstyled list-group-item-text">
+                                                    <li>Venduto da: <a href="${pageContext.request.contextPath}/shop.jsp?id=${prod.value.getList().get(0).getShopID()}"><b>${prod.value.getList().get(0).getShopName()}</b></a>
+                                                        <small>e da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</small>
+                                                    </li>
+                                                    <li class="price">
+                                                            ${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}&euro;
+                                                        <c:if test="${prod.value.getList().get(0).getActualPrice() != prod.value.getList().get(0).getPrice()}">
+                                                            <span class="badge badge-discount">Scontato!</span>
+                                                        </c:if>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-3 col-md-5 col-xs-6 text-center">
+                                                <div class="row rating-field">
+                                                    <c:set var="rating" value="${prod.value.getList().get(0).getRating()}" scope="page"/>
+                                                    <c:choose>
+                                                        <c:when test="${Math.round(rating) == -1}">
+                                                            Nessuna recensione
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <c:if test="${Math.round(rating) > 0}">
+                                                                <c:forEach begin="0" end="${Math.round(rating) - 1}" varStatus="loop">
+                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                            <c:if test="${Math.round(rating) < 5}">
+                                                                <c:forEach begin="0" end="${4 - Math.round(rating)}" varStatus="loop">
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                            <fmt:formatNumber var="rc" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getReviewCount()}"/>
+                                                            <!-- da testare i due primi when -->
+                                                            <c:choose>
+                                                                <c:when test="${rc == 0}">
+                                                                </c:when>
+                                                                <c:when test="${rc == 1}">
+                                                                    &nbsp&nbsp<span class="text-right">1 recensione</span>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    &nbsp&nbsp<span class="text-right">${rc} recensioni</span>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </div>
+                                                <div class="row">
+                                                    <button class="btn btn-default" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">
+                                                        Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="container">
+                                <div class="jumbotron">
+                                    <h2>Nessun risultato trovato per "${param.get("q")}"</h2>
+                                    <p>Prova ad alleggerire la ricerca rimuovendo qualche parola o qualche filtro</p>
+                                </div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 
@@ -297,33 +285,32 @@
         <div class="modal fade" id="vendorsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-                    <span class="form" id="form">
-                        <div class="header header-primary text-center">
-                            <h4 class="title title-up" id="card_titolo_vendors">Piano cottura</h4>
-                            <p class="white subtitolo">
-                                Disponibile anche da:
-                            </p>
-                        </div>
-                        <div class="content">
-                            <div class="row text-center">
-                                <div class="content-modal-vendors" id="content-modal-vendors">
-
+                            <span class="form" id="form">
+                                <div class="header header-primary text-center">
+                                    <h4 class="title title-up" id="card_titolo_vendors">Piano cottura</h4>
+                                    <p class="white subtitolo">
+                                        Disponibile anche da:
+                                    </p>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="footer text-center">
-                            <div id="footer_vendors">
+                                <div class="content">
+                                    <div class="row text-center">
+                                        <div class="content-modal-vendors" id="content-modal-vendors">
 
-                            </div>
-                            <div class="row" style="margin-top:10px" id="pagination_numbers_vendors">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer text-center">
+                                    <div id="footer_vendors">
 
-                            </div>
-                        </div>
-                    </span>
+                                    </div>
+                                    <div class="row" style="margin-top:10px" id="pagination_numbers_vendors">
+
+                                    </div>
+                                </div>
+                            </span>
                 </div>
             </div>
         </div>
-    </body>
-    <script type="text/javascript" src="js/search/search.js"></script>
-    <script type="text/javascript" src="js/bootstrap-slider-master/bootstrap-slider-master/dist/bootstrap-slider.js"></script>
-</html>
+    </jsp:body>
+
+</t:genericpage>

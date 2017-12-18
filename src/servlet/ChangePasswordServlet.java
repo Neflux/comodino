@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
+@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/restricted/changepassword"})
 public class ChangePasswordServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,20 +28,14 @@ public class ChangePasswordServlet extends HttpServlet {
             UserDao userDao = new UserDaoImpl();
             if (userDao.changePwd(user,curPwd,newPwd)){
                 System.out.println("[ " + user.getFirstName() + " ] Password modificata");
-                response.sendRedirect("/restricted/profile.jsp");
+                response.sendRedirect("/restricted/profile.jsp?success=Password modificata");
             }
             else {
-                // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-                request.setAttribute("message", "Password attuale errata o mancante!");
-                RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-                rd.forward(request, response);
+                response.sendRedirect("/restricted/profile.jsp?error=Password attuale errata");
             }
         }
         else{
-            // metto il messaggio di errore come attributo di Request, così nel JSP si vede il messaggio
-            request.setAttribute("message", "Le password non coincidono!");
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("/restricted/profile.jsp?error=Le nuove password non corrispondono");
         }
 
     }

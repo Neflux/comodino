@@ -1,6 +1,7 @@
 package main;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Product implements Serializable {
     private int productID = 0;
@@ -9,7 +10,7 @@ public class Product implements Serializable {
     private String shopName = "";
 
     private String description = "";
-    private String imgBase64 = "http://via.placeholder.com/1000x1000";
+    private ArrayList<String> imgBase64;
     private float price = 0;
     private int quantity = 0;
     private float discount = 0;
@@ -57,11 +58,11 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public String getImgBase64() {
+    public ArrayList<String> getImgBase64() {
         return imgBase64;
     }
 
-    public void setImgBase64(String imgBase64) {
+    public void setImgBase64(ArrayList<String> imgBase64) {
         this.imgBase64 = imgBase64;
     }
 

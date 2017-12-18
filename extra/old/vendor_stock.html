@@ -1,0 +1,66 @@
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../../web/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../../web/css/custom.min.css" rel="stylesheet" type="text/css">
+    <link href="../../web/css/my.css" rel="stylesheet" type="text/css">
+    <link href="../../web/css/vendor_stock.css" rel="stylesheet" type="text/css">
+  </head><body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><span>Brand</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active">
+              <a href="#">Home</a>
+            </li>
+            <li>
+              <a href="#">Contacts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="col-md-12">
+        <div id="headingFilters" class="row">
+          <div class="col-md-2 text-center">
+            <a id="btnAddProduct" class="btn btn-sm btn-block btn-success"><i class="fa fa-plus-circle fa-fw fa-lg pull-left"></i>Aggiungi Prodotto</a>
+          </div>
+        </div>
+        <div id="stockRows" class="row">
+          <div class="row stock">
+            <div class="col-md-3 stockPhoto">
+              <a href="#"><img src="http://via.placeholder.com/400x300" class="img-responsive"></a>
+            </div>
+            <div class="col-xs-6 col-md-7 stockInfo">
+              <h2 class="stockTitle">Gazebo da sagra di Campese</h2>
+              <h5 class="stockQuantity">Quantità: 18</h5>
+              <h2 class="stockPrice">500€</h2>
+            </div>
+            <div class="col-xs-6 text-right col-md-2 stockSettings">
+              <a class="btnEditInfo btn btn-sm btn-block btn-primary"><i class="fa fa-pencil-square-o fa-fw fa-lg pull-left"></i>Modifica Info</a>
+              <a class="btnEditPrice btn btn-sm btn-block btn-primary"><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</a>
+              <a class="btnEditQuantity btn btn-sm btn-block btn-primary"><i class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Quantità</a>
+              <a class="btnReviews btn btn-lg btn-block btn-success"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</a>
+              <a class="btnRemove btn btn-lg btn-block btn-danger"><i class="fa fa-times fa-fw fa-lg pull-left"></i>Rimuovi</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script type="text/javascript" src="../../web/js/vendor_stock.js"></script>
+</body></html>
