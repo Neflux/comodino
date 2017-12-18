@@ -31,7 +31,10 @@ public class OrderDaoImpl implements OrderDao {
             printRS(rs);
             System.out.println("");
             ArrayList<Order> orders = extractProductFromResultSet(rs);
-            System.out.println("Size: " + (orders != null ? orders.size() : "orders is NULL"));
+            assert orders != null;
+            loadProductReviews(orders, user);
+            loadDisputes(orders);
+            System.out.println("Size: " + orders.size());
             return orders;
 
         } catch (SQLException e) {
@@ -39,6 +42,22 @@ public class OrderDaoImpl implements OrderDao {
         }
 
         return null;
+    }
+
+    private void loadDisputes(ArrayList<Order> orders) {
+        for (Order o:orders){
+            for (ProdOrder po:o.getProductList()){
+                po.setDispute(new DisputeDaoImpl().getDisputeByUser(o.getOrderID(), po.getProduct().getProductID(), po.getProduct().getShopID()));
+            }
+        }
+    }
+
+    private void loadProductReviews(ArrayList<Order> orders, User user) {
+        for (Order o:orders){
+            for (ProdOrder po:o.getProductList()){
+                po.setReview(new ReviewDaoImpl().getProductReviewByUser(user, po.getProduct().getProductID()));
+            }
+        }
     }
 
     @Override
@@ -226,12 +245,7 @@ public class OrderDaoImpl implements OrderDao {
                 a = ad.getAddress(rs.getInt("AddressID"));
 
                 // creo l'ordine del prodotto particolare e lo aggiungo alla lista dell'ordine generale
-                ps = new ProdOrder();
-                ps.setProduct(p);
-                ps.setQuantity(rs.getInt("Quantity"));
-                ps.setFinalPrice(rs.getFloat("FinalPrice"));
-                ps.setAddress(a);
-                ps.setStatus(rs.getInt("Status"));
+                ps = extractProdOrder(rs,p,a);
 
                 // aggiungo l'ordine del prodotto al corrispettivo ordine generale
                 order.getProductList().add(ps);
@@ -260,12 +274,7 @@ public class OrderDaoImpl implements OrderDao {
                     a = ad.getAddress(rs.getInt("AddressID"));
 
                     // creo l'ordine del prodotto particolare e lo aggiungo alla lista dell'ordine generale
-                    ps = new ProdOrder();
-                    ps.setProduct(p);
-                    ps.setQuantity(rs.getInt("Quantity"));
-                    ps.setFinalPrice(rs.getFloat("FinalPrice"));
-                    ps.setAddress(a);
-                    ps.setStatus(rs.getInt("Status"));
+                    ps = extractProdOrder(rs,p,a);
 
                     // aggiungo l'ordine del prodotto al corrispettivo ordine generale
                     order.getProductList().add(ps);
@@ -282,5 +291,16 @@ public class OrderDaoImpl implements OrderDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private ProdOrder extractProdOrder(ResultSet rs, Product p, Address a) throws SQLException {
+        ProdOrder ps = new ProdOrder();
+        ps.setProduct(p);
+        ps.setQuantity(rs.getInt("Quantity"));
+        ps.setFinalPrice(rs.getFloat("FinalPrice"));
+        ps.setAddress(a);
+        ps.setStatus(rs.getInt("Status"));
+        // to add the reviews to the products use loadProductReview() function
+        return ps;
     }
 }

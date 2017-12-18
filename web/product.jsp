@@ -7,7 +7,7 @@
 
 <jsp:useBean id="product" class="main.Product" scope="request"/>
 <jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl"/>
-<c:set var="reviewList" value="${reviewDao.getProductReview(product.productID)}" scope="page"/>
+<c:set var="reviewList" value="${reviewDao.getProductReviews(product.productID)}" scope="page"/>
 <jsp:useBean id="ShopDao" class="daos.impl.ShopDaoImpl"/>
 <c:set var="shopsList" value="${ShopDao.getPhysicalShopsByProduct(product.productID)}" scope="page"/>
 

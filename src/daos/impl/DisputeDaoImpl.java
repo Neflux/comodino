@@ -45,7 +45,7 @@ public class DisputeDaoImpl implements DisputeDao {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM dispute ORDER BY CreationDate DESC");
             ResultSet rs = stm.executeQuery();
-            ArrayList<Dispute> disputes = extractDisputeFromResultSet(rs);
+            ArrayList<Dispute> disputes = extractDisputesFromResultSet(rs);
             for (Dispute d:disputes
                  ) {
                 System.out.println("d: " + d.getTitle());
@@ -58,7 +58,7 @@ public class DisputeDaoImpl implements DisputeDao {
         return null;
     }
 
-    private ArrayList<Dispute> extractDisputeFromResultSet(ResultSet rs) {
+    private ArrayList<Dispute> extractDisputesFromResultSet(ResultSet rs) {
         ArrayList<Dispute> disputes = new ArrayList<>();
 
         try {
@@ -81,6 +81,26 @@ public class DisputeDaoImpl implements DisputeDao {
         return disputes;
     }
 
+    private Dispute extractDisputeFromResultSet(ResultSet rs) {
+        try {
+            if (rs.next()){
+                Dispute d = new Dispute();
+                d.setTitle(rs.getString("Title"));
+                d.setStatus(rs.getInt("Status") );
+                d.setDescription(rs.getString("Description"));
+                d.setCreationDate(rs.getTimestamp("CreationDate"));
+                d.setOrderID(rs.getInt("OrderID"));
+                d.setProductID(rs.getInt("ProductID"));
+                d.setShopID(rs.getInt("ShopID"));
+                System.out.println("DISPUTA TROVATA -------------------------------------");
+                return d;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public boolean updateDispute(int orderID, int productID, int shopID, int status) {
         try {
@@ -91,14 +111,28 @@ public class DisputeDaoImpl implements DisputeDao {
             stm.setInt(2, orderID);
             stm.setInt(3, productID);
             stm.setInt(4, shopID);
-            if (stm.executeUpdate() == 0)
-                return false;
-
+            stm.executeUpdate();
             return true;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public Dispute getDisputeByUser(int orderID, int productID, int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM dispute\n" +
+                    "WHERE OrderID = ? AND ProductID = ? AND ShopID = ?");
+            stm.setInt(1, orderID);
+            stm.setInt(2, productID);
+            stm.setInt(3, shopID);
+            ResultSet rs = stm.executeQuery();
+            return extractDisputeFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

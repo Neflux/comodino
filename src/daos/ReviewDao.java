@@ -11,8 +11,9 @@ public interface ReviewDao extends Serializable {
     int createProductReview(String title, String description, int rating, int productID, int userID);
     int createProductReviewReply(String description, int reviewID);
     int isReviewReplied(int reviewID);
-    ArrayList<ProductReview> getProductReview(int productID);
-    ArrayList<ProductReview> getVendorProductReview(int shopID);
+    ArrayList<ProductReview> getProductReviews(int productID);
+    ArrayList<ProductReview> getVendorProductReviews(int shopID);
     User getReviewAuthor(int userID);
-    Product getReviewdProduct(int productID, int shopID);
+    Product getReviewProduct(int productID, int shopID);
+    ProductReview getProductReviewByUser(User user, int productID);
 }

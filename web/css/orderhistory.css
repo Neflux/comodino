@@ -67,3 +67,38 @@ body>.container {
 .resetcolor:focus{
     color: #2c3e50;
 }
+
+.prodreviewdispute{
+    border-top: 1px dashed #ecf0f1;
+}
+.prodbuttonscol{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.prodreviewdispute .badge{
+    padding: 4px 8px;
+    text-transform: uppercase;
+    font-size: 0.600em;
+    line-height: 12px;
+    background-color: transparent;
+    border: 1px solid currentcolor;
+    margin-bottom: 5px;
+    border-radius: 1rem;
+}
+
+.badge-success {
+    border-color: #18ce0f;
+    color: #18ce0f;
+}
+
+.badge-warning {
+    border-color: #FFB236;
+    color: #FFB236;
+}
+
+.badge-danger {
+    border-color: #FF3636;
+    color: #FF3636;
+}
+
