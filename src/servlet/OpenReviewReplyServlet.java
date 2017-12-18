@@ -27,7 +27,6 @@ public class OpenReviewReplyServlet extends HttpServlet {
         );
 
         ReviewDao reviewDao = new ReviewDaoImpl();
-        boolean result;
         int newReviewReply = reviewDao.createProductReviewReply(description, reviewID);
         if (newReviewReply == 0){    // la creazione della risposte è fallita
             response.sendRedirect("/index.jsp?error=Errore Creazione Recensione");
