@@ -249,19 +249,26 @@
                                                                             <c:choose>
                                                                                 <c:when test="${po.getStatus() == 0}">
                                                                                     <div class="row">
-                                                                                        <a href="${pageContext.request.contextPath}/restricted/finishorder?order=${order.orderID}&product=${po.product.productID}&shop=${po.product.shopID}" class="btn btn-default btn-block margin-btn">Prodotto ritirato!</a>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="openDisputeModal(${order.orderID},${po.product.productID},${po.product.shopID})">Apri disputa</button>
+                                                                                        <div class="col-xs-12 prodbuttonscol">
+                                                                                            <a href="${pageContext.request.contextPath}/restricted/finishorder?order=${order.orderID}&product=${po.product.productID}&shop=${po.product.shopID}" class="btn btn-default btn-block margin-btn">Prodotto ritirato!</a>
+                                                                                        </div>
+                                                                                        <c:if test="${empty po.dispute}">
+                                                                                            <div class="col-xs-12 prodbuttonscol">
+                                                                                                <button type="button" class="btn btn-default btn-block margin-btn" onclick="openDisputeModal(${order.orderID},${po.product.productID},${po.product.shopID})">Apri disputa</button>
+                                                                                            </div>
+                                                                                        </c:if>
                                                                                     </div>
                                                                                 </c:when>
                                                                                 <c:when test="${po.getStatus() == 1}">
-
                                                                                     <div class="row">
-                                                                                        <h3>Ordine<br>Completato</h3>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="openReviewModal(${order.orderID},${po.product.productID},${po.product.shopID})">Lascia una recensione</button>
+                                                                                        <div class="col-xs-12 prodbuttonscol">
+                                                                                            <h3>Ordine Completato</h3>
+                                                                                        </div>
+                                                                                        <c:if test="${empty po.review}">
+                                                                                            <div class="col-xs-12 prodbuttonscol">
+                                                                                                <button type="button" class="btn btn-default btn-block margin-btn" onclick="openReviewModal(${order.orderID},${po.product.productID},${po.product.shopID})">Lascia una recensione</button>
+                                                                                            </div>
+                                                                                        </c:if>
                                                                                     </div>
                                                                                 </c:when>
                                                                                 <c:otherwise>
@@ -270,6 +277,65 @@
                                                                             </c:choose>
                                                                         </div>
                                                                     </div>
+                                                                    <c:if test="${not empty po.review}">
+                                                                        <div class="row prodreviewdispute">
+                                                                            <div class="col-md-2 text-right" >
+                                                                                <h4><b>Recensione:</b></h4>
+                                                                            </div>
+                                                                            <div class="col-md-8" >
+                                                                                <h4>${po.review.title}</h4>
+                                                                                <p>${po.review.description}</p>
+                                                                            </div>
+                                                                            <div class="col-md-2 text-center">
+                                                                                <h4>
+                                                                                    <c:choose>
+                                                                                        <c:when test="${Math.round(po.review.rating) == -1}">
+                                                                                            <p>Nessuna valutazione data</p>
+                                                                                        </c:when>
+                                                                                        <c:otherwise>
+                                                                                            <c:if test="${Math.round(po.review.rating) > 0}">
+                                                                                                <c:forEach begin="0" end="${Math.round(po.review.rating) - 1}" varStatus="loop">
+                                                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                                </c:forEach>
+                                                                                            </c:if>
+                                                                                            <c:if test="${Math.round(po.review.rating) < 5}">
+                                                                                                <c:forEach begin="0" end="${4 - Math.round(po.review.rating)}" varStatus="loop">
+                                                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                                                </c:forEach>
+                                                                                            </c:if>
+                                                                                        </c:otherwise>
+                                                                                    </c:choose>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </c:if>
+                                                                    <c:if test="${not empty po.dispute}">
+                                                                        <div class="row prodreviewdispute">
+                                                                            <div class="col-md-2 text-right" >
+                                                                                <h4><b>Disputa:</b></h4>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <h4>${po.dispute.title}</h4>
+                                                                                <p>${po.dispute.description}</p>
+                                                                            </div>
+                                                                            <div class="col-md-2 prodbuttonscol">
+                                                                                <h4>
+                                                                                    Stato:&nbsp;&nbsp;
+                                                                                    <c:choose>
+                                                                                        <c:when test="${po.dispute.status == 1}">
+                                                                                            <span class="badge badge-success">Approvata</span>
+                                                                                        </c:when>
+                                                                                        <c:when test="${po.dispute.status == 2}">
+                                                                                            <span class="badge badge-danger">Declinata</span>
+                                                                                        </c:when>
+                                                                                        <c:otherwise>
+                                                                                            <span class="badge badge-warning">In attesa</span>
+                                                                                        </c:otherwise>
+                                                                                    </c:choose>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </c:if>
                                                                 </li>
                                                                 <!-- fine prodotto -->
                                                             </c:if>
@@ -344,19 +410,26 @@
                                                                             <c:choose>
                                                                                 <c:when test="${po.getStatus() == 0}">
                                                                                     <div class="row">
-                                                                                        <a href="${pageContext.request.contextPath}/restricted/finishorder?order=${order.orderID}&product=${po.product.productID}&shop=${po.product.shopID}" class="btn btn-default btn-block margin-btn">Prodotto ritirato!</a>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="openDisputeModal(${order.orderID},${po.product.productID},${po.product.shopID})">Apri disputa</button>
+                                                                                        <div class="col-xs-12 prodbuttonscol">
+                                                                                            <a href="${pageContext.request.contextPath}/restricted/finishorder?order=${order.orderID}&product=${po.product.productID}&shop=${po.product.shopID}" class="btn btn-default btn-block margin-btn">Prodotto ritirato!</a>
+                                                                                        </div>
+                                                                                        <c:if test="${empty po.dispute}">
+                                                                                            <div class="col-xs-12 prodbuttonscol">
+                                                                                                <button type="button" class="btn btn-default btn-block margin-btn" onclick="openDisputeModal(${order.orderID},${po.product.productID},${po.product.shopID})">Apri disputa</button>
+                                                                                            </div>
+                                                                                        </c:if>
                                                                                     </div>
                                                                                 </c:when>
                                                                                 <c:when test="${po.getStatus() == 1}">
-
                                                                                     <div class="row">
-                                                                                        <h3>Ordine<br>Completato</h3>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="openReviewModal(${order.orderID},${po.product.productID},${po.product.shopID})">Lascia una recensione</button>
+                                                                                        <div class="col-xs-12 prodbuttonscol">
+                                                                                            <h3>Ordine Completato</h3>
+                                                                                        </div>
+                                                                                        <c:if test="${empty po.review}">
+                                                                                            <div class="col-xs-12 prodbuttonscol">
+                                                                                                <button type="button" class="btn btn-default btn-block margin-btn" onclick="openReviewModal(${order.orderID},${po.product.productID},${po.product.shopID})">Lascia una recensione</button>
+                                                                                            </div>
+                                                                                        </c:if>
                                                                                     </div>
                                                                                 </c:when>
                                                                                 <c:otherwise>
@@ -365,6 +438,65 @@
                                                                             </c:choose>
                                                                         </div>
                                                                     </div>
+                                                                    <c:if test="${not empty po.review}">
+                                                                        <div class="row prodreviewdispute">
+                                                                            <div class="col-md-2 text-right" >
+                                                                                <h4><b>Recensione:</b></h4>
+                                                                            </div>
+                                                                            <div class="col-md-8" >
+                                                                                <h4>${po.review.title}</h4>
+                                                                                <p>${po.review.description}</p>
+                                                                            </div>
+                                                                            <div class="col-md-2 text-center">
+                                                                                <h4>
+                                                                                    <c:choose>
+                                                                                        <c:when test="${Math.round(po.review.rating) == -1}">
+                                                                                            <p>Nessuna valutazione data</p>
+                                                                                        </c:when>
+                                                                                        <c:otherwise>
+                                                                                            <c:if test="${Math.round(po.review.rating) > 0}">
+                                                                                                <c:forEach begin="0" end="${Math.round(po.review.rating) - 1}" varStatus="loop">
+                                                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                                                </c:forEach>
+                                                                                            </c:if>
+                                                                                            <c:if test="${Math.round(po.review.rating) < 5}">
+                                                                                                <c:forEach begin="0" end="${4 - Math.round(po.review.rating)}" varStatus="loop">
+                                                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                                                </c:forEach>
+                                                                                            </c:if>
+                                                                                        </c:otherwise>
+                                                                                    </c:choose>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </c:if>
+                                                                    <c:if test="${not empty po.dispute}">
+                                                                        <div class="row prodreviewdispute">
+                                                                            <div class="col-md-2 text-right" >
+                                                                                <h4><b>Disputa:</b></h4>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <h4>${po.dispute.title}</h4>
+                                                                                <p>${po.dispute.description}</p>
+                                                                            </div>
+                                                                            <div class="col-md-2 prodbuttonscol">
+                                                                                <h4>
+                                                                                    Stato:&nbsp;&nbsp;
+                                                                                    <c:choose>
+                                                                                        <c:when test="${po.dispute.status == 1}">
+                                                                                            <span class="badge badge-success">Approvata</span>
+                                                                                        </c:when>
+                                                                                        <c:when test="${po.dispute.status == 2}">
+                                                                                            <span class="badge badge-danger">Declinata</span>
+                                                                                        </c:when>
+                                                                                        <c:otherwise>
+                                                                                            <span class="badge badge-warning">In attesa</span>
+                                                                                        </c:otherwise>
+                                                                                    </c:choose>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </c:if>
                                                                 </li>
                                                                 <!-- fine prodotto -->
                                                             </c:if>
