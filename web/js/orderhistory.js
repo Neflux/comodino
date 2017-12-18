@@ -36,3 +36,17 @@ function setStarRating()
     console.log(stelle);
 
 }
+$(document).ready(function() {
+    var ordini = $("#OrdiniInCorso ul.list-group");
+    ordini.each( function () {
+        if (!$.trim( $(this).html() ).length){
+            $(this).html("<h4 class='text-center'>Tutti i prodotti di quest'ordine sono già stati ritirati</h4>");
+        }
+    });
+    ordini = $("#OrdiniCompletati ul.list-group");
+    ordini.each( function () {
+        if (!$.trim( $(this).html() ).length){
+            $(this).html("<h4 class='text-center'>Tutti i prodotti di quest'ordine sono ancora da ritirare</h4>");
+        }
+    });
+});
