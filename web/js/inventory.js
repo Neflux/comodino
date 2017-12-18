@@ -9,3 +9,8 @@ function editPriceModal(productID) {
     $(function(){$('#editpricemodal').modal('toggle');});
 
 }
+
+function removeProductModal(productID) {
+    $('#productIDRemoveModal').val(productID);
+    $(function(){$('#removeproductmodal').modal('toggle');});
+}

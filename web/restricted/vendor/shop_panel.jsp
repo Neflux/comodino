@@ -161,7 +161,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 text-center">
-                                                    <a class="showProduct btn-sm btn-default">Vedi</a>
+                                                    <a href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}" class="showProduct btn-sm btn-default">Vedi</a>
                                                 </div>
                                             </div>
                                         </c:forEach>
