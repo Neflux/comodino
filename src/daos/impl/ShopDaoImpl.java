@@ -60,7 +60,7 @@ public class ShopDaoImpl implements ShopDao {
             PreparedStatement stm = con.prepareStatement(
             "SELECT DISTINCT P.ProductID, P.Name AS ProductName, SP.Quantity \n" +
                     "FROM Product P, ShopProduct SP \n" +
-                    "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND Sp.Quantity <= 20\n" +
+                    "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND Sp.Quantity <= 20 AND Sp.Quantity >= 0\n" +
                     "ORDER BY SP.Quantity \n" +
                     "LIMIT 10"
             );
