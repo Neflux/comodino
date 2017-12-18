@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "OpenProductReviewServlet", urlPatterns = {"/restricted/vendor/openreviewreply"})
+@WebServlet(name = "OpenReviewReplyServlet", urlPatterns = {"/restricted/vendor/openreviewreply"})
 public class OpenReviewReplyServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
