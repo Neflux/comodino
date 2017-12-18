@@ -47,7 +47,8 @@ public class ReviewDaoImpl implements ReviewDao {
                     "VALUES (?,?)");
             stm.setString(1, description);
             stm.setInt(2, reviewID);
-            return 1;
+            int res = stm.executeUpdate();
+            return res;
         } catch (SQLException e) {
             e.printStackTrace();
         }
