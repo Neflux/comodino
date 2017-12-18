@@ -115,7 +115,7 @@
             <div class="row">
                 <div id="openreviewreplycard" class="card card-signup centerize" data-background-color="orange">
                     <form id="openreviewreplyform" class="form" method="POST"
-                          action="${pageContext.request.contextPath}/restricted/vendor/reviews">
+                          action="${pageContext.request.contextPath}/restricted/vendor/openreviewreply">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Rispondi alla recensione</h4>
                         </div>
