@@ -84,7 +84,7 @@
                                                                 <button type="button" class="btn btn-default margin-btn" onclick="openReviewReplyModal(${review.reviewID})">Rispondi alla recensione</button>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <h2>La recensione ha già una risposta.</h2>
+                                                                <h4>La recensione ha già una risposta.</h4>
                                                             </c:otherwise>
                                                         </c:choose>
 

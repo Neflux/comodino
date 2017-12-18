@@ -47,6 +47,8 @@ public class ReviewDaoImpl implements ReviewDao {
                     "VALUES (?,?)");
             stm.setString(1, description);
             stm.setInt(2, reviewID);
+            int res = stm.executeUpdate();
+            return res;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,10 +58,20 @@ public class ReviewDaoImpl implements ReviewDao {
     @Override
     public int isReviewReplied(int reviewID) {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT COUNT(*)\n" +
+            PreparedStatement stm = con.prepareStatement("SELECT COUNT(*) AS reviewcount\n" +
                     "FROM reviewreply rr\n" +
                     "WHERE rr.ReviewID = ?");
             stm.setInt(1, reviewID);
+
+            try (ResultSet rs = stm.executeQuery()) {
+                rs.next();
+                System.out.println("REVIEW REPLY COUNT: " + rs.getInt("reviewcount"));
+                int res = rs.getInt("reviewcount");
+                return res;
+            } finally {
+                stm.close();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
