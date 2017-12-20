@@ -33,4 +33,6 @@ public interface ShopDao extends Serializable {
     boolean createNewPhysicalShop(User user, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours);
 
     boolean editShopProduct(Product product, int ShopID);
+
+    boolean addPhysicalShop(int shopID, String address, String city, String ZIP, String State, String Hours);
 }

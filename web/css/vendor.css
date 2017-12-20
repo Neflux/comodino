@@ -281,7 +281,9 @@ h4 {
     margin-bottom: 20px !important;
 }
 
-
+.addphyshop {
+    margin-top: 20px;
+}
  /* disperato tentativo di fixare il range 992-1200
 @media screen and (min-width: 1200px){
     

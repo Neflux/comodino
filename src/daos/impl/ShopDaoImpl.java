@@ -98,7 +98,7 @@ public class ShopDaoImpl implements ShopDao {
                 p.setProductName(rs.getString("ProductName"));
                 p.setQuantity(rs.getInt("Quantity"));
                 p.setPrice(rs.getInt("Price"));
-                p.setActualPrice((1-rs.getFloat("Discount"))*rs.getInt("Price"));
+                p.setActualPrice((1 - rs.getFloat("Discount")) * rs.getInt("Price"));
                 p.setImgBase64(new ProductDaoImpl().getImages(p.getProductID()));
                 products.add(p);
             }
@@ -334,13 +334,13 @@ public class ShopDaoImpl implements ShopDao {
 
     @Override
     public int createNewShop(User user, String shopName, String shopDescription, String shopWebsite) {
-        if(user.hasShop()){
+        if (user.hasShop()) {
             return 0;
         }
         int shopID = 0;
         try {
             PreparedStatement stm = con.prepareStatement(
-            "INSERT INTO shop (Rating, Name, Description, Website) VALUES (-1,?,?,?)", Statement.RETURN_GENERATED_KEYS
+                    "INSERT INTO shop (Rating, Name, Description, Website) VALUES (-1,?,?,?)", Statement.RETURN_GENERATED_KEYS
             );
             stm.setString(1, shopName);
             stm.setString(2, shopDescription);
@@ -356,7 +356,7 @@ public class ShopDaoImpl implements ShopDao {
             e.printStackTrace();
         }
 
-        if(shopID != 0) {
+        if (shopID != 0) {
             try {
                 PreparedStatement stm = con.prepareStatement("INSERT INTO usershop (UserID, ShopID) VALUES (?,?)");
                 stm.setInt(1, user.getUserID());
@@ -369,13 +369,13 @@ public class ShopDaoImpl implements ShopDao {
             }
 
         }
-         // TODO: Settare shopID nell'user con id userID e updatare
+        // TODO: Settare shopID nell'user con id userID e updatare
         return 0;
     }
 
     @Override
     public boolean createNewPhysicalShop(User user, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours) {
-        int shopID = createNewShop(user,shopName, shopDescription, shopWebsite);
+        int shopID = createNewShop(user, shopName, shopDescription, shopWebsite);
         float latitude = 0, longitude = 0;
         // TODO: Aggiungere la posizione da indirizzo @delsi del sale
         if (shopID != 0) {
@@ -399,20 +399,41 @@ public class ShopDaoImpl implements ShopDao {
     }
 
 
-    public boolean editShopProduct(Product product,int ShopID) {
-        try  {
+    public boolean editShopProduct(Product product, int ShopID) {
+        try {
             PreparedStatement stm = con.prepareStatement("UPDATE shopproduct SET Price=?, Discount=?, Quantity=? WHERE ShopID = ? AND ProductID = ?");
-            stm.setFloat(1,product.getPrice());
-            stm.setFloat(2,product.getDiscount());
-            stm.setInt(3,product.getQuantity());
-            stm.setInt(4,ShopID);
-            stm.setInt(5,product.getProductID());
+            stm.setFloat(1, product.getPrice());
+            stm.setFloat(2, product.getDiscount());
+            stm.setInt(3, product.getQuantity());
+            stm.setInt(4, ShopID);
+            stm.setInt(5, product.getProductID());
             stm.executeUpdate();
             return true;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
+
+    @Override
+    public boolean addPhysicalShop(int shopID, String address, String city, String ZIP, String Country, String Hours) {
+        try {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO shopinfo VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            stm.setFloat(1, 0);
+            stm.setFloat(2, 0);
+            stm.setString(3, address);
+            stm.setString(4, city);
+            stm.setString(5, Country);
+            stm.setString(6, ZIP);
+            stm.setString(7, Hours);
+            stm.setInt(8, shopID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

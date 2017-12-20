@@ -52,7 +52,9 @@
             <div class="row">
                 <div class="col-md-4" id="navbar">
                     <div class="col-md-12">
-                        <img style="margin-top: 20px" src='${shop.shopphoto[0]}' alt='images Here' width="400" height="300"/>
+                        <c:if test="${!empty shop.shopphoto}">
+                            <img style="margin-top: 20px" src='${shop.shopphoto[0]}' alt='images Here' width="400" height="300"/>
+                        </c:if>
                         <h1 id="shopTitle" class="text-center">${shop.name}</h1>
                         <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
                         <p>${shop.description}</p>
@@ -73,20 +75,25 @@
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
-                            <a href="#"> vedi tutte</a>
+                            <a href="#">Vedi tutte</a>
                         </div>
-                        <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
-                            <div id="addShopDiv" class="row" style="margin-bottom: 15px">
-                                <div class="col-md-10">
-                                    <h2 id="realShop">Negozio fisico</h2>
+                        <c:choose>
+                            <c:when test="${shop.getClass().simpleName == 'PhysicalShop'}">
+                                <div id="addShopDiv" class="row" style="margin-bottom: 15px">
+                                    <div class="col-md-10">
+                                        <h2 id="realShop">Negozio fisico</h2>
+                                    </div>
                                 </div>
-                            </div>
-                            <p>Indirizzo: ${shop.address}</p>
-                            <p>City: ${shop.city}</p>
-                            <p>CAP: ${shop.zip}</p>
-                            <p>Orari: ${shop.openingHours}</p>
-                            <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
-                        </c:if>
+                                <p>Indirizzo: ${shop.address}</p>
+                                <p>City: ${shop.city}</p>
+                                <p>CAP: ${shop.zip}</p>
+                                <p>Orari: ${shop.openingHours}</p>
+                                <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#addPhysicalShop"><i class="fa fa-fw pull-left fa-cart-plus"></i>Aggiungi negozio fisico</a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
                 <div class="col-md-1" id="mySpace">
@@ -95,24 +102,26 @@
                     <div class="row" id="panelContainer">
                         <div class="col-md-4" id="photoPanel">
                             <div class="col-md-12">
-                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                    <!-- Wrapper for slides -->
-                                    <div class="carousel-inner">
-                                        <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
-                                            <div class="item <c:if test='${status.first}'>active</c:if>">
-                                                <img src='${image}' alt='images Here' width="400" height="300"/>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
+                                <c:if test="${!empty shop.shopphoto}">
+                                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                        <!-- Wrapper for slides -->
+                                        <div class="carousel-inner">
+                                            <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
+                                                <div class="item <c:if test='${status.first}'>active</c:if>">
+                                                    <img src='${image}' alt='images Here' width="400" height="300"/>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
 
-                                    <!-- Controls -->
-                                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                    </a>
-                                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </a>
-                                </div>
+                                        <!-- Controls -->
+                                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                        </a>
+                                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </a>
+                                    </div>
+                                </c:if>
                                 <a id="btnAddPhoto" class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-camera"></i>Aggiungi foto</a>
                                 <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#editShopInfo"><i class="fa fa-fw pull-left fa-book"></i>Modifica negozio</a>
                             </div>
@@ -130,7 +139,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a id="btnReviews" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</a>
+                                    <a href="${pageContext.request.contextPath}/restricted/vendor/reviews.jsp" id="btnReviews" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</a>
                                 </div>
                                 <div class="col-md-6">
                                     <a id="btnDispute" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-fw fa-lg fa-warning pull-left"></i>Dispute</a></div>
@@ -201,6 +210,47 @@
                                 </span>
                                 <input name="ShopWebsite" type="text" class="form-control" placeholder=${shop.website}/>
                             </div>
+                            <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
+                                <div class="input-group form-group-no-border nologin">
+                              <span class="input-group-addon">
+                                  <i class="fa fa-map-marker green" aria-hidden="true"></i>
+                              </span>
+                                    <input name="ShopAddress" type="text" class="form-control" placeholder="Address..."/>
+                                </div>
+                                <div class="input-group form-group-no-border nologin">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-building green" aria-hidden="true"></i>
+                                </span>
+                                    <input name="ShopCity" type="text" class="form-control" placeholder="City..."/>
+                                </div>
+                                <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-envelope green" aria-hidden="true"></i>
+                          </span>
+                                    <input name="ShopCAP" type="text" class="form-control" placeholder="CAP..."/>
+                                </div>
+                            </c:if>
+                            <div class="footer text-center">
+                                <a class="btn btn-default" onclick="$('#editShopInfoForm').submit();">Salva</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="addPhysicalShop" tabindex="-1" role="dialog" aria-labelledby="addPhysicalShopLabel">
+            <div class="row">
+                <div class="card card-signup centerize" data-background-color="orange">
+                        <%--TODO:Auto-populate previous values--%>
+                    <form id="addPhysicalShopForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/vendor/addphysicalshop">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up">Aggiungi negozio fisico</h4>
+                        </div>
+                        <div class="content">
+
                             <div class="input-group form-group-no-border nologin">
                               <span class="input-group-addon">
                                   <i class="fa fa-map-marker green" aria-hidden="true"></i>
@@ -211,21 +261,35 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-building green" aria-hidden="true"></i>
                                 </span>
-                                <input name="ShopCity" type="text" class="form-control" placeholder="City..."/>
+                                <input name="ShopCity" type="text" class="form-control" placeholder="Citta'..."/>
                             </div>
-                        <div class="input-group form-group-no-border">
+                            <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-envelope green" aria-hidden="true"></i>
                           </span>
-                            <input name="ShopCAP" type="text" class="form-control" placeholder="CAP..."/>
-                        </div>
-                        <div class="footer text-center">
-                            <a class="btn btn-default" onclick="$('#editShopInfoForm').submit();">Salva</a>
-                        </div>
+                                <input name="ShopCAP" type="text" class="form-control" placeholder="CAP..."/>
+                            </div>
+                            <div class="input-group form-group-no-border">
+                            <span class="input-group-addon">
+                              <i class="fa fa-envelope green" aria-hidden="true"></i>
+                          </span>
+                                <input name="ShopCountry" type="text" class="form-control" placeholder="Stato..."/>
+                            </div>
+                            <div class="input-group form-group-no-border">
+                        <span class="input-group-addon">
+                              <i class="fa fa-envelope green" aria-hidden="true"></i>
+                          </span>
+                                <input name="ShopHours" type="text" class="form-control" placeholder="Orario di apertura..."/>
+                            </div>
+
+                            <div class="footer text-center">
+                                <a class="btn btn-default" onclick="$('#addPhysicalShopForm').submit();">Salva</a>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
     </jsp:body>
 </t:genericpage>
