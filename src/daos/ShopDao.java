@@ -2,6 +2,7 @@ package daos;
 
 import main.*;
 
+import javax.servlet.http.Part;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,4 +36,6 @@ public interface ShopDao extends Serializable {
     boolean editShopProduct(Product product, int ShopID);
 
     boolean addPhysicalShop(int shopID, PhysicalShop shop);
+
+    boolean addShopPhoto(int shopID, Part fileName);
 }

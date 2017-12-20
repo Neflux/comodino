@@ -5,6 +5,9 @@ import db.DBManager;
 import main.*;
 import utils.Utils;
 
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -433,6 +436,23 @@ public class ShopDaoImpl implements ShopDao {
             stm.executeUpdate();
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean addShopPhoto(int shopID, Part shopPhoto) {
+        try {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO shopphoto VALUES (NULL, ?, ?)");
+            stm.setBinaryStream(1, shopPhoto.getInputStream(), (int) shopPhoto.getSize());
+            stm.setInt(2,shopID);
+            stm.executeUpdate();
+            return true;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return false;
