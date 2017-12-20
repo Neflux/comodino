@@ -27,7 +27,8 @@ public class EditShopInfoServlet extends HttpServlet {
         String shopAddress = request.getParameter("ShopAddress");
         String shopCity = request.getParameter("ShopCity");
         String shopCAP = request.getParameter("ShopCAP");
-
+        String shopState = request.getParameter("ShopState");
+        String shopHours = request.getParameter("ShopHours");
         System.out.println("Parametri: " + shopName + " " + shopDescription + " " + shopWebsite + " " + shopAddress + " " + shopCity + " " + shopCAP);
         HttpSession session = request.getSession(false);
         Shop shop = (Shop) session.getAttribute("shop");
@@ -51,6 +52,12 @@ public class EditShopInfoServlet extends HttpServlet {
             }
             if (!shopCAP.isEmpty()) {
                 ((PhysicalShop) shop).setZip(shopCAP);
+            }
+            if (!shopState.isEmpty()){
+                ((PhysicalShop) shop).setState(shopState);
+            }
+            if (!shopHours.isEmpty()) {
+                ((PhysicalShop) shop).setOpeninghours(shopHours);
             }
             //updateGPSCoords((PhysicalShop) shop);
         }

@@ -60,9 +60,6 @@
                             <div class="col-lg-2 col-md-3 col-xs-12 text-center">
                                 <div class="buttons">
                                     <div class="row">
-                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick=""><i class="fa fa-pencil-square-o fa-fw fa-lg pull-left"></i>Modifica Info</button>
-                                    </div>
-                                    <div class="row">
                                         <button type="button" class="btn btn-default btn-block margin-btn" onclick="editPriceModal(${product.productID})"><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</button>
                                     </div>
                                     <div class="row">

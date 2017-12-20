@@ -252,7 +252,7 @@ public class ShopDaoImpl implements ShopDao {
             shop.setCity(rs.getString("City"));
             shop.setState(rs.getString("State"));
             shop.setZip(rs.getString("ZIP"));
-            shop.setOpeningHours(rs.getString("OpeningHours"));
+            shop.setOpeninghours(rs.getString("OpeningHours"));
             return shop;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -283,7 +283,7 @@ public class ShopDaoImpl implements ShopDao {
                 physicalShop.setCity(rs.getString("City"));
                 physicalShop.setState(rs.getString("State"));
                 physicalShop.setZip(rs.getString("ZIP"));
-                physicalShop.setOpeningHours(rs.getString("OpeningHours"));
+                physicalShop.setOpeninghours(rs.getString("OpeningHours"));
 
                 // aggiungo l'ordine del prodotto al corrispettivo ordine generale
                 shopList.add(physicalShop);

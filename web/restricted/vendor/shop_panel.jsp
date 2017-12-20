@@ -87,7 +87,7 @@
                                 <p>Indirizzo: ${shop.address}</p>
                                 <p>City: ${shop.city}</p>
                                 <p>CAP: ${shop.zip}</p>
-                                <p>Orari: ${shop.openingHours}</p>
+                                <p>Orari: ${shop.openinghours}</p>
                                 <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
                             </c:when>
                             <c:otherwise>
@@ -196,38 +196,50 @@
                           <span class="input-group-addon">
                               <i class="fa fa-user green" aria-hidden="true"></i>
                           </span>
-                                <input name="ShopName" type="text" class="form-control"  placeholder=${shop.name}>
+                                <input name="ShopName" type="text" class="form-control"  value="${shop.name}">
                             </div>
                             <div class="input-group form-group-no-border">
                                 <span class="input-group-addon">
                                     <i class="fa fa-book green" aria-hidden="true"></i>
                                 </span>
-                                <input name="ShopDescription" type="text" class="form-control" placeholder=${shop.description}/>
+                                <input name="ShopDescription" type="text" class="form-control" value="${shop.description}"/>
                             </div>
                             <div class="input-group form-group-no-border">
                                 <span class="input-group-addon">
-                                    <i class="fa fa-book green" aria-hidden="true"></i>
+                                    <i class="fa fa-globe green" aria-hidden="true"></i>
                                 </span>
-                                <input name="ShopWebsite" type="text" class="form-control" placeholder=${shop.website}/>
+                                <input name="ShopWebsite" type="text" class="form-control" value="${shop.website}"/>
                             </div>
                             <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
                                 <div class="input-group form-group-no-border nologin">
                               <span class="input-group-addon">
-                                  <i class="fa fa-map-marker green" aria-hidden="true"></i>
+                                  <i class="fa fa-building green" aria-hidden="true"></i>
                               </span>
-                                    <input name="ShopAddress" type="text" class="form-control" placeholder="Address..."/>
+                                    <input name="ShopAddress" type="text" class="form-control" value="${shop.address}"/>
                                 </div>
                                 <div class="input-group form-group-no-border nologin">
                                 <span class="input-group-addon">
-                                    <i class="fa fa-building green" aria-hidden="true"></i>
+                                    <i class="fa fa-map-marker green" aria-hidden="true"></i>
                                 </span>
-                                    <input name="ShopCity" type="text" class="form-control" placeholder="City..."/>
+                                    <input name="ShopCity" type="text" class="form-control" value="${shop.city}"/>
                                 </div>
                                 <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-envelope green" aria-hidden="true"></i>
                           </span>
-                                    <input name="ShopCAP" type="text" class="form-control" placeholder="CAP..."/>
+                                    <input name="ShopCAP" type="text" class="form-control" value="${shop.zip}"/>
+                                </div>
+                                <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-flag green" aria-hidden="true"></i>
+                          </span>
+                                    <input name="ShopState" type="text" class="form-control" value="${shop.state}"/>
+                                </div>
+                                <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-clock-o green" aria-hidden="true"></i>
+                          </span>
+                                    <input name="ShopHours" type="text" class="form-control" value="${shop.openinghours}"/>
                                 </div>
                             </c:if>
                             <div class="footer text-center">
@@ -267,7 +279,7 @@
                           <span class="input-group-addon">
                               <i class="fa fa-envelope green" aria-hidden="true"></i>
                           </span>
-                                <input name="ShopCAP" type="text" class="form-control" placeholder="CAP..."/>
+                                <input name="ShopCAP" type="text" class="form-control" placeholder=""/>
                             </div>
                             <div class="input-group form-group-no-border">
                             <span class="input-group-addon">
