@@ -4,6 +4,7 @@ import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
 import main.PhysicalShop;
 import main.Shop;
+import utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
