@@ -4,6 +4,7 @@ import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
 import main.PhysicalShop;
 import main.Shop;
+import utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,7 +53,7 @@ public class EditShopInfoServlet extends HttpServlet {
             if (!shopCAP.isEmpty()) {
                 ((PhysicalShop) shop).setZip(shopCAP);
             }
-            //updateGPSCoords((PhysicalShop) shop);
+            Utils.updateGPSCoords((PhysicalShop) shop);
         }
         ShopDao shopDao = new ShopDaoImpl();
         if (isPhysical) {
