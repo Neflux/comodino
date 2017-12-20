@@ -157,3 +157,9 @@ li.list-group-item img {
     margin-top: 5px;
     margin-bottom: 10px;
 }
+
+#PriceButton{
+    padding: 3px 15px;
+    height: 26px;
+    border-radius: 4px;
+}

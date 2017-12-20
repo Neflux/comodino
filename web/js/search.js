@@ -1,11 +1,38 @@
 var i_quanti = 10;
 var stelle = 0;
 
-function filterPrice(elem,tipo)
-{
-    var url = (window.location.href).replace("#","");
-    var uri = "&" + tipo + "=" + encodeURI(elem.value);
-    window.location.href = updateURLParameter(url, tipo, elem.value);
+function showApply() {
+
+    var pricemax = $('#PriceMax');
+    var pricemin = $('#PriceMin');
+    var pricebutton = $('#PriceButton');
+    if( $(pricemax).val() === "" && $(pricemin).val() === ""){
+        $(pricebutton).removeClass("animated fadeInDown");
+        $(pricebutton).addClass("animated fadeOutUp");
+        setTimeout(function(){ $(pricebutton).css("display", "none"); }, 1000);
+    }
+    else{
+        $(pricebutton).css("display", "initial");
+        $(pricebutton).removeClass("animated fadeOutUp");
+        $(pricebutton).addClass("animated fadeInDown");
+    }
+}
+function filterPrice() {
+    var pricemax = $('#PriceMax');
+    var pricemin = $('#PriceMin');
+
+    var uri = "";
+    var tmp = "";
+    if($(pricemin).val() !== ""){
+        //uri = "&minPrice=" + encodeURI($(pricemin).val());
+        tmp = updateURLParameter(url, "minPrice", $(pricemin).val());
+    }
+    if($(pricemax).val() !== ""){
+        //uri += "&maxPrice=" + encodeURI($(pricemax).val());
+        tmp = updateURLParameter(url, "maxPrice", $(pricemax).val());
+    }
+
+    window.location.href = tmp;
 }
 
 function filter(elem,tipo)
