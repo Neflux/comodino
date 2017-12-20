@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.lang.Math" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -59,23 +60,26 @@
                         <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
                         <p>${shop.description}</p>
                         <div class="row text-center">
-                            <fmt:formatNumber var="rat" groupingUsed = "false" maxFractionDigits = "0" value="${shop.rating}" />
                             <c:choose>
-                                <c:when test="${rat ge 0}">
-                                    <c:forEach begin="0" end="${rat}" varStatus="loop">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </c:forEach>
-                                    <c:forEach begin="0" end="${4-rat}" varStatus="loop">
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    </c:forEach>
+                                <c:when test="${Math.round(shop.rating) == -1}">
+                                    Nessuna recensione
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach begin="0" end="4" varStatus="loop">
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    </c:forEach>
+                                    <c:if test="${Math.round(shop.rating) > 0}">
+                                        <c:forEach begin="0" end="${Math.round(shop.rating) - 1}" varStatus="loop">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${Math.round(shop.rating) < 5}">
+                                        <c:forEach begin="0" end="${4 - Math.round(shop.rating)}" varStatus="loop">
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </c:forEach>
+                                    </c:if>
                                 </c:otherwise>
                             </c:choose>
-                            <a href="#">Vedi tutte</a>
+                            <c:if test="${shop.rating > 0}">
+                                <a href="#">Vedi tutte</a>
+                            </c:if>
                         </div>
                         <c:choose>
                             <c:when test="${shop.getClass().simpleName == 'PhysicalShop'}">
