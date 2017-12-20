@@ -2,10 +2,7 @@ package daos.impl;
 
 import daos.ReviewDao;
 import db.DBManager;
-import main.Product;
-import main.ProductReview;
-import main.ReviewReply;
-import main.User;
+import main.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -110,6 +107,21 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
+    public ArrayList<ShopReview> getShopReviews(int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM shopreview sr\n" +
+                    "WHERE sr.ShopID = ?");
+            stm.setInt(1, shopID);
+            ResultSet rs = stm.executeQuery();
+            return extractShopReviewsFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public ArrayList<ProductReview> getVendorProductReviews(int shopID) {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT *\n" +
@@ -159,6 +171,36 @@ public class ReviewDaoImpl implements ReviewDao {
 
         return null;
     }
+
+    private ArrayList<ShopReview> extractShopReviewsFromResultSet(ResultSet rs) {
+        ArrayList<ShopReview> reviewList = new ArrayList<>();
+
+        try {
+            ShopReview shopReview;
+
+            while (rs.next()) {
+
+                shopReview = new ShopReview();
+
+                shopReview.setTitle(rs.getString("Title"));
+                shopReview.setCreationDate(rs.getTimestamp("CreationDate"));
+                shopReview.setRating(rs.getFloat("Rating"));
+                shopReview.setDescription(rs.getString("Description"));
+                shopReview.setShopID(rs.getInt("ShopID"));
+                shopReview.setUserID(rs.getInt("UserID"));
+
+                reviewList.add(shopReview);
+            }
+
+            return reviewList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
 
     private ProductReview extractProductReviewFromResultSet(ResultSet rs) {
         try {
