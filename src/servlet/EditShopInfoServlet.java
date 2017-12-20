@@ -60,7 +60,7 @@ public class EditShopInfoServlet extends HttpServlet {
             if (!shopHours.isEmpty()) {
                 ((PhysicalShop) shop).setOpeninghours(shopHours);
             }
-            //updateGPSCoords((PhysicalShop) shop);
+            Utils.updateGPSCoords((PhysicalShop) shop);
         }
         ShopDao shopDao = new ShopDaoImpl();
         if (isPhysical) {

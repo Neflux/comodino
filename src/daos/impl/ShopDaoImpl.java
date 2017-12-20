@@ -313,15 +313,17 @@ public class ShopDaoImpl implements ShopDao {
 
     public boolean editPhysicalInfo(PhysicalShop shop) {
         try {
-            PreparedStatement stm = con.prepareStatement("UPDATE shop S, shopinfo I SET S.Name = ?, S.Description = ?, S.Website = ?, I.Address = ?, I.City = ?, I.ZIP = ? WHERE S.ShopID= ? AND I.ShopID = ?");
+            PreparedStatement stm = con.prepareStatement("UPDATE shop S, shopinfo I SET S.Name = ?, S.Description = ?, S.Website = ?, I.Address = ?, I.City = ?, I.ZIP = ?, I.Latitude = ?, I.Longitude = ? WHERE S.ShopID= ? AND I.ShopID = ?");
             stm.setString(1,shop.getName());
             stm.setString(2,shop.getDescription());
             stm.setString(3,shop.getWebsite());
             stm.setString(4,shop.getAddress());
             stm.setString(5,shop.getCity());
             stm.setString(6,shop.getZip());
-            stm.setInt(7,shop.getShopID());
-            stm.setInt(8,shop.getShopID());
+            stm.setFloat(7, shop.getLatitude());
+            stm.setFloat(8, shop.getLongitude());
+            stm.setInt(9,shop.getShopID());
+            stm.setInt(10,shop.getShopID());
             stm.executeUpdate();
             return true;
 
@@ -417,16 +419,16 @@ public class ShopDaoImpl implements ShopDao {
 
 
     @Override
-    public boolean addPhysicalShop(int shopID, String address, String city, String ZIP, String Country, String Hours) {
+    public boolean addPhysicalShop(int shopID, PhysicalShop shop) {
         try {
             PreparedStatement stm = con.prepareStatement("INSERT INTO shopinfo VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            stm.setFloat(1, 0);
-            stm.setFloat(2, 0);
-            stm.setString(3, address);
-            stm.setString(4, city);
-            stm.setString(5, Country);
-            stm.setString(6, ZIP);
-            stm.setString(7, Hours);
+            stm.setFloat(1, shop.getLatitude());
+            stm.setFloat(2, shop.getLongitude());
+            stm.setString(3, shop.getAddress());
+            stm.setString(4, shop.getCity());
+            stm.setString(5, shop.getState());
+            stm.setString(6, shop.getZip());
+            stm.setString(7, shop.getOpeninghours());
             stm.setInt(8, shopID);
             stm.executeUpdate();
             return true;

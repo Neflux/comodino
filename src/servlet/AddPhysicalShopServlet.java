@@ -3,7 +3,9 @@ package servlet;
 
 import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
+import main.PhysicalShop;
 import main.Shop;
+import utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,16 +19,17 @@ import java.io.IOException;
 public class AddPhysicalShopServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String Address = request.getParameter("ShopAddress");
-        String City = request.getParameter("ShopCity");
-        String ZIP = request.getParameter("ShopCAP");
-        String State = request.getParameter("ShopCountry");
-        String Hours = request.getParameter("ShopHours");
-        System.out.println("Parametri:" + Address + " " + City + " " + ZIP);
+        PhysicalShop physhop = new PhysicalShop();
+        physhop.setAddress(request.getParameter("ShopAddress"));
+        physhop.setCity(request.getParameter("ShopCity"));
+        physhop.setZip(request.getParameter("ShopCAP"));
+        physhop.setState(request.getParameter("ShopCountry"));
+        physhop.setOpeninghours(request.getParameter("ShopHours"));
+        Utils.updateGPSCoords(physhop);
         HttpSession session = request.getSession(false);
         Shop shop = (Shop) session.getAttribute("shop");
         ShopDao shopDao = new ShopDaoImpl();
-        if(shopDao.addPhysicalShop(shop.getShopID(), Address, City, ZIP, State, Hours)) {
+        if(shopDao.addPhysicalShop(shop.getShopID(), physhop)) {
             response.sendRedirect("/restricted/vendor/shop_panel.jsp?success=Negozio fisico creato con successo");
         }
         else {
