@@ -37,7 +37,7 @@
                             </ul>
                         </div>
 
-                        <input name="q" class="form-control" type="text" placeholder="Cerca" autofocus>
+                        <input id="search" name="q" class="form-control" type="text" placeholder="Cerca" autofocus>
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-search btn-default">
                                 <i class="fa fa-search"></i>

@@ -34,4 +34,6 @@ public interface ProductDao extends Serializable {
     boolean updateProductRating(int productID);
 
     ArrayList<String> getImages(int productID);
+
+    String getAutocompleteProducts(String term);
 }

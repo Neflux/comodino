@@ -43,3 +43,15 @@
     right: 10px;
     opacity: 0;
 }
+
+.ui-front{
+    z-index: 10000 !important;
+}
+.ui-menu {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.ui-menu li:last-child .ui-menu-item-wrapper {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}

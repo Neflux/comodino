@@ -72,6 +72,24 @@ function readNotifications() {
         });
 }
 
+$("#search").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            url: "/searchautocomplete",
+            dataType: "json",
+            data: {
+                term: request.term
+            },
+            success: function (data) {
+                response(data);
+            }
+        });
+    },
+    minLength: 3,
+    select: function (event, ui) {
+    }
+});
+
 $(document).ready(function() {
     $("#popup").animate({opacity: 1}, 800);
     setTimeout(function() {
