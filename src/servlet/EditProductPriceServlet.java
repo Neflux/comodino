@@ -20,22 +20,24 @@ public class EditProductPriceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String price = request.getParameter("Price");
         String discount = request.getParameter("Discount");
-        System.out.println("Stampo productID: " + request.getParameter("productID"));
         int id = Integer.parseInt(request.getParameter("productID"));
-        System.out.println("Parametri: "+ id + " " + price + " " + discount);
         HttpSession session = request.getSession(false);
         Shop shop = (Shop) session.getAttribute("shop");
         if (!price.isEmpty() || !discount.isEmpty()){
-            float pr = Float.parseFloat(price);
-            float ds = Float.parseFloat(discount);
+            float pr;
+            float ds;
             ShopDao shopDao = new ShopDaoImpl();
             ArrayList<Product> products = shopDao.obtainProducts(shop.getShopID());
             for (Product product:products) {
                 if (product.getProductID() == id) {
-                    if (!price.isEmpty())
+                    if (!price.isEmpty()) {
+                        pr = Float.parseFloat(price);
                         product.setPrice(pr);
-                    if(!discount.isEmpty())
+                    }
+                    if(!discount.isEmpty()) {
+                        ds = Float.parseFloat(discount);
                         product.setDiscount(ds);
+                    }
                     shopDao.editShopProduct(product, shop.getShopID());
                 }
             }
