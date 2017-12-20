@@ -15,6 +15,7 @@
         Ricerca
     </jsp:attribute>
     <jsp:attribute name="pagecss">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/animate.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/search.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/bootstrap-slider-master/bootstrap-slider-master/dist/css/bootstrap-slider.css">
     </jsp:attribute>
@@ -108,9 +109,9 @@
                                 </c:choose>
                             </c:if>
                         </ul>
-                        <h4 class="text-center collapsed" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">
+                        <h4 class="text-center ${Utils.isNullOrEmpty(param.geo)?"collapsed" : ""}" data-toggle="collapse" data-target="#geozone_accordion" style="cursor:pointer;">
                             Area Geografica <span class="caret"></span></h4>
-                        <ul class="list-group collapse" aria-expanded="false" id="geozone_accordion">
+                        <ul class="list-group ${Utils.isNullOrEmpty(param.geo)?"collapse" : ""}" aria-expanded="false" id="geozone_accordion">
                             <c:set var="geozoneitem" scope="page" value="${paramValues.get('geo')}"/>
 
                             <c:if test="${not empty geozone}">
@@ -158,24 +159,28 @@
                             <div class="col-md-8 col-xs-9" style="text-align:right;">
                                 <c:choose>
                                     <c:when test="${not empty param.minPrice}">
-                                        <input class="form-control no-border input_prezzo" type="text"
-                                               onfocusout="filterPrice(this,'minPrice');" value="${param.minPrice}">
+                                        <input id="PriceMin" class="form-control no-border input_prezzo" type="text"
+                                               onfocusout="showApply();" value="${param.minPrice}">
                                     </c:when>
                                     <c:otherwise>
-                                        <input class="form-control no-border input_prezzo" type="text"
-                                               onfocusout="filterPrice(this,'minPrice');" value="">
+                                        <input id="PriceMin" class="form-control no-border input_prezzo" type="text"
+                                               onfocusout="showApply();" value="">
                                     </c:otherwise>
                                 </c:choose>
                                 <c:choose>
                                     <c:when test="${not empty param.maxPrice}">
-                                        <input class="form-control no-border input_prezzo" type="text"
-                                               onfocusout="filterPrice(this,'maxPrice');" value="${param.maxPrice}">
+                                        <input id="PriceMax" class="form-control no-border input_prezzo" type="text"
+                                               onfocusout="showApply();" value="${param.maxPrice}">
                                     </c:when>
                                     <c:otherwise>
-                                        <input class="form-control no-border input_prezzo" type="text"
-                                               onfocusout="filterPrice(this,'maxPrice');" value="">
+                                        <input id="PriceMax" class="form-control no-border input_prezzo" type="text"
+                                               onfocusout="showApply();" value="">
                                     </c:otherwise>
                                 </c:choose>
+                            </div>
+                            <div class="col-xs-12 text-center">
+                                <%-- TODO: onkeypress fai apparire bottone e quando carica se c'è un campo mostra il bottone sin dall'inizio--%>
+                                <button id="PriceButton" class="btn btn-success" style="display: none" onclick="filterPrice();">Applica</button>
                             </div>
                         </div>
                         <div class="row" style="padding-bottom:15px">
@@ -218,7 +223,7 @@
                                                     <li class="price">
                                                             ${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}&euro;
                                                         <c:if test="${prod.value.getList().get(0).getActualPrice() != prod.value.getList().get(0).getPrice()}">
-                                                            <span class="badge badge-discount">Scontato!</span>
+                                                            <span class="badge badge-discount">In offerta!</span>
                                                         </c:if>
                                                     </li>
                                                 </ul>
