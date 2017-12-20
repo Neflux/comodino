@@ -217,7 +217,6 @@
                         <h3>${review.title}</h3>
                         <p>
                             <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}" scope="page"/>
-
                             <c:set var="dateParts" value="${fn:split(review.creationDate, ' ')}" scope="page"/>
                             <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
                             <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
@@ -238,6 +237,18 @@
                             </c:if>
                         </p>
                         <p> ${review.description}</p>
+                        <c:if test="${reviewDao.isReviewReplied(review.reviewID) != 0}">
+                            <c:set var="reviewReply" value="${reviewDao.getProductReviewReply(review.reviewID)}" scope="page"/>
+                            <div class="row prodreviewreply">
+                                <div class="col-md-2 text-right" >
+                                    <h4><b>Risposta del venditore:</b></h4>
+                                </div>
+                                <div class="col-md-8">
+                                    <p>${reviewReply.description}</p>
+                                </div>
+                            </div>
+                        </c:if>
+
                     </div>
                 </c:forEach>
                 </div>

@@ -2,6 +2,7 @@ package daos;
 
 import main.Product;
 import main.ProductReview;
+import main.ReviewReply;
 import main.User;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ public interface ReviewDao extends Serializable {
     int createProductReview(String title, String description, int rating, int productID, int userID);
     int createProductReviewReply(String description, int reviewID);
     int isReviewReplied(int reviewID);
+    ReviewReply getProductReviewReply(int reviewID);
     ArrayList<ProductReview> getProductReviews(int productID);
     ArrayList<ProductReview> getVendorProductReviews(int shopID);
     User getReviewAuthor(int userID);

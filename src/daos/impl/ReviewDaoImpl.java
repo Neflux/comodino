@@ -4,6 +4,7 @@ import daos.ReviewDao;
 import db.DBManager;
 import main.Product;
 import main.ProductReview;
+import main.ReviewReply;
 import main.User;
 
 import java.sql.*;
@@ -76,6 +77,21 @@ public class ReviewDaoImpl implements ReviewDao {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public ReviewReply getProductReviewReply(int reviewID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM reviewreply rr\n" +
+                    "WHERE rr.ReviewID = ?");
+            stm.setInt(1, reviewID);
+            ResultSet rs = stm.executeQuery();
+            return extractProductReviewReplyFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -157,6 +173,21 @@ public class ReviewDaoImpl implements ReviewDao {
                 productReview.setProductID(rs.getInt("ProductID"));
                 productReview.setReviewID(rs.getInt("ReviewID"));
                 return productReview;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private ReviewReply extractProductReviewReplyFromResultSet(ResultSet rs) {
+        try {
+            if (rs.next()){
+                ReviewReply reviewReply = new ReviewReply();
+
+                reviewReply.setDescription(rs.getString("Description"));
+                reviewReply.setReviewID(rs.getInt("ReviewID"));
+                return reviewReply;
             }
         } catch (SQLException e) {
             e.printStackTrace();
