@@ -482,4 +482,33 @@ public class ProductDaoImpl implements ProductDao {
         }
         return imgBase64;
     }
+
+    @Override
+    public String getAutocompleteProducts(String term) {
+        StringBuilder products = new StringBuilder("[");
+        try{
+            PreparedStatement stm = con.prepareStatement("SELECT Name FROM product");
+            JaroWinkler jw = new JaroWinkler();
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                double distance = jw.similarity(rs.getString("Name").toLowerCase(), term.toLowerCase());
+                if (term.equals("") || distance >= 0.7) {
+                    products.append("\"").append(rs.getString("Name")).append("\",");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String list = removeLastChar(products.toString());
+        list += "]";
+        System.out.println(list);
+        return list;
+    }
+    private String removeLastChar(String str) {
+        if (str.equals("["))
+            return str;
+        return str.substring(0, str.length() - 1);
+    }
 }

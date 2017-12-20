@@ -9,7 +9,8 @@
 <c:set var="shop" value="${shopDao.getShop(user.shopID)}" scope="page"/>
 
 <jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl"/>
-<c:set var="reviewList" value="${reviewDao.getVendorProductReviews(shop.shopID)}" scope="page"/>
+<c:set var="productReviewList" value="${reviewDao.getVendorProductReviews(shop.shopID)}" scope="page"/>
+<c:set var="shopReviewList" value="${reviewDao.getShopReviews(shop.shopID)}" scope="page"/>
 
 
 <t:genericpage>
@@ -31,14 +32,14 @@
                     <h1 id="title" class="text-uppercase">Recensioni</h1>
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#RecensioniProdotti">Recensioni Prodotti</a></li>
-                        <li><a data-toggle="tab" href="#RecensioniNegozio">Recensioni negozio</a></li>
+                        <li><a data-toggle="tab" href="#RecensioniNegozio">Recensioni Negozio</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="RecensioniProdotti" class="tab-pane fade in active">
                             <!-- inizio review -->
                             <c:choose>
-                                <c:when test="${not empty reviewList}">
-                                    <c:forEach items="${reviewList}" var="review">
+                                <c:when test="${not empty productReviewList}">
+                                    <c:forEach items="${productReviewList}" var="review">
                                         <c:set var="product" value="${reviewDao.getReviewProduct(review.productID, shop.shopID)}"/>
 
                                         <div class="review">
@@ -103,7 +104,51 @@
                         </c:choose>
                         </div>
                         <div id="RecensioniNegozio" class="tab-pane fade">
-                            <h1>ASD</h1>
+                            <!-- inizio review -->
+                            <c:choose>
+                                <c:when test="${not empty shopReviewList}">
+                                    <c:forEach items="${shopReviewList}" var="review">
+
+                                        <div class="review">
+                                            <div class="row ordBody">
+                                                <div class="row ordItem">
+                                                    <div class="col-xs-12 col-md-12">
+                                                        <h3>${review.title}</h3>
+                                                        <p>
+                                                            <c:set var="dateParts" value="${fn:split(review.creationDate, ' ')}"
+                                                                   scope="page"/>
+                                                            <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                                                            <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
+
+                                                            <span style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
+                                                            <!-- TODO fai funzione che restituisce array di autori-->
+                                                        </p>
+                                                        <p>
+                                                            <c:if test="${review.rating > 0}">
+                                                                <c:forEach begin="0" end="${review.rating - 1}" varStatus="loop">
+                                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                            <c:if test="${review.rating < 5}">
+                                                                <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                        </p>
+                                                        <p> ${review.description}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+
+                                    <!-- fine review -->
+
+                                </c:when>
+                                <c:otherwise>
+                                    <h3>&nbsp;&nbsp;&nbsp;Non ci sono recensioni</h3>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

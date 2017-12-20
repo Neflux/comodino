@@ -1,9 +1,9 @@
-<%@tag description="Overall Page template" pageEncoding="UTF-8"%>
+<%@ tag description="Overall Page template" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@attribute name="pagetitle" fragment="true" %>
-<%@attribute name="pagecss" fragment="true" %>
-<%@attribute name="pagejavascript" fragment="true" %>
+<%@ attribute name="pagetitle" fragment="true" %>
+<%@ attribute name="pagecss" fragment="true" %>
+<%@ attribute name="pagejavascript" fragment="true" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -20,6 +20,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/js/jquery-ui-1.12.1/jquery-ui.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css">
@@ -54,6 +55,7 @@
 <jsp:doBody/>
 
 <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/custom.js"></script>
 <script src="${pageContext.request.contextPath}/js/now-ui-kit.js"></script>
