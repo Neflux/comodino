@@ -135,4 +135,20 @@ public class DisputeDaoImpl implements DisputeDao {
         }
         return null;
     }
+
+    @Override
+    public ArrayList<Dispute> getDisputeByShop(int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM dispute d\n" +
+                    "WHERE d.ShopID = ?");
+            stm.setInt(1, shopID);
+            ResultSet rs = stm.executeQuery();
+            return extractDisputesFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
