@@ -53,9 +53,9 @@
         </c:if>
     </jsp:attribute>
     <jsp:body>
-        <div class="container">
+        <div class="container container-transparent">
             <div class="row">
-                <div class="col-md-4 col-xs-12">
+                <div id="shopInfo" class="col-md-4 col-xs-12">
                     <c:choose>
                         <c:when test="${not empty shop.shopphoto}">
                             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -83,7 +83,7 @@
                     </c:choose>
                     <h1 id="shopTitle" class="text-center">${shop.name}</h1>
                     <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
-                    <p>${shop.description}</p>
+                    <p class="text-center">${shop.description}</p>
                     <div class="row text-center">
                         <c:choose>
                             <c:when test="${shop.rating == -1}">
