@@ -2,6 +2,7 @@ package servlet;
 
 import daos.impl.AddressDaoImpl;
 import main.User;
+import utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,14 +26,18 @@ public class AddAddressServlet extends HttpServlet {
         String state = request.getParameter("state");
         String phonenumber = request.getParameter("phonenumber");
         if(firstname == null || lastname == null || address == null || city == null || zip == null || state == null || phonenumber == null){
-            response.sendRedirect("add_address.jsp?error=Completa tutti i campi");
+            response.sendRedirect("addresses.jsp?error=Completa tutti i campi");
         }
         boolean result = new AddressDaoImpl().addAddress(user.getUserID(),firstname,lastname,address,city,zip,state,phonenumber);
         if (!result){
-            response.sendRedirect("add_address.jsp?error=Errore in fase di inserimento, riprova.");
+            response.sendRedirect("addresses.jsp?error=Errore in fase di inserimento, riprova.");
             return;
         }
-        response.sendRedirect("add_address.jsp?success=Indirizzo aggiunto!");
+        if(!Utils.isNullOrEmpty(request.getParameter("from"))){
+            response.sendRedirect("addresses.jsp?success=Indirizzo aggiunto!&from="+request.getParameter("from"));
+            return;
+        }
+        response.sendRedirect("addresses.jsp?success=Indirizzo aggiunto!");
 
     }
 }

@@ -63,7 +63,7 @@
                                 <h2 style="margin-top: 0">I tuoi indirizzi di consegna</h2>
                             </div>
                             <div class="col-md-3 text-right">
-                                <a href="<c:url value="/restricted/add_address.jsp"/>" class="btn btn-primary"><i
+                                <a href="<c:url value="/restricted/addresses.jsp?from=/restricted/checkout.jsp"/>" class="btn btn-primary"><i
                                         class="fa fa-fw fa-plus"></i> Aggiungi Nuovo Indirizzo</a>
                             </div>
                         </div>

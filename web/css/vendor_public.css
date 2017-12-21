@@ -1,3 +1,9 @@
+.myiconresize
+
+#addShopDiv{
+    margin-top: 20px;
+}
+
 body>.container{
     padding-top: 30px !important;
     padding-bottom: 30px !important;
@@ -16,135 +22,51 @@ body{
     width:350px;             /* As IE ignores !important it will set width as 1000px; */
 }
 
-/* override my.css */
 h4 {
+    /* override my.css */
     font-size: 100% !important;
     line-height: 1em !important;
     margin-top: -10px !important;
 }
 
-/* regole che vanno bene sempre */
-
-/* sotto i 992 pixel */
-
-@media screen and (max-width: 992px){
-
-    /* my.css fix */
-    body>.container{
-        margin-top: -30px !important;
-    }
-
-    body > .container > .row  {
-        margin: 0 15px 0 15px;
-    }
-
-    /* navbar */
-
-    body > .container > .row > #navbar  {
-        background-color: white;
-        border-radius: 8px;
-        padding-top: 20px;
-    }
-
-    #navbar >.col-md-12  {
-        text-align: justify;
-        text-justify: inter-word;
-    }
-    #shopPhoto > img {
-        max-height: 250px;
-        margin: auto;
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-
-    #addShopDiv{
-        height: 75px;
-    }
-    #realShop {
-        float: left;
-    }
-    #btnAddShopLocation {
-        margin-top: 18px;
-        float:right;
-    }
+body > .container  {
+    margin-top: 60px !important;
+    padding: 0px !important;
 }
 
-/* bugfix del button "aggiungi negozio fisico" */
-
-@media screen and (max-width: 525px){
-
-    #addShopDiv{
-        height: 140px;
-        text-align: center;
-    }
-    #realShop {
-        float: none;
-    }
-    #btnAddShopLocation {
-        margin-top: 10px;
-        float:none;
-    }
-
+body > .container > .row {
+    margin-left: -20px;
 }
 
-/*sopra i 992 pixel */
+/* Nav bar */
 
-@media screen and (min-width: 992px){
-    body > .container  {
-        margin-top: 60px !important;
-        padding: 0px !important;
-    }
-    body > .container > .row {
-        margin-left: -20px;
-    }
-
-    /* i due stili fondamentali */
-
-    body > .container > .row, #panelContainer {
-        display: table;
-    }
-
-    body > .container > .row > [class*="col-"], #panelContainer > [class*="col-"]{
-        float: none;
-        display: table-cell;
-        vertical-align: top;
-
-    }
-    #panelContainer > #buttonPanel {
-        min-width: 350px;
-    }
-
-    /* Nav bar */
-
-    body > .container > .row > #navbar {
-        background-color: white;
-        /*border-radius: 8px;*/
-        /* height: 720px;*/
-        padding-left: 15px;
-    }
-
-    #navbar >.col-md-12  {
-        text-align: justify;
-        text-justify: inter-word;
-    }
-    #shopPhoto > img {
-        max-height: 150px;
-        margin: auto;
-        margin-top: 30px;
-        margin-bottom: 10px;
-    }
-
-    #addShopDiv{
-        padding-left: 10px;
-    }
-
-    #btnAddShopLocation {
-        margin-top: 10px;
-        margin-bottom: 30px;
-    }
-
-
+body > .container > .row > #navbar {
+    background-color: white;
+    /*border-radius: 8px;*/
+    /* height: 720px;*/
+    padding-left: 15px;
 }
+
+#navbar >.col-md-12  {
+    text-align: justify;
+    text-justify: inter-word;
+}
+#shopPhoto > img {
+    max-height: 150px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#addShopDiv{
+    padding-left: 10px;
+}
+
+#btnAddShopLocation {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
 
 /* Css della ricerca */
 
@@ -290,4 +212,8 @@ body {
 .carousel-control.left,
 .carousel-control.right {
     background-image: none;
+}
+
+.carousel{
+    margin-top: 25px; 
 }
