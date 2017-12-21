@@ -87,13 +87,13 @@
                                                 <c:when test="${found eq true}">
                                                     <li class="list-group-item"><input type="checkbox" iven="${iven}"
                                                                                        name="${iven}" value="${iven}"
-                                                                                       onclick="filter(this,'vendor');"/> ${iven}
+                                                                                       onclick="filter(this,'vendors');"/> ${iven}
                                                     </li>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <li class="list-group-item"><input type="checkbox" civen="${iven}"
                                                                                        name="${iven}" value="${iven}"
-                                                                                       onclick="filter(this,'vendor');"
+                                                                                       onclick="filter(this,'vendors');"
                                                                                        checked/> ${iven}</li>
                                                 </c:otherwise>
                                             </c:choose>
