@@ -126,7 +126,7 @@
                                         </a>
                                     </div>
                                 </c:if>
-                                <a id="btnAddPhoto" class="btn btn-block btn-primary"><i class="fa fa-fw pull-left fa-camera"></i>Aggiungi foto</a>
+                                <a id="btnAddPhoto" class="btn btn-block btn-primary" data-toggle="modal" data-target="#uploadShopPhoto"><i class="fa fa-fw pull-left fa-camera"></i>Aggiungi foto</a>
                                 <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#editShopInfo"><i class="fa fa-fw pull-left fa-book"></i>Modifica negozio</a>
                             </div>
                         </div>
@@ -300,6 +300,25 @@
 
                             <div class="footer text-center">
                                 <a class="btn btn-default" onclick="$('#addPhysicalShopForm').submit();">Salva</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="uploadShopPhoto" tabindex="-1" role="dialog" aria-labelledby="uploadShopPhotoLabel">
+            <div class="row">
+                <div class="card card-signup centerize" data-background-color="orange">
+                        <%--TODO:Auto-populate previous values--%>
+                    <form id="uploadShopPhotoForm" class="form" method="POST" enctype = "multipart/form-data" action="${pageContext.request.contextPath}/restricted/vendor/uploadshopphoto">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up">Carica foto</h4>
+                        </div>
+                        <div class="content">
+                            <input type="file" name="shopPhoto" accept="image/*">
+                            <div class="footer text-center">
+                                <a class="btn btn-default" onclick="$('#uploadShopPhotoForm').submit();">Carica</a>
                             </div>
                         </div>
                     </form>

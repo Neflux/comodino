@@ -38,7 +38,7 @@ public class EditProductQuantityServlet extends HttpServlet {
             response.sendRedirect("inventory.jsp?success=Quantita' aggiornata");
         }
         else
-            response.sendRedirect("inventory.jsp?success=Nessuna modifica effettuata");
+            response.sendRedirect("inventory.jsp?warning=Nessuna modifica effettuata");
 
     }
 
