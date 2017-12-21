@@ -1,6 +1,10 @@
 var i_quanti = 10;
 var stelle = 0;
 
+$(document).ready(function() {
+    showApply();
+});
+
 function showApply() {
 
     var pricemax = $('#PriceMax');
@@ -20,7 +24,7 @@ function showApply() {
 function filterPrice() {
     var pricemax = $('#PriceMax');
     var pricemin = $('#PriceMin');
-
+    var url = (window.location.href).replace("#","");
     var uri = "";
     var tmp = "";
     if($(pricemin).val() !== ""){
