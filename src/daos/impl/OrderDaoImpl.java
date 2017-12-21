@@ -28,7 +28,7 @@ public class OrderDaoImpl implements OrderDao {
                     "WHERE UserID = ? ORDER BY OrderID DESC");
             stm.setInt(1, user.getUserID());
             ResultSet rs = stm.executeQuery();
-            printRS(rs);
+            //printRS(rs); // lasciare attiva solo per DEBUG altrimenti non trova gli ordini
             System.out.println("");
             ArrayList<Order> orders = extractProductFromResultSet(rs);
             assert orders != null;
@@ -219,14 +219,7 @@ public class OrderDaoImpl implements OrderDao {
             Address a;
             int i = 0;
 
-            // mi assicuro che legga sempre dall'inizio
-            rs.first();
-
             while (rs.next()){
-
-                if (i == 0){
-                    rs.previous(); // serve perche il primo elemento sennò viene saltato da rs.next()
-                }
 
                 // creo inserisco dati ordine generale
                 order = new Order();
@@ -249,7 +242,7 @@ public class OrderDaoImpl implements OrderDao {
 
                 // aggiungo l'ordine del prodotto al corrispettivo ordine generale
                 order.getProductList().add(ps);
-
+                System.out.println(order.toString());
                 // ciclo sugli elementi successivi dell'ordine (basta aggiungere gli progelem alla lista ordine)
                 while (rs.next()){
 

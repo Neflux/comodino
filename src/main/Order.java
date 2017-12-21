@@ -60,5 +60,16 @@ public class Order implements Serializable {
         }
         return total;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderID=" + orderID +
+                ", userID=" + userID +
+                ", date=" + date +
+                ", paymentID=" + paymentID +
+                ", productList=" + productList +
+                '}';
+    }
 }
 
