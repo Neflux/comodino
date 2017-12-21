@@ -8,8 +8,8 @@
 
 <jsp:useBean id="shop" class="main.Shop" scope="request"/>
 <jsp:useBean id="shopproducts" class="java.util.HashMap" scope="request"/>
-
-<%-- TODO: pagina non del tutto responsive (pannelli laterali) --%>
+<jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl"/>
+<c:set var="reviewList" value="${reviewDao.getShopReviews(shop.shopID)}" scope="page"/>
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
@@ -90,6 +90,7 @@
                                 Nessuna recensione
                             </c:when>
                             <c:otherwise>
+                                <%-- TODO: cambiare rating con nuovo sistema (copiare rating prodotti search)--%>
                                 <c:if test="${shop.rating > 0}">
                                     <c:forEach begin="0" end="${shop.rating - 1}" varStatus="loop">
                                         <i class="fa fa-star myiconresize" aria-hidden="true"></i>
@@ -100,7 +101,27 @@
                                         <i class="fa fa-star-o myiconresize" aria-hidden="true"></i>
                                     </c:forEach>
                                 </c:if>
-                                &nbsp;&nbsp;<a href="#">Vedi Tutte</a>
+                                &nbsp;&nbsp;<as class="collapsed" data-toggle="collapse" data-target="#shopReviews">Vedi Tutte<span class="caret"></span></as>
+                                <ul id="shopReviews" class="list-group collapse" aria-expanded="false">
+                                    <c:forEach items="${reviewList}" var="review">
+                                        <li class="list-group-item">
+                                            <p><b>${review.title}</b></p>
+                                            <p
+                                            <c:if test="${review.rating > 0}">
+                                                <c:forEach begin="0" end="${review.rating - 1}" varStatus="loop">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </c:forEach>
+                                            </c:if>
+                                                <c:if test="${review.rating < 5}">
+                                                    <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
+                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </p>
+                                            <p>${review.description}</p>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
                             </c:otherwise>
                         </c:choose>
                     </div>
