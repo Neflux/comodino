@@ -51,7 +51,7 @@
                     <a class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#editInfo"><i class="fa fa-fw fa-user pull-left"></i>Modifica Dati</a>
                 </div>
                 <div class="col-md-4">
-                    <a class="btn btn-block btn-primary text-capitalize" href="add_address.jsp"><i class="fa fa-fw fa-map-marker pull-left"></i>Modifica Indirizzi Spedizione</a>
+                    <a class="btn btn-block btn-primary text-capitalize" href="addresses.jsp"><i class="fa fa-fw fa-map-marker pull-left"></i>Modifica Indirizzi Spedizione</a>
                 </div>
             </div>
             <div class="row" style="margin: 0 0 15px 0;">

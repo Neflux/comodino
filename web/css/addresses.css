@@ -39,9 +39,14 @@ form.editaddress select:focus{
     }
 }
 
-#addaddressbutton{
+.addaddressbutton{
     margin-top: 20px;
 }
+
+.backbutton{
+    margin-left: 5px;
+}
+
 .list-group{
     margin-bottom: 5px;
 }

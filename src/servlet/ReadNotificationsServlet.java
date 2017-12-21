@@ -20,10 +20,10 @@ public class ReadNotificationsServlet extends HttpServlet {
         User user = (User) request.getSession(false).getAttribute("user");
         boolean result = new NotificationDaoImpl().readNotifications(user);
         if (!result){
-            response.sendRedirect("add_address.jsp?error=Errore in fase di inserimento, riprova.");
+            response.sendRedirect("addresses.jsp?error=Errore in fase di inserimento, riprova.");
             return;
         }
-        response.sendRedirect("add_address.jsp?success=Indirizzo aggiunto!");
+        response.sendRedirect("addresses.jsp?success=Indirizzo aggiunto!");
 
     }
 }

@@ -12,23 +12,26 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagecss">
-        <link href="${pageContext.request.contextPath}/css/add_address.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.request.contextPath}/css/addresses.css" rel="stylesheet" type="text/css">
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
-        <script src="${pageContext.request.contextPath}/js/add_address.js"></script>
+        <script src="${pageContext.request.contextPath}/js/addresses.js"></script>
     </jsp:attribute>
     <jsp:body>
         <div class="container">
             <div class="row">
-                <div class="col-lg-10 col-md-9 col-sm-8">
+                <div class="col-lg-8 col-md-7 col-sm-6">
                     <h1>I miei indirizzi</h1>
                 </div>
 
-                <div class="col-lg-2 col-md-3 col-sm-4">
-                    <button id="addaddressbutton" class="btn btn-block btn-primary text-capitalize" data-toggle="modal" data-target="#addAddress"><i class="fa fa-fw fa-map-marker"></i>Aggiungi Indirizzo</button>
-                </div>
+                <div class="col-lg-4 col-md-5 col-sm-6">
+                    <c:if test="${not empty param.from}">
+                        <a href="${param.from}" class="btn btn-default text-capitalize addaddressbutton backbutton pull-right">Torna indietro</a>
+                    </c:if>
+                    <button id="addaddressbutton" class="btn btn-primary text-capitalize addaddressbutton pull-right" data-toggle="modal" data-target="#addAddress"><i class="fa fa-fw fa-map-marker"></i>Aggiungi Indirizzo</button>
 
+                </div>
             </div>
             <div class="row">
                 <c:choose>
@@ -324,6 +327,7 @@
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
                     <form id="addAddressForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/addaddress">
+                        <input name="from" type="text" value="${param.from}" hidden>
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Aggiungi Indirizzo</h4>
                         </div>
