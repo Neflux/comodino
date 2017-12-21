@@ -18,6 +18,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
+        <script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/orderhistory.js"></script>
     </jsp:attribute>
 
@@ -533,15 +534,15 @@
 
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
+                              <i class="fa fa-thumbs-o-down green" aria-hidden="true"></i>
                           </span>
-                                <input type="text" class="form-control" name="title" placeholder="Titolo...">
+                                <input id="titleDisputeModal" type="text" class="form-control" name="title" placeholder="Titolo...">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
+                              <i class="fa fa-bars green" aria-hidden="true"></i>
                           </span>
-                                <input type="text" class="form-control" name="description" placeholder="Descrivi anomalia...">
+                                <input id="descriptionDisputeModal" type="text" class="form-control" name="description" placeholder="Descrivi anomalia...">
                             </div>
                         </div>
                         <div class="footer text-center" style="margin-top: 15px;">
@@ -566,15 +567,15 @@
 
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
+                              <i class="fa fa-star-o green" aria-hidden="true"></i>
                           </span>
-                                <input type="text" class="form-control" name="title" placeholder="Titolo...">
+                                <input id="titleReviewModal" type="text" class="form-control" name="title" placeholder="Titolo...">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
-                              <i class="fa fa-user-o green" aria-hidden="true"></i>
+                              <i class="fa fa-bars green" aria-hidden="true"></i>
                           </span>
-                                <input type="text" class="form-control" name="description" placeholder="Descrivi prodotto...">
+                                <input id="descriptionReviewModal" type="text" class="form-control" name="description" placeholder="Descrivi prodotto...">
                             </div>
                             <div class="col-md-12 text-center stelle">
                                 <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
