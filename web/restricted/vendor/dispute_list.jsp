@@ -22,7 +22,6 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
-        <script src="${pageContext.request.contextPath}/js/reviews.js"></script>
     </jsp:attribute>
 
     <jsp:body>
