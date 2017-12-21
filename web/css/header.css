@@ -1,3 +1,9 @@
+.login_singup_link
+{
+    display: inline-block !important;
+    padding-left: 0px !important;
+}
+
 .notif-title{
     max-width: 250px;
     white-space: nowrap;

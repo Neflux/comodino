@@ -26,7 +26,9 @@ function changePriceOrder()
             window.location.href = updateURLParameter(url,"sort","price-asc");
         else if (url.indexOf("sort=price-asc") !== -1)
             window.location.href = updateURLParameter(url,"sort","price-desc");
-    }, 500);
+        else
+            window.location.href = updateURLParameter(url,"sort","price-desc");
+    }, 100);
 }
 
 function showApply() {

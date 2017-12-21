@@ -150,7 +150,7 @@
                                 </c:choose>
                             </c:if>
                         </ul>
-                        <h4 class="text-center" style="cursor: pointer;" onclick="changePriceOrder()">Prezzo <i id="priceOrderIcon" class="fa fa-arrow-down rotate" style="font-size:10px; margin-left:2px" aria-hidden="true"></i></h4>
+                        <h4 class="text-center" style="cursor: pointer;" onclick="changePriceOrder()">Prezzo <i id="priceOrderIcon" class="fa fa-arrow-up rotate" style="font-size:10px; margin-left:2px" aria-hidden="true"></i></h4>
                         <div class="row">
                             <div class="col-md-4 col-xs-3">
                                 <h6 style="margin-left:25%;">Minimo</h6>

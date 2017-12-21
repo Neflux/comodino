@@ -1,3 +1,5 @@
+var first = true;
+
 $(function(){
 
     $(".input-group-btn .dropdown-menu li a").click(function(){
@@ -19,37 +21,51 @@ $(function(){
 
 });
 
+function openLoginModal()
+{
+    $('#LoginSignup').modal('show');
+    if (first === false)
+        show_login(0);
+}
+
+function openSignupModal()
+{
+    $('#LoginSignup').modal('show');
+    show_signup(0);
+    first = false;
+}
 
 
-function show_login()
+
+function show_login(vel)
 {
     $('.nologin').each(function () {
         var v = $(this);
-        v.animate({opacity: 0}, 500);
+        v.animate({opacity: 0}, vel);
     });
-    $('.login').animate({marginTop:'-100px'}, 500);
-    $('#card_titolo').animate({opacity: 0}, 250, function () {
+    $('.login').animate({marginTop:'-100px'}, vel);
+    $('#card_titolo').animate({opacity: 0}, vel/2, function () {
         $('#card_titolo').text("Login");
-        $('#card_titolo').animate({opacity: 1}, 250);
+        $('#card_titolo').animate({opacity: 1}, vel/2);
     });
-    $('#card_change_button').html('Non hai ancora un account? <a href="#" onclick="show_signup();">Registrati</a>');
+    $('#card_change_button').html('Non hai ancora un account? <a href="#" onclick="show_signup(500);">Registrati</a>');
     $('#form').attr('action','/login');
 }
 
-function show_signup()
+function show_signup(vel)
 {
     $('.nologin').each(function () {
         var v = $(this);
-        v.animate({opacity: 1}, 500);
+        v.animate({opacity: 1}, vel);
     });
-    $('.login').animate({marginTop:'0px'}, 500);
-    $('#card_titolo').animate({marginBottom:'50px'}, 500);
-    $('#card_titolo').animate({opacity: 0}, 250, function () {
+    $('.login').animate({marginTop:'0px'}, vel);
+    $('#card_titolo').animate({marginBottom:'50px'}, vel);
+    $('#card_titolo').animate({opacity: 0}, vel/2, function () {
         $('#card_titolo').text("Registrati");
-        $('#card_titolo').animate({opacity: 1}, 250);
+        $('#card_titolo').animate({opacity: 1}, vel/2);
         //$('#card_titolo').animate({marginBottom:'50px'}, 500);
     });
-    $('#card_change_button').html('Hai già un account? <a href="#" onclick="show_login();">Loggati</a>');
+    $('#card_change_button').html('Hai già un account? <a href="#" onclick="show_login(500);">Loggati</a>');
     $('#form').attr('action','/register');
 }
 
