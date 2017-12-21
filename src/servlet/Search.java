@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @WebServlet(name = "Search", urlPatterns = {"/search"})
 public class Search extends HttpServlet {
@@ -41,10 +38,12 @@ public class Search extends HttpServlet {
             HashSet<String> geozone = new HashSet<>();
 
             //Map
-            Map<String, ProductGroup> products = productDao.getProducts(request.getParameterMap());
+            List<Map.Entry<String, ProductGroup>> products = productDao.getProducts(request.getParameterMap());
             request.setAttribute("products", products);
-            for (ProductGroup i:products.values())
+            for (Map.Entry<String, ProductGroup> entry: products)
             {
+                ProductGroup i = entry.getValue();
+
                 for (int j=0;j<i.getVendors().size();j++)
                     vendors.add(i.getVendors().get(j).getName());
 

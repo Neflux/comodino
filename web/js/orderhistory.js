@@ -36,6 +36,36 @@ function setStarRating()
     console.log(stelle);
 
 }
+$("#opendisputeform").validate();
+$( "#titleDisputeModal").rules( "add", {
+    required: true,
+    minlength: 3,
+    maxlength: 100
+})
+$( "#descriptionDisputeModal").rules( "add", {
+    required: true,
+    minlength: 3,
+    maxlength: 500
+});
+
+$("#openreviewform").validate();
+$( "#titleReviewModal").rules( "add", {
+    required: true,
+    minlength: 3,
+    maxlength: 100
+})
+$( "#descriptionReviewModal").rules( "add", {
+    required: true,
+    minlength: 3,
+    maxlength: 500
+});
+
+jQuery.extend(jQuery.validator.messages, {
+    required: jQuery.validator.format("Questo campo è obbligatorio"),
+    minlength: jQuery.validator.format("Sono necessari almeno {0} caratteri"),
+    maxlength: jQuery.validator.format("Sono permessi al massimo {0} caratteri")
+});
+
 $(document).ready(function() {
     var ordini = $("#OrdiniInCorso ul.list-group");
     ordini.each( function () {

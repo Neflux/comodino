@@ -6,6 +6,7 @@ import main.ProductGroup;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface ProductDao extends Serializable {
@@ -25,7 +26,7 @@ public interface ProductDao extends Serializable {
      * @return Mappa contenente i singoli shopProduct raggruppati come product (ProductGroup in java)
      * @throws SQLException nel caso qualcosa non andasse come previsto nel database
      */
-    Map<String, ProductGroup> getProducts(Map params) throws SQLException;
+    List<Map.Entry<String, ProductGroup>> getProducts(Map params) throws SQLException;
 
     boolean checkAvailability(int productID, int shopID, Integer quantity);
 

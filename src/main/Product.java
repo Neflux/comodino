@@ -18,6 +18,7 @@ public class Product implements Serializable {
     private String categoryName = "";
     private float rating = -1;
 
+
     public int getProductID() {
         return productID;
     }
@@ -113,4 +114,5 @@ public class Product implements Serializable {
     public void setRating(float rating) {
         this.rating = rating;
     }
+
 }

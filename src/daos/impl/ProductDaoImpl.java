@@ -12,9 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static utils.Mechanist.checkSMP;
 import static utils.Mechanist.getMMP;
@@ -150,7 +149,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Map<String, ProductGroup> getProducts(Map params) throws SQLException {
+    public List<Map.Entry<String, ProductGroup>> getProducts(Map params) throws SQLException {
         Map<String, ProductGroup> products = new HashMap<>();
 
         //Search query parameter
@@ -240,7 +239,7 @@ public class ProductDaoImpl implements ProductDao {
         StringBuilder category = new StringBuilder();
         if ((cat = getMMP(params.get(categoryKeyword))) != null) {
             for (int i = 0; i < cat.length; i++) {
-                System.out.println(cat[i]);
+                //System.out.println(cat[i]);
                 if (i == 0)
                     category.append(" AND (P.CategoryName = '")
                             .append(cat[i])
@@ -283,8 +282,9 @@ public class ProductDaoImpl implements ProductDao {
                         priceRange +            //HAVING
                         orderBySql              //ORDER BY
         );
-        System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
+        //System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
 
+        Map<ProductGroup, Double> mymap;
         //Final query execute
         try {
             try (ResultSet rs = stm.executeQuery()) {
@@ -309,6 +309,12 @@ public class ProductDaoImpl implements ProductDao {
                         //ProductGroup crafting
                         products.computeIfAbsent(p.getProductName(), k -> new ProductGroup());
                         products.get(p.getProductName()).getList().add(p);
+
+                        products.get(p.getProductName()).setLastDistance(distance);
+
+                        /*if(distance > products.get(p.getProductName()).getLastDistance()){
+                            products.get(p.getProductName()).setLastDistance(distance);
+                        }*/
                     }
                 }
             }
@@ -319,7 +325,7 @@ public class ProductDaoImpl implements ProductDao {
         //ProductGroup extra fetching
         for (Map.Entry pair : products.entrySet()) {
             ProductGroup gp = (ProductGroup) pair.getValue();
-            System.out.println("\nPRODUCT: " + pair.getKey().toString());
+            //System.out.println("\nPRODUCT: " + pair.getKey().toString());
 
             //Review count info
             stm = con.prepareStatement(
@@ -332,7 +338,7 @@ public class ProductDaoImpl implements ProductDao {
             try {
                 try (ResultSet rs = stm.executeQuery()) {
                     rs.next();
-                    System.out.println("REVIEW COUNT: " + rs.getInt("conto"));
+                    //System.out.println("REVIEW COUNT: " + rs.getInt("conto"));
                     gp.setReviewCount(rs.getInt("conto"));
                 }
             } finally {
@@ -343,7 +349,7 @@ public class ProductDaoImpl implements ProductDao {
             Product p = gp.getList().get(0);
             stm = con.prepareStatement("SELECT * FROM productphoto WHERE ProductID = ?");
             stm.setInt(1, p.getProductID());
-            System.out.println("DECODE PRODUCT IMAGE: " + stm.toString().substring(45));
+            //System.out.println("DECODE PRODUCT IMAGE: " + stm.toString().substring(45));
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
                     gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
@@ -366,7 +372,7 @@ public class ProductDaoImpl implements ProductDao {
                     "ORDER BY ActualPrice ASC, Rating DESC"
             );
             stm.setString(1, pair.getKey().toString());
-            System.out.println("FETCH SHOP LIST: " + stm.toString().substring(45));
+            //System.out.println("FETCH SHOP LIST: " + stm.toString().substring(45));
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     //Shop crafting
@@ -407,7 +413,26 @@ public class ProductDaoImpl implements ProductDao {
             }
         }
 
-        return products;
+        Set<Map.Entry<String, ProductGroup>> set = products.entrySet();
+        List<Map.Entry<String, ProductGroup>> list = new ArrayList<>(set);
+        list.sort(Comparator.comparingDouble((Map.Entry<String, ProductGroup> o) -> o.getValue().getLastDistance()).reversed());
+
+        for(Map.Entry<String, ProductGroup> entry:list){
+            System.out.println(entry.getKey()+" ==== "+entry.getValue().getLastDistance());
+        }
+
+        return list;
+/*
+
+        for (Map.Entry<String, ProductGroup> entry : products.entrySet())
+        {
+            System.out.println(entry.getKey() + " - " + entry.getValue().getLastDistance());
+        }
+
+        return (List<String,ProductGroup>) products.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(
+                        Comparator.comparingDouble(ProductGroup::getLastDistance)))
+                .collect(Collectors.toList());*/
     }
 
     @Override
@@ -503,7 +528,7 @@ public class ProductDaoImpl implements ProductDao {
 
         String list = removeLastChar(products.toString());
         list += "]";
-        System.out.println(list);
+        //.out.println(list);
         return list;
     }
     private String removeLastChar(String str) {

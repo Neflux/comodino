@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<jsp:useBean id="products" class="java.util.HashMap" scope="request"/>
+<jsp:useBean id="products" class="java.util.ArrayList" scope="request"/>
 <jsp:useBean id="categories" class="java.util.HashSet" scope="request"/>
 <jsp:useBean id="vendors" class="java.util.HashSet" scope="request"/>
 <jsp:useBean id="geozone" class="java.util.HashSet" scope="request"/>
