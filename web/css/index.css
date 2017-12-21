@@ -61,6 +61,7 @@ body>.container-fluid{
 
 .tile{
     overflow: hidden;
+    cursor: pointer;
 }
 
 .tilecaption{
