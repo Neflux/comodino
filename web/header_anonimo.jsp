@@ -64,13 +64,13 @@
 
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <li class="links">
 
                     <a href="#" onclick="openLoginModal();" class="login_singup_link">
                         <i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Login
                     </a>
                     <a href="#" onclick="openSignupModal();" class="login_singup_link">
-                        &nbsp;&nbsp;<i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;Sign Up
+                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;Sign Up
                     </a>
                 </li>
                 <li class="dropdown">
