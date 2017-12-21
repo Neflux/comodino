@@ -3,14 +3,40 @@ var stelle = 0;
 
 $(document).ready(function() {
     showApply();
+    setPriceOrder();
 });
+
+function setPriceOrder()
+{
+    var url = (window.location.href).replace("#","");
+
+    if (url.indexOf("sort=price-desc") !== -1)
+        $("#priceOrderIcon").attr("class","fa fa-arrow-down rotate");
+    else if (url.indexOf("sort=price-asc") !== -1)
+        $("#priceOrderIcon").attr("class","fa fa-arrow-up rotate");
+}
+
+function changePriceOrder()
+{
+    var url = (window.location.href).replace("#","");
+
+    $(".rotate").toggleClass("down");
+    setTimeout(function () {
+        if (url.indexOf("sort=price-desc") !== -1)
+            window.location.href = updateURLParameter(url,"sort","price-asc");
+        else if (url.indexOf("sort=price-asc") !== -1)
+            window.location.href = updateURLParameter(url,"sort","price-desc");
+    }, 500);
+}
 
 function showApply() {
 
     var pricemax = $('#PriceMax');
     var pricemin = $('#PriceMin');
     var pricebutton = $('#PriceButton');
-    if( $(pricemax).val() === "" && $(pricemin).val() === ""){
+    var url = window.location.href;
+
+    if( $(pricemax).val() === "" && $(pricemin).val() === "" && url.indexOf("minPrice") === -1 && url.indexOf("maxPrice") === -1){
         $(pricebutton).removeClass("animated fadeInDown");
         $(pricebutton).addClass("animated fadeOutUp");
         setTimeout(function(){ $(pricebutton).css("display", "none"); }, 1000);
@@ -22,21 +48,25 @@ function showApply() {
     }
 }
 function filterPrice() {
-    var pricemax = $('#PriceMax');
-    var pricemin = $('#PriceMin');
+    var pricemax = $('#PriceMax').val();
+    var pricemin = $('#PriceMin').val();
     var url = (window.location.href).replace("#","");
-    var uri = "";
-    var tmp = "";
-    if($(pricemin).val() !== ""){
-        //uri = "&minPrice=" + encodeURI($(pricemin).val());
-        tmp = updateURLParameter(url, "minPrice", $(pricemin).val());
-    }
-    if($(pricemax).val() !== ""){
-        //uri += "&maxPrice=" + encodeURI($(pricemax).val());
-        tmp = updateURLParameter(url, "maxPrice", $(pricemax).val());
+
+    if(pricemin !== "")
+        url = updateURLParameter(url, "minPrice", pricemin);
+    else {
+        url = updateURLParameter(url, "minPrice", "");
+        url = url.replace("&minPrice=","");
     }
 
-    window.location.href = tmp;
+    if(pricemax !== "")
+        url = updateURLParameter(url, "maxPrice", pricemax);
+    else {
+        url = updateURLParameter(url, "maxPrice", "");
+        url = url.replace("&maxPrice=","");
+    }
+
+    window.location.href = url;
 }
 
 function filter(elem,tipo)

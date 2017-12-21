@@ -150,7 +150,7 @@
                                 </c:choose>
                             </c:if>
                         </ul>
-                        <h4 class="text-center">Prezzo:</h4>
+                        <h4 class="text-center" style="cursor: pointer;" onclick="changePriceOrder()">Prezzo <i id="priceOrderIcon" class="fa fa-arrow-down rotate" style="font-size:10px; margin-left:2px" aria-hidden="true"></i></h4>
                         <div class="row">
                             <div class="col-md-4 col-xs-3">
                                 <h6 style="margin-left:25%;">Minimo</h6>
@@ -160,27 +160,26 @@
                                 <c:choose>
                                     <c:when test="${not empty param.minPrice}">
                                         <input id="PriceMin" class="form-control no-border input_prezzo" type="text"
-                                               onfocusout="showApply();" value="${param.minPrice}">
+                                               onkeyup="showApply();" value="${param.minPrice}">
                                     </c:when>
                                     <c:otherwise>
                                         <input id="PriceMin" class="form-control no-border input_prezzo" type="text"
-                                               onfocusout="showApply();" value="">
+                                               onkeyup="showApply();" value="">
                                     </c:otherwise>
                                 </c:choose>
                                 <c:choose>
                                     <c:when test="${not empty param.maxPrice}">
                                         <input id="PriceMax" class="form-control no-border input_prezzo" type="text"
-                                               onfocusout="showApply();" value="${param.maxPrice}">
+                                               onkeyup="showApply();" value="${param.maxPrice}">
                                     </c:when>
                                     <c:otherwise>
                                         <input id="PriceMax" class="form-control no-border input_prezzo" type="text"
-                                               onfocusout="showApply();" value="">
+                                               onkeyup="showApply();" value="">
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <div class="col-xs-12 text-center">
-                                <%-- TODO: onkeypress fai apparire bottone e quando carica se c'è un campo mostra il bottone sin dall'inizio--%>
-                                <button id="PriceButton" class="btn btn-success" style="display: none" onclick="filterPrice();">Applica</button>
+                            <div class="col-xs-9 col-xs-offset-3 text-center">
+                                <button id="PriceButton" class="btn btn-success" style="display: none" onclick="filterPrice();"><i class="fa fa-check" aria-hidden="true"></i></button>
                             </div>
                         </div>
                         <div class="row" style="padding-bottom:15px">

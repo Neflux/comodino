@@ -160,6 +160,19 @@ li.list-group-item img {
 
 #PriceButton{
     padding: 3px 15px;
-    height: 26px;
+    height: 20px;
+    font-size: 12px;
     border-radius: 4px;
+}
+
+.rotate{
+    -moz-transition: all 0.5s linear;
+    -webkit-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
+
+.rotate.down{
+    -moz-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    transform:rotate(180deg);
 }
