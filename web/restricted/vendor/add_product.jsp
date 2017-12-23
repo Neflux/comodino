@@ -10,14 +10,14 @@
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
-        Inventario - ${shop.name}
+        Aggiungi prodotto - ${shop.name}
     </jsp:attribute>
     <jsp:attribute name="pagecss">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inventory.css" >
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/add_product.css" >
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
-        <script src="${pageContext.request.contextPath}/js/inventory.js"></script>
+        <script src="${pageContext.request.contextPath}/js/add_product.js"></script>
     </jsp:attribute>
 
     <jsp:body>
@@ -27,7 +27,7 @@
                     <h1>Inventario:</h1>
                 </div>
                 <div class="col-xs-6">
-                    <button class="btn btn-success pull-right" data-toggle="modal" data-target="#addproductmodal" style="margin-top: 20px"><i class="fa fa-plus"></i> Aggiungi nuovo prodotto</button>
+                    <button class="btn btn-success pull-right" style="margin-top: 20px"><i class="fa fa-plus"></i> Aggiungi nuovo prodotto</button>
                 </div>
             </div>
             <ul class="list-group">
@@ -159,30 +159,6 @@
                             <div class="footer text-center" style="margin-top: 15px;">
                                 <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#removeproductform').submit();">Rimuovi</a>
                                 <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#removeproductmodal').modal('toggle');});">Annulla</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="addproductmodal" tabindex="-1" role="dialog">
-            <div class="row">
-                <div id="addproductcard" class="card card-signup centerize" data-background-color="orange">
-                    <form id="addproductform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/vendor/addproduct">
-                        <div class="header header-primary text-center">
-                            <h4 class="title title-up" >Aggiungi Nuovo Prodotto</h4>
-                        </div>
-                        <div class="content">
-                            <div class="input-group form-group-no-border nologin">
-                          <span class="input-group-addon">
-                              <i class="fa fa-user green" aria-hidden="true"></i>
-                          </span>
-                                <input name="productName" type="text" class="form-control"  placeholder="Nome prodotto...">
-                            </div>
-                            <div class="footer text-center" style="margin-top: 15px;">
-                                <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#addproductform').submit();">Aggiungi</a>
-                                <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#addproductmodal').modal('toggle');});">Chiudi</a>
                             </div>
                         </div>
                     </form>

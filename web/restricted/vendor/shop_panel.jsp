@@ -107,6 +107,7 @@
                         <div class="col-md-4" id="photoPanel">
                             <div class="col-md-12">
                                 <c:if test="${!empty shop.shopphoto}">
+                                    <%--TODO: AUTO SIZE CAROUSEL--%>
                                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner">
@@ -316,7 +317,8 @@
                             <h4 class="title title-up">Carica foto</h4>
                         </div>
                         <div class="content">
-                            <input type="file" name="shopPhoto" accept="image/*">
+                            <p style="color: white">Dimensioni ideali: 400x300px</p>
+                            <input required type="file" name="shopPhoto" accept="image/*">
                             <div class="footer text-center">
                                 <a class="btn btn-default" onclick="$('#uploadShopPhotoForm').submit();">Carica</a>
                             </div>

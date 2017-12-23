@@ -536,4 +536,38 @@ public class ProductDaoImpl implements ProductDao {
             return str;
         return str.substring(0, str.length() - 1);
     }
+
+    public int checkProductStatus(int shopID, String productName) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT P.Name, SP.ShopID, P.ProductID FROM product P, shopproduct SP WHERE P.ProductID = SP.ProductID AND P.Name LIKE ? AND SP.ShopID = ?");
+            stm.setString(1, productName);
+            stm.setInt(2,shopID);
+            ResultSet rs = stm.executeQuery();
+            if (!rs.isBeforeFirst() ) {
+                return 1;
+            }
+            else {
+                rs.next();
+                return rs.getInt("ProductID");
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public boolean restoreProduct(int shopID, int productID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE shopproduct SP SET Quantity = 0 WHERE SP.ProductID = ? AND SP.ShopID = ?");
+            stm.setInt(1, productID);
+            stm.setInt(2, shopID);
+            stm.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
