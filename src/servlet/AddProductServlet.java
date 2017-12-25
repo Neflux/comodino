@@ -41,7 +41,11 @@ public class AddProductServlet extends HttpServlet {
                 response.sendRedirect("inventory.jsp?success=Prodotto gia' presente in passato. Reinserito in inventario.");
             }
             else {
-                response.sendRedirect("inventory.jsp?warning=WIP");
+                ArrayList<Product> products = new ArrayList<>();
+                productDao.getSimilarProducts(products, productName);
+                request.setAttribute("products", products);
+                request.setAttribute("productName", productName);
+                request.getRequestDispatcher("add_product.jsp").forward(request,response);
             }
         }
     }

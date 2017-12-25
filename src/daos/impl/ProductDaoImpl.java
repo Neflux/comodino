@@ -544,7 +544,7 @@ public class ProductDaoImpl implements ProductDao {
             stm.setInt(2,shopID);
             ResultSet rs = stm.executeQuery();
             if (!rs.isBeforeFirst() ) {
-                return 1;
+                return 0;
             }
             else {
                 rs.next();
@@ -562,6 +562,46 @@ public class ProductDaoImpl implements ProductDao {
             PreparedStatement stm = con.prepareStatement("UPDATE shopproduct SP SET Quantity = 0 WHERE SP.ProductID = ? AND SP.ShopID = ?");
             stm.setInt(1, productID);
             stm.setInt(2, shopID);
+            stm.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void getSimilarProducts(ArrayList<Product> products, String productName) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT P.Name, P.ProductID FROM product P");
+            JaroWinkler jw = new JaroWinkler();
+            ResultSet rs = stm.executeQuery();
+            Product tmp;
+            while(rs.next()) {
+                double distance = jw.similarity(rs.getString("Name").toLowerCase(), productName.toLowerCase());
+                if (distance >= 0.7) {
+                    tmp = new Product();
+                    tmp.setProductName(rs.getString("Name"));
+                    tmp.setProductID(rs.getInt("ProductID"));
+                    tmp.setImgBase64(getImages(rs.getInt("ProductID")));
+                    System.out.println("AGGIUNGO: " + tmp.getProductName().toUpperCase());
+                    products.add(tmp);
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean addShopProduct(int shopID, int productID, int quantity, float price, float discount) {
+        try {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO shopproduct VALUES (?,?,?,?,?)");
+            stm.setFloat(1,price);
+            stm.setInt(2,quantity);
+            stm.setFloat(3,discount);
+            stm.setInt(4,productID);
+            stm.setInt(5,shopID);
             stm.executeUpdate();
             return true;
         }

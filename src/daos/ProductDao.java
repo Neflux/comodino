@@ -41,4 +41,8 @@ public interface ProductDao extends Serializable {
     int checkProductStatus(int shopID, String productName);
 
     boolean restoreProduct(int shopID, int productID);
+
+    void getSimilarProducts(ArrayList<Product> products, String productName);
+
+    boolean addShopProduct(int shopID, int productID, int quantity, float price, float discount);
 }

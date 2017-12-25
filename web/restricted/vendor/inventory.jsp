@@ -40,7 +40,7 @@
                                 <img class="img-rounded img-responsive" src="${product.imgBase64[0]}" alt="Product Image">
                             </div>
                             <div class="col-lg-5 col-md-3 col-xs-12">
-                                <h3 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${product.shopID}">${product.productName}</a></h3>
+                                <h3 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}">${product.productName}</a></h3>
                                 <ul class="list-unstyled list-group-item-text">
                                     <c:choose>
                                         <c:when test="${product.price == product.actualPrice}">

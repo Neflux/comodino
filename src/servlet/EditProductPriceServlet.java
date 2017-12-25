@@ -18,35 +18,38 @@ import java.util.ArrayList;
 public class EditProductPriceServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String price = request.getParameter("Price");
-        String discount = request.getParameter("Discount");
-        int id = Integer.parseInt(request.getParameter("productID"));
-        HttpSession session = request.getSession(false);
-        Shop shop = (Shop) session.getAttribute("shop");
-        if (!price.isEmpty() || !discount.isEmpty()){
-            float pr;
-            float ds;
-            ShopDao shopDao = new ShopDaoImpl();
-            ArrayList<Product> products = shopDao.obtainProducts(shop.getShopID());
-            for (Product product:products) {
-                if (product.getProductID() == id) {
-                    if (!price.isEmpty()) {
-                        pr = Float.parseFloat(price);
-                        product.setPrice(pr);
+        try {
+            String price = request.getParameter("Price");
+            String discount = request.getParameter("Discount");
+            int id = Integer.parseInt(request.getParameter("productID"));
+            HttpSession session = request.getSession(false);
+            Shop shop = (Shop) session.getAttribute("shop");
+            if (!price.isEmpty() || !discount.isEmpty()) {
+                float pr;
+                float ds;
+                ShopDao shopDao = new ShopDaoImpl();
+                ArrayList<Product> products = shopDao.obtainProducts(shop.getShopID());
+                for (Product product : products) {
+                    if (product.getProductID() == id) {
+                        if (!price.isEmpty()) {
+                            pr = Float.parseFloat(price);
+                            product.setPrice(pr);
+                        }
+                        if (!discount.isEmpty()) {
+                            ds = Float.parseFloat(discount);
+                            product.setDiscount(ds);
+                        }
+                        shopDao.editShopProduct(product, shop.getShopID());
                     }
-                    if(!discount.isEmpty()) {
-                        ds = Float.parseFloat(discount);
-                        product.setDiscount(ds);
-                    }
-                    shopDao.editShopProduct(product, shop.getShopID());
                 }
-            }
 
-            response.sendRedirect("inventory.jsp?success=Prezzo aggiornato");
+                response.sendRedirect("inventory.jsp?success=Prezzo aggiornato");
+            } else
+                response.sendRedirect("inventory.jsp?success=Nessuna modifica effettuata");
         }
-        else
-            response.sendRedirect("inventory.jsp?success=Nessuna modifica effettuata");
-
+        catch (NumberFormatException e){
+            response.sendRedirect("inventory.jsp?error=Errore inserimento dati");
+        }
     }
 
 
