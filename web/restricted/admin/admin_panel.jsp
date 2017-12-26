@@ -12,6 +12,9 @@
 <jsp:useBean id="productDao" class="daos.impl.ProductDaoImpl"/>
 <c:set var="products" value="${productDao.allProducts()}" scope="page"/>
 
+<jsp:useBean id="shopDao" class="daos.impl.ShopDaoImpl"/>
+<c:set var="shops" value="${shopDao.allShops()}" scope="page"/>
+
 <t:genericpage>
     <jsp:attribute name="pagetitle">
         Pannello Amministratore
@@ -35,19 +38,25 @@
                     </ul>
                     <div class="tab-content">
                         <div id="Dispute" class="tab-pane fade in active">
-                            <div class="col-md-3">
-                                <button id="filtrodispute" type="button" class="btn btn-block btn-primary" onclick="filtraInAttesa()">
-                                    Vedi solo dispute aperte
-                                </button>
-                                <button type="button" class="btn btn-block btn-success">
-                                    Rimborsa ogni disputa aperta <!-- TODO fare funzionalità-->
-                                </button>
-                                <button type="button" class="btn btn-block btn-danger">
-                                    Declina ogni disputa aperta <!-- TODO fare funzionalità-->
-                                </button>
+                            <div class="row" style="padding-left: 20px; padding-right: 20px">
+                                <div class="col-xs-6">
+                                    <h3 style="margin-top: 0">Dispute</h3>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button id="filtrodispute" type="button" class="btn btn-primary pull-right" onclick="filtraInAttesa()">
+                                        Vedi solo dispute aperte
+                                    </button>
+                                        <%-- TODO: se c'è tempo facciamo ste due robette
+                                        <button type="button" class="btn btn-block btn-success">
+                                            Rimborsa ogni disputa aperta
+                                        </button>
+                                        <button type="button" class="btn btn-block btn-danger">
+                                            Declina ogni disputa aperta
+                                        </button>
+                                        --%>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <h3 style="margin-top: 0">Dispute</h3>
+                            <div class="col-xs-12">
                                 <table id="disputeList" class="table table-striped table-hover">
                                     <thead>
                                     <tr>
@@ -131,7 +140,66 @@
                             </div>
                         </div>
                         <div id="Negozi" class="tab-pane fade in">
-                            <!-- Todo finire parte negozi, in attesa del merge del brench sullo shop -->
+                            <table id="shopList" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        ShopID
+                                    </th>
+                                    <th>
+                                        Nome
+                                    </th>
+                                    <th class="hidden-xs hidden-sm">
+                                        Descrizione
+                                    </th>
+                                    <th style="text-align: center">
+                                        Rating
+                                    </th>
+                                    <th style="text-align: center">
+                                        Pagina
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${shops}" var="shop">
+                                    <tr>
+                                        <td>
+                                            <b>${shop.shopID}</b>
+                                        </td>
+                                        <td>
+                                            ${shop.name}
+                                        </td>
+                                        <td class="text hidden-xs hidden-sm">
+                                            <span>${shop.description}</span>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <c:choose>
+                                                <c:when test="${Math.round(shop.rating) == -1}">
+                                                    Nessuna recensione
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${Math.round(shop.rating) > 0}">
+                                                        <c:forEach begin="0" end="${Math.round(shop.rating) - 1}" varStatus="loop">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${Math.round(shop.rating) < 5}">
+                                                        <c:forEach begin="0" end="${4 - Math.round(shop.rating)}" varStatus="loop">
+                                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td  style="text-align: center">
+                                            <a style="text-decoration: none" href="${pageContext.request.contextPath}/shop.jsp?id=${shop.shopID}">
+                                                Vedi >>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                         <div id="Prodotti" class="tab-pane fade in">
                             <table id="productList" class="table table-striped">

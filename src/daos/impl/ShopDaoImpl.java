@@ -214,6 +214,28 @@ public class ShopDaoImpl implements ShopDao {
         }
         return shops;
     }
+    private ArrayList<Shop> extractSimpleShopsFromResultSet(ResultSet rs) {
+        ArrayList<Shop> shopList = new ArrayList<>();
+
+        try {
+            Shop shop = new Shop();
+            while (rs.next()) {
+                shop = new Shop();
+
+                // creo inserisco dati ordine generale
+                shop.setShopID(rs.getInt("ShopID"));
+                shop.setName(rs.getString("Name"));
+                shop.setDescription(rs.getString("Description"));
+                shop.setWebsite(rs.getString("Website"));
+                shop.setRating(rs.getFloat("Rating"));
+
+                shopList.add(shop);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shopList;
+    }
 
     private Shop extractSimpleShopFromResultSet(ResultSet rs) {
         try {
@@ -449,13 +471,25 @@ public class ShopDaoImpl implements ShopDao {
             stm.executeUpdate();
             return true;
         }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        catch (IOException e) {
+        catch (SQLException | IOException e){
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ArrayList<Shop> allShops(){
+        ArrayList<Shop> shops = new ArrayList<>();
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM shop\n" +
+                    "LEFT OUTER JOIN shopinfo s ON shop.ShopID = s.ShopID;");
+            ResultSet rs = stm.executeQuery();
+            shops = extractSimpleShopsFromResultSet(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shops;
     }
 
 }
