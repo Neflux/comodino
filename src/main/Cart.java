@@ -9,6 +9,14 @@ CARTITEM MAP:
 "address" -> null o addressID o 0 (ritiro in negozio)
  */
 public class Cart extends ArrayList<CartItem> {
+    public int totalSize(){
+        int total = 0;
+        for (CartItem item:this) {
+
+            total += item.getQuantity();
+        }
+        return total;
+    }
     public float getTotal() {
         float total = 0;
         for (CartItem item:this) {
