@@ -5,6 +5,9 @@
 <%@ attribute name="pagecss" fragment="true" %>
 <%@ attribute name="pagejavascript" fragment="true" %>
 
+<jsp:useBean id="categoryDao" class="daos.impl.CategoryDaoImpl"/>
+<c:set var="allcategories" value="${categoryDao.getCategories()}" scope="application"/>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>

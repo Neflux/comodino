@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<jsp:useBean id="categoryDao" class="daos.impl.CategoryDaoImpl"/>
-<c:set var="categories" value="${categoryDao.getCategories()}" scope="page"/>
-
 <jsp:useBean id="user" class="main.User" scope="session"/>
 <jsp:useBean id="notificationdao" class="daos.impl.NotificationDaoImpl"/>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -156,7 +153,7 @@
                             </button>
                             <ul class="dropdown-menu pull-left" role="menu">
                                 <li><a href="#">Tutte le categorie</a></li>
-                                <c:forEach items="${categories}" var="cat">
+                                <c:forEach items="${allcategories}" var="cat">
                                     <li><a  href="#">${cat.categoryName}</a></li>
                                     <input id="${fn:replace(cat.categoryName,' ', '')}-radio" name="cat" value="${cat.categoryName}" type="radio" hidden>
                                 </c:forEach>
@@ -179,7 +176,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a href="#">Tutte le Categorie</a></li>
-                                <c:forEach items="${categories}" var="cat">
+                                <c:forEach items="${allcategories}" var="cat">
                                     <li><a href="#">${cat.categoryName}</a></li>
                                 </c:forEach>
                             </ul>
@@ -218,7 +215,7 @@
                 <li class="dropdown">
                     <a id="cartdrop" onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="badge">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> ${user.getCart(false).size()}
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> ${user.getCart(false).totalSize()}
                         </span>
                         &nbsp;&nbsp;Carrello <span class="caret"></span>
                     </a>

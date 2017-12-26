@@ -1,8 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<jsp:useBean id="categoryDao" class="daos.impl.CategoryDaoImpl"/>
-<c:set var="categories" value="${categoryDao.getCategories()}" scope="page"/>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -30,7 +28,7 @@
                             </button>
                             <ul class="dropdown-menu pull-left" role="menu">
                                 <li><a href="#">Tutte le categorie</a></li>
-                                <c:forEach items="${categories}" var="cat">
+                                <c:forEach items="${allcategories}" var="cat">
                                     <li><a  href="#">${cat.categoryName}</a></li>
                                     <input id="${fn:replace(cat.categoryName,' ', '')}-radio" name="cat" value="${cat.categoryName}" type="radio" hidden>
                                 </c:forEach>
@@ -51,7 +49,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a href="#">Tutte le Categorie</a></li>
-                                <c:forEach items="${categories}" var="cat">
+                                <c:forEach items="${allcategories}" var="cat">
                                     <li><a href="#">${cat.categoryName}</a></li>
                                 </c:forEach>
                             </ul>
