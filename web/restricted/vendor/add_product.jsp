@@ -46,6 +46,9 @@
                 </c:forEach>
             </ul>
             </div>
+            <div class="row">
+                <button class="btn btn-success pull-right" data-toggle="modal" data-target="#newproductmodal" style="margin-top: 20px"><i class="fa fa-plus"></i> Aggiungi nuovo prodotto</button>
+            </div>
         </div>
 
         <div class="modal fade" id="addproductmodal" tabindex="-1" role="dialog">
@@ -81,6 +84,74 @@
                             <div class="footer text-center" style="margin-top: 15px;">
                                 <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#addproductform').submit();">Invia</a>
                                 <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#addproductmodal').modal('toggle');});">Chiudi</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="newproductmodal" tabindex="-1" role="dialog">
+            <div class="row">
+                <div id="newproductcard" class="card card-signup centerize" data-background-color="orange">
+                    <form id="newproductform" enctype="multipart/form-data" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/vendor/insertnewproduct">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up" >Aggiungi nuovo prodotto</h4>
+                        </div>
+                        <div class="content">
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-shopping-cart green" aria-hidden="true"></i>
+                          </span>
+                                <input name="Name" type="text" class="form-control"  placeholder="Nome...">
+                            </div>
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-pencil green" aria-hidden="true"></i>
+                          </span>
+                                <input name="Description" type="text" class="form-control"  placeholder="Descrizione...">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control minimal" name="Category" id="Category">
+                                        <option value=""> -- Seleziona Categoria -- </option>
+                                        <option value="Bagno">Bagno</option>
+                                        <option value="Balcone e Giardino">Balcone e Giardino</option>
+                                        <option value="Camera da Letto">Camera da Letto</option>
+                                        <option value="Cucina">Cucina</option>
+                                        <option value="Illuminazione">Illuminazione</option>
+                                        <option value="Soggiorno">Soggiorno</option>
+                                        <option value="Studio e Ufficio">Studio e Ufficio</option>
+                                </select>
+                            </div>
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-eur green" aria-hidden="true"></i>
+                          </span>
+                                <input name="Price" type="text" class="form-control"  placeholder="Prezzo...">
+                            </div>
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-percent green" aria-hidden="true"></i>
+                          </span>
+                                <input name="Discount" type="text" class="form-control"  placeholder="Sconto...">
+                            </div>
+
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-hashtag green" aria-hidden="true"></i>
+                          </span>
+                                <input name="Quantity" type="text" class="form-control"  placeholder="Quantità...">
+                            </div>
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-camera green" aria-hidden="true"></i>
+                          </span>
+                                <input required type="file" name="productPhoto" accept="image/*" placeholder="Immagine...">
+                            </div>
+
+                            <div class="footer text-center" style="margin-top: 15px;">
+                                <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#newproductform').submit();">Invia</a>
+                                <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#newproductmodal').modal('toggle');});">Chiudi</a>
                             </div>
                         </div>
                     </form>

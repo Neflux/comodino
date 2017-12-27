@@ -8,12 +8,13 @@ import main.ProductGroup;
 import main.Shop;
 import utils.Utils;
 
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static utils.Mechanist.checkSMP;
 import static utils.Mechanist.getMMP;
@@ -596,18 +597,76 @@ public class ProductDaoImpl implements ProductDao {
 
     public boolean addShopProduct(int shopID, int productID, int quantity, float price, float discount) {
         try {
-            PreparedStatement stm = con.prepareStatement("INSERT INTO shopproduct VALUES (?,?,?,?,?)");
-            stm.setFloat(1,price);
-            stm.setInt(2,quantity);
-            stm.setFloat(3,discount);
-            stm.setInt(4,productID);
-            stm.setInt(5,shopID);
-            stm.executeUpdate();
-            return true;
+            PreparedStatement rst = con.prepareStatement("SELECT * FROM shopproduct WHERE ProductID = ? AND ShopID = ?");
+            rst.setInt(1,productID);
+            rst.setInt(2,shopID);
+            ResultSet rs = rst.executeQuery();
+            PreparedStatement stm;
+            if (!rs.isBeforeFirst()) {
+                stm = con.prepareStatement("INSERT INTO shopproduct VALUES (?,?,?,?,?)");
+                stm.setFloat(1, price);
+                stm.setInt(2, quantity);
+                stm.setFloat(3, discount);
+                stm.setInt(4, productID);
+                stm.setInt(5, shopID);
+                stm.executeUpdate();
+                return true;
+            }
+            else
+                stm = con.prepareStatement("UPDATE shopproduct SET Price = ?, Discount = ?, Quantity = ? WHERE ShopID = ? AND ProductID = ?");
+                stm.setFloat(1,price);
+                stm.setFloat(2,discount);
+                stm.setInt(3,quantity);
+                stm.setInt(4,shopID);
+                stm.setInt(5,productID);
+                stm.executeUpdate();
+                return true;
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean addNewProduct(int shopID, String name, String description, String category, float price, float discount, int quantity, Part productPhoto) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT ProductID FROM product WHERE Name = ?");
+            stm.setString(1, name);
+            ResultSet rs = stm.executeQuery();
+            if (rs.isBeforeFirst()) {
+                return false;
+            }
+            else {
+                PreparedStatement stm1 = con.prepareStatement("INSERT INTO product VALUES (NULL, ?, ?, -1, ?)");
+                stm1.setString(1,name);
+                stm1.setString(2,description);
+                stm1.setString(3,category);
+                stm1.executeUpdate();
+                PreparedStatement stm2 = con.prepareStatement("SELECT productID FROM product WHERE Name = ?");
+                stm2.setString(1, name);
+                rs = stm2.executeQuery();
+                rs.next();
+                int productID = rs.getInt("productID");
+                PreparedStatement stm3 = con.prepareStatement("INSERT INTO shopproduct VALUES (?,?,?,?,?)");
+                stm3.setFloat(1,price);
+                stm3.setInt(2,quantity);
+                stm3.setFloat(3,discount);
+                stm3.setInt(4,productID);
+                stm3.setInt(5,shopID);
+                stm3.executeUpdate();
+                PreparedStatement stm4 = con.prepareStatement("INSERT INTO productphoto VALUES (NULL ,?,?)");
+                stm4.setBinaryStream(1,productPhoto.getInputStream(), (int) productPhoto.getSize());
+                stm4.setInt(2,productID);
+                stm4.executeUpdate();
+                return true;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

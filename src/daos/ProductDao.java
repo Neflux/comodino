@@ -3,6 +3,7 @@ package daos;
 import main.Product;
 import main.ProductGroup;
 
+import javax.servlet.http.Part;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,4 +46,6 @@ public interface ProductDao extends Serializable {
     void getSimilarProducts(ArrayList<Product> products, String productName);
 
     boolean addShopProduct(int shopID, int productID, int quantity, float price, float discount);
+
+    boolean addNewProduct(int shopID, String name, String description, String category, float price, float discount, int quantity, Part productPhoto);
 }
