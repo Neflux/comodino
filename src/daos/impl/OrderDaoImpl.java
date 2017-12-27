@@ -44,6 +44,29 @@ public class OrderDaoImpl implements OrderDao {
         return null;
     }
 
+    public ArrayList<Order> getAllOrders(Shop shop) {
+
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * \n" +
+                    "FROM orderprod \n" +
+                    "INNER JOIN orderlist USING(OrderID)\n" +
+                    "WHERE ShopID = ? ORDER BY OrderID DESC");
+            stm.setInt(1, shop.getShopID());
+            ResultSet rs = stm.executeQuery();
+            //printRS(rs); // lasciare attiva solo per DEBUG altrimenti non trova gli ordini
+            System.out.println("");
+            ArrayList<Order> orders = extractProductFromResultSet(rs);
+            assert orders != null;
+            System.out.println("Size: " + orders.size());
+            return orders;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     private void loadDisputes(ArrayList<Order> orders) {
         for (Order o:orders){
             for (ProdOrder po:o.getProductList()){

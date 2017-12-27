@@ -37,7 +37,6 @@
                             <c:choose>
                                 <c:when test="${not empty orders}">
                                     <c:forEach items="${orders}" var="order">
-                                        <!-- inizio ordine -->
                                         <div class="panel-group">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">

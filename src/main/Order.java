@@ -71,5 +71,12 @@ public class Order implements Serializable {
                 ", productList=" + productList +
                 '}';
     }
+
+    public boolean isFinalized() {
+        for (ProdOrder product : productList) {
+            if (product.getStatus() == 0) return false;
+        }
+        return true;
+    }
 }
 

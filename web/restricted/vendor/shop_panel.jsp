@@ -139,7 +139,7 @@
                                     <a href="inventory.jsp" id="btnInventario" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-cube fa-fw fa-lg pull-left"></i>Inventario</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <a id="btnOrderList" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-fw fa-lg fa-list-ul pull-left"></i>Ordini</a>
+                                    <a href="orderreceived.jsp" id="btnOrderList" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-fw fa-lg fa-list-ul pull-left"></i>Ordini</a>
                                 </div>
                             </div>
                             <div class="row">
