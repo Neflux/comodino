@@ -50,7 +50,7 @@
 
     <jsp:body>
         <div style="margin-top:60px !important;" class="container">
-            <div class="row">
+            <div class="row main-content">
                 <div class="col-md-4" id="navbar">
                     <div class="col-md-12">
                         <c:if test="${!empty shop.shopphoto}">

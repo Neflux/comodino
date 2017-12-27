@@ -22,32 +22,43 @@
 
     <jsp:body>
         <div class="container">
-            <div class="row">
-            <h1>Trovati prodotti simili in altri negozi:</h1>
-            <ul class="list-group">
-                <c:forEach items="${products}" var="product">
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-2 col-sm-12 col-xs-12">
-                                <img class="img-rounded img-responsive" src="${product.imgBase64[0]}" alt="Product Image">
-                            </div>
-                            <div class="col-md-7 col-sm-8 col-xs-12">
-                                <h3 class="list-group-item-heading">${product.productName}</h3>
-                            </div>
-                            <div class="col-md-3 col-sm-4 col-xs-12 btncolumn">
-                                <div class="buttons">
-                                    <div class="row">
-                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="addNewProductModal(${product.productID})"><i class="fa fa-plus fa-fw fa-lg pull-left"></i>Aggiungi questo prodotto</button>
+            <c:if test="${!products.isEmpty()}">
+                <div class="row">
+                    <div class="col-md-12">
+                    <h1>Trovati prodotti simili in altri negozi:</h1>
+                    <ul class="list-group">
+                        <c:forEach items="${products}" var="product">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-12 col-xs-12">
+                                        <img class="img-rounded img-responsive" src="${product.imgBase64[0]}" alt="Product Image">
+                                    </div>
+                                    <div class="col-md-7 col-sm-8 col-xs-12">
+                                        <h3 class="list-group-item-heading">${product.productName}</h3>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-12 btncolumn">
+                                        <div class="buttons">
+                                            <div class="row">
+                                                <button type="button" class="btn btn-default btn-block margin-btn" onclick="addNewProductModal(${product.productID})"><i class="fa fa-plus fa-fw fa-lg pull-left"></i>Aggiungi questo prodotto</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                </c:forEach>
-            </ul>
-            </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-5 text-center" id="oppure">
+                        <h5>-- oppure --</h5>
+                    </div>
+                </div>
+            </c:if>
             <div class="row">
-                <button class="btn btn-success pull-right" data-toggle="modal" data-target="#newproductmodal" style="margin-top: 20px"><i class="fa fa-plus"></i> Aggiungi nuovo prodotto</button>
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <button class="btn btn-success addnew" data-toggle="modal" data-target="#newproductmodal"><i class="fa fa-plus"></i> Aggiungi nuovo prodotto</button>
+                </div>
             </div>
         </div>
 

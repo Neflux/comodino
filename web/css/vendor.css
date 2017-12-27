@@ -15,6 +15,10 @@ body{
     width:350px;             /* As IE ignores !important it will set width as 1000px; */
 }
 
+#navbar {
+    border-radius: 8px !important;
+}
+
 /* override my.css */
 h4 {
     font-size: 100%;
@@ -41,7 +45,6 @@ h4 {
     
     body > .container > .row > #navbar  {
         background-color: white;
-        border-radius: 8px;
         padding-top: 20px;
     } 
     
@@ -207,11 +210,7 @@ h4 {
     }
     
     /* Pannello foto e modifica */
-    
-    body > .container > .row > #mainContent > #panelContainer {
-        margin-top: 30px;
-    }
-    
+
     #photoPanel {
         background-color: white;
         border-radius: 8px;
@@ -316,3 +315,7 @@ h4 {
     
 }
  */
+
+.main-content {
+    margin-top: 30px;
+}
