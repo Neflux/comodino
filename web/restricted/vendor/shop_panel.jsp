@@ -147,7 +147,7 @@
                                     <a href="${pageContext.request.contextPath}/restricted/vendor/reviews.jsp" id="btnReviews" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <a id="btnDispute" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-fw fa-lg fa-warning pull-left"></i>Dispute</a></div>
+                                    <a href="dispute_list.jsp" id="btnDispute" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-fw fa-lg fa-warning pull-left"></i>Dispute</a></div>
                             </div>
                         </div>
                     </div>
