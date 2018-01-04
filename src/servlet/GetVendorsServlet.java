@@ -64,7 +64,7 @@ public class GetVendorsServlet extends HttpServlet {
                     try (ResultSet rs = stm.executeQuery()){
                         System.out.println(stm.toString());
                         while(rs.next()) {
-                            ret += "<div class=\"col-md-8 mod\"><a href=\"/shop.jsp?id="+rs.getInt("ShopID")+"\">" + rs.getString("Name") + "</a></div>\n" +
+                            ret += "<div class=\"col-md-8 mod\"><a href=\"/product.jsp?product="+rs.getInt("ProductID")+"&shop="+rs.getInt("ShopID")+"\">" + rs.getString("Name") + "</a></div>\n" +
                                     "                                    <div class=\"col-md-4 mod text-left\">\n" +
                                     "                                        <span class=\"white valign\">da " + rs.getFloat("ActualPrice") + " €</span>\n" +
                                     "                                        <span class=\"float-right\"><a href=\"/product.jsp?product=" + rs.getString("ProductID") + "&shop=" + rs.getString("ShopID") + "\"><i class=\"fa fa-angle-double-right white valign\" aria-hidden=\"true\"></i></a></span>\n" +
