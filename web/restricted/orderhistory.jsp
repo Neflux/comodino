@@ -196,6 +196,7 @@
                                 <c:when test="${not empty orders}">
                                     <c:forEach items="${orders}" var="order">
                                         <!-- inizio ordine -->
+                                        <c:if test="${!order.isFinalized()}">
                                         <div class="panel-group">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
@@ -344,6 +345,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </c:if>
                                         <!-- fine ordine -->
                                     </c:forEach>
                                 </c:when>
@@ -357,6 +359,7 @@
                                 <c:when test="${not empty orders}">
                                     <c:forEach items="${orders}" var="order">
                                         <!-- inizio ordine -->
+                                        <c:if test="${order.isFinalized()}">
                                         <div class="panel-group">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
@@ -505,6 +508,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </c:if>
                                         <!-- fine ordine -->
                                     </c:forEach>
                                 </c:when>

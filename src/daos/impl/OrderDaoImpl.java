@@ -273,7 +273,7 @@ public class OrderDaoImpl implements OrderDao {
                     if (rs.getInt("OrderID") != order.getOrderID()){
                         // finalizzo l'ordine
                         System.out.println("[ INFO ] Ordine " + order.getOrderID() + " aggiunto");
-                        //orderList.add(order);
+                        orderList.add(order);
                         // torno all'elemento precedente (perchè poi nel while esterno ritorno avanti di uno e dichiaro un nuovo ordine)
                         rs.previous();
                         // esco dal while interno (ovvero non ho più prodotti relativi all'ordine corrente)
