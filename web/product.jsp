@@ -145,15 +145,14 @@
                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                 </c:forEach>
                             </c:if>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <c:choose>
-                        <c:when test="${fn:length(reviewList) == 1}">
-                            &nbsp&nbsp<span class="text-right">1 recensione</span>
-                        </c:when>
-                        <c:otherwise>
-                            &nbsp&nbsp<span class="text-right">${fn:length(reviewList)} recensioni</span>
+                            <c:choose>
+                                <c:when test="${fn:length(reviewList) == 1}">
+                                &nbsp&nbsp<span class="text-right">1 recensione</span>
+                                </c:when>
+                                <c:otherwise>
+                                    &nbsp&nbsp<span class="text-right">${fn:length(reviewList)} recensioni</span>
+                                </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                     </c:choose>
 
@@ -178,13 +177,10 @@
         </div>
         <div class="container" style="margin-top: 30px">
         <div class="row">
+            <div class="container">
             <div class="col-md-12">
                 <h1 style="margin-top: 0">Recensioni</h1>
-                <c:choose>
-                    <c:when test="${Math.round(product.rating) == -1}">
-                        Nessuna recensione
-                    </c:when>
-                    <c:otherwise>
+                <c:if test="${fn:length(reviewList) > 0}">
                         <c:if test="${Math.round(product.rating) > 0}">
                             <c:forEach begin="0" end="${Math.round(product.rating) - 1}" varStatus="loop">
                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -195,8 +191,6 @@
                                 <i class="fa fa-star-o" aria-hidden="true"></i>
                             </c:forEach>
                         </c:if>
-                    </c:otherwise>
-                </c:choose>
 
                 <c:choose>
                     <c:when test="${fn:length(reviewList) == 1}">
@@ -206,9 +200,8 @@
                         &nbsp&nbsp<span class="text-right">${fn:length(reviewList)} recensioni</span>
                     </c:otherwise>
                 </c:choose>
-
+                </c:if>
             </div>
-        </div>
         <!-- inizio review -->
         <c:choose>
             <c:when test="${not empty reviewList}">
@@ -259,6 +252,8 @@
                 <h3>&nbsp;&nbsp;&nbsp;Non ci sono recensioni</h3>
             </c:otherwise>
         </c:choose>
+        </div>
+        </div>
 
         <div class="container" style="margin-top: 30px; margin-bottom: 30px">
             <h1 style="margin-top: 0; margin-bottom: 20px;">Negozi nelle vicinanze</h1>
