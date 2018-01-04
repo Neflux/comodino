@@ -217,7 +217,7 @@
                                                 <h2 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
                                                 <ul class="list-unstyled list-group-item-text">
                                                     <li>Venduto da: <a href="${pageContext.request.contextPath}/shop.jsp?id=${prod.value.getList().get(0).getShopID()}"><b>${prod.value.getList().get(0).getShopName()}</b></a>
-                                                        <small>e da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${prod.value.getList().size()}</a> venditori</small>
+                                                        <c:if test="${prod.value.getList().size() > 1}"><small>e da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${(prod.value.getList().size())-1}</a> venditori</small></c:if>
                                                     </li>
                                                     <li class="price">
                                                             ${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}&euro;
