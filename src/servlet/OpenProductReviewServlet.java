@@ -18,6 +18,7 @@ import java.io.IOException;
 public class OpenProductReviewServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         System.out.println("[INFO] OpenReview Servlet: Entered");
         if(request.getParameter("title") == null || request.getParameter("description") == null || request.getParameter("rating") == null || request.getParameter("productID") == null ){
             response.sendRedirect("/index.jsp?error=Parametri Mancanti");
@@ -25,14 +26,21 @@ public class OpenProductReviewServlet extends HttpServlet {
         }
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        int rating = Integer.parseInt(request.getParameter("rating"));
+        System.out.println(description);
+        // TODO: chi ha sbuggato il rating metta 0 o 1 a seconda di quello che è stato deciso per rating minimo
+        int rating = 0;
+        try {
+            rating = Integer.parseInt(request.getParameter("rating"));
+        }
+        catch (Exception ignored){}
+
         int productID = Integer.parseInt(request.getParameter("productID"));
         int userID = ((User)request.getSession(false).getAttribute("user")).getUserID();
 
         System.out.println("\tDispute ProductID: " + productID + " UserID: " + userID +
-                "\n\tTitle: " + title +
-                "\n\tDescription: " + description +
-                "\n\tRating: " + rating
+            "\n\tTitle: " + title +
+            "\n\tDescription: " + description +
+            "\n\tRating: " + rating
         );
 
         ReviewDao reviewDao = new ReviewDaoImpl();
@@ -41,7 +49,7 @@ public class OpenProductReviewServlet extends HttpServlet {
         if (newReviewID != 0){
             result = new NotificationDaoImpl().createProductReviewNotification(newReviewID, title, rating);
             ProductDao pd = new ProductDaoImpl();
-            result = result ? pd.updateProductRating(productID) : false;
+            result = result && pd.updateProductRating(productID);
         }
         else{ // la creazione della recensione è fallita
             response.sendRedirect("/index.jsp?error=Errore Creazione Recensione");

@@ -26,7 +26,13 @@ public class DBManager implements Serializable {
             database = pr.get("database");
             user = pr.get("user");
             password = pr.get("password");
-            timezone_fix = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
+            timezone_fix = "?useUnicode=true" +
+                    "&useJDBCCompliantTimezoneShift=true" +
+                    "&useLegacyDatetimeCode=false" +
+                    "&serverTimezone=UTC" +
+                    "&useSSL=false" +
+                    "&useUnicode=true" +
+                    "&characterEncoding=UTF-8";
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (Exception e) {
             throw new RuntimeException(e.toString(), e);

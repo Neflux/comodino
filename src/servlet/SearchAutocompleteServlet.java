@@ -13,7 +13,7 @@ import java.io.IOException;
 public class SearchAutocompleteServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
         String products = new ProductDaoImpl().getAutocompleteProducts(request.getParameter("term"));
 
         response.setContentType("text/plain");

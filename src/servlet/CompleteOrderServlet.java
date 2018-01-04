@@ -19,6 +19,8 @@ import java.io.IOException;
 @WebServlet(name = "CompleteOrderServlet", urlPatterns = "/restricted/completeorder")
 public class CompleteOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+
         if(request.getParameter("card-holder-name").isEmpty() ||
             request.getParameter("card-number").isEmpty() ||
             request.getParameter("expiry-month").isEmpty() ||

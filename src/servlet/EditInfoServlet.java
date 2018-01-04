@@ -20,7 +20,7 @@ public class EditInfoServlet extends HttpServlet {
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");
         String email = request.getParameter("Email");
-        System.out.println("Parametri: " + firstName + " " + lastName + " " + email);
+        //System.out.println("Parametri: " + firstName + " " + lastName + " " + email);
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
         if (!firstName.isEmpty()){

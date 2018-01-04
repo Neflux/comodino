@@ -14,6 +14,8 @@ import java.io.IOException;
 public class OpenReviewReplyServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         System.out.println("[INFO] OpenReviewReply Servlet: Entered");
         if(request.getParameter("description") == null || request.getParameter("reviewID") == null ){
             response.sendRedirect("/index.jsp?error=Parametri Mancanti");

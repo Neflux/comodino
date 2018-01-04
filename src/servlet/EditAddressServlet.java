@@ -14,6 +14,8 @@ import java.io.IOException;
 public class EditAddressServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+
         String addressID = request.getParameter("AddressID");
         String firstName = request.getParameter("FirstName");
         String lastName = request.getParameter("LastName");

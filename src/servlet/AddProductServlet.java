@@ -20,6 +20,8 @@ import java.util.ArrayList;
 public class AddProductServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         String productName = request.getParameter("productName");
         HttpSession session = request.getSession(false);
         Shop shop = (Shop) session.getAttribute("shop");

@@ -16,7 +16,6 @@ import java.io.IOException;
 public class ReadNotificationsServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         User user = (User) request.getSession(false).getAttribute("user");
         boolean result = new NotificationDaoImpl().readNotifications(user);
         if (!result){

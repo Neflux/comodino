@@ -15,7 +15,6 @@ import java.io.IOException;
 public class RemoveAddressServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         User user = (User) request.getSession(false).getAttribute("user");
         int addressID = Integer.parseInt(request.getParameter("addressID"));
         if(request.getParameter("addressID") == null){

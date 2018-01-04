@@ -88,7 +88,7 @@ public class User implements Serializable {
     }
 
     public void updateCart() {
-        System.out.println("[INFO] Cart Updated");
+        //System.out.println("[INFO] Cart Updated");
         System.out.flush();
         this.cart = new UserDaoImpl().getCart(this);
     }

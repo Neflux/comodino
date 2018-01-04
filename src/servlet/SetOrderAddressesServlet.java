@@ -19,6 +19,7 @@ import java.util.List;
 public class SetOrderAddressesServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
         User user = (User) request.getSession(false).getAttribute("user");
         String address = request.getParameter("address");

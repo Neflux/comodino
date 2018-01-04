@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class EditProductPriceServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         try {
             String price = request.getParameter("Price");
             String discount = request.getParameter("Discount");

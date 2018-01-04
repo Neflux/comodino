@@ -14,6 +14,8 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         if(request.getParameter("email") == null || request.getParameter("password") == null){
             response.sendRedirect("/index.jsp?error=Parametri Mancanti");
             return;

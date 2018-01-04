@@ -18,6 +18,8 @@ import java.util.Objects;
 public class ChangePasswordServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         String curPwd = request.getParameter("CurrentPassword");
         String newPwd = request.getParameter("NewPassword");
         String repeatPwd = request.getParameter("RepeatPassword");

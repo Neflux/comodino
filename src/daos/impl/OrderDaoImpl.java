@@ -250,11 +250,11 @@ public class OrderDaoImpl implements OrderDao {
                 order.setOrderID(rs.getInt("OrderID"));
                 order.setUserID(rs.getInt("UserID"));
                 order.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Date")));
-                System.out.println("[ INFO ] Data: " + order.getDate().toString());
+                //System.out.println("[ INFO ] Data: " + order.getDate().toString());
                 // creo prodotto con dati venditore
                 pd = new ProductDaoImpl();
                 p = pd.getProduct(rs.getInt("ProductID"),rs.getInt("ShopID"));
-                System.out.println("[ INFO ] Prodotto : " + p.getProductName());
+                //System.out.println("[ INFO ] Prodotto : " + p.getProductName());
 
                 // creo indirizzo spedizione
                 ad = new AddressDaoImpl();
@@ -265,7 +265,7 @@ public class OrderDaoImpl implements OrderDao {
 
                 // aggiungo l'ordine del prodotto al corrispettivo ordine generale
                 order.getProductList().add(ps);
-                System.out.println(order.toString());
+                //System.out.println(order.toString());
                 // ciclo sugli elementi successivi dell'ordine (basta aggiungere gli progelem alla lista ordine)
                 while (rs.next()){
 
@@ -273,7 +273,7 @@ public class OrderDaoImpl implements OrderDao {
                     if (rs.getInt("OrderID") != order.getOrderID()){
                         // finalizzo l'ordine
                         System.out.println("[ INFO ] Ordine " + order.getOrderID() + " aggiunto");
-                        orderList.add(order);
+                        //orderList.add(order);
                         // torno all'elemento precedente (perchè poi nel while esterno ritorno avanti di uno e dichiaro un nuovo ordine)
                         rs.previous();
                         // esco dal while interno (ovvero non ho più prodotti relativi all'ordine corrente)
@@ -283,7 +283,7 @@ public class OrderDaoImpl implements OrderDao {
                     // creo prodotto con dati venditore
                     pd = new ProductDaoImpl();
                     p = pd.getProduct(rs.getInt("ProductID"), rs.getInt("ShopID"));
-                    System.out.println("[ INFO ] Prodotto : " + p.getProductName());
+                    //System.out.println("[ INFO ] Prodotto : " + p.getProductName());
 
                     // creo indirizzo spedizione
                     ad = new AddressDaoImpl();
@@ -299,7 +299,7 @@ public class OrderDaoImpl implements OrderDao {
             }
             if (i > 0){
                 orderList.add(order);
-                System.out.println("[ INFO ] Ordine " + order.getOrderID() + " aggiunto");
+                //System.out.println("[ INFO ] Ordine " + order.getOrderID() + " aggiunto");
             }
 
             return orderList;
