@@ -14,7 +14,7 @@ function addToCart(productID,shopID)
         });
 
 
-
+    window.location.href = document.location + "&success=Prodotto aggiunto al carrello";
     //var valore = $("#cart-size").text();
     //$("#cart-size").text( parseInt(valore)+1 );
 }
