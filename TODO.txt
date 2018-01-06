@@ -1,3 +1,0 @@
-Roba varia da fare (cerchiamo di tenere ordine di priorità crescente):
-	- fixare i warning WARNING [RMI TCP Connection(27)-127.0.0.1] e INFO [Abandoned connection cleanup thread], dovrebbe c'entrare il webappcontextlistener e la chiusura del db
-	- readme con il remember delle info del file di configurazione
