@@ -12,40 +12,120 @@ import java.util.Map;
 
 public interface ProductDao extends Serializable {
     /**
-     *  ritorna un oggetto prodotto con tutte le info sul venditore specifico
+     *  Restituisce un prodotto specifico di un negozio in particolare
      *
-     * @param productID     id prodotto da pigliare
-     * @param shopID        id shop che vende il prodotto
-     * @return              ritorna il prodotto con tutte le info sul venditore
+     * @param productID ID di tipo 'int' del prodotto
+     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @return Oggetto 'Product' trovato nel database, 'null' se non esiste
      */
     Product getProduct(int productID, int shopID);
+
+    /**
+     * Ottiene tutti i prodotti di tipo 'shopproduct' dal database e li istanza in oggetti 'Product'
+     * e li aggiunge ad un array.
+     *
+     * @return Array contenente i prodotti di tipo 'Product'
+     */
     ArrayList<Product> allProducts();
 
     /**
      * Ottiene la lista dei prodotti dal DB in base ai parametri, organizzati in gruppi di prodotti dallo stesso nome
+     *
      * @param params Mappa contenente tutti i parametri ottenuti precedentemente dal GET
      * @return Mappa contenente i singoli shopProduct raggruppati come product (ProductGroup in java)
      * @throws SQLException nel caso qualcosa non andasse come previsto nel database
      */
     List<Map.Entry<String, ProductGroup>> getProducts(Map params) throws SQLException;
 
+    /**
+     * Controlla la disponibilità di una certa quantità di uno specifico prodotto, venduto da un negozio in particolare
+     *
+     * @param productID ID di tipo 'int' del prodotto
+     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @param quantity Quantità 'int' del prodotto specificato
+     * @return 'true' se c'è disponibilità, 'false' altrimenti
+     */
     boolean checkAvailability(int productID, int shopID, Integer quantity);
 
+    /**
+     * Aggiorna il database riducendo di una determinata quantità la disponibilità di uno specifico prodotto,
+     * venduto da un negozio in particolare
+     *
+     * @param productID ID di tipo 'int' del prodotto
+     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @param quantity Quantità 'int' del prodotto specificato
+     * @return 'true' se è stato possibile ridurre la quantità di prodotto, 'false' altrimenti
+     */
     boolean reduceAvailability(int productID, int shopID, Integer quantity);
 
+    /**
+     * Aggiorna la valutazione globale (indipendentemente dal venditore) di un prodotto
+     * @param productID ID di tipo 'int' del prodotto
+     * @return 'true' se l'operazione è andata a buon, 'false' altrimenti
+     */
     boolean updateProductRating(int productID);
 
+    /**
+     * Ottiene tutte le immagini di un prodotto
+     *
+     * @param productID ID di tipo 'int' del prodotto
+     * @return Array di stringhe che contengono le varie immagini in formato base64
+     */
     ArrayList<String> getImages(int productID);
 
+    /**
+     * Predispone i dati per il menù a tendina, utile per le funzionalità dell'autocompletamento della ricerca
+     *
+     * @param term Stringa che definisce il termine di ricerca
+     * @return Stringa in formato JSON che contiene i dati
+     */
     String getAutocompleteProducts(String term);
 
+    /**
+     * Controlla se esiste un prodotto con il nome specificato
+     *
+     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @param productName Stringa che definisce il nome del prodotto
+     * @return ID del prodotto riscontrato nel database, '0' altrimenti
+     */
     int checkProductStatus(int shopID, String productName);
 
+    /**
+     * Azzera la quantità di uno specifico prodotto, venduto da un negozio in particolare
+     *
+     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @param productID ID di tipo 'int' del prodotto
+     * @return 'true' se l'operazione è andata a buon, 'false' altrimenti
+     */
     boolean restoreProduct(int shopID, int productID);
 
+    //TODO: DELSY COMMENTA STA ROBA NON CAPISCO
     void getSimilarProducts(ArrayList<Product> products, String productName);
 
+    /**
+     * Aggiunge un prodotto al negozio
+     *
+     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @param productID ID di tipo 'int' del prodotto
+     * @param quantity Quantità 'int' del prodotto
+     * @param price Prezzo 'float' del prodotto
+     * @param discount Sconto 'float' del prodotto
+     * @return @return 'true' se l'operazione è andata a buon, 'false' altrimenti
+     */
     boolean addShopProduct(int shopID, int productID, int quantity, float price, float discount);
 
+
+    /**
+     *
+     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @param name Stringa che definisce il nome del prodotto
+     * @param description Stringa contenente la descrizione del nuovo prodotto
+     * @param category Stringa che definisce la categoria del prodotto
+     * @param price Prezzo 'float' del prodotto
+     * @param discount Sconto 'float' del prodotto
+     * @param quantity Quantità 'int' del prodotto
+     * @param productPhoto TODO: DELSY COS'E' IL FILE PART
+     * @return
+     */
     boolean addNewProduct(int shopID, String name, String description, String category, float price, float discount, int quantity, Part productPhoto);
 }
