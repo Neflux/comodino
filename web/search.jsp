@@ -185,17 +185,36 @@
                         <div class="row" style="padding-bottom:15px">
                             <h4 class="text-center">Valutazione</h4>
                             <div class="col-md-12 text-center">
-                                <i class="fa fa-star rating_star" aria-hidden="true" id="stella_0" onmouseover="setStar(this)"
-                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
-                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)"
-                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)"
-                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)"
-                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
-                                &nbsp;o più
+                                <c:choose>
+                                    <c:when test="${not empty param.minRat}">
+                                        <c:if test="${param.minRat > 0}">
+                                            <c:forEach begin="0" end="${param.minRat - 1}" varStatus="loop">
+                                                <i class="fa fa-star rating_star" aria-hidden="true" id="stella_${loop.index}" onmouseover="setStar(this)"
+                                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                            </c:forEach>
+                                        </c:if>
+                                        <c:if test="${param.minRat < 5}">
+                                            <c:forEach begin="0" end="${4 - param.minRat}" varStatus="loop">
+                                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_${param.minRat + loop.index}" onmouseover="setStar(this)"
+                                                   onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                            </c:forEach>
+                                        </c:if>
+                                        &nbsp;o più
+                                    </c:when>
+                                    <c:otherwise>
+                                        <i class="fa fa-star rating_star" aria-hidden="true" id="stella_0" onmouseover="setStar(this)"
+                                           onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                        <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
+                                           onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                        <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)"
+                                           onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                        <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)"
+                                           onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                        <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)"
+                                           onclick="setStarFilter()" style="cursor:pointer"></i>&nbsp;
+                                        &nbsp;o più
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
