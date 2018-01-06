@@ -40,12 +40,12 @@ function showApply() {
 
     if( $(pricemax).val() === "" && $(pricemin).val() === "" && url.indexOf("minPrice") === -1 && url.indexOf("maxPrice") === -1){
         $(pricebutton).removeClass("animated fadeInDown");
-        $(pricebutton).addClass("animated fadeOutUp");
+        $(pricebutton).addClass("animated fadeOutDown");
         setTimeout(function(){ $(pricebutton).css("display", "none"); }, 1000);
     }
     else{
         $(pricebutton).css("display", "initial");
-        $(pricebutton).removeClass("animated fadeOutUp");
+        $(pricebutton).removeClass("animated fadeOutDown");
         $(pricebutton).addClass("animated fadeInDown");
     }
 }
@@ -217,7 +217,7 @@ function setStar(id)
 function setStarFilter()
 {
     var url = (window.location.href).replace("#","");
-    window.location.href = updateURLParameter(url,"minrat",(parseInt(stelle)+1));
+    window.location.href = updateURLParameter(url,"minRat",(parseInt(stelle)+1));
 
 }
 

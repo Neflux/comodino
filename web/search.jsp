@@ -71,7 +71,7 @@
                         <h4 class="text-center collapsed" data-toggle="collapse" data-target="#venditori_accordion"
                             style="cursor:pointer;">Venditori <span class="caret"></span></h4>
                         <ul class="list-group collapse" aria-expanded="false" id="venditori_accordion">
-                            <c:set var="vendoritem" scope="page" value="${paramValues.get('vendors')}"/>
+                            <c:set var="vendoritem" scope="page" value="${paramValues.get('vendor')}"/>
 
                             <c:if test="${not empty vendors}">
                                 <c:choose>
@@ -87,13 +87,13 @@
                                                 <c:when test="${found eq true}">
                                                     <li class="list-group-item"><input type="checkbox" iven="${iven}"
                                                                                        name="${iven}" value="${iven}"
-                                                                                       onclick="filter(this,'vendors');"/> ${iven}
+                                                                                       onclick="filter(this,'vendor');"/> ${iven}
                                                     </li>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <li class="list-group-item"><input type="checkbox" civen="${iven}"
                                                                                        name="${iven}" value="${iven}"
-                                                                                       onclick="filter(this,'vendors');"
+                                                                                       onclick="filter(this,'vendor');"
                                                                                        checked/> ${iven}</li>
                                                 </c:otherwise>
                                             </c:choose>
