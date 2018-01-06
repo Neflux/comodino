@@ -6,3 +6,14 @@ function scrollToAnchor(aid){
 $("#tomap").click(function() {
     scrollToAnchor('map');
 });
+
+
+function goToAnchor(){
+    if(window.location.hash) {
+        scrollToAnchor("reviewanchor");
+    }
+}
+
+$(document).ready(function() {
+    goToAnchor();
+});

@@ -1,8 +1,0 @@
-﻿Convenzioni per un mondo migliore con una programmazione migliore
-
-Login pratico:
-	- (FirstName,LastName,Email,Password,Type,Privacy,EmailConfirm) => ("Giovanni","Cappotti","giotti@gmail.com","123",2,1,"yes")
-
-Servlet:
-	- Ogni servlet deve comprendere possibilmente una parola e "Servlet" subito dopo -> NomeServlet.java
-	- Specificare sempre l'urlPattern della servlet. Il nome è di una parola sola e inizia con la lettera minuscola -> /nome (quindi sarà accessibile ad un form tramite /nome)

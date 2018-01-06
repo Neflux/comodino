@@ -95,7 +95,7 @@ public interface ProductDao extends Serializable {
      *
      * @param shopID ID di tipo 'int' dello shop che vende il prodotto
      * @param productID ID di tipo 'int' del prodotto
-     * @return 'true' se l'operazione è andata a buon, 'false' altrimenti
+     * @return 'true' se l'operazione è andata a buon fine, 'false' altrimenti
      */
     boolean restoreProduct(int shopID, int productID);
 
@@ -110,7 +110,7 @@ public interface ProductDao extends Serializable {
      * @param quantity Quantità 'int' del prodotto
      * @param price Prezzo 'float' del prodotto
      * @param discount Sconto 'float' del prodotto
-     * @return @return 'true' se l'operazione è andata a buon, 'false' altrimenti
+     * @return @return 'true' se l'operazione è andata a buon fine, 'false' altrimenti
      */
     boolean addShopProduct(int shopID, int productID, int quantity, float price, float discount);
 

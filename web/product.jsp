@@ -64,7 +64,7 @@
                     infowindow: infoWindow,
                     map: map
                 });
-                google.maps.event.addListener(marker, 'click', function() {
+                google.maps.event.addListener(marker, 'click', function () {
 
                     infoWindow.setContent('<a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}">${shop.name}</a>');
                     infoWindow.open(map, this);
@@ -121,13 +121,15 @@
                     <h1>${product.productName}</h1>
                     <c:choose>
                         <c:when test="${product.price != product.actualPrice}">
-                            <h2><span class="strikethrough"><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2"
+                            <h2><span class="strikethrough"><fmt:formatNumber minFractionDigits="2"
+                                                                              maxFractionDigits="2"
                                                                               value="${product.price}"/> €</span>&nbsp;<span
                                     class="text-right"><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2"
                                                                          value="${product.actualPrice}"/> €</span></h2>
                         </c:when>
                         <c:otherwise>
-                            <h2><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2" value="${product.price}"/> €</h2>
+                            <h2><fmt:formatNumber minFractionDigits="2" maxFractionDigits="2" value="${product.price}"/>
+                                €</h2>
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
@@ -147,7 +149,7 @@
                             </c:if>
                             <c:choose>
                                 <c:when test="${fn:length(reviewList) == 1}">
-                                &nbsp&nbsp<span class="text-right">1 recensione</span>
+                                    &nbsp&nbsp<span class="text-right">1 recensione</span>
                                 </c:when>
                                 <c:otherwise>
                                     &nbsp&nbsp<span class="text-right">${fn:length(reviewList)} recensioni</span>
@@ -156,8 +158,11 @@
                         </c:otherwise>
                     </c:choose>
 
-                    <h4><span style="font-size: 20px">Venduto da:</span> <a href="${pageContext.request.contextPath}/shop.jsp?id=${product.shopID}">${product.shopName}</a></h4>
-                    <a id="tomap" class="btn btn-primary" href="#"><i class="fa fa-fw fa-home pull-left"></i>Visualizza venditori nelle
+                    <h4><span style="font-size: 20px">Venduto da:</span> <a
+                            href="${pageContext.request.contextPath}/shop.jsp?id=${product.shopID}">${product.shopName}</a>
+                    </h4>
+                    <a id="tomap" class="btn btn-primary" href="#"><i class="fa fa-fw fa-home pull-left"></i>Visualizza
+                        venditori nelle
                         vicinanze</a>
                     <p><br>${product.description}</p>
                     <c:choose>
@@ -175,12 +180,12 @@
                 </div>
             </div>
         </div>
-        <div class="container" style="margin-top: 30px">
-        <div class="row">
-            <div class="container">
-            <div class="col-md-12">
-                <h1 style="margin-top: 0">Recensioni</h1>
-                <c:if test="${fn:length(reviewList) > 0}">
+        <section id="reviewanchor"></section>
+        <div class="container"  style="margin-top: 30px">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 style="margin-top: 0">Recensioni</h1>
+                    <c:if test="${fn:length(reviewList) > 0}">
                         <c:if test="${Math.round(product.rating) > 0}">
                             <c:forEach begin="0" end="${Math.round(product.rating) - 1}" varStatus="loop">
                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -192,67 +197,68 @@
                             </c:forEach>
                         </c:if>
 
-                <c:choose>
-                    <c:when test="${fn:length(reviewList) == 1}">
-                        &nbsp&nbsp<span class="text-right">1 recensione</span>
-                    </c:when>
-                    <c:otherwise>
-                        &nbsp&nbsp<span class="text-right">${fn:length(reviewList)} recensioni</span>
-                    </c:otherwise>
-                </c:choose>
-                </c:if>
-            </div>
-        <!-- inizio review -->
-        <c:choose>
-            <c:when test="${not empty reviewList}">
-                <c:forEach items="${reviewList}" var="review">
-                    <div class="review">
-                        <h3>${review.title}</h3>
-                        <p>
-                            <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}" scope="page"/>
-                            <c:set var="dateParts" value="${fn:split(review.creationDate, ' ')}" scope="page"/>
-                            <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
-                            <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
-
-                            <b>${author.firstName} ${author.lastName}</b> - <span style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
-                            <!-- TODO fai funzione che restituisce array di autori-->
-                        </p>
-                        <p>
-                            <c:if test="${review.rating > 0}">
-                                <c:forEach begin="0" end="${review.rating - 1}" varStatus="loop">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </c:forEach>
-                            </c:if>
-                            <c:if test="${review.rating < 5}">
-                                <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                </c:forEach>
-                            </c:if>
-                        </p>
-                        <p> ${review.description}</p>
-                        <c:if test="${reviewDao.isReviewReplied(review.reviewID) != 0}">
-                            <c:set var="reviewReply" value="${reviewDao.getProductReviewReply(review.reviewID)}" scope="page"/>
-                            <div class="row prodreviewreply">
-                                <div class="col-md-2 text-right" >
-                                    <h4><b>Risposta del venditore:</b></h4>
-                                </div>
-                                <div class="col-md-8">
-                                    <p>${reviewReply.description}</p>
-                                </div>
-                            </div>
-                        </c:if>
-
-                    </div>
-                </c:forEach>
+                        <c:choose>
+                            <c:when test="${fn:length(reviewList) == 1}">
+                                &nbsp&nbsp<span class="text-right">1 recensione</span>
+                            </c:when>
+                            <c:otherwise>
+                                &nbsp&nbsp<span class="text-right">${fn:length(reviewList)} recensioni</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
                 </div>
-                <!-- fine review -->
+            </div>
+            <!-- inizio review -->
+            <c:choose>
+                <c:when test="${not empty reviewList}">
+                    <c:forEach items="${reviewList}" var="review">
+                        <div class="review">
+                            <h3>${review.title}</h3>
+                            <p>
+                                <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}" scope="page"/>
+                                <c:set var="dateParts" value="${fn:split(review.creationDate, ' ')}" scope="page"/>
+                                <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                                <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
 
-            </c:when>
-            <c:otherwise>
-                <h3>&nbsp;&nbsp;&nbsp;Non ci sono recensioni</h3>
-            </c:otherwise>
-        </c:choose>
-        </div>
+                                <b>${author.firstName} ${author.lastName}</b> - <span
+                                    style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
+                                <!-- TODO fai funzione che restituisce array di autori-->
+                            </p>
+                            <p>
+                                <c:if test="${review.rating > 0}">
+                                    <c:forEach begin="0" end="${review.rating - 1}" varStatus="loop">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${review.rating < 5}">
+                                    <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </c:forEach>
+                                </c:if>
+                            </p>
+                            <p> ${review.description}</p>
+                            <c:if test="${reviewDao.isReviewReplied(review.reviewID) != 0}">
+                                <c:set var="reviewReply" value="${reviewDao.getProductReviewReply(review.reviewID)}"
+                                       scope="page"/>
+                                <div class="row prodreviewreply">
+                                    <div class="col-md-2 text-right">
+                                        <h4><b>Risposta del venditore:</b></h4>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p>${reviewReply.description}</p>
+                                    </div>
+                                </div>
+                            </c:if>
+
+                        </div>
+                    </c:forEach>
+
+                    <!-- fine review -->
+                </c:when>
+                <c:otherwise>
+                    <h3>&nbsp;&nbsp;&nbsp;Non ci sono recensioni</h3>
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <div class="container" style="margin-top: 30px; margin-bottom: 30px">

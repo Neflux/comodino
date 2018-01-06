@@ -191,6 +191,18 @@ li.list-group-item img {
     border-radius: 4px;
 }
 
+/* Makes images fully responsive */
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 
 /* ------------------- Carousel Styling ------------------- */
 
@@ -203,13 +215,31 @@ li.list-group-item img {
     background-image: none;
 }
 
-.carousel{
-    margin-top: 25px;
+/* ------------------- Section Styling - Not needed for carousel styling ------------------- */
+
+.section-white {
+    padding: 10px 0;
 }
 
-#shopPhoto > img {
-    max-height: 150px;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 10px;
+.section-white {
+    background-color: #fff;
+    color: #555;
+}
+
+@media screen and (min-width: 768px) {
+
+    .section-white {
+        padding: 1.5em 0;
+    }
+
+}
+
+.resetcolor{
+    color: #2c3e50;
+}
+.resetcolor:hover{
+    color: #2c3e50;
+}
+.resetcolor:focus{
+    color: #2c3e50;
 }

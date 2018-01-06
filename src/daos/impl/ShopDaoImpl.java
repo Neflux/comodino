@@ -57,7 +57,7 @@ public class ShopDaoImpl implements ShopDao {
         return null;
     }
 
-    public ArrayList<Product> obtainExpiringProducts(int id) {
+    public ArrayList<Product> obtainExpiringProducts(int shopID) {
         ArrayList<Product> expProducts = new ArrayList<>();
         try {
             PreparedStatement stm = con.prepareStatement(
@@ -67,7 +67,7 @@ public class ShopDaoImpl implements ShopDao {
                     "ORDER BY SP.Quantity \n" +
                     "LIMIT 10"
             );
-            stm.setInt(1, id);
+            stm.setInt(1, shopID);
 
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -84,7 +84,7 @@ public class ShopDaoImpl implements ShopDao {
         return expProducts;
     }
 
-    public ArrayList<Product> obtainProducts(int id) {
+    public ArrayList<Product> obtainProducts(int shopID) {
         ArrayList<Product> products = new ArrayList<>();
         try {
             PreparedStatement stm = con.prepareStatement(
@@ -92,7 +92,7 @@ public class ShopDaoImpl implements ShopDao {
                             "FROM Product P, ShopProduct SP \n" +
                             "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND SP.Quantity >= 0"
             );
-            stm.setInt(1, id);
+            stm.setInt(1, shopID);
 
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -112,7 +112,7 @@ public class ShopDaoImpl implements ShopDao {
     }
 
     @Override
-    public HashMap<String, ProductGroup> getShopProducts(String id) {
+    public HashMap<String, ProductGroup> getShopProducts(String shopID) {
         HashMap<String, ProductGroup> products = new HashMap<>();
         //Final query PreparedStatement
         try {
@@ -121,7 +121,7 @@ public class ShopDaoImpl implements ShopDao {
                             "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI \n" +
                             "WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? AND SP.Quantity > 0 "
             );
-            stm.setString(1, id);
+            stm.setString(1, shopID);
 
             //System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
             ResultSet rs = stm.executeQuery();
@@ -426,13 +426,13 @@ public class ShopDaoImpl implements ShopDao {
     }
 
 
-    public boolean editShopProduct(Product product, int ShopID) {
+    public boolean editShopProduct(Product product, int shopID) {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE shopproduct SET Price=?, Discount=?, Quantity=? WHERE ShopID = ? AND ProductID = ?");
             stm.setFloat(1, product.getPrice());
             stm.setFloat(2, product.getDiscount());
             stm.setInt(3, product.getQuantity());
-            stm.setInt(4, ShopID);
+            stm.setInt(4, shopID);
             stm.setInt(5, product.getProductID());
             stm.executeUpdate();
             return true;

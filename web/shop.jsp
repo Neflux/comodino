@@ -58,27 +58,29 @@
                 <div id="shopInfo" class="col-md-4 col-xs-12">
                     <c:choose>
                         <c:when test="${not empty shop.shopphoto}">
-                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
-                                        <div class="item <c:if test='${status.first}'>active</c:if>">
-                                            <img src='${shop.shopphoto[0]}' alt='images Here' width="100" height="100"/>
-                                        </div>
-                                    </c:forEach>
-                                </div>
+                            <section class="section-white">
+                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+                                        <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
+                                            <div class="item <c:if test='${status.first}'>active</c:if>">
+                                                <img src='${shop.shopphoto[0]}' alt='images Here' width="300" height="400"/>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
 
-                                <!-- Controls -->
-                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </a>
-                            </div>
+                                    <!-- Controls -->
+                                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </div>
+                            </section>
                         </c:when>
                         <c:otherwise>
-                            <img src='http://via.placeholder.com/500x500' alt='Shop Photo Placeholder' width="300" height="300"/>
+                            <img src='http://via.placeholder.com/300x400' alt='Shop Photo Placeholder' width="300" height="400"/>
                         </c:otherwise>
                     </c:choose>
                     <h1 id="shopTitle" class="text-center">${shop.name}</h1>
