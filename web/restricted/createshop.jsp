@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="shop-website">Website</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="shop-website" id="shop-website" placeholder="ilmionegozio.it" required>
+                                <input type="text" class="form-control" name="shop-website" id="shop-website" placeholder="http://www.ilmionegozio.it" required>
                             </div>
                         </div>
                     </fieldset>
