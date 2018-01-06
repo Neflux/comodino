@@ -88,7 +88,7 @@
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap">
         </script>
         <script src="${pageContext.request.contextPath}/js/addtocart.js"></script>
-        <script src="${pageContext.request.contextPath}/js/map.js"></script>
+        <script src="${pageContext.request.contextPath}/js/product.js"></script>
 
     </jsp:attribute>
 
@@ -157,7 +157,7 @@
                     </c:choose>
 
                     <h4><span style="font-size: 20px">Venduto da:</span> <a href="${pageContext.request.contextPath}/shop.jsp?id=${product.shopID}">${product.shopName}</a></h4>
-                    <a class="btn btn-primary" href="#map"><i class="fa fa-fw fa-home pull-left"></i>Visualizza venditori nelle
+                    <a id="tomap" class="btn btn-primary" href="#"><i class="fa fa-fw fa-home pull-left"></i>Visualizza venditori nelle
                         vicinanze</a>
                     <p><br>${product.description}</p>
                     <c:choose>
