@@ -17,7 +17,7 @@ function editAddress(addressID) {
     editButton.attr('onclick',"saveAddress(" + addressID + ")");
     editButton.removeClass("btn-default");
     editButton.addClass("btn-success");
-    editButton.find("i").addClass("fa-save");editButton.find("i").removeClass("fa-pencil")
+    editButton.find("i").addClass("fa-save");editButton.find("i").removeClass("fa-pencil");
     var removeButton = $("a[data-id='removeAddress']");
     removeButton.attr('onclick',"backAddress(" + addressID + ")");
     removeButton.find("i").addClass("fa-times"); removeButton.find("i").removeClass("fa-trash");

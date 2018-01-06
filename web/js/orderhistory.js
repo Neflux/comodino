@@ -41,7 +41,7 @@ $( "#titleDisputeModal").rules( "add", {
     required: true,
     minlength: 3,
     maxlength: 100
-})
+});
 $( "#descriptionDisputeModal").rules( "add", {
     required: true,
     minlength: 3,
@@ -53,7 +53,7 @@ $( "#titleReviewModal").rules( "add", {
     required: true,
     minlength: 3,
     maxlength: 100
-})
+});
 $( "#descriptionReviewModal").rules( "add", {
     required: true,
     minlength: 3,

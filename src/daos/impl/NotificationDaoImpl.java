@@ -67,10 +67,7 @@ public class NotificationDaoImpl implements NotificationDao {
             stm.setInt(4, shopID);
 
             int result = stm.executeUpdate();
-            if (result == 0){
-                return false;
-            }
-            return true;
+            return result != 0;
 
         } catch (SQLException e) {
             e.printStackTrace();

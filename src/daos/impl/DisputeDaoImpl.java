@@ -28,10 +28,7 @@ public class DisputeDaoImpl implements DisputeDao {
             stm.setInt(5, shopID);
 
             int result = stm.executeUpdate();
-            if (result == 0){
-                return false;
-            }
-            return true;
+            return result != 0;
 
         } catch (SQLException e) {
             e.printStackTrace();

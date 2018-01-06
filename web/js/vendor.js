@@ -12,7 +12,7 @@ var fixNavbar = function() {
 	$('body').append("<style id='navbarFix' type='text/css'>@media screen and (min-width: 992px) { #navbar { height: " + height +"px !important; } }</style>");
 	console.log("Navbar height set to " + height);
 
-}
+};
 
 $(document).ready(function() {
 
