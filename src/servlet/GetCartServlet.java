@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "GetCartServlet", urlPatterns = {"/getcart"})
 public class GetCartServlet extends HttpServlet {
@@ -37,9 +38,14 @@ public class GetCartServlet extends HttpServlet {
             }
             else {
                 String[] cartproducts = prodCookie.getValue().split("\\|");
+                int totalSize = 0;
+                for (String prod: cartproducts){
+                    String[] prod_infos = prod.split("_");
+                    totalSize += Integer.parseInt(prod_infos[3]);
+                }
                 //System.out.println("LENGHT: " +cartproducts.length);
                 size = "<span class=\"badge\">\n" +
-                        "                            <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i> " + cartproducts.length + "\n" +
+                        "                            <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i> " + totalSize + "\n" +
                         "                        </span>\n" +
                         "                        &nbsp;&nbsp;Carrello <span class=\"caret\"></span>";
 
