@@ -62,7 +62,7 @@
 
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li class="links">
+                <li class="links text-center">
 
                     <a href="#" onclick="openLoginModal();" class="login_singup_link">
                         <i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Login
@@ -71,7 +71,7 @@
                         <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;Sign Up
                     </a>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown text-center">
                     <a id="cartdrop" onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="badge">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> 0

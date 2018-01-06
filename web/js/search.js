@@ -132,10 +132,10 @@ function addOffset(titolo,offset,tot)
     if ( (offset + i_quanti) <= tot)
     {
         $("#footer_vendors").html("<div class=\"row\">" +
-            "<div class=\"col-md-6\">" +
+            "<div class=\"col-md-6 col-xs-6\">" +
             "<a href=\"#\" onclick=\"lessOffset('" + titolo + "'," + offset + ",'" + tot + "')\"><i class=\"fa fa-caret-left\" aria-hidden=\"true\"></i>&nbsp&nbspMostra meno\n</a>" +
             "</div>" +
-            "<div class=\"col-md-6\">" +
+            "<div class=\"col-md-6 col-xs-6\">" +
             "<a href=\"#\" onclick=\"addOffset('" + titolo + "'," + offset + ",'" + tot + "')\">Mostra ancora&nbsp&nbsp<i class=\"fa fa-caret-right\" aria-hidden=\"true\"></i></a>" +
             "</div>" +
             "</div>");
