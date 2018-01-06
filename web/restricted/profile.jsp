@@ -55,13 +55,10 @@
                 </div>
             </div>
             <div class="row" style="margin: 0 0 15px 0;">
-                <div class="col-md-4">
+                <div class="col-md-6 pull-left">
                     <a class="btn btn-block btn-success text-capitalize" href="${pageContext.request.contextPath}/restricted/orderhistory.jsp"><i class="fa fa-fw pull-left fa-shopping-cart"></i>I miei ordini</a>
                 </div>
-                <div class="col-md-4">
-                    <a class="btn btn-block btn-success text-capitalize" href=" #"><i class="fa fa-fw pull-left fa-warning"></i>Dispute</a>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-6 pull-right">
                     <c:choose>
                         <c:when test="${user.shopID > 0}">
                             <a class="btn btn-block btn-success text-capitalize" href="vendor/shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Negozio</a>
