@@ -15,3 +15,5 @@
 
 # CUSTOM
 \.idea/webContexts\.xml
+src/db/DBManager.java
+src/utils/DBConnection.java

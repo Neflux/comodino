@@ -322,7 +322,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
-                        <a class="btn btn-default" href="${request.getHeader("Referer")}" style="margin-top: 20px">Indietro</a>
+                        <a class="btn btn-default" href="#" onclick="javascript:history.go(-1);" style="margin-top: 20px">Indietro</a>
                         <button type="submit" class="btn btn-success" style="margin-top: 20px">Conferma</button>
                     </div>
                 </div>
