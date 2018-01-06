@@ -70,7 +70,7 @@
                             <div class="col-lg-2 col-md-3 col-xs-12 col-md-offset-1 col-lg-offset-1 text-center">
                                 <div class="buttons">
                                     <div class="row">
-                                        <button type="button" class="btn btn-primary btn-block margin-btn" onclick=""><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</button>
+                                        <button type="button" class="btn btn-primary btn-block margin-btn" onclick="location.href='${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}#reviewanchor'"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</button>
                                     </div>
                                     <div class="row">
                                         <button type="button" class="btn btn-danger btn-block margin-btn" onclick="removeProductModal(${product.productID})"><i class="fa fa-trash fa-fw fa-lg pull-left"></i>Rimuovi</button>
