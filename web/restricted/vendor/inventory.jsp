@@ -14,6 +14,7 @@
     </jsp:attribute>
     <jsp:attribute name="pagecss">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inventory.css" >
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css}">
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
@@ -132,14 +133,14 @@
 
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
-                              <i class="fa fa-user green" aria-hidden="true"></i>
+                              <i class="fa fa-eur green" aria-hidden="true"></i>
                           </span>
                                 <input name="Price" type="text" class="form-control"  placeholder="Prezzo...">
                             </div>
 
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
-                              <i class="fa fa-user green" aria-hidden="true"></i>
+                              <i class="fa fa-percent green" aria-hidden="true"></i>
                           </span>
                                 <input name="Discount" type="text" class="form-control"  placeholder="Sconto (in decimali)...">
                             </div>

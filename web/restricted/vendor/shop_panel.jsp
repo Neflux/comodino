@@ -14,6 +14,7 @@
     </jsp:attribute>
     <jsp:attribute name="pagecss">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/vendor.css" >
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css}">
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
@@ -51,10 +52,10 @@
     <jsp:body>
         <div style="margin-top:60px !important;" class="container">
             <div class="row main-content">
-                <div class="col-md-4" id="navbar">
+                <div class="col-md-4 col-xs-12" id="navbar">
                     <div class="col-md-12">
                         <c:if test="${!empty shop.shopphoto}">
-                            <img style="margin-top: 20px" src='${shop.shopphoto[0]}' alt='images Here' width="400" height="300"/>
+                            <img style="margin-top: 20px; border-radius: 15px" src='${shop.shopphoto[0]}' alt='images Here' width="100%" />
                         </c:if>
                         <h1 id="shopTitle" class="text-center">${shop.name}</h1>
                         <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
@@ -84,14 +85,12 @@
                         <c:choose>
                             <c:when test="${shop.getClass().simpleName == 'PhysicalShop'}">
                                 <div id="addShopDiv" class="row" style="margin-bottom: 15px">
-                                    <div class="col-md-10">
-                                        <h2 id="realShop">Negozio fisico</h2>
-                                    </div>
+                                <h2 id="realShop">Negozio fisico</h2>
+                                <p><b>Indirizzo:</b> ${shop.address}</p>
+                                <p><b>City:</b> ${shop.city}</p>
+                                <p><b>CAP:</b> ${shop.zip}</p>
+                                <p><b>Orari:</b> ${shop.openinghours}</p>
                                 </div>
-                                <p>Indirizzo: ${shop.address}</p>
-                                <p>City: ${shop.city}</p>
-                                <p>CAP: ${shop.zip}</p>
-                                <p>Orari: ${shop.openinghours}</p>
                                 <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
                             </c:when>
                             <c:otherwise>
@@ -100,10 +99,8 @@
                         </c:choose>
                     </div>
                 </div>
-                <div class="col-md-1" id="mySpace">
-                </div>
-                <div class="col-md-7" id="mainContent">
-                    <div class="row" id="panelContainer">
+                <div class="col-md-8 col-xs-12" id="mainContent">
+                    <div class="row" id="panelContainer" style="margin-bottom: 15px; margin-left:15px; margin-right: 15px">
                         <div class="col-md-4" id="photoPanel">
                             <div class="col-md-12">
                                 <c:if test="${!empty shop.shopphoto}">
@@ -127,31 +124,31 @@
                                         </a>
                                     </div>
                                 </c:if>
-                                <a id="btnAddPhoto" class="btn btn-block btn-primary" data-toggle="modal" data-target="#uploadShopPhoto"><i class="fa fa-fw pull-left fa-camera"></i>Aggiungi foto</a>
-                                <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#editShopInfo"><i class="fa fa-fw pull-left fa-book"></i>Modifica negozio</a>
+                                <a id="btnAddPhoto" class="btn btn-block btn-primary" data-toggle="modal" data-target="#uploadShopPhoto"><i class="fa fa-fw fa-camera"></i> Aggiungi foto</a>
+                                <a class="btn btn-block btn-primary" data-toggle="modal" data-target="#editShopInfo"><i class="fa fa-fw fa-book"></i> Modifica negozio</a>
                             </div>
                         </div>
                         <div class="col-md-1" id="mySpace2">
                         </div>
-                        <div class="col-md-6" id="buttonPanel">
+                        <div class="col-md-7" id="buttonPanel">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="inventory.jsp" id="btnInventario" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-cube fa-fw fa-lg pull-left"></i>Inventario</a>
+                                    <a href="inventory.jsp" id="btnInventario" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-cube fa-fw fa-lg"></i>Inventario</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <a href="orderreceived.jsp" id="btnOrderList" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-fw fa-lg fa-list-ul pull-left"></i>Ordini</a>
+                                    <a href="orderreceived.jsp" id="btnOrderList" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-fw fa-lg fa-list-ul"></i>Ordini</a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="${pageContext.request.contextPath}/restricted/vendor/reviews.jsp" id="btnReviews" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</a>
+                                    <a href="${pageContext.request.contextPath}/restricted/vendor/reviews.jsp" id="btnReviews" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-comments-o fa-fw fa-lg"></i>Recensioni</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <a href="dispute_list.jsp" id="btnDispute" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-fw fa-lg fa-warning pull-left"></i>Dispute</a></div>
+                                    <a href="dispute_list.jsp" id="btnDispute" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-fw fa-lg fa-warning"></i>Dispute</a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="productsLeftContainer">
+                    <div class="row" id="productsLeftContainer" style="margin-bottom: 15px; margin-left:15px; margin-right: 15px">
                         <div class="col-md-12">
                             <div class="row">
                                 <h1 id="productsLeftTitle">Prodotti in esaurimento</h1>
@@ -318,7 +315,8 @@
                         </div>
                         <div class="content">
                             <p style="color: white">Dimensioni ideali: 400x300px</p>
-                            <input required type="file" name="shopPhoto" accept="image/*">
+                            <input required id="upload" type="file" name="shopPhoto" accept="image/*">
+                            <input readonly type="text" style="background:transparent; border: none; color: white; margin-top: 5px" id="filename">
                             <div class="footer text-center">
                                 <a class="btn btn-default" onclick="$('#uploadShopPhotoForm').submit();">Carica</a>
                             </div>

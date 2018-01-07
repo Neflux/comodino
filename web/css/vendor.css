@@ -1,7 +1,7 @@
 body>.container{
     padding-top: 30px !important;
     padding-bottom: 30px !important;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: transparent; 
 }
 html{
@@ -16,7 +16,8 @@ body{
 }
 
 #navbar {
-    border-radius: 8px !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 2px rgba(0,0,0,.15);
 }
 
 /* override my.css */
@@ -79,7 +80,7 @@ h4 {
     
     body > .container > .row > #mainContent > #panelContainer {
         padding-top: 20px;
-        border-radius: 8px;
+        border-radius: 4px;
         background-color: white;
     }
     
@@ -101,7 +102,7 @@ h4 {
     body > .container > .row > #mainContent > #productsLeftContainer  { /* ma se togliessi sta colonna? */
         margin-top: 25px;
         background-color: white;
-        border-radius: 8px;
+        border-radius: 4px;
         padding: 0 40px 15px 40px;
     }
 
@@ -113,7 +114,7 @@ h4 {
     .productRow {
         margin-bottom: 10px;
         background-color: #156486;
-        border-radius: 8px;
+        border-radius: 4px;
         color: white;
         height: 40px;
         position:relative;
@@ -186,13 +187,15 @@ h4 {
         background-color: white;
         /*border-radius: 8px;*/
        /* height: 720px;*/
-        padding-left: 30px;
+        padding-left: 15px;
     } 
     
     #navbar >.col-md-12  {
         text-align: justify;
         text-justify: inter-word;
+
     }
+
     #shopPhoto > img {
         max-height: 150px;
         margin: auto;
@@ -213,9 +216,10 @@ h4 {
 
     #photoPanel {
         background-color: white;
-        border-radius: 8px;
+        border-radius: 4px;
         vertical-align: middle !important;
         min-width: 200px;
+        box-shadow: 0 2px 2px rgba(0,0,0,.15);
     }
     
     #photoPanel > .col-md-12 > a  {
@@ -232,8 +236,9 @@ h4 {
     body > .container > .row > #mainContent > #panelContainer > #buttonPanel {
         background-color: white;
         padding: 30px;
-        border-radius: 8px;
+        border-radius: 4px;
         vertical-align: middle;
+        box-shadow: 0 2px 2px rgba(0,0,0,.15);p
     }
 
     .btnUpper {
@@ -243,18 +248,15 @@ h4 {
         margin-top: 35px;
     }
 
-    #btnReviews, #btnInventario {
-        padding-left: 7%;
-        padding-right: 0;
-    }
 
     /* Prodotti in esaurimento */
     
     body > .container > .row > #mainContent > #productsLeftContainer  { /* ma se togliessi sta colonna? */
         margin-top: 35px;
         background-color: white;
-        border-radius: 8px;
+        border-radius: 4px;
         padding: 0 40px 15px 40px;
+        box-shadow: 0 2px 2px rgba(0,0,0,.15);
     }
 
     #productsLeftContainer >.col-md-12 >.row > #shopTitle {
@@ -264,7 +266,7 @@ h4 {
     .productRow {
         margin-bottom: 10px;
         background-color: #156486;
-        border-radius: 8px;
+        border-radius: 4px;
         color: white;
 
         position:relative;
@@ -318,4 +320,12 @@ h4 {
 
 .main-content {
     margin-top: 30px;
+}
+
+#mainContent {
+    margin: 0 15px;
+}
+
+.btn-success {
+    text-align: center;
 }
