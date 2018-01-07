@@ -338,7 +338,7 @@ public class ShopDaoImpl implements ShopDao {
 
     public boolean editPhysicalInfo(PhysicalShop shop) {
         try {
-            PreparedStatement stm = con.prepareStatement("UPDATE shop S, shopinfo I SET S.Name = ?, S.Description = ?, S.Website = ?, I.Address = ?, I.City = ?, I.ZIP = ?, I.Latitude = ?, I.Longitude = ? WHERE S.ShopID= ? AND I.ShopID = ?");
+            PreparedStatement stm = con.prepareStatement("UPDATE shop S, shopinfo I SET S.Name = ?, S.Description = ?, S.Website = ?, I.Address = ?, I.City = ?, I.ZIP = ?, I.Latitude = ?, I.Longitude = ?, I.OpeningHours = ? WHERE S.ShopID= ? AND I.ShopID = ?");
             stm.setString(1,shop.getName());
             stm.setString(2,shop.getDescription());
             stm.setString(3,shop.getWebsite());
@@ -347,8 +347,9 @@ public class ShopDaoImpl implements ShopDao {
             stm.setString(6,shop.getZip());
             stm.setFloat(7, shop.getLatitude());
             stm.setFloat(8, shop.getLongitude());
-            stm.setInt(9,shop.getShopID());
+            stm.setString(9, shop.getOpeninghours());
             stm.setInt(10,shop.getShopID());
+            stm.setInt(11,shop.getShopID());
             stm.executeUpdate();
             return true;
 
