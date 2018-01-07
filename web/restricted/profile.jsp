@@ -39,7 +39,7 @@
             <c:if test="${user.privacy == 0}">
                 <div class="row" style="margin: 0 0 15px 0;">
                     <div class="col-md-4 col-md-offset-4">
-                        <a class="btn btn-block btn-warning text-capitalize" href="${pageContext.request.contextPath}/restricted/acceptprivacy"><i class="fa fa-fw fa-lock pull-left"></i>Accetta privacy</a>
+                        <a class="btn btn-block btn-warning text-capitalize" data-toggle="modal" data-target="#showPrivacy"><i class="fa fa-fw fa-lock pull-left"></i>Accetta privacy</a>
                     </div>
                 </div>
             </c:if>
@@ -140,6 +140,36 @@
                         </div>
                         <div class="footer text-center">
                             <a class="btn btn-default" onclick="$('#editInfoForm').submit();">Salva</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="showPrivacy" tabindex="-1" role="dialog" aria-labelledby="editInfoLabel">
+            <div class="row">
+                <div class="card card-signup centerize" data-background-color="orange">
+                        <%--TODO:Auto-populate previous values--%>
+                    <form id="editInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editinfo">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up">Privacy statement</h4>
+                        </div>
+                        <div class="content">
+                            <div class="input-group form-group-no-border nologin" style="color:#ffffff">
+                                <b>Cookies</b> are files with small amount of data, which may include an anonymous unique identifier.
+                                Cookies are sent to your browser from a web site and stored on your computer's hard drive.
+                                <br>
+                                <br>
+                                Like many sites, we use "cookies" to <b>collect</b> information. You can <b>instruct</b> your browser to refuse all
+                                cookies or to indicate when a cookie is being sent. However, if you do <b>not</b> accept cookies, you may
+                                not be able to use some <b>portions</b> of our Site.
+                                <br>
+                                <br>
+                                Wecollect <b>information</b> that your browser sends whenever you visit our site <b>log data</b>.
+                            </div>
+                        </div>
+                        <div class="footer text-center">
+                            <a class="btn btn-default" href="${pageContext.request.contextPath}/restricted/acceptprivacy">Accetta</a>
                         </div>
                     </form>
                 </div>
