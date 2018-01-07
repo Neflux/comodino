@@ -191,7 +191,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp; ${user.firstName} ${user.lastName}  <span class="caret"></span>
+                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp; <span id="name">${user.firstName}</span> <span id="surname">${user.lastName}</span>  <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu centered">
                         <li class="dropdown-header">Il mio profilo</li>
