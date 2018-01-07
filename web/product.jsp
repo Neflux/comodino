@@ -157,9 +157,9 @@
                             </c:choose>
                         </c:otherwise>
                     </c:choose>
-
                     <h4><span style="font-size: 20px">Venduto da:</span> <a
                             href="${pageContext.request.contextPath}/shop.jsp?id=${product.shopID}">${product.shopName}</a>
+                        <c:if test="${ShopDao.hasOtherShops(product.productID) > 1}">e da altri <a href="javascript:void(0);" onclick="openModal('${product.productName}');"> ${(ShopDao.hasOtherShops(product.productID))-1} </a> venditori</c:if>
                     </h4>
                     <a id="tomap" class="btn btn-primary" href="#"><i class="fa fa-fw fa-home pull-left"></i>Visualizza
                         venditori nelle
@@ -266,6 +266,42 @@
             <div id="map"></div>
 
         </div>
+
+        <!-- Modal -->
+        <span class="vendormodal">
+            <div class="modal fade" id="vendorsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="row">
+                    <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
+                                <span class="form" id="form">
+                                    <span style="float:right">
+                                        <button type="button" class="close mod-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </span>
+                                    <div class="header header-primary text-center">
+                                        <h4 class="title title-up" id="card_titolo_vendors">Piano cottura</h4>
+                                        <p class="white subtitolo">
+                                            Disponibile anche da:
+                                        </p>
+                                    </div>
+                                    <div class="content">
+                                        <div class="row text-center">
+                                            <div class="content-modal-vendors" id="content-modal-vendors">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer text-center">
+                                        <div id="footer_vendors">
+
+                                        </div>
+                                        <div class="row" style="margin-top:10px" id="pagination_numbers_vendors">
+
+                                        </div>
+                                    </div>
+                                </span>
+                    </div>
+                </div>
+            </div>
+        </span>
     </jsp:body>
 
 </t:genericpage>

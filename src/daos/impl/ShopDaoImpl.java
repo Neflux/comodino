@@ -196,6 +196,25 @@ public class ShopDaoImpl implements ShopDao {
     }
 
     @Override
+    public int hasOtherShops(int productID){
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT DISTINCT COUNT(*) AS shopcount\n" +
+                    "FROM shopproduct sp\n" +
+                    "WHERE sp.ProductID = ? AND sp.Quantity > '0'");
+            stm.setInt(1, productID);
+            ResultSet rs = stm.executeQuery();
+                rs.next();
+                int res = rs.getInt("shopcount");
+                return res;
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
     public ArrayList<Shop> getPhysicalShopsByProduct(int productID) {
         ArrayList<Shop> shops = new ArrayList<>();
         try {

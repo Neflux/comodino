@@ -239,7 +239,7 @@
                                                         <c:if test="${prod.value.getList().size() > 1}"><small>e da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${(prod.value.getList().size())-1}</a> venditori</small></c:if>
                                                     </li>
                                                     <li class="price">
-                                                            <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2" value="${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}"/>&euro;
+                                                            ${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}&euro;
                                                         <c:if test="${prod.value.getList().get(0).getActualPrice() != prod.value.getList().get(0).getPrice()}">
                                                             <span class="badge badge-discount">In offerta!</span>
                                                         </c:if>
@@ -305,38 +305,40 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="vendorsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="row">
-                <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-                            <span class="form" id="form">
-                                <span style="float:right">
-                                    <button type="button" class="close mod-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                </span>
-                                <div class="header header-primary text-center">
-                                    <h4 class="title title-up" id="card_titolo_vendors">Piano cottura</h4>
-                                    <p class="white subtitolo">
-                                        Disponibile anche da:
-                                    </p>
-                                </div>
-                                <div class="content">
-                                    <div class="row text-center">
-                                        <div class="content-modal-vendors" id="content-modal-vendors">
+        <span class="vendormodal">
+            <div class="modal fade" id="vendorsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="row">
+                    <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
+                                <span class="form" id="form">
+                                    <span style="float:right">
+                                        <button type="button" class="close mod-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </span>
+                                    <div class="header header-primary text-center">
+                                        <h4 class="title title-up" id="card_titolo_vendors">Piano cottura</h4>
+                                        <p class="white subtitolo">
+                                            Disponibile anche da:
+                                        </p>
+                                    </div>
+                                    <div class="content">
+                                        <div class="row text-center">
+                                            <div class="content-modal-vendors" id="content-modal-vendors">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer text-center">
+                                        <div id="footer_vendors">
+
+                                        </div>
+                                        <div class="row" style="margin-top:10px" id="pagination_numbers_vendors">
 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="footer text-center">
-                                    <div id="footer_vendors">
-
-                                    </div>
-                                    <div class="row" style="margin-top:10px" id="pagination_numbers_vendors">
-
-                                    </div>
-                                </div>
-                            </span>
+                                </span>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>¬
+        </span>
     </jsp:body>
 
 </t:genericpage>
