@@ -32,52 +32,62 @@ jQuery(".quantity").each(function() {
 });
 
 function removeItem(prodID, shopID){
-    var prezzo = $("#price_" + prodID + "_" + shopID).text().slice(0, -1).replace(",",".");
-    var quantita = $("#quantity_" + prodID + "_" + shopID).val();
-    var aggiungere = parseFloat(prezzo) * parseFloat(quantita);
-    var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
-    var aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
-    $("#total").text("Totale: " + aggiunto + "€");
-    $("#" + prodID + "_" + shopID).fadeOut("700");
+    // var prezzo = $("#price_" + prodID + "_" + shopID).text().slice(0, -1).replace(",",".");
+    // var quantita = $("#quantity_" + prodID + "_" + shopID).val();
+    // var aggiungere = parseFloat(prezzo) * parseFloat(quantita);
+    // var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
+    // var aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
+    // $("#total").text("Totale: " + aggiunto + "€");
 
-    if (aggiunto === 0)
-    {
-        $("#nextbtn").text("Vai alla homepage");
-        $("#nextbtn").attr("href", "/index.jsp");
-    }
+    $.post("/removecartitem", {"productID": prodID, "shopID": shopID}).done(function () {
+        $("#" + prodID + "_" + shopID).fadeOut("700", function () {
+            updateCart();
+            updateTotal();
+            if (isCartEmpty()){
+                $("#cartlist").html("<li class=\"list-group-item text-center nessunbordo\"><h3>Il carrello è vuoto, aggiungi qualche prodotto!</h3></li>");
+                $("#nextbtn").text("Vai alla homepage");
+                $("#nextbtn").attr("href", "/index.jsp");
+            }
+        });
+    });
+}
 
-    $.post("/removecartitem", {"productID": prodID, "shopID": shopID});
-    updateCart();
+function isCartEmpty() {
+    var items = $(".cart-item");
+    $(items).each(function (index, item) {
+        if (!$(item).is(":visible")){
+            return false;
+        }
+    });
+    return true;
 }
 
 function updatePrice(prodID, tipo, shopID)
 {
     var quantita = $("#quantity_" + prodID + "_" + shopID).val();
-    // var prezzo = $("#price_" + prodID + "_" + shopID).text().slice(0, -1).replace(",",".");
+    //var prezzo = $("#price_" + prodID + "_" + shopID).text().slice(0, -1).replace(",",".");
     //var aggiungere = parseFloat(prezzo);
     //var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
     //var aggiunto = attuale;
     var post = {productID: prodID, shopID: shopID};
-    if (tipo === "+")
-    {
+    if (tipo === "+") {
         //aggiunto = (parseFloat(attuale) + parseFloat(aggiungere)).toFixed(2);
         $.post("/addcartitem", post).done(function () {
-            updateTotal();
             updateCart();
+            updateTotal();
         });
     }
-    else if (tipo === "-" && quantita > 1)
-    {
+    else if (tipo === "-" && quantita > 1) {
         //aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
         $.post("/decreasecartitem", post).done(function () {
-            updateTotal();
             updateCart();
+            updateTotal();
         });
     }
 }
 
 function setQuantity(prodID, shopID, value){
-    console.log(prodID, shopID, value);
+    //console.log(prodID, shopID, value);
     var post = {productID: prodID, shopID: shopID, quantity: value};
     if(value !== null && value > 0){
         $.post("/restricted/setcartitem", post).done(function () {
@@ -97,11 +107,11 @@ function updateTotal(){
             quantita_item = parseInt($(item).find(".quantity>input").attr("value"));
         }
         if ($(item).is(":visible")){
-            console.log(prezzo_item, quantita_item);
+            //console.log(prezzo_item, quantita_item);
             totale += prezzo_item * quantita_item;
         }
         else{
-            console.log("Nascosto: ", item);
+            //console.log("Nascosto: ", item);
         }
     });
     totale = totale.toFixed(2);
