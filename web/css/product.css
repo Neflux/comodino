@@ -111,3 +111,48 @@ body{
 .resetcolor:focus{
     color: #2c3e50;
 }
+
+
+/*------------------------ modal venditori */
+
+
+.card-signup {
+    max-width: 450px !important;
+    margin: 0 auto 0;
+}
+
+.valign {
+    line-height:15px;
+}
+
+.float-right {
+    float:right;
+}
+
+.mod {
+    padding-left: 10px !important;
+    padding-right: 0 !important;
+}
+
+.mod-close {
+    color: #fff !important;
+    margin-top: 15px !important;
+    margin-right: 20px !important;
+}
+
+.header-primary {
+    padding-bottom:0 !important;
+}
+
+.subtitolo {
+    margin-top: -10px !important;
+    font-size: 13px;
+}
+
+.content-modal-vendors {
+    display: inline-block;
+    text-align: left;
+    line-height: 8px;
+    margin-top: 15px;
+    width:100%;
+}
