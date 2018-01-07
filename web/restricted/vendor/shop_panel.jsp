@@ -132,19 +132,13 @@
                         </div>
                         <div class="col-md-7" id="buttonPanel">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <a href="inventory.jsp" id="btnInventario" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-cube fa-fw fa-lg"></i>Inventario</a>
-                                </div>
-                                <div class="col-md-6">
-                                    <a href="orderreceived.jsp" id="btnOrderList" class="btn-lg btn-block btn-success btnUpper"><i class="fa fa-fw fa-lg fa-list-ul"></i>Ordini</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <a href="${pageContext.request.contextPath}/restricted/vendor/reviews.jsp" id="btnReviews" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-comments-o fa-fw fa-lg"></i>Recensioni</a>
-                                </div>
-                                <div class="col-md-6">
-                                    <a href="dispute_list.jsp" id="btnDispute" class="btn-lg btn-block btn-success btnLower"><i class="fa fa-fw fa-lg fa-warning"></i>Dispute</a></div>
+                                    <a href="${pageContext.request.contextPath}/restricted/vendor/inventory.jsp" id="btnInventario" class="btn-lg btn-block btn-success"><i class="fa fa-cube fa-fw fa-lg pull-left"></i>Inventario</a>
+
+                                    <a href="${pageContext.request.contextPath}/restricted/vendor/orderreceived.jsp" id="btnOrderList" class="btn-lg btn-block btn-success"><i class="fa fa-fw fa-lg fa-list-ul pull-left"></i>Ordini</a>
+
+                                    <a href="${pageContext.request.contextPath}/restricted/vendor/reviews.jsp" id="btnReviews" class="btn-lg btn-block btn-success"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</a>
+
+                                    <a href="${pageContext.request.contextPath}/restricted/vendor/dispute_list.jsp" id="btnDispute" class="btn-lg btn-block btn-success"><i class="fa fa-fw fa-lg fa-warning pull-left"></i>Dispute</a>
                             </div>
                         </div>
                     </div>

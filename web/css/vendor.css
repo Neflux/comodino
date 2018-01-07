@@ -241,14 +241,6 @@ h4 {
         box-shadow: 0 2px 2px rgba(0,0,0,.15);
     }
 
-    .btnUpper {
-        margin-bottom: 35px;
-    }
-    .btnLower {
-        margin-top: 35px;
-    }
-
-
     /* Prodotti in esaurimento */
     
     body > .container > .row > #mainContent > #productsLeftContainer  { /* ma se togliessi sta colonna? */
@@ -328,4 +320,8 @@ h4 {
 
 .btn-success {
     text-align: center;
+}
+
+.pull-left {
+    margin-top: 1px;
 }
