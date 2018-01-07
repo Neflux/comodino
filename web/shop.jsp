@@ -103,7 +103,7 @@
                                         <i class="fa fa-star-o myiconresize" aria-hidden="true"></i>
                                     </c:forEach>
                                 </c:if>
-                                &nbsp;&nbsp;<as class="collapsed" data-toggle="collapse" data-target="#shopReviews">Vedi Tutte<span class="caret"></span></as>
+                                &nbsp;&nbsp;<as class="collapsed" data-toggle="collapse" data-target="#shopReviews" style="cursor:pointer">Vedi Tutte<span class="caret"></span></as>
                                 <ul id="shopReviews" class="list-group collapse" aria-expanded="false">
                                     <c:forEach items="${reviewList}" var="review">
                                         <li class="list-group-item">

@@ -26,6 +26,14 @@ public interface ShopDao extends Serializable {
     HashMap<String, ProductGroup> getShopProducts(String shopID);
 
     /**
+     * Conta quanti negozi vendono questo prodotto
+     *
+     * @param productID ID di tipo 'int' del prodotto
+     * @return Int che contiene il numero dei negozi che vendono questo prodotto
+     */
+    int hasOtherShops(int productID);
+
+    /**
      * Ottiene i vari negozi fisici che vendono uno specifico prodotto
      *
      * @param productID ID di tipo 'int' del prodotto

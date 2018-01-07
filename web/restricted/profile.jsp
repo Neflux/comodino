@@ -55,10 +55,10 @@
                 </div>
             </div>
             <div class="row" style="margin: 0 0 15px 0;">
-                <div class="col-md-6 pull-left">
+                <div class="col-md-6">
                     <a class="btn btn-block btn-success text-capitalize" href="${pageContext.request.contextPath}/restricted/orderhistory.jsp"><i class="fa fa-fw pull-left fa-shopping-cart"></i>I miei ordini</a>
                 </div>
-                <div class="col-md-6 pull-right">
+                <div class="col-md-6">
                     <c:choose>
                         <c:when test="${user.shopID > 0}">
                             <a class="btn btn-block btn-success text-capitalize" href="vendor/shop_panel.jsp"><i class="fa fa-fw pull-left fa-home"></i>Negozio</a>
@@ -152,20 +152,16 @@
                         <%--TODO:Auto-populate previous values--%>
                     <form id="editInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editinfo">
                         <div class="header header-primary text-center">
-                            <h4 class="title title-up">Privacy statement</h4>
+                            <h4 class="title title-up">Dichiarazione sulla Privacy</h4>
                         </div>
                         <div class="content">
                             <div class="input-group form-group-no-border nologin" style="color:#ffffff">
-                                <b>Cookies</b> are files with small amount of data, which may include an anonymous unique identifier.
-                                Cookies are sent to your browser from a web site and stored on your computer's hard drive.
+                                La disciplina relativa all’uso dei c.d. “<b>cookie</b>” e di altri strumenti analoghi nei terminali (personal computer, notebook, tablet pc, smartphone, ecc.) utilizzati dagli utenti, è stata <b>modificata</b> a seguito dell’attuazione della Direttiva CEE 2009/136/CE che ha modificato la Direttiva “e-Privacy” 2002/58/CE.
                                 <br>
                                 <br>
-                                Like many sites, we use "cookies" to <b>collect</b> information. You can <b>instruct</b> your browser to refuse all
-                                cookies or to indicate when a cookie is being sent. However, if you do <b>not</b> accept cookies, you may
-                                not be able to use some <b>portions</b> of our Site.
+                                Il <b>recepimento</b> della nuova Direttiva è avvenuto in Italia con il Decreto legislativo 28 maggio 2012, n. 69 che ha apportato modifiche al decreto legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali”.
                                 <br>
-                                <br>
-                                Wecollect <b>information</b> that your browser sends whenever you visit our site <b>log data</b>.
+                                <b>Salviamo</b> anche i dati che il tuo <b>browser</b> ogni volta che fa una richiesta (ad esempio: indirizzi IP, headers) da usare a fini statistici.
                             </div>
                         </div>
                         <div class="footer text-center">
