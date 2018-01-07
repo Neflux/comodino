@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 @WebServlet(name = "CompleteOrderServlet", urlPatterns = "/restricted/completeorder")
@@ -55,21 +56,18 @@ public class CompleteOrderServlet extends HttpServlet {
             boolean result = pd.checkAvailability(item.getProduct().getProductID(), item.getProduct().getShopID(), item.getQuantity());
             if(!result) {
                 System.out.println("[WARNING] CompleteOrder: Non sono soddisfatte le disponibilità di: " + item.getProduct().getProductID() +" shop: " + item.getProduct().getShopID());
-                /*response.sendRedirect("cart.jsp?error=Richiesti troppi pezzi. Riduci le quantità");
-                return;
-                 */
                 outOfStockProducts.add(item.getProduct().getProductName());
             }
         }
         if(outOfStockProducts.size() > 0){
-            String prefix = "Non c'è più disponibilità di ";
+            String prefix = "Non c′è più disponibilità di ";
             StringBuilder message = new StringBuilder();
             for (String outOfStockProduct : outOfStockProducts) {
                 message.append(prefix);
                 prefix = ", ";
                 message.append(outOfStockProduct);
             }
-            response.sendRedirect("cart.jsp?error="+message.toString());
+            response.sendRedirect("cart.jsp?error="+ URLEncoder.encode(message.toString(), "UTF-8"));
             return;
         }
         System.out.println("[INFO] CompleteOrder: Controllo Superato");

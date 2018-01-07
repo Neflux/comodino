@@ -448,7 +448,7 @@ public class ProductDaoImpl implements ProductDao {
             Product p = extractProductFromResultSet(rs);
             return p.getQuantity() > quantity;
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return false;
     }
