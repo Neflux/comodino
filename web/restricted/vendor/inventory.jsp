@@ -14,6 +14,7 @@
     </jsp:attribute>
     <jsp:attribute name="pagecss">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inventory.css" >
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css}">
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
@@ -31,56 +32,64 @@
                 </div>
             </div>
             <ul class="list-group">
-                <c:forEach items="${shop.products}" var="product">
+                <c:choose>
+                    <c:when test="${not empty shop.products}">
+                        <c:forEach items="${shop.products}" var="product">
 
-                    <!-- inizio prodotto -->
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-lg-2 col-md-2">
-                                <img class="img-rounded img-responsive" src="${product.imgBase64[0]}" alt="Product Image">
-                            </div>
-                            <div class="col-lg-5 col-md-3 col-xs-12">
-                                <h3 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}">${product.productName}</a></h3>
-                                <ul class="list-unstyled list-group-item-text">
-                                    <c:choose>
-                                        <c:when test="${product.price == product.actualPrice}">
-                                            <li><h4>Prezzo: ${Utils.getNDecPrice(product.price,2)}&euro;</h4></li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li><h4>Prezzo: <del>${Utils.getNDecPrice(product.price, 2)}&euro;</del> ${Utils.getNDecPrice(product.actualPrice,2)}&euro;</h4></li>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <li>Disponibilità: <b>${product.quantity} pezzi &nbsp;</b>
-                                        <c:if test="${product.quantity < 20}">
-                                            <span class="badge badge-discount">In esaurimento!</span>
-                                        </c:if>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-xs-12 text-center">
-                                <div class="buttons">
-                                    <div class="row">
-                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="editPriceModal(${product.productID})"><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</button>
+                            <!-- inizio prodotto -->
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2">
+                                        <img class="img-rounded img-responsive" src="${product.imgBase64[0]}" alt="Product Image">
                                     </div>
-                                    <div class="row">
-                                        <button type="button" class="btn btn-default btn-block margin-btn" onclick="editQuantityModal(${product.productID})"><i class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Disponibilità</button>
+                                    <div class="col-lg-5 col-md-3 col-xs-12">
+                                        <h3 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}">${product.productName}</a></h3>
+                                        <ul class="list-unstyled list-group-item-text">
+                                            <c:choose>
+                                                <c:when test="${product.price == product.actualPrice}">
+                                                    <li><h4>Prezzo: ${Utils.getNDecPrice(product.price,2)}&euro;</h4></li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li><h4>Prezzo: <del>${Utils.getNDecPrice(product.price, 2)}&euro;</del> ${Utils.getNDecPrice(product.actualPrice,2)}&euro;</h4></li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <li>Disponibilità: <b>${product.quantity} pezzi &nbsp;</b>
+                                                <c:if test="${product.quantity < 20}">
+                                                    <span class="badge badge-discount">In esaurimento!</span>
+                                                </c:if>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-2 col-md-3 col-xs-12 text-center">
+                                        <div class="buttons">
+                                            <div class="row">
+                                                <button type="button" class="btn btn-default btn-block margin-btn" onclick="editPriceModal(${product.productID})"><i class="fa fa-eur fa-fw fa-lg pull-left"></i>Modifica Prezzo</button>
+                                            </div>
+                                            <div class="row">
+                                                <button type="button" class="btn btn-default btn-block margin-btn" onclick="editQuantityModal(${product.productID})"><i class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Disponibilità</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-3 col-xs-12 col-md-offset-1 col-lg-offset-1 text-center">
+                                        <div class="buttons">
+                                            <div class="row">
+                                                <button type="button" class="btn btn-primary btn-block margin-btn" onclick="location.href='${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}#reviewanchor'"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</button>
+                                            </div>
+                                            <div class="row">
+                                                <button type="button" class="btn btn-danger btn-block margin-btn" onclick="removeProductModal(${product.productID})"><i class="fa fa-trash fa-fw fa-lg pull-left"></i>Rimuovi</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-xs-12 col-md-offset-1 col-lg-offset-1 text-center">
-                                <div class="buttons">
-                                    <div class="row">
-                                        <button type="button" class="btn btn-primary btn-block margin-btn" onclick="location.href='${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}#reviewanchor'"><i class="fa fa-comments-o fa-fw fa-lg pull-left"></i>Recensioni</button>
-                                    </div>
-                                    <div class="row">
-                                        <button type="button" class="btn btn-danger btn-block margin-btn" onclick="removeProductModal(${product.productID})"><i class="fa fa-trash fa-fw fa-lg pull-left"></i>Rimuovi</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- fine prodotto -->
-                </c:forEach>
+                            </li>
+                            <!-- fine prodotto -->
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <h3>&nbsp;&nbsp;&nbsp;Non ci sono prodotti nel tuo inventario</h3>
+                    </c:otherwise>
+                </c:choose>
+
             </ul>
         </div>
 
@@ -124,14 +133,14 @@
 
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
-                              <i class="fa fa-user green" aria-hidden="true"></i>
+                              <i class="fa fa-eur green" aria-hidden="true"></i>
                           </span>
                                 <input name="Price" type="text" class="form-control"  placeholder="Prezzo...">
                             </div>
 
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
-                              <i class="fa fa-user green" aria-hidden="true"></i>
+                              <i class="fa fa-percent green" aria-hidden="true"></i>
                           </span>
                                 <input name="Discount" type="text" class="form-control"  placeholder="Sconto (in decimali)...">
                             </div>

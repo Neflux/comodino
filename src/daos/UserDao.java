@@ -10,27 +10,27 @@ public interface UserDao extends Serializable {
     /**
      * Autentica l'utente se presente in database
      *
-     * @param email     email utente
-     * @param password  password utente
-     * @return          restituisce l'utente se si è autenticato con successo, 'null' altrimenti
+     * @param email    email utente
+     * @param password password utente
+     * @return restituisce l'utente se si è autenticato con successo, 'null' altrimenti
      */
     User authUser(String email, String password);
 
     /**
      * Modifica la password dell'utente autenticato se presente in database
      *
-     * @param user      utente al quale modificare la password
-     * @param curPwd    password attuale
-     * @param newPwd    nuova password
-     * @return          'true' se la modifica è avvenuta con successo, 'false' altrimenti
+     * @param user   utente al quale modificare la password
+     * @param curPwd password attuale
+     * @param newPwd nuova password
+     * @return 'true' se la modifica è avvenuta con successo, 'false' altrimenti
      */
     boolean changePwd(User user, String curPwd, String newPwd);
 
     /**
      * Modifica info personali dell'utente autenticato se presente in database
      *
-     * @param user      utente al quale modificare le info
-     * @return          'true' se la modifica è avvenuta con successo, 'false' altrimenti
+     * @param user utente al quale modificare le info
+     * @return 'true' se la modifica è avvenuta con successo, 'false' altrimenti
      */
     boolean editInfo(User user);
 
@@ -40,7 +40,7 @@ public interface UserDao extends Serializable {
      * @param user Oggetto User che rappresenta uno specifico utente
      * @return ID intero dell'utente nel caso esiste, 0 altrimenti
      */
-    int getShopID (User user);
+    int getShopID(User user);
 
     /**
      * Cerca nel databese se esiste un carrello per l'utente registrato specificato ed eventualmente lo restituisce
@@ -54,27 +54,37 @@ public interface UserDao extends Serializable {
      * Diminuisce la quantità di uno specifico articolo nel carrello di un utente registrato,
      * nel caso la quantità arrivi a zero elimina definitivamente l'articolo dal carrello
      *
-     * @param user Oggetto User che rappresenta uno specifico utente
+     * @param user      Oggetto User che rappresenta uno specifico utente
      * @param productID ID di tipo 'int' del prodotto
-     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @param shopID    ID di tipo 'int' dello shop che vende il prodotto
      */
     void decreaseCartItem(User user, int productID, int shopID);
 
     /**
      * Aumenta la quantità di uno specifico articolo nel carrello di un utente registrato
      *
-     * @param user Oggetto di tipo 'User' che rappresenta uno specifico utente
+     * @param user      Oggetto di tipo 'User' che rappresenta uno specifico utente
      * @param productID ID di tipo 'int' del prodotto
-     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @param shopID    ID di tipo 'int' dello shop che vende il prodotto
      */
     void addCartItem(User user, int productID, int shopID);
 
     /**
+     * Imposta la quantità di uno specifico articolo nel carrello di un utente registrato
+     *
+     * @param user      Oggetto di tipo 'User' che rappresenta uno specifico utente
+     * @param productID ID di tipo 'int' del prodotto
+     * @param shopID    ID di tipo 'int' dello shop che vende il prodotto
+     * @param quantity  intero  che determina la quantità di prodotto da impostare
+     */
+    void setCartItem(User user, int productID, int shopID, int quantity);
+
+    /**
      * Elimina definitivamente l'articolo dal carrello
      *
-     * @param user Oggetto User che rappresenta uno specifico utente
+     * @param user      Oggetto User che rappresenta uno specifico utente
      * @param productID ID di tipo 'int' del prodotto
-     * @param shopID ID di tipo 'int' dello shop che vende il prodotto
+     * @param shopID    ID di tipo 'int' dello shop che vende il prodotto
      */
     void removeCartItem(User user, int productID, int shopID);
 
@@ -82,9 +92,9 @@ public interface UserDao extends Serializable {
      * Registra un utente con nome, cognome, email, password
      *
      * @param firstname Nome dell'utente
-     * @param lastname Cognome dell'utente
-     * @param email Email dell'utente
-     * @param password Password dell'utente
+     * @param lastname  Cognome dell'utente
+     * @param email     Email dell'utente
+     * @param password  Password dell'utente
      * @return Numero di tipo 'int' basato sulla seguente casistica: '-3' connessione SMPT fallita,
      * '-2' alcuni campi sono rimasti vuoti, '-1' oppure '0' email già in uso, '1' registrazione effettuata con successo
      */
@@ -96,7 +106,7 @@ public interface UserDao extends Serializable {
      * @param user Oggetto di tipo 'User' che rappresenta uno specifico utente
      * @return 'true': operazione andata a buon fine, 'false' altrimenti
      */
-    boolean acceptPrivacy (User user);
+    boolean acceptPrivacy(User user);
 
     /**
      * Restituisce l'utente registrato con l'ID specificato
@@ -118,11 +128,12 @@ public interface UserDao extends Serializable {
 
     /**
      * Trasferisce le informazioni sul carrello nei cookie nella versione database persistente per l'utente
-     * 
-     * @param user Oggetto User che rappresenta uno specifico utente
+     *
+     * @param user    Oggetto User che rappresenta uno specifico utente
      * @param cookies Array di 'Cookie' attualmente esistente per l'utente
-     * @return Numero di tipo 'int' basato sulla seguente casistica: '-1': non c'è stato niente da aggiungere,
-     * '0': cookie malformato, altrimenti restituisce direttamente il numero di prodotti trasferiti correttamente
+     * @return -1: cookie vuoto o assente, situazione invariata
+     *          0: errore nel parsing del cookie
+ *            x>0: quantità di prodotti successivamente integrati
      */
     int cookieToCart(User user, Cookie[] cookies);
 }

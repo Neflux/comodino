@@ -63,7 +63,8 @@
                             <label class="col-sm-3 control-label" for="shop-state">Stato</label>
                             <div class="col-sm-9">
                                 <select class="form-control minimal" name="shop-state" id="shop-state">
-                                    <option value="Italy" selected="selected">Italia</option>
+                                    <option disabled selected value> -- seleziona uno stato -- </option>
+                                    <option value="Italy">Italia</option>
                                     <option value="United States">United States</option>
                                     <option value="United Kingdom">United Kingdom</option>
                                     <option value="Afghanistan">Afghanistan</option>

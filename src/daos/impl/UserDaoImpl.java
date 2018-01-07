@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
     public boolean changePwd(User user, String curPwd, String newPwd) {
         try {
             // controllo se la password attuale coincide con quella nel database
-            if(authUser(user.getEmail(),curPwd) == null) {
+            if (authUser(user.getEmail(), curPwd) == null) {
                 return false;
             }
             // se la password attuale coincide posso aggiornare il campo con la nuova password
@@ -80,14 +80,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int getShopID (User user) {
+    public int getShopID(User user) {
         if (user == null)
             return 0;
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM usershop WHERE UserID = ?");
-            stm.setInt(1,user.getUserID());
+            stm.setInt(1, user.getUserID());
             ResultSet rs = stm.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 return rs.getInt("ShopID");
             }
         } catch (SQLException e) {
@@ -102,10 +102,10 @@ public class UserDaoImpl implements UserDao {
             return null;
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM cart WHERE UserID = ? ORDER BY AddDate DESC");
-            stm.setInt(1,user.getUserID());
+            stm.setInt(1, user.getUserID());
             ResultSet rs = stm.executeQuery();
             Cart cart = new Cart();
-            while (true){
+            while (true) {
                 CartItem cartItem = extractCartItemFromResultSet(rs);
                 if (cartItem != null)
                     cart.add(cartItem);
@@ -120,7 +120,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void decreaseCartItem(User user, int productID, int shopID){
+    public void decreaseCartItem(User user, int productID, int shopID) {
         if (user == null)
             return;
         try {
@@ -129,8 +129,7 @@ public class UserDaoImpl implements UserDao {
             stm.setInt(2, productID);
             stm.setInt(3, shopID);
             ResultSet rs = stm.executeQuery();
-            if (rs.next())
-            {
+            if (rs.next()) {
                 PreparedStatement stm2 = con.prepareStatement("UPDATE cart SET Quantity = Quantity - 1, AddDate = NOW() WHERE UserID = ? AND ProductID = ? AND ShopID = ?");
                 stm2.setInt(1, user.getUserID());
                 stm2.setInt(2, productID);
@@ -144,7 +143,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void addCartItem(User user, int productID, int shopID){
+    public void addCartItem(User user, int productID, int shopID) {
         if (user == null)
             return;
         try {
@@ -152,8 +151,7 @@ public class UserDaoImpl implements UserDao {
             stm_q.setInt(1, productID);
             stm_q.setInt(2, shopID);
             ResultSet rs_q = stm_q.executeQuery();
-            if (rs_q.next())
-            {
+            if (rs_q.next()) {
                 int maxQuantity = rs_q.getInt("Quantity");
                 PreparedStatement stm = con.prepareStatement("SELECT * FROM `cart` WHERE UserID = ? AND ProductID = ? AND ShopID = ?"); // controllo se è già nel carrello
                 stm.setInt(1, user.getUserID());
@@ -163,7 +161,7 @@ public class UserDaoImpl implements UserDao {
                 if (rs.next()) { // se ce l'ho già nel carrello faccio += 1
                     int quantityInCart = rs.getInt("Quantity");
                     // se la quantità che ho in carrello è minore della quantità max del venditore posso aumentare
-                    if (quantityInCart < maxQuantity){
+                    if (quantityInCart < maxQuantity) {
                         PreparedStatement stm2 = con.prepareStatement("UPDATE cart SET Quantity = Quantity + 1, AddDate = NOW() WHERE UserID = ? AND ProductID = ? AND ShopID = ?");
                         stm2.setInt(1, user.getUserID());
                         stm2.setInt(2, productID);
@@ -171,8 +169,7 @@ public class UserDaoImpl implements UserDao {
                         stm2.execute();
                         user.updateCart();
                     }
-                }
-                else // sennò lo aggiungo
+                } else // sennò lo aggiungo
                 {
                     if (maxQuantity > 0) { // solo se il prodotto è disponibile aggiungo
                         PreparedStatement stm3 = con.prepareStatement("INSERT INTO cart (Quantity, AddDate, UserID, ProductID, ShopID) VALUES ('1',NOW(),?,?,?)");
@@ -191,7 +188,56 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void removeCartItem(User user, int productID, int shopID){
+    public void setCartItem(User user, int productID, int shopID, int quantity) {
+        if (user == null)
+            return;
+        if (quantity < 0)
+            return;
+        try {
+            PreparedStatement stm_q = con.prepareStatement("SELECT Quantity FROM `shopproduct` WHERE ProductID = ? AND ShopID = ?"); // controllo se la quantità è > 0
+            stm_q.setInt(1, productID);
+            stm_q.setInt(2, shopID);
+            ResultSet rs_q = stm_q.executeQuery();
+            if (rs_q.next()) {
+                int maxQuantity = rs_q.getInt("Quantity");
+                PreparedStatement stm = con.prepareStatement("SELECT * FROM `cart` WHERE UserID = ? AND ProductID = ? AND ShopID = ?"); // controllo se è già nel carrello
+                stm.setInt(1, user.getUserID());
+                stm.setInt(2, productID);
+                stm.setInt(3, shopID);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) { // se ce l'ho già nel carrello faccio += 1
+                    int quantityInCart = rs.getInt("Quantity");
+                    // se la quantità che ho in carrello è minore della quantità max del venditore posso aumentare
+                    if (quantityInCart < maxQuantity) {
+                        PreparedStatement stm2 = con.prepareStatement("UPDATE cart SET Quantity = ?, AddDate = NOW() WHERE UserID = ? AND ProductID = ? AND ShopID = ?");
+                        stm2.setInt(1, quantity);
+                        stm2.setInt(2, user.getUserID());
+                        stm2.setInt(3, productID);
+                        stm2.setInt(4, shopID);
+                        stm2.execute();
+                        user.updateCart();
+                    }
+                } else // sennò lo aggiungo
+                {
+                    if (maxQuantity > 0) { // solo se il prodotto è disponibile aggiungo
+                        PreparedStatement stm3 = con.prepareStatement("INSERT INTO cart (Quantity, AddDate, UserID, ProductID, ShopID) VALUES (?,NOW(),?,?,?)");
+                        stm3.setInt(1, quantity);
+                        stm3.setInt(2, user.getUserID());
+                        stm3.setInt(3, productID);
+                        stm3.setInt(4, shopID);
+                        stm3.executeUpdate();
+                        user.updateCart();
+                    }
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removeCartItem(User user, int productID, int shopID) {
         if (user == null)
             return;
         try {
@@ -207,7 +253,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     private User extractUserFromResultSet(ResultSet rs) throws SQLException {
-        if(!rs.next()){
+        if (!rs.next()) {
             return null;
         }
         User user = new User();
@@ -223,14 +269,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     private CartItem extractCartItemFromResultSet(ResultSet rs) throws SQLException {
-        if(!rs.next()){
+        if (!rs.next()) {
             return null;
         }
         int productID = rs.getInt("ProductID");
         int shopID = rs.getInt("ShopID");
-        Product p = new ProductDaoImpl().getProduct(productID,shopID);
+        Product p = new ProductDaoImpl().getProduct(productID, shopID);
         CartItem item = new CartItem();
-        item.put(p,rs.getInt("Quantity"), rs.getInt("AddressID"));
+        item.put(p, rs.getInt("Quantity"), rs.getInt("AddressID"));
         return item;
     }
 
@@ -244,7 +290,7 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement stm = this.con.prepareStatement("SELECT * FROM user U WHERE U.Email = ? AND U.EmailConfirm = 'yes'");
             stm.setString(1, email);
             ResultSet rs = stm.executeQuery();
-            if (extractUserFromResultSet(rs) != null){
+            if (extractUserFromResultSet(rs) != null) {
                 return -1;
             }
         } catch (SQLException e) {
@@ -252,7 +298,7 @@ public class UserDaoImpl implements UserDao {
         }
 
         String emailToken = Utils.sendVerificationEmail(firstname, lastname, email);
-        if(emailToken == null){
+        if (emailToken == null) {
             System.out.println("[ERROR] Si è verificato un errore con la connessione SMTP ai server Google");
             return -3;
         }
@@ -265,7 +311,7 @@ public class UserDaoImpl implements UserDao {
             stm.setString(4, password);
             stm.setString(5, emailToken);
             int result = stm.executeUpdate();
-            return (result != 0?1:0);
+            return (result != 0 ? 1 : 0);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -273,7 +319,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean acceptPrivacy (User user){
+    public boolean acceptPrivacy(User user) {
         try {
             PreparedStatement stm = this.con.prepareStatement("UPDATE user SET Privacy = 1 WHERE UserID = ?");
             stm.setInt(1, user.getUserID());
@@ -289,7 +335,7 @@ public class UserDaoImpl implements UserDao {
     public User getUser(int userID) {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM user WHERE UserID = ?");
-            stm.setInt(1,userID);
+            stm.setInt(1, userID);
             ResultSet rs = stm.executeQuery();
             return extractUserFromResultSet(rs);
         } catch (SQLException e) {
@@ -303,13 +349,13 @@ public class UserDaoImpl implements UserDao {
         User user = null;
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM user WHERE EmailConfirm = ?");
-            stm.setString(1,token);
+            stm.setString(1, token);
             ResultSet rs = stm.executeQuery();
             user = extractUserFromResultSet(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(user != null){
+        if (user != null) {
             try {
                 PreparedStatement stm = this.con.prepareStatement("UPDATE user SET EmailConfirm = 'yes' WHERE UserID = ?");
                 stm.setInt(1, user.getUserID());
@@ -322,41 +368,33 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
-    /**
-     *
-     * @param user
-     * @param cookies
-     * @return -1: cookie vuoto o assente, situazione invariata
-     *          0: errore nel parsing del cookie
-     *          x>0: quantità di prodotti successivamente integrati
-     */
     @Override
     public int cookieToCart(User user, Cookie[] cookies) {
 
         Cookie products = null;
-        for (Cookie c:cookies) {
-            if (c.getName().equals("cartproducts")){
+        for (Cookie c : cookies) {
+            if (c.getName().equals("cartproducts")) {
                 products = c;
             }
         }
 
-        if(products == null || products.getValue().isEmpty()){
+        if (products == null || products.getValue().isEmpty()) {
             return -1; //non c'è niente da aggiungere, da considerare come operazione andata a "buon fine"
         }
 
-        ArrayList<Pair<Integer,Integer>> legitProducts = new ArrayList<>();
+        ArrayList<Pair<Integer, Integer>> legitProducts = new ArrayList<>();
 
         String[] productList = products.getValue().split("\\|");
-        for(String prod : productList){
+        for (String prod : productList) {
             String[] prodinfo = prod.split("_");
 
-            if(prodinfo.length == 4) {
+            if (prodinfo.length == 4) {
                 for (int i = 0; i < Integer.parseInt(prodinfo[3]); i++) {
                     try {
                         int productID = Integer.parseInt(prodinfo[0]);
                         int shopID = Integer.parseInt(prodinfo[2]);
-                        legitProducts.add(new Pair<>(productID,shopID));
-                    } catch (NumberFormatException e){
+                        legitProducts.add(new Pair<>(productID, shopID));
+                    } catch (NumberFormatException e) {
                         return 0;
                         //e.printStackTrace();
                     }
@@ -365,7 +403,7 @@ public class UserDaoImpl implements UserDao {
             }
         }
 
-        for(Pair<Integer,Integer> p: legitProducts) {
+        for (Pair<Integer, Integer> p : legitProducts) {
             addCartItem(user, p.getKey(), p.getValue());
         }
 

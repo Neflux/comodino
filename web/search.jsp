@@ -309,6 +309,9 @@
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
                             <span class="form" id="form">
+                                <span style="float:right">
+                                    <button type="button" class="close mod-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                </span>
                                 <div class="header header-primary text-center">
                                     <h4 class="title title-up" id="card_titolo_vendors">Piano cottura</h4>
                                     <p class="white subtitolo">
