@@ -16,7 +16,9 @@
     text-overflow: ellipsis;
     display: inline-block;
 }
-
+/*
+li.notificationBlock { border-bottom: 1px solid #d1d1d1; }
+li.notificationBlock:last-child { border-bottom: none; }*/
 
 .navbar .navbar-search .dropdown-menu { min-width: 25px; }
 .dropdown-menu .label-icon { margin-left: 5px; }

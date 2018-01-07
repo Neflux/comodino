@@ -100,7 +100,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Vedi tutte</a></li><!-- TODO: inserire link pagina/sistemare formattazione notifiche -->
+                            <li><a href="${pageContext.request.contextPath}/restricted/vendor/orderreceived.jsp">Gestione Ordini</a></li><!-- TODO: inserire link pagina/sistemare formattazione notifiche -->
                         </ul>
                     </li>
                 </c:if>
@@ -119,8 +119,8 @@
                                     <li><a>Nessuna nuova notifica</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach items="${admin_notifications}" var="n">
-                                        <li>
+                                    <c:forEach items="${admin_notifications}" var="n" varStatus="i" end="3">
+                                        <li class="notificationBlock">
                                             <a>
                                                 <%-- TODO: fare più bella la notifica nuova --%>
                                                 <c:if test="${n.adminStatus == 0}"><b>NEW </b></c:if>Disputa:
@@ -130,14 +130,21 @@
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 ${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span><br>
                                                 <b class="notif-title">${n.title}</b>
-                                                <br>
-                                                Order: ${n.orderId} Product: ${n.productId} Shop: ${n.shopId}</a>
+                                                <br>Product: ${n.productName}<br>Shop: ${n.shopName}
+                                            </a>
                                         </li>
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
                             <li role="separator" class="divider"></li>
-                            <li><a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Vedi tutte</a></li><!-- TODO: sistemare formattazione notifiche -->
+                            <li>
+                                <c:if test="${fn:length(admin_notifications) le 4}">
+                                    <a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Vedi nel dettaglio</a>
+                                </c:if>
+                                <c:if test="${fn:length(admin_notifications) gt 4}">
+                                    <a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Vedi tutte (altre ${fn:length(admin_notifications)-4})</a>
+                                </c:if>
+                            </li><!-- TODO: sistemare formattazione notifiche -->
                         </ul>
                     </li>
                 </c:if>

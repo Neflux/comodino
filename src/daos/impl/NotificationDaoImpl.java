@@ -90,12 +90,14 @@ public class NotificationDaoImpl implements NotificationDao {
     @Override
     public ArrayList<Notification> getAdminNotifications() {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM disputenotification ORDER BY CreationDate DESC");
+            PreparedStatement stm = con.prepareStatement("SELECT *, p.Name as ProductName, s.Name as ShopName " +
+                    "FROM disputenotification d, product p, shop s " +
+                    "WHERE d.ShopID = s.ShopID AND d.ProductID = p.ProductID " +
+                    "ORDER BY CreationDate DESC");
             ResultSet rs = stm.executeQuery();
             ArrayList<Notification> notifications = extractDisputeNotificationFromResultSet(rs);
             printNotifications(notifications, DEBUG);
             return notifications;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -242,6 +244,8 @@ public class NotificationDaoImpl implements NotificationDao {
                 NotificationDispute n = new NotificationDispute();
                 n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
+                n.setShopName(rs.getString("ShopName"));
+                n.setProductName(rs.getString("ProductName"));
                 n.setCreationDate(rs.getTimestamp("CreationDate"));
                 n.setShopStatus(rs.getInt("ShopStatus"));
                 n.setAdminStatus(rs.getInt("AdminStatus"));
