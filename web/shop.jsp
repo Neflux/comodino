@@ -134,8 +134,8 @@
                                 </div>
                             </div>
                             <p>Indirizzo: ${shop.address}</p>
-                            <p>City: ${shop.city}</p>
-                            <p>CAP: ${shop.zip}</p>
+                            <p>Città: ${shop.city}</p>
+                            <p>ZIP: ${shop.zip}</p>
                             <p>Orari: ${shop.openinghours}</p>
                             <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
                         </c:if>

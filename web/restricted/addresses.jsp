@@ -56,7 +56,7 @@
                                                     <p data-address="address">${address.city} (${address.zip}) ${address.state}</p>
                                                     <p data-address="input" class="hidden">
                                                         Città: <input type="text" name="City" value="${address.city}" required>
-                                                        CAP: <input type="text" name="Zip" value="${address.zip}" required>
+                                                        ZIP: <input type="text" name="Zip" value="${address.zip}" required>
                                                         Nazione: <select name="State" required>
                                                         <option value="Italy" selected="selected">Italia</option>
                                                         <option value="United States">United States</option>
