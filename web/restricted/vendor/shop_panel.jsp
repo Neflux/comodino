@@ -79,7 +79,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <c:if test="${shop.rating > 0}">
-                                <a href="#">Vedi tutte</a>
+                                <a href="${pageContext.request.contextPath}/restricted/vendor/reviews.jsp">Vedi tutte</a>
                             </c:if>
                         </div>
                         <c:choose>
@@ -557,8 +557,14 @@
                         </div>
                         <div class="content">
                             <p style="color: white">Dimensioni ideali: 400x300px</p>
-                            <input required id="upload" type="file" name="shopPhoto" accept="image/*">
-                            <input readonly type="text" style="background:transparent; border: none; color: white; margin-top: 5px" id="filename">
+                            <div class="form-row">
+                                <div class="col">
+                                    i<input required id="upload" type="file" name="shopPhoto" accept="image/*">
+                                </div>
+                                <div class="col">
+                                    <input readonly type="text" style="background:transparent; border: none; color: white; margin-top: 5px" id="filename">
+                                </div>
+                            </div>
                             <div class="footer text-center">
                                 <a class="btn btn-default" onclick="$('#uploadShopPhotoForm').submit();">Carica</a>
                             </div>
