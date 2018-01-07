@@ -128,4 +128,8 @@ public interface ProductDao extends Serializable {
      * @return
      */
     boolean addNewProduct(int shopID, String name, String description, String category, float price, float discount, int quantity, Part productPhoto);
+
+    void setAutoCommit(boolean b);
+
+    void rollback();
 }

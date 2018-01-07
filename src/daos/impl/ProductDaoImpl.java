@@ -463,6 +463,7 @@ public class ProductDaoImpl implements ProductDao {
             stm.setInt(3, shopID);
             stm.setInt(4, quantity);
             stm.executeUpdate();
+            con.commit();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -668,5 +669,19 @@ public class ProductDaoImpl implements ProductDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void setAutoCommit(boolean b){
+        try{
+            con.setAutoCommit(b);
+        }
+        catch (Exception ignored){}
+    }
+
+    public void rollback(){
+        try{
+            con.rollback();
+        }
+        catch (Exception ignored){}
     }
 }

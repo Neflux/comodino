@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "CompleteOrderServlet", urlPatterns = "/restricted/completeorder")
 public class CompleteOrderServlet extends HttpServlet {
@@ -42,7 +43,6 @@ public class CompleteOrderServlet extends HttpServlet {
             return;
         }
 
-
         // PRIMA:
 
         // Controllo disponibilità merce negli store
@@ -50,13 +50,27 @@ public class CompleteOrderServlet extends HttpServlet {
         Cart cart = user.getCart(true);
         ProductDao pd = new ProductDaoImpl();
         System.out.println("[INFO] CompleteOrder: Controllo disponibilità");
+        ArrayList<String> outOfStockProducts = new ArrayList<>();
         for (CartItem item: cart){
             boolean result = pd.checkAvailability(item.getProduct().getProductID(), item.getProduct().getShopID(), item.getQuantity());
             if(!result) {
-                System.out.println("[ERROR] CompleteOrder: Non sono soddisfatte le disponibilità di: " + item.getProduct().getProductID() +" shop: " + item.getProduct().getShopID());
-                response.sendRedirect("cart.jsp?error=Richiesti troppi pezzi. Riduci le quantità");
+                System.out.println("[WARNING] CompleteOrder: Non sono soddisfatte le disponibilità di: " + item.getProduct().getProductID() +" shop: " + item.getProduct().getShopID());
+                /*response.sendRedirect("cart.jsp?error=Richiesti troppi pezzi. Riduci le quantità");
                 return;
+                 */
+                outOfStockProducts.add(item.getProduct().getProductName());
             }
+        }
+        if(outOfStockProducts.size() > 0){
+            String prefix = "Non c'è più disponibilità di ";
+            StringBuilder message = new StringBuilder();
+            for (String outOfStockProduct : outOfStockProducts) {
+                message.append(prefix);
+                prefix = ", ";
+                message.append(outOfStockProduct);
+            }
+            response.sendRedirect("cart.jsp?error="+message.toString());
+            return;
         }
         System.out.println("[INFO] CompleteOrder: Controllo Superato");
 
@@ -71,14 +85,17 @@ public class CompleteOrderServlet extends HttpServlet {
         // Aggiornamento quantità merce negli store
 
         System.out.println("[INFO] CompleteOrder: Diminuzione disponibilità");
+        pd.setAutoCommit(false);
         for (CartItem item: cart){
             boolean result = pd.reduceAvailability(item.getProduct().getProductID(), item.getProduct().getShopID(), item.getQuantity());
             if(!result) {
                 System.out.println("[ERROR] CompleteOrder: Impossibile diminuire il prodotto: " + item.getProduct().getProductID() + " (" + item.getProduct().getProductName() + ")");
                 response.sendRedirect("cart.jsp?error=Errore riduzione quantità");
+                pd.rollback();
                 return;
             }
         }
+        pd.setAutoCommit(true);
         System.out.println("[INFO] CompleteOrder: Disponibilità negozi aggiornata");
 
         // Creazione dell'ordine dal carrello alle tabelle nel db (prodotti + pagamento)
