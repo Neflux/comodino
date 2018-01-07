@@ -44,13 +44,13 @@
                                                     <p id="c_lead" class="lead pi-draggable itemseller" draggable="true">Venduto da:&nbsp;
                                                         <a href="#" style="font-size: 18px">${item.getProduct().getShopName()}</a>
                                                     </p>
-                                                    <h2 class="itemprice" id="price_${item.getProduct().getProductID()}">${Utils.getNDecPrice(item.getProduct().getActualPrice(),2)}&euro;</h2>
+                                                    <h2 class="itemprice" id="price_${item.getProduct().getProductID()}_${item.getProduct().getShopID()}">${Utils.getNDecPrice(item.getProduct().getActualPrice(),2)}&euro;</h2>
                                                 </div>
                                                 <div class="col-md-1">
                                                     <div class="itemquantity">
                                                         <p>Quantità:</p>
                                                         <div class="quantity">
-                                                            <input type="number" min="1" step="1" value="${item.getQuantity()}" id="quantity_${item.getProduct().getProductID()}">
+                                                            <input type="number" data-prod="${item.getProduct().getProductID()}" data-shop="${item.getProduct().getShopID()}" min="1" step="1" value="${item.getQuantity()}" id="quantity_${item.getProduct().getProductID()}_${item.getProduct().getShopID()}" onfocus="updatePrice(${item.getProduct().getProductID()},'+',${item.getProduct().getShopID()});">
                                                             <div class="quantity-nav">
                                                                 <div class="quantity-button quantity-up" onclick="updatePrice(${item.getProduct().getProductID()},'+',${item.getProduct().getShopID()});">+</div>
                                                                 <div class="quantity-button quantity-down" onclick="updatePrice(${item.getProduct().getProductID()},'-',${item.getProduct().getShopID()});">-</div>
