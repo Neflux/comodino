@@ -32,8 +32,8 @@ jQuery(".quantity").each(function() {
 });
 
 function removeItem(prodID, shopID){
-    var prezzo = $("#price_" + prodID).text().slice(0, -1).replace(",",".");
-    var quantita = $("#quantity_" + prodID).val();
+    var prezzo = $("#price_" + prodID + "_" + shopID).text().slice(0, -1).replace(",",".");
+    var quantita = $("#quantity_" + prodID + "_" + shopID).val();
     var aggiungere = parseFloat(prezzo) * parseFloat(quantita);
     var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
     var aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
@@ -47,43 +47,84 @@ function removeItem(prodID, shopID){
     }
 
     $.post("/removecartitem", {"productID": prodID, "shopID": shopID});
-    $.post("/getcart", {type:"drop"})
-        .done(function(data) {
-            $("#cartdrop").html(data);
-        });
-    $.post("/getcart", {type:"header"})
-        .done(function(data) {
-            $("#cartheader").html(data);
-        });
+    updateCart();
 }
 
 function updatePrice(prodID, tipo, shopID)
 {
-    var prezzo = $("#price_" + prodID).text().slice(0, -1).replace(",",".");
-    var quantita = $("#quantity_" + prodID).val();
-    var aggiungere = parseFloat(prezzo);
-    var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
-    var aggiunto = attuale;
+    var quantita = $("#quantity_" + prodID + "_" + shopID).val();
+    // var prezzo = $("#price_" + prodID + "_" + shopID).text().slice(0, -1).replace(",",".");
+    //var aggiungere = parseFloat(prezzo);
+    //var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
+    //var aggiunto = attuale;
     var post = {productID: prodID, shopID: shopID};
-    if (tipo == "+")
+    if (tipo === "+")
     {
-        aggiunto = (parseFloat(attuale) + parseFloat(aggiungere)).toFixed(2);
-        $.post("/addcartitem", post);
-    }
-    else if (tipo == "-" && quantita > 1)
-    {
-        aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
-        $.post("/decreasecartitem", post);
-    }
-
-    $("#total").text("Totale: " + aggiunto + "€");
-
-    $.post("/getcart", {type:"drop"})
-        .done(function(data) {
-            $("#cartdrop").html(data);
+        //aggiunto = (parseFloat(attuale) + parseFloat(aggiungere)).toFixed(2);
+        $.post("/addcartitem", post).done(function () {
+            updateTotal();
+            updateCart();
         });
+    }
+    else if (tipo === "-" && quantita > 1)
+    {
+        //aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
+        $.post("/decreasecartitem", post).done(function () {
+            updateTotal();
+            updateCart();
+        });
+    }
+}
+
+function setQuantity(prodID, shopID, value){
+    console.log(prodID, shopID, value);
+    var post = {productID: prodID, shopID: shopID, quantity: value};
+    if(value !== null && value > 0){
+        $.post("/restricted/setcartitem", post).done(function () {
+            updateCart();
+            updateTotal();
+        });
+    }
+
+}
+function updateTotal(){
+    var items = $(".cart-item");
+    var totale = 0.0;
+    $(items).each(function (index, item) {
+        var prezzo_item = parseFloat($(item).find(".itemprice").text().slice(0, -1).replace(",",".")).toFixed(2);
+        var quantita_item = parseInt($(item).find(".quantity>input").val());
+        if (quantita_item <= 0){
+            quantita_item = parseInt($(item).find(".quantity>input").attr("value"));
+        }
+        if ($(item).is(":visible")){
+            console.log(prezzo_item, quantita_item);
+            totale += prezzo_item * quantita_item;
+        }
+        else{
+            console.log("Nascosto: ", item);
+        }
+    });
+    totale = totale.toFixed(2);
+    $("#total").text("Totale: " + totale + "€");
+}
+
+function updateCart() {
     $.post("/getcart", {type:"header"})
         .done(function(data) {
             $("#cartheader").html(data);
         });
+    $.post("/getcart", {type:"drop"})
+        .done(function(data) {
+            $("#cartdrop").html(data);
+        });
 }
+
+$(document).ready(function() {
+    var allQuantityBoxes = $("input[type=\"number\"]");
+    $(allQuantityBoxes).each(function (index, value) {
+        $(value).focusout(function () {
+            setQuantity($(value).attr("data-prod"), $(value).attr("data-shop"), $(value).val());
+        });
+    });
+    //updateTotal();
+});
