@@ -53,6 +53,24 @@ public class ReviewDaoImpl implements ReviewDao {
         return 0;
     }
 
+    public int createShopReview(String title, String description, int rating, int shopID, int userID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO shopreview (Title, CreationDate, Rating, Description, ShopID, UserID) VALUES (?,NOW(),?,?,?,?)");
+            stm.setString(1, title);
+            stm.setString(3, description);
+            stm.setInt(2, rating);
+            stm.setInt(4, shopID);
+            stm.setInt(5, userID);
+            stm.executeUpdate();
+            return 1;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
     @Override
     public int isReviewReplied(int reviewID) {
         try {

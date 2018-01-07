@@ -1,5 +1,6 @@
 package main;
 
+import daos.UserDao;
 import daos.impl.UserDaoImpl;
 
 import java.io.Serializable;
@@ -101,5 +102,8 @@ public class User implements Serializable {
         this.privacy = privacy;
     }
 
-
+    public boolean hasReviewedShop(int shopID) {
+        UserDao userDao = new UserDaoImpl();
+        return userDao.checkIfReviewExists(this.userID, shopID);
+    }
 }

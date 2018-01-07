@@ -136,4 +136,6 @@ public interface UserDao extends Serializable {
  *            x>0: quantità di prodotti successivamente integrati
      */
     int cookieToCart(User user, Cookie[] cookies);
+
+    boolean checkIfReviewExists(int userID, int shopID);
 }

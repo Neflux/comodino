@@ -127,7 +127,7 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <c:if test="${not empty user}">
+                    <c:if test="${not empty user && !user.hasReviewedShop(shop.shopID)}">
                         <div class="row text-center">
                             <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal" data-target="#openreviewmodal">Lascia una recensione</button>
                         </div>

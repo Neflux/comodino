@@ -493,4 +493,16 @@ public class ShopDaoImpl implements ShopDao {
         return shops;
     }
 
+    public boolean updateShopRating(int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE shop S SET Rating = (SELECT AVG(Rating) FROM shopreview WHERE S.ShopID = shopreview.ShopID);");
+            stm.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

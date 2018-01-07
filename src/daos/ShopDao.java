@@ -117,4 +117,6 @@ public interface ShopDao extends Serializable {
      * @return 'true' se l'operazione è andata a buon fine, 'false' altrimenti
      */
     boolean addShopPhoto(int shopID, Part fileName);
+
+    boolean updateShopRating(int shopID);
 }

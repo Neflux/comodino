@@ -409,4 +409,18 @@ public class UserDaoImpl implements UserDao {
 
         return legitProducts.size();
     }
+
+    public boolean checkIfReviewExists(int userID, int shopID) {
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM shopreview WHERE ShopID = ? AND UserID = ?");
+            stm.setInt(1, shopID);
+            stm.setInt(2, userID);
+            ResultSet rs = stm.executeQuery();
+            return rs.isBeforeFirst();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }

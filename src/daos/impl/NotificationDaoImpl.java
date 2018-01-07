@@ -268,4 +268,23 @@ public class NotificationDaoImpl implements NotificationDao {
         }
     }
 
+    public boolean createShopReviewNotification(int userID, int shopID, String title, int rating) {
+
+        try {
+                PreparedStatement stm = con.prepareStatement("INSERT INTO shopreviewnotification (ShopID, UserID, Title, Rating) VALUES (?,?,?,?)");
+                stm.setInt(1, shopID);
+                stm.setInt(2, userID);
+                stm.setString(3, title);
+                stm.setInt(4, rating);
+                int result = stm.executeUpdate();
+                if (result == 0){
+                    return false;
+            }
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
