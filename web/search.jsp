@@ -239,7 +239,7 @@
                                                         <c:if test="${prod.value.getList().size() > 1}"><small>e da altri <a href="javascript:void(0);" onclick="openModal('${prod.value.getList().get(0).getProductName()}');">${(prod.value.getList().size())-1}</a> venditori</small></c:if>
                                                     </li>
                                                     <li class="price">
-                                                            <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2" value="${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}"/>&euro;
+                                                            ${Utils.getNDecPrice(prod.value.getList().get(0).getActualPrice(),2)}&euro;
                                                         <c:if test="${prod.value.getList().get(0).getActualPrice() != prod.value.getList().get(0).getPrice()}">
                                                             <span class="badge badge-discount">In offerta!</span>
                                                         </c:if>
