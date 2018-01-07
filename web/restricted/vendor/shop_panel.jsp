@@ -18,7 +18,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
-        <script src="${pageContext.request.contextPath}/js/vendor.js"></script>
+        <script src="${pageContext.request.contextPath}/js/shop.js"></script>
         <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
             <script>
                 var map, infoWindow;
