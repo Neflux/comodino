@@ -190,7 +190,7 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp; ${user.firstName} ${user.lastName}  <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu centered">
@@ -213,7 +213,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a id="cartdrop" onclick="openCart();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a id="cartdrop" onclick="openCart();" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="badge">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> ${user.getCart(false).totalSize()}
                         </span>
