@@ -68,7 +68,7 @@
 }
 
 #name, #surname {
-    display: inline-block;
+    display: initial;
 }
 
 #name:first-letter, #surname:first-letter {
