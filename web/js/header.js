@@ -161,4 +161,6 @@ $(document).ready(function() {
     });
 });
 
-
+function doSearchMobile() {
+    window.location.href = "/search?q=" + ($("#searchMobile").val());
+}
