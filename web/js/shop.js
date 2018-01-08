@@ -36,11 +36,6 @@ function uploadOnChange() {
     document.getElementById('filename').value = filename;
 }
 
-function setStarRating(){
-    $('#openreviewmodal input[name="rating"]').val(stelle);
-    console.log(stelle);
-}
-
 function setStar(id){
     stelle_hover = id.id.substr(7,id.id.lenght);
 
@@ -51,4 +46,7 @@ function setStar(id){
         $("#stella_" + i).attr("class","fa fa-star-o rating_star");
 
     stelle = stelle_hover;
+
+    $('#openreviewmodal input[name="rating"]').val(stelle);
+    console.log(stelle);
 }
