@@ -414,4 +414,50 @@ public class UserDaoImpl implements UserDao {
         }
         return true;
     }
+
+    @Override
+    public boolean checkEmail(String email) {
+        if (email.isEmpty())
+            return false;
+        try {
+            PreparedStatement stm = this.con.prepareStatement("SELECT * FROM user U WHERE U.Email = ? AND U.EmailConfirm = 'yes'");
+            stm.setString(1, email);
+            ResultSet rs = stm.executeQuery();
+            return rs.getFetchSize() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateResetToken(String email, String passwordResetToken){
+        try {
+            PreparedStatement stm = this.con.prepareStatement("UPDATE user SET PasswordReset = ? WHERE Email = ?");
+            stm.setString(1,passwordResetToken);
+            stm.setString(2, email);
+            int result = stm.executeUpdate();
+            return result != 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean resetPassword(String token, String email, String pwda) {
+        try {
+            PreparedStatement stm = this.con.prepareStatement("UPDATE user " +
+                    "SET Password = ?, PasswordReset = '0' " +
+                    "WHERE Email = ? AND PasswordReset = ?");
+            stm.setString(1, pwda);
+            stm.setString(2, email);
+            stm.setString(3, token);
+            int result = stm.executeUpdate();
+            return result != 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

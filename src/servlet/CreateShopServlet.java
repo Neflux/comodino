@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "CreateShopServlet", urlPatterns = "/restricted/createshop")
 public class CreateShopServlet extends HttpServlet {
@@ -44,9 +45,12 @@ public class CreateShopServlet extends HttpServlet {
             !Utils.isNullOrEmpty(shopOpeningHours = request.getParameter("shop-openingHours"))
                 ){
             System.out.println("[INFO] Tutti i campi del negozio fisico sono riempiti (ora creo negozio fisico)");
+            ArrayList<Float> latlong = Utils.updateGPSCoords(shopAddress,shopCity,shopZIP);
+            Float shopLatitude = latlong.get(0);
+            Float shopLongitude = latlong.get(1);
             boolean result = new ShopDaoImpl().createNewPhysicalShop(
                     user,shopName,shopDescription,
-                    shopWebsite,shopAddress,shopCity,shopState,shopZIP,shopOpeningHours);
+                    shopWebsite,shopAddress,shopCity,shopState,shopZIP,shopOpeningHours,shopLatitude,shopLongitude);
             if(result)
                 response.sendRedirect("vendor/shop_panel.jsp");
             else

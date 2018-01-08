@@ -97,40 +97,35 @@
                     <h4 class="title title-up" id="card_titolo" style="margin-bottom: -40px; margin-top: 20px;">Login</h4>
                 </div>
                 <div class="content">
-                    <div class="input-group form-group-no-border nologin" style="opacity: 0;margin-top: -50px;">
+                    <div class="input-group form-group-no-border nologin noforgot" style="opacity: 0;margin-top: -50px;">
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
                         <input type="text" class="form-control" name="firstname" placeholder="Nome...">
                     </div>
-                    <div class="input-group form-group-no-border nologin" style="opacity: 0; ">
+                    <div class="input-group form-group-no-border nologin noforgot" style="opacity: 0; ">
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
                         <input type="text" class="form-control" name="lastname" placeholder="Cognome...">
                     </div>
-                    <div class="input-group form-group-no-border login">
+                    <div class="input-group form-group-no-border login forgot">
                           <span class="input-group-addon">
                               <i class="fa fa-envelope-o green" aria-hidden="true"></i>
                           </span>
                         <input type="text" class="form-control" name="email" placeholder="Email..." autofocus>
                     </div>
-                    <div class="input-group form-group-no-border">
+                    <div class="input-group form-group-no-border noforgot yeslogin">
                           <span class="input-group-addon">
                               <i class="fa fa-key green" aria-hidden="true"></i>
                           </span>
                         <input type="password" placeholder="Password..." name="password" class="form-control">
                     </div>
                     <div class="row text-center" style="margin-top: 15px">
-                        <span class="white" id="card_change_button">Non hai ancora un account? <a onclick="show_signup();">Registrati</a></span>
+                        <span class="white" id="card_change_button">Non hai ancora un account? <a onclick="show_signup();" style="cursor:pointer">Registrati</a></span>
+                        <br>
+                        <span class="white" id="card_forgot_button">Hai dimenticato la <a onclick="show_forgot();" style="cursor:pointer">password</a>?</span>
                     </div>
-                    <!-- If you want to add a checkbox to this form, uncomment this code -->
-                    <!-- <div class="checkbox">
-                        <input id="checkboxSignup" type="checkbox">
-                          <label for="checkboxSignup">
-                          Unchecked
-                          </label>
-                          </div> -->
                 </div>
                 <div class="footer text-center" style="margin-top: 15px;">
                     <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#form').submit();">Entra</a>
