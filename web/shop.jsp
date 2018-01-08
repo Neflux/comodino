@@ -248,15 +248,15 @@
                             </div>
                             <div class="col-md-12 text-center stelle">
                                 <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                                    style="cursor:pointer"></i>&nbsp;
                                 <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                                    style="cursor:pointer"></i>&nbsp;
                                 <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                                    style="cursor:pointer"></i>&nbsp;
                                 <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                                    style="cursor:pointer"></i>&nbsp;
                                 <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_5" onmouseover="setStar(this)"
-                                   onclick="setStarRating()" style="cursor:pointer"></i>&nbsp;
+                                    style="cursor:pointer"></i>&nbsp;
                                 <input type="text" name="rating" hidden>
                             </div>
                         </div>

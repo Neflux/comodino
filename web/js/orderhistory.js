@@ -28,14 +28,11 @@ function setStar(id)
         $("#stella_" + i).attr("class","fa fa-star-o rating_star");
 
     stelle = stelle_hover;
-}
 
-function setStarRating()
-{
     $('#openreviewmodal input[name="rating"]').val(stelle);
     console.log(stelle);
-
 }
+
 $("#opendisputeform").validate();
 $( "#titleDisputeModal").rules( "add", {
     required: true,
