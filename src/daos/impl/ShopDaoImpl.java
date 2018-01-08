@@ -177,24 +177,6 @@ public class ShopDaoImpl implements ShopDao {
         return products;
     }
 
-    private ArrayList<String> getImages(int shopID) {
-
-        ArrayList<String> imgBase64 = new ArrayList<>();
-
-        try {
-            PreparedStatement stm = con.prepareStatement("SELECT * FROM shopphoto WHERE shopphoto.ShopID = ?");
-            stm.setInt(1, shopID);
-            ResultSet rs = stm.executeQuery();
-
-            while (rs.next()) {
-                imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return imgBase64;
-    }
-
     @Override
     public int hasOtherShops(int productID){
         try {
@@ -495,6 +477,31 @@ public class ShopDaoImpl implements ShopDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+
+    public ArrayList<String> getImages(int shopID){
+
+        ArrayList<String> imgBase64 = new ArrayList<>();
+
+        try{
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM shopphoto sp\n" +
+                    "WHERE sp.ShopID = ?");
+            stm.setInt(1, shopID);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
+            }
+            if (imgBase64.size()==0){
+                imgBase64.add("/placeholdershop.jpg");
+            }
+        } catch (SQLException e) {
+            imgBase64.add("/ImageNotFound.png");
+            e.printStackTrace();
+        }
+        return imgBase64;
     }
 
     public ArrayList<Shop> allShops(){

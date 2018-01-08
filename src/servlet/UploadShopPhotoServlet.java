@@ -23,15 +23,16 @@ public class UploadShopPhotoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part shopPhoto = request.getPart("shopPhoto");
-        HttpSession session = request.getSession(false);
-        Shop shop = (Shop) session.getAttribute("shop");
-        ShopDao shopDao = new ShopDaoImpl();
-        if(shopDao.addShopPhoto(shop.getShopID(), shopPhoto)) {
-            response.sendRedirect("shop_panel.jsp?success=Foto caricata con successo");
+        if (shopPhoto.getSize() > 0) {
+            HttpSession session = request.getSession(false);
+            Shop shop = (Shop) session.getAttribute("shop");
+            ShopDao shopDao = new ShopDaoImpl();
+            if (shopDao.addShopPhoto(shop.getShopID(), shopPhoto)) {
+                response.sendRedirect("shop_panel.jsp?success=Foto caricata con successo");
+            } else
+                response.sendRedirect("shop_panel.jsp?error=Upload non riuscito");
         }
-        else
-            response.sendRedirect("shop_panel.jsp?warning=Upload non riuscito");
-
+        else response.sendRedirect("shop_panel.jsp?warning=Nessuna foto selezionata");
     }
 
 

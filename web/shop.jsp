@@ -92,15 +92,14 @@
                                 Nessuna recensione
                             </c:when>
                             <c:otherwise>
-                                <%-- TODO: cambiare rating con nuovo sistema (copiare rating prodotti search)--%>
-                                <c:if test="${shop.rating > 0}">
-                                    <c:forEach begin="0" end="${shop.rating - 1}" varStatus="loop">
-                                        <i class="fa fa-star myiconresize" aria-hidden="true"></i>
+                                <c:if test="${Math.round(shop.rating) > 0}">
+                                    <c:forEach begin="0" end="${Math.round(shop.rating) - 1}" varStatus="loop">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
                                     </c:forEach>
                                 </c:if>
-                                <c:if test="${shop.rating < 5}">
-                                    <c:forEach begin="0" end="${4 - shop.rating}" varStatus="loop">
-                                        <i class="fa fa-star-o myiconresize" aria-hidden="true"></i>
+                                <c:if test="${Math.round(shop.rating) < 5}">
+                                    <c:forEach begin="0" end="${4 - Math.round(shop.rating)}" varStatus="loop">
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
                                     </c:forEach>
                                 </c:if>
                                 &nbsp;&nbsp;<as class="collapsed" data-toggle="collapse" data-target="#shopReviews" style="cursor:pointer">Vedi Tutte<span class="caret"></span></as>

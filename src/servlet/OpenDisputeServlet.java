@@ -42,7 +42,7 @@ public class OpenDisputeServlet extends HttpServlet {
             return;
         }
         if(!result){ // la creazione della notifica della disputa è fallita
-            response.sendRedirect("/index.jsp?error=Errore Creazione Nitifica Disputa");
+            response.sendRedirect("/index.jsp?error=Errore Creazione Notifica Disputa");
             return;
         }
         System.out.println("[INFO] OpenDispute Servlet: Dispute created.");

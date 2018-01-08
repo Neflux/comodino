@@ -119,9 +119,10 @@ public class DisputeDaoImpl implements DisputeDao {
     @Override
     public Dispute getDisputeByUser(int orderID, int productID, int shopID) {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
-                    "FROM dispute\n" +
-                    "WHERE OrderID = ? AND ProductID = ? AND ShopID = ?");
+            PreparedStatement stm = con.prepareStatement("SELECT * " +
+                    "FROM dispute " +
+                    "WHERE OrderID = ? AND ProductID = ? AND ShopID = ?" +
+                    "ORDER BY CreationDate DESC");
             stm.setInt(1, orderID);
             stm.setInt(2, productID);
             stm.setInt(3, shopID);
@@ -136,9 +137,10 @@ public class DisputeDaoImpl implements DisputeDao {
     @Override
     public ArrayList<Dispute> getDisputeByShop(int shopID) {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
-                    "FROM dispute d\n" +
-                    "WHERE d.ShopID = ?");
+            PreparedStatement stm = con.prepareStatement("SELECT * " +
+                    "FROM dispute d " +
+                    "WHERE d.ShopID = ? " +
+                    "ORDER BY d.CreationDate DESC");
             stm.setInt(1, shopID);
             ResultSet rs = stm.executeQuery();
             return extractDisputesFromResultSet(rs);

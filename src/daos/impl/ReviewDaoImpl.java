@@ -81,7 +81,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
             try (ResultSet rs = stm.executeQuery()) {
                 rs.next();
-                System.out.println("REVIEW REPLY COUNT: " + rs.getInt("reviewcount"));
+                //System.out.println("REVIEW REPLY COUNT: " + rs.getInt("reviewcount"));
                 int res = rs.getInt("reviewcount");
                 return res;
             } finally {
@@ -112,9 +112,10 @@ public class ReviewDaoImpl implements ReviewDao {
     @Override
     public ArrayList<ProductReview> getProductReviews(int productID) {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
-                    "FROM productreview\n" +
-                    "WHERE ProductID = ?");
+            PreparedStatement stm = con.prepareStatement("SELECT * " +
+                    "FROM productreview " +
+                    "WHERE ProductID = ? " +
+                    "ORDER BY CreationDate DESC");
             stm.setInt(1, productID);
             ResultSet rs = stm.executeQuery();
             return extractProductReviewsFromResultSet(rs);
@@ -127,9 +128,7 @@ public class ReviewDaoImpl implements ReviewDao {
     @Override
     public ArrayList<ShopReview> getShopReviews(int shopID) {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
-                    "FROM shopreview sr\n" +
-                    "WHERE sr.ShopID = ?");
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM shopreview sr WHERE sr.ShopID = ? ORDER BY sr.CreationDate DESC");
             stm.setInt(1, shopID);
             ResultSet rs = stm.executeQuery();
             return extractShopReviewsFromResultSet(rs);
@@ -146,7 +145,8 @@ public class ReviewDaoImpl implements ReviewDao {
                     "FROM productreview\n" +
                     "WHERE ProductID IN (SELECT DISTINCT P.ProductID\n" +
                     "                    FROM Product P, ShopProduct SP, Shop S, ShopInfo SI\n" +
-                    "                    WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? )");
+                    "                    WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND S.ShopID = ? )" +
+                    "ORDER BY productreview.CreationDate DESC");
             stm.setInt(1, shopID);
             ResultSet rs = stm.executeQuery();
             return extractProductReviewsFromResultSet(rs);
@@ -264,9 +264,10 @@ public class ReviewDaoImpl implements ReviewDao {
     @Override
     public ProductReview getProductReviewByUser(User user, int productID) {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
-                    "FROM productreview\n" +
-                    "WHERE UserID = ? AND ProductID = ?");
+            PreparedStatement stm = con.prepareStatement("SELECT * " +
+                    "FROM productreview " +
+                    "WHERE UserID = ? AND ProductID = ? " +
+                    "ORDER BY CreationDate DESC");
             stm.setInt(1, user.getUserID());
             stm.setInt(2, productID);
             ResultSet rs = stm.executeQuery();

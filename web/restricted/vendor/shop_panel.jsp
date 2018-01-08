@@ -85,11 +85,17 @@
                         <c:choose>
                             <c:when test="${shop.getClass().simpleName == 'PhysicalShop'}">
                                 <div id="addShopDiv" class="row" style="margin-bottom: 15px">
-                                <h2 id="realShop">Negozio fisico</h2>
-                                <p><b>Indirizzo:</b> ${shop.address}</p>
-                                <p><b>City:</b> ${shop.city}</p>
-                                <p><b>CAP:</b> ${shop.zip}</p>
-                                <p><b>Orari:</b> ${shop.openinghours}</p>
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            <h2 id="realShop">Negozio fisico</h2>
+                                            </div>
+                                        </div>
+                                        <p><b>Indirizzo:</b> ${shop.address}</p>
+                                        <p><b>City:</b> ${shop.city}</p>
+                                        <p><b>CAP:</b> ${shop.zip}</p>
+                                        <p><b>Orari:</b> ${shop.openinghours}</p>
+                                    </div>
                                 </div>
                                 <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
                             </c:when>
