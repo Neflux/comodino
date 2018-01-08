@@ -97,7 +97,7 @@ public interface ShopDao extends Serializable {
      * @param shopOpeningHours Orario di apertura del negozio fisico (stringa)
      * @return 'true' se l'operazione è andata a buon fine, 'false' altrimenti
      */
-    boolean createNewPhysicalShop(User user, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours);
+    boolean createNewPhysicalShop(User user, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours, Float shopLatitude, Float shopLongitude);
 
     /**
      * Modifica un prodotto specifico di un negozio in particolare
@@ -129,4 +129,6 @@ public interface ShopDao extends Serializable {
     ArrayList<String> getImages(int shopID);
 
     boolean updateShopRating(int shopID);
+
+    void updateLatLong(int shopID, float latitude, float longitude);
 }

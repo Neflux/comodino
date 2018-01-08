@@ -27,7 +27,7 @@ public class AddPhysicalShopServlet extends HttpServlet {
         physhop.setZip(request.getParameter("ShopCAP"));
         physhop.setState(request.getParameter("ShopCountry"));
         physhop.setOpeninghours(request.getParameter("ShopHours"));
-        Utils.updateGPSCoords(physhop);
+        physhop = Utils.updateGPSCoords(physhop);
         HttpSession session = request.getSession(false);
         Shop shop = (Shop) session.getAttribute("shop");
         ShopDao shopDao = new ShopDaoImpl();

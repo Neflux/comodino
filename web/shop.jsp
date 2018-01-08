@@ -64,7 +64,7 @@
                                     <div class="carousel-inner">
                                         <c:forEach items="${shop.shopphoto}" var="image" varStatus="status">
                                             <div class="item <c:if test='${status.first}'>active</c:if>">
-                                                <img src='${shop.shopphoto[0]}' alt='images Here' width="300" height="400"/>
+                                                <img src='${image}' alt='images Here' width="300" height="400"/>
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -126,11 +126,12 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <c:if test="${not empty user && !user.hasReviewedShop(shop.shopID)}">
                         <div class="row text-center">
+                            <c:if test="${not empty user && !user.hasReviewedShop(shop.shopID)}">
                             <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal" data-target="#openreviewmodal">Lascia una recensione</button>
+                            </c:if>
+                            <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal" data-target="#uploadShopPhoto">Carica una foto</button>
                         </div>
-                    </c:if>
                     <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
                             <div id="addShopDiv" class="row" style="margin-bottom: 15px">
                                 <div class="col-md-10">
@@ -267,5 +268,34 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="uploadShopPhoto" tabindex="-1" role="dialog" aria-labelledby="uploadShopPhotoLabel">
+            <div class="row">
+                <div class="card card-signup centerize" data-background-color="orange">
+                        <%--TODO:Auto-populate previous values--%>
+                    <form id="uploadShopPhotoForm" class="form" method="POST" enctype = "multipart/form-data" action="${pageContext.request.contextPath}/restricted/uploadshopphoto">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up">Carica foto</h4>
+                        </div>
+                        <div class="content">
+                            <p style="color: white">Dimensioni ideali: 400x300px</p>
+                            <div class="form-row">
+                                <div class="col">
+                                    i<input required id="upload" type="file" name="shopPhoto" accept="image/*">
+                                </div>
+                                <div class="col">
+                                    <input readonly type="text" style="background:transparent; border: none; color: white; margin-top: 5px" id="filename">
+                                    <input hidden type="text" name="shopID" value="${shop.shopID}">
+                                </div>
+                            </div>
+                            <div class="footer text-center">
+                                <a class="btn btn-default" onclick="$('#uploadShopPhotoForm').submit();">Carica</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </jsp:body>
 </t:genericpage>

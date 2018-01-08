@@ -403,16 +403,15 @@ public class ShopDaoImpl implements ShopDao {
     }
 
     @Override
-    public boolean createNewPhysicalShop(User user, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours) {
+    public boolean createNewPhysicalShop(User user, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours, Float shopLatitude, Float shopLongitude) {
         int shopID = createNewShop(user, shopName, shopDescription, shopWebsite);
-        float latitude = 0, longitude = 0;
         // TODO: Aggiungere la posizione da indirizzo @delsi del sale
         if (shopID != 0) {
             try {
                 PreparedStatement stm = con.prepareStatement("INSERT INTO shopinfo (ShopID, Latitude, Longitude, Address, City, State, ZIP, OpeningHours) VALUES (?,?,?,?,?,?,?,?)");
                 stm.setInt(1, shopID);
-                stm.setFloat(2, latitude);
-                stm.setFloat(3, longitude);
+                stm.setFloat(2, shopLatitude);
+                stm.setFloat(3, shopLongitude);
                 stm.setString(4, shopAddress);
                 stm.setString(5, shopCity);
                 stm.setString(6, shopState);
@@ -529,6 +528,19 @@ public class ShopDaoImpl implements ShopDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void updateLatLong(int shopID, float latitude, float longitude) {
+        try {
+            PreparedStatement stm = con.prepareStatement("UPDATE shopinfo SET Latitude = ?, Longitude = ? WHERE ShopID = ?");
+            stm.setFloat(1,latitude);
+            stm.setFloat(2,longitude);
+            stm.setInt(3,shopID);
+            stm.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

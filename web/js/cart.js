@@ -1,5 +1,5 @@
 jQuery('').insertAfter('.quantity input');
-jQuery(".quantity").each(function() {
+jQuery(".quantity").each(function () {
     var spinner = jQuery(this),
         input = spinner.find('input[type="number"]'),
         btnUp = spinner.find('.quantity-up'),
@@ -7,7 +7,7 @@ jQuery(".quantity").each(function() {
         min = input.attr('min'),
         max = input.attr('max');
 
-    btnUp.click(function() {
+    btnUp.click(function () {
         var oldValue = parseFloat(input.val());
         if (oldValue >= max) {
             var newVal = oldValue;
@@ -18,7 +18,7 @@ jQuery(".quantity").each(function() {
         spinner.find("input").trigger("change");
     });
 
-    btnDown.click(function() {
+    btnDown.click(function () {
         var oldValue = parseFloat(input.val());
         if (oldValue <= min) {
             var newVal = oldValue;
@@ -31,19 +31,13 @@ jQuery(".quantity").each(function() {
 
 });
 
-function removeItem(prodID, shopID){
-    // var prezzo = $("#price_" + prodID + "_" + shopID).text().slice(0, -1).replace(",",".");
-    // var quantita = $("#quantity_" + prodID + "_" + shopID).val();
-    // var aggiungere = parseFloat(prezzo) * parseFloat(quantita);
-    // var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
-    // var aggiunto = (parseFloat(attuale) - parseFloat(aggiungere)).toFixed(2);
-    // $("#total").text("Totale: " + aggiunto + "€");
-
+function removeItem(prodID, shopID) {
     $.post("/removecartitem", {"productID": prodID, "shopID": shopID}).done(function () {
         $("#" + prodID + "_" + shopID).fadeOut("700", function () {
             updateCart();
             updateTotal();
-            if (isCartEmpty()){
+
+            if (isCartEmpty()) {
                 $("#cartlist").html("<li class=\"list-group-item text-center nessunbordo\"><h3>Il carrello è vuoto, aggiungi qualche prodotto!</h3></li>");
                 $("#nextbtn").text("Vai alla homepage");
                 $("#nextbtn").attr("href", "/index.jsp");
@@ -54,21 +48,17 @@ function removeItem(prodID, shopID){
 
 function isCartEmpty() {
     var items = $(".cart-item");
+    var isempty = true;
     $(items).each(function (index, item) {
-        if (!$(item).is(":visible")){
-            return false;
+        if ($(item).is(":visible")) {
+            isempty = false;
         }
     });
-    return true;
+    return isempty;
 }
 
-function updatePrice(prodID, tipo, shopID)
-{
+function updatePrice(prodID, tipo, shopID) {
     var quantita = $("#quantity_" + prodID + "_" + shopID).val();
-    //var prezzo = $("#price_" + prodID + "_" + shopID).text().slice(0, -1).replace(",",".");
-    //var aggiungere = parseFloat(prezzo);
-    //var attuale = $("#total").text().replace("Totale: ","").replace(",",".").slice(0, -1);
-    //var aggiunto = attuale;
     var post = {productID: prodID, shopID: shopID};
     if (tipo === "+") {
         //aggiunto = (parseFloat(attuale) + parseFloat(aggiungere)).toFixed(2);
@@ -86,31 +76,30 @@ function updatePrice(prodID, tipo, shopID)
     }
 }
 
-function setQuantity(prodID, shopID, value){
-    //console.log(prodID, shopID, value);
+function setQuantity(prodID, shopID, value) {
     var post = {productID: prodID, shopID: shopID, quantity: value};
-    if(value !== null && value > 0){
+    if (value !== null && value > 0) {
         $.post("/restricted/setcartitem", post).done(function () {
             updateCart();
             updateTotal();
         });
     }
-
 }
-function updateTotal(){
+
+function updateTotal() {
     var items = $(".cart-item");
     var totale = 0.0;
     $(items).each(function (index, item) {
-        var prezzo_item = parseFloat($(item).find(".itemprice").text().slice(0, -1).replace(",",".")).toFixed(2);
+        var prezzo_item = parseFloat($(item).find(".itemprice").text().slice(0, -1).replace(",", ".")).toFixed(2);
         var quantita_item = parseInt($(item).find(".quantity>input").val());
-        if (quantita_item <= 0){
+        if (quantita_item <= 0) {
             quantita_item = parseInt($(item).find(".quantity>input").attr("value"));
         }
-        if ($(item).is(":visible")){
+        if ($(item).is(":visible")) {
             //console.log(prezzo_item, quantita_item);
             totale += prezzo_item * quantita_item;
         }
-        else{
+        else {
             //console.log("Nascosto: ", item);
         }
     });
@@ -119,22 +108,22 @@ function updateTotal(){
 }
 
 function updateCart() {
-    $.post("/getcart", {type:"header"})
-        .done(function(data) {
+    $.post("/getcart", {type: "header"})
+        .done(function (data) {
             $("#cartheader").html(data);
         });
-    $.post("/getcart", {type:"drop"})
-        .done(function(data) {
+    $.post("/getcart", {type: "drop"})
+        .done(function (data) {
             $("#cartdrop").html(data);
         });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     var allQuantityBoxes = $("input[type=\"number\"]");
     $(allQuantityBoxes).each(function (index, value) {
         $(value).focusout(function () {
             setQuantity($(value).attr("data-prod"), $(value).attr("data-shop"), $(value).val());
         });
     });
-    //updateTotal();
+    updateTotal();
 });

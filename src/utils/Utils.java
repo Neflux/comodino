@@ -1,6 +1,8 @@
 package utils;
 
 import com.google.gson.Gson;
+import daos.ShopDao;
+import daos.impl.ShopDaoImpl;
 import main.PhysicalShop;
 import utils.json.GoogleLocationJson;
 
@@ -12,6 +14,7 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Properties;
 import java.util.Scanner;
@@ -101,7 +104,7 @@ public class Utils {
         return verificationToken;
     }
 
-    public static boolean updateGPSCoords(PhysicalShop shop) {
+    public static PhysicalShop updateGPSCoords(PhysicalShop shop) {
         try{
             //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
             String sURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
@@ -119,16 +122,45 @@ public class Utils {
             if(mapsJson.getResults().size() > 0){
                 shop.setLatitude( Float.parseFloat(mapsJson.getResults().get(0).getGeometry().getLocation().getLat().toString()));
                 shop.setLongitude( Float.parseFloat(mapsJson.getResults().get(0).getGeometry().getLocation().getLng().toString()));
-
                 System.out.println("[GEOCODING LAT-LNG] "+shop.getLatitude()+" - "+shop.getLongitude());
-                return true;
+                return shop;
             }
-            return false;
+            return shop;
         }
         catch(Exception e){
             System.out.println(e);
         }
-        return false;
+        return shop;
+    }
+
+    public static ArrayList<Float> updateGPSCoords(String address, String city, String zip) {
+        try{
+            ArrayList<Float> latlong = new ArrayList<>();
+            //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
+            String sURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                    URLEncoder.encode(address, "UTF-8") + ",+" +
+                    URLEncoder.encode(city, "UTF-8") + ",+" +
+                    URLEncoder.encode(zip,"UTF-8") + "&key=";
+            String apikey = "AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync";
+            // Connect to the URL using java's native library
+            System.out.println("[GOOGLE GEOCODING URL] "+sURL+apikey);
+
+            String jsonString = new Scanner(new URL(sURL+apikey).openStream(), "UTF-8").useDelimiter("\\A").next();
+            Gson gson = new Gson();
+            GoogleLocationJson mapsJson = gson.fromJson(jsonString, GoogleLocationJson.class);
+
+            if(mapsJson.getResults().size() > 0){
+                latlong.add(Float.parseFloat(mapsJson.getResults().get(0).getGeometry().getLocation().getLat().toString()));
+                latlong.add(Float.parseFloat(mapsJson.getResults().get(0).getGeometry().getLocation().getLng().toString()));
+
+                return latlong;
+            }
+            return null;
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return null;
     }
 }
 
