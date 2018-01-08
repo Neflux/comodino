@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/custom.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css" >
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
     <jsp:invoke fragment="pagecss"/>
     <title><jsp:invoke fragment="pagetitle"/> - Comodino.it</title>
     <style>
