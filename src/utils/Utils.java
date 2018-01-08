@@ -104,7 +104,7 @@ public class Utils {
         return verificationToken;
     }
 
-    public static boolean updateGPSCoords(PhysicalShop shop) {
+    public static PhysicalShop updateGPSCoords(PhysicalShop shop) {
         try{
             //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
             String sURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
@@ -123,16 +123,14 @@ public class Utils {
                 shop.setLatitude( Float.parseFloat(mapsJson.getResults().get(0).getGeometry().getLocation().getLat().toString()));
                 shop.setLongitude( Float.parseFloat(mapsJson.getResults().get(0).getGeometry().getLocation().getLng().toString()));
                 System.out.println("[GEOCODING LAT-LNG] "+shop.getLatitude()+" - "+shop.getLongitude());
-                ShopDao shopDao = new ShopDaoImpl();
-                shopDao.updateLatLong(shop.getShopID(), shop.getLatitude(), shop.getLongitude());
-                return true;
+                return shop;
             }
-            return false;
+            return shop;
         }
         catch(Exception e){
             System.out.println(e);
         }
-        return false;
+        return shop;
     }
 
     public static ArrayList<Float> updateGPSCoords(String address, String city, String zip) {
