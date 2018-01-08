@@ -244,8 +244,7 @@ public class NotificationDaoImpl implements NotificationDao {
                 NotificationDispute n = new NotificationDispute();
                 n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
-                n.setShopName(rs.getString("ShopName"));
-                n.setProductName(rs.getString("ProductName"));
+                // Todo: Get shop and product (name or the whole objects)
                 n.setCreationDate(rs.getTimestamp("CreationDate"));
                 n.setShopStatus(rs.getInt("ShopStatus"));
                 n.setAdminStatus(rs.getInt("AdminStatus"));

@@ -39,16 +39,12 @@
                                 </c:when>
                                 <c:otherwise>
                                     <c:forEach items="${vendor_notifications}" var="n">
-                                        <li>
+                                        <li class="header-notification">
                                             <a>
+                                                <c:if test="${n.shopStatus == 0}"><b>NEW </b></c:if>
                                                 <c:choose>
                                                     <c:when test="${n.getClass().simpleName == 'NotificationProductReview'}">
-                                                        <%-- TODO: fare più bella la notifica nuova --%>
-                                                        <c:if test="${n.shopStatus == 0}"><b>NEW </b></c:if>Recensione prodotto:
-                                                        <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
-                                                        <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
-                                                        <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span>
+                                                        Recensione prodotto:
                                                     </c:when>
                                                     <c:when test="${n.getClass().simpleName == 'NotificationShopReview'}">
                                                         Recensione negozio:
@@ -60,7 +56,11 @@
                                                         Qualcosa è andato storto...
                                                     </c:otherwise>
                                                 </c:choose>
-
+                                                <%-- Data notifica formattata --%>
+                                                <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
+                                                <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
+                                                <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span>
                                                 <br>
                                                 <b class="notif-title">${n.title}</b><br>
                                                 <c:choose>
@@ -89,6 +89,7 @@
                                                         </span>
                                                     </c:when>
                                                     <c:when test="${n.getClass().simpleName == 'NotificationDispute'}">
+
                                                     </c:when>
                                                     <c:otherwise>
                                                         Qualcosa è andato storto...
@@ -100,7 +101,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <li role="separator" class="divider"></li>
-                            <li><a href="${pageContext.request.contextPath}/restricted/vendor/orderreceived.jsp">Gestione Ordini</a></li><!-- TODO: inserire link pagina/sistemare formattazione notifiche -->
+                            <li class="text-center"><a href="${pageContext.request.contextPath}/restricted/vendor/notifications.jsp">Vedi Tutte</a></li>
                         </ul>
                     </li>
                 </c:if>

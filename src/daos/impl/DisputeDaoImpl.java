@@ -121,8 +121,7 @@ public class DisputeDaoImpl implements DisputeDao {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * " +
                     "FROM dispute " +
-                    "WHERE OrderID = ? AND ProductID = ? AND ShopID = ?" +
-                    "ORDER BY CreationDate DESC");
+                    "WHERE OrderID = ? AND ProductID = ? AND ShopID = ?");
             stm.setInt(1, orderID);
             stm.setInt(2, productID);
             stm.setInt(3, shopID);

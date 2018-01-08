@@ -15,7 +15,7 @@
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
-        Dispute
+        Dispute - ${shop.name}
     </jsp:attribute>
     <jsp:attribute name="pagecss">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dispute_list.css">
@@ -52,8 +52,8 @@
                                                                  height="" width="200px"></figure>
                                                     </div>
                                                     <div class="col-xs-12 col-md-7">
-                                                        <h3>Titolo: ${dispute.title}</h3>
-                                                        <p> ${dispute.description}</p>
+                                                        <h3>${dispute.title}</h3>
+                                                        <p>${dispute.description}</p>
                                                     </div>
                                                     <div class="col-lg-2 col-md-3 col-xs-12">
                                                         <h4>
@@ -122,8 +122,8 @@
                                                                      height="" width="200px"></figure>
                                                         </div>
                                                         <div class="col-xs-12 col-md-7">
-                                                            <h3>Titolo: ${dispute.title}</h3>
-                                                            <p> ${dispute.description}</p>
+                                                            <h3>${dispute.title}</h3>
+                                                            <p>${dispute.description}</p>
                                                         </div>
                                                         <div class="col-lg-2 col-md-3 col-xs-12">
                                                             <h4>
