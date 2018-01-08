@@ -162,6 +162,61 @@ public class Utils {
         }
         return null;
     }
+
+    public static String sendResetEmail(String email) {
+        // TODO: tokenGenerator da staticizzare e globalizzare all'avvio del server
+        String easy = RandomString.digits + "ACEFGHJKLMNPQRUVWXYabcdefhijkprstuvwx";
+        RandomString tokenGenerator = new RandomString(23, new SecureRandom(), easy);
+
+        String verificationToken = tokenGenerator.nextString();
+
+        final String google_username = "abbdevs@gmail.com";
+        final String google_password = "&el0nMuschi3tt0%";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(google_username, google_password);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("passwordreset@comodino.it"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(email));
+            //InternetAddress.parse("abbdevs@gmail.com"));
+            message.setSubject("Ripristino password su Comodino.it");
+            message.setText("Comodino.it\n\n" +
+
+                    "Clicca il seguente link per ripristinare la password:\n"+
+
+                    "<a href='http://localhost:8080/passwordReset?token="+verificationToken+"&email="+email+"'>Ripristino password</a>\n" +
+
+                    "Se non avessi richiesto il ripristino, ignora semplicemente questa mail.\n\n"+
+
+                    "Lo Staff di Comodino.it\n" +
+                    "http://localhost:8080/");
+
+            Transport.send(message);
+
+            System.out.println("[INFO] Email di conferma inviata con successo a '"+email+"'");
+            System.out.println("[INFO] Token di verifica '"+verificationToken+"'");
+
+        } catch (MessagingException e) {
+            //throw new RuntimeException(e);
+            e.printStackTrace();
+            return null;
+        }
+
+        return verificationToken;
+    }
 }
 
 

@@ -138,4 +138,10 @@ public interface UserDao extends Serializable {
     int cookieToCart(User user, Cookie[] cookies);
 
     boolean checkIfReviewExists(int userID, int shopID);
+
+    boolean checkEmail(String email);
+
+    boolean updateResetToken(String email, String passwordResetToken);
+
+    boolean resetPassword(String token, String email, String pwda);
 }
