@@ -164,3 +164,17 @@ $(document).ready(function() {
 function doSearchMobile() {
     window.location.href = "/search?q=" + ($("#searchMobile").val());
 }
+
+function createNotificationURL(reviewType, contextPath){
+    var URL="#";
+
+    if (reviewType == 'NotificationProductReview'){
+        URL = contextPath + "/restricted/vendor/reviews.jsp";
+    } else if (reviewType == 'NotificationShopReview'){
+        URL = contextPath + "/shop.jsp?id=${n.shopId}";
+    } else if (reviewType == 'NotificationDispute'){
+        URL = contextPath + "/restricted/vendor/dispute_list.jsp";
+    }
+
+    return URL;
+}
