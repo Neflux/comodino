@@ -122,9 +122,9 @@
                         <input type="password" placeholder="Password..." name="password" class="form-control">
                     </div>
                     <div class="row text-center" style="margin-top: 15px">
-                        <span class="white" id="card_change_button">Non hai ancora un account? <a onclick="show_signup();">Registrati</a></span>
+                        <span class="white" id="card_change_button">Non hai ancora un account? <a onclick="show_signup();" style="cursor:pointer">Registrati</a></span>
                         <br>
-                        <span class="white" id="card_forgot_button">Hai dimenticato la <a onclick="show_forgot();">password</a>?</span>
+                        <span class="white" id="card_forgot_button">Hai dimenticato la <a onclick="show_forgot();" style="cursor:pointer">password</a>?</span>
                     </div>
                 </div>
                 <div class="footer text-center" style="margin-top: 15px;">
