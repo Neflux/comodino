@@ -423,7 +423,7 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement stm = this.con.prepareStatement("SELECT * FROM user U WHERE U.Email = ? AND U.EmailConfirm = 'yes'");
             stm.setString(1, email);
             ResultSet rs = stm.executeQuery();
-            return rs.getFetchSize() == 1;
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
