@@ -553,7 +553,7 @@
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
                         <%--TODO:Auto-populate previous values--%>
-                    <form id="uploadShopPhotoForm" class="form" method="POST" enctype = "multipart/form-data" action="${pageContext.request.contextPath}/restricted/vendor/uploadshopphoto">
+                    <form id="uploadShopPhotoForm" class="form" method="POST" enctype = "multipart/form-data" action="${pageContext.request.contextPath}/restricted/uploadshopphoto">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Carica foto</h4>
                         </div>
@@ -565,6 +565,7 @@
                                 </div>
                                 <div class="col">
                                     <input readonly type="text" style="background:transparent; border: none; color: white; margin-top: 5px" id="filename">
+                                    <input hidden type="text" name="shopID" value="${shop.shopID}">
                                 </div>
                             </div>
                             <div class="footer text-center">

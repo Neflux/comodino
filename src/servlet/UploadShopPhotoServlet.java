@@ -18,21 +18,22 @@ import java.nio.file.Paths;
 import java.sql.Blob;
 
 @MultipartConfig
-@WebServlet(name = "UploadShopPhotoServlet", urlPatterns = {"/restricted/vendor/uploadshopphoto"})
+@WebServlet(name = "UploadShopPhotoServlet", urlPatterns = {"/restricted/uploadshopphoto"})
 public class UploadShopPhotoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part shopPhoto = request.getPart("shopPhoto");
+        int shopID = Integer.parseInt(request.getParameter("shopID"));;
         if (shopPhoto.getSize() > 0) {
             HttpSession session = request.getSession(false);
             Shop shop = (Shop) session.getAttribute("shop");
             ShopDao shopDao = new ShopDaoImpl();
-            if (shopDao.addShopPhoto(shop.getShopID(), shopPhoto)) {
-                response.sendRedirect("shop_panel.jsp?success=Foto caricata con successo");
+            if (shopDao.addShopPhoto(shopID, shopPhoto)) {
+                response.sendRedirect(request.getHeader("referer"));
             } else
-                response.sendRedirect("shop_panel.jsp?error=Upload non riuscito");
+                response.sendRedirect("index.jsp?error=Upload non riuscito");
         }
-        else response.sendRedirect("shop_panel.jsp?warning=Nessuna foto selezionata");
+        else response.sendRedirect("index.jsp?warning=Nessuna foto selezionata");
     }
 
 
