@@ -122,7 +122,7 @@
                                 <c:otherwise>
                                     <c:forEach items="${admin_notifications}" var="n" varStatus="i" end="3">
                                         <li class="notificationBlock">
-                                            <a>
+                                            <a href="${pageContext.request.contextPath}/product.jsp?product=${n.productId}&shop=${n.shopId}">
                                                 <%-- TODO: fare più bella la notifica nuova --%>
                                                 <c:if test="${n.adminStatus == 0}"><b>NEW </b></c:if>Disputa:
                                                 <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
@@ -130,8 +130,9 @@
                                                 <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 ${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span><br>
-                                                <b class="notif-title">${n.title}</b>
-                                                <br>Product: ${n.productName}<br>Shop: ${n.shopName}
+                                                <b class="notif-title">${n.title}</b><br>
+                                                Product: ${n.productName}<br>
+                                                Shop: ${n.shopName}
                                             </a>
                                         </li>
                                     </c:forEach>
