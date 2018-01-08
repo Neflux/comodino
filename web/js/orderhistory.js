@@ -1,4 +1,5 @@
-var stelle = 0;
+var sstelle = 0;
+var pstelle = 0;
 
 function openDisputeModal(orderID, productID, shopID) {
     //alert("Order: " + orderID + " Product: " + productID + " Shop: " + shopID);
@@ -17,20 +18,36 @@ function openReviewModal(orderID, productID, shopID) {
 
 }
 
-function setStar(id)
+function setSStar(id)
 {
-    stelle_hover = id.id.substr(7,id.id.lenght);
+    var sstelle_hover = id.id.substr(8,id.id.lenght);
 
-    for (i = 0; i <= stelle_hover; i++)
-        $("#stella_" + i).attr("class","fa fa-star rating_star");
+    for (i = 0; i <= sstelle_hover; i++)
+        $("#sstella_" + i).attr("class","fa fa-star rating_star");
 
-    for (i = parseInt(stelle_hover)+1; i <= 5; i++)
-        $("#stella_" + i).attr("class","fa fa-star-o rating_star");
+    for (i = parseInt(sstelle_hover)+1; i <= 5; i++)
+        $("#sstella_" + i).attr("class","fa fa-star-o rating_star");
 
-    stelle = stelle_hover;
+    sstelle = sstelle_hover;
 
-    $('#openreviewmodal input[name="rating"]').val(stelle);
-    console.log(stelle);
+    $('#openreviewmodal input[name="srating"]').val(sstelle);
+    console.log(sstelle);
+}
+
+function setPStar(id)
+{
+    var pstelle_hover = id.id.substr(8,id.id.lenght);
+
+    for (i = 0; i <= pstelle_hover; i++)
+        $("#pstella_" + i).attr("class","fa fa-star rating_star");
+
+    for (i = parseInt(pstelle_hover)+1; i <= 5; i++)
+        $("#pstella_" + i).attr("class","fa fa-star-o rating_star");
+
+    pstelle = pstelle_hover;
+
+    $('#openreviewmodal input[name="prating"]').val(pstelle);
+    console.log(pstelle);
 }
 
 $("#opendisputeform").validate();
