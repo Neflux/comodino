@@ -126,5 +126,7 @@ public interface ShopDao extends Serializable {
      */
     boolean addShopPhoto(int shopID, Part fileName);
 
+    ArrayList<String> getImages(int shopID);
+
     boolean updateShopRating(int shopID);
 }
