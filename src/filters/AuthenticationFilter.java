@@ -15,7 +15,7 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("[INFO] Auth Filter: Entered");
+        //System.out.println("[INFO] Auth Filter: Entered");
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
         HttpSession session  = req.getSession(false);
@@ -31,7 +31,7 @@ public class AuthenticationFilter implements Filter {
         else {
             User u = (User)session.getAttribute("user");
             if (u.getPrivacy() == 0){
-                System.out.println("    Privacy not accepted yet.");
+                System.out.println("Privacy not accepted yet.");
                 String path = req.getRequestURI();
                 if (!path.endsWith("profile.jsp") && !path.endsWith("/acceptprivacy") && !path.endsWith("/logout")) {
                     res.sendRedirect("profile.jsp?error=Privacy non accettata");

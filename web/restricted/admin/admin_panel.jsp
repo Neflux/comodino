@@ -103,6 +103,9 @@
                                                     <c:when test="${dispute.status == 2}">
                                                         Disputa Declinata
                                                     </c:when>
+                                                    <c:when test="${dispute.status == 3}">
+                                                        Prodotto Rimborsato e Venditore Segnalato
+                                                    </c:when>
                                                     <c:otherwise>
                                                         <form action="${pageContext.request.contextPath}/restricted/admin/updatedispute" method="POST">
                                                             <div class="btn-group">
@@ -126,6 +129,10 @@
                                                                     <li>
                                                                         <a href="#">Declina</a>
                                                                         <input name="status" value="2" type="radio" hidden>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Segnala</a>
+                                                                        <input name="status" value="3" type="radio" hidden>
                                                                     </li>
                                                                 </ul>
                                                             </div>

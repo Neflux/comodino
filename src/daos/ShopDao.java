@@ -131,4 +131,7 @@ public interface ShopDao extends Serializable {
     boolean updateShopRating(int shopID);
 
     void updateLatLong(int shopID, float latitude, float longitude);
+
+
+    int countBadReports(int shopID);
 }

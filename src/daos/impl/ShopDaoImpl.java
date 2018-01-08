@@ -543,4 +543,25 @@ public class ShopDaoImpl implements ShopDao {
         }
     }
 
+    @Override
+    public int countBadReports(int shopID){
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM shop s, dispute d " +
+                    "WHERE s.ShopID = ? AND s.ShopID = d.ShopID AND d.Status = 3");
+            stm.setInt(1,shopID);
+            System.out.println(stm.toString());
+            ResultSet rs = stm.executeQuery();
+            if (rs != null)
+            {
+                rs.beforeFirst();
+                rs.last();
+                return rs.getRow();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

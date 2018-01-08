@@ -9,7 +9,9 @@
 <jsp:useBean id="shop" class="main.Shop" scope="request"/>
 <jsp:useBean id="shopproducts" class="java.util.HashMap" scope="request"/>
 <jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl"/>
+<jsp:useBean id="shopDao" class="daos.impl.ShopDaoImpl"/>
 <c:set var="reviewList" value="${reviewDao.getShopReviews(shop.shopID)}" scope="page"/>
+<c:set var="badReportsCount" value="${shopDao.countBadReports(shop.shopID)}" scope="page"/>
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
@@ -92,6 +94,12 @@
                                 Nessuna recensione
                             </c:when>
                             <c:otherwise>
+                                <c:if test="${badReportsCount eq 1}">
+                                    <h6><span class="label label-warning">${badReportsCount} segnalazione</span></h6>
+                                </c:if>
+                                <c:if test="${badReportsCount gt 1}">
+                                    <h6><span class="label label-warning">${badReportsCount} segnalazioni</span></h6>
+                                </c:if>
                                 <c:if test="${Math.round(shop.rating) > 0}">
                                     <c:forEach begin="0" end="${Math.round(shop.rating) - 1}" varStatus="loop">
                                         <i class="fa fa-star" aria-hidden="true"></i>
