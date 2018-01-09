@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * Riduce di 1 la quantità di un determinato prodotto dal carrello.
+ */
 @WebServlet(name = "decreaseCartItem", urlPatterns = {"/decreasecartitem"})
 public class decreaseCartItem extends HttpServlet {
 

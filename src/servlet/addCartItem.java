@@ -15,7 +15,10 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Si occupa di aggiungere il prodotto selezionato al carrello,
+ * se l'utente non è loggato crea un carrello temporaneo tramite cookies
+ */
 @WebServlet(name = "addCartItem", urlPatterns = {"/addcartitem"})
 public class addCartItem extends HttpServlet {
 

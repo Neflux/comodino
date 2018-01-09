@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Si occupa, per un negozio online, di aggiungere una locazione fisica
+ */
 @WebServlet(name = "AddPhysicalShopServlet", urlPatterns = {"/restricted/vendor/addphysicalshop"})
 public class AddPhysicalShopServlet extends HttpServlet {
 

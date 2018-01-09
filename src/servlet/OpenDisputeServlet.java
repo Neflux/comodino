@@ -12,11 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Dato un prodotto acquistato permette all'utente di aprire una disputa.
+ */
 @WebServlet(name = "OpenDisputeServlet", urlPatterns = {"/restricted/opendispute"})
 public class OpenDisputeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[INFO] OpenDispute Servlet: Entered");
+        request.setCharacterEncoding("UTF-8");
         if(request.getParameter("title") == null || request.getParameter("description") == null || request.getParameter("orderID") == null || request.getParameter("productID") == null || request.getParameter("shopID") == null ){
             response.sendRedirect("/index.jsp?error=Parametri Mancanti");
             return;

@@ -10,11 +10,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+/**
+ * Permette l'inserimento di un prodotto totalmente nuovo, ossia non venduto ancora da nessuno.
+ */
 @MultipartConfig
 @WebServlet(name = "InsertNewProductServlet", urlPatterns = {"/restricted/vendor/insertnewproduct"})
 public class InsertNewProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            request.setCharacterEncoding("UTF-8");
             String name = request.getParameter("Name");
             String description = request.getParameter("Description");
             String category = request.getParameter("Category");

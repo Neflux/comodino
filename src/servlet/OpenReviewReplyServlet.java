@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Permette al venditore di rispondere a una recensione data da un utente.
+ */
 @WebServlet(name = "OpenReviewReplyServlet", urlPatterns = {"/restricted/vendor/openreviewreply"})
 public class OpenReviewReplyServlet extends HttpServlet {
 

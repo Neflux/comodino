@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Visualizza l'autocompletamento durante la digitazione.
+ */
 @WebServlet(name = "SearchAutocompleteServlet", urlPatterns = {"/searchautocomplete"})
 public class SearchAutocompleteServlet extends HttpServlet {
 

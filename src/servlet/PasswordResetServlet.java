@@ -12,10 +12,13 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Objects;
 
+/**
+ * Gestisce il reset della password.
+ */
 @WebServlet(name = "PasswordResetServlet", urlPatterns = {"/passwordReset"})
 public class PasswordResetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
         if(Utils.isNullOrEmpty(request.getParameter("token"))
                 || Utils.isNullOrEmpty(request.getParameter("email"))){
             response.sendRedirect("/index.jsp");

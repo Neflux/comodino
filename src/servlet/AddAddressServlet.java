@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * Gestisce l'aggiunta di un nuovo indirizzo di spedizione per l'utente
+ */
 @WebServlet(name = "AddAddressServlet", urlPatterns = {"/restricted/addaddress"})
 public class AddAddressServlet extends HttpServlet {
 

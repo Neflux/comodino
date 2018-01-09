@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Si occupa di inviare un email di conferma all'indirizzo email fornito in fase di registrazione.
+ */
 @WebServlet(name = "EmailConfirm", urlPatterns = {"/emailConfirm"})
 public class EmailConfirm extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

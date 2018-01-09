@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Permette di modificare l'indirizzo di spedizione dell'utente loggato.
+ */
 @WebServlet(name = "EditAddressServlet", urlPatterns = {"/restricted/editaddress"})
 public class EditAddressServlet extends HttpServlet {
 

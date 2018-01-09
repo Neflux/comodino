@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * Rimuove un indirizzo di spedizione dal database.
+ */
 @WebServlet(name = "RemoveAddressServlet", urlPatterns = {"/restricted/removeaddress"})
 public class RemoveAddressServlet extends HttpServlet {
 

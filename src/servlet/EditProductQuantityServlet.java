@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Permette di modificare manualmente la quantità di prodotto disponibile per un determinato negozio.
+ */
 @WebServlet(name = "EditProductQuantityServlet", urlPatterns = {"/restricted/vendor/editproductquantity"})
 public class EditProductQuantityServlet extends HttpServlet {
 
