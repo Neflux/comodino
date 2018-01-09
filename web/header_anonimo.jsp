@@ -15,7 +15,7 @@
             <a class="navbar-brand" href="${pageContext.request.contextPath}/"><img src="./css/logo.svg"/>
                 <span id="headertitle">Comodino.it</span>
             </a>
-            <div id="searchWrapper" class="searchWrappperClass">
+            <div id="searchWrapper" class="searchWrapperClass">
                 <div class="input-group">
                     <input id="searchMobile" name="q" class="form-control" type="text" placeholder="Cerca" autofocus>
                     <div class="input-group-btn">

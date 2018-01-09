@@ -33,11 +33,6 @@ h4 {
 
 @media screen and (max-width: 992px){
     
-   /* my.css fix */
-    body>.container{
-        margin-top: -30px !important;
-    }
-    
     body > .container > .row  {
         margin: 0 15px 0 15px;
     } 

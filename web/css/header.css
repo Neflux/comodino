@@ -103,10 +103,16 @@ li.notificationBlock:last-child { border-bottom: none; }*/
     color: #FF3636;
 }
 
-.searchWrappperClass {
-    margin-bottom:10px;
+.searchWrapperClass {
+    display: inline-block;
+    margin-bottom:5px;
     padding-right:10px;
     padding-left:10px;
+    width: 100%;
+}
+
+.searchWrapperClass>.input-group{
+    margin: 0;
 }
 
 @media only screen and (max-width: 768px) {
