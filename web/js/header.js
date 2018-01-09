@@ -171,13 +171,13 @@ function doSearchMobile() {
     window.location.href = "/search?q=" + ($("#searchMobile").val());
 }
 
-function createNotificationURL(reviewType, contextPath){
+function createNotificationURL(reviewType, contextPath, shopID){
     var URL="#";
 
     if (reviewType == 'NotificationProductReview'){
         URL = contextPath + "/restricted/vendor/reviews.jsp";
     } else if (reviewType == 'NotificationShopReview'){
-        URL = contextPath + "/shop.jsp?id=${n.shopId}";
+        URL = contextPath + "/shop.jsp?id=" + shopID;
     } else if (reviewType == 'NotificationDispute'){
         URL = contextPath + "/restricted/vendor/dispute_list.jsp";
     }
