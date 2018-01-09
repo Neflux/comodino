@@ -17,7 +17,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-
+/**
+ * Permette di modificare le informazioni di base di un negozio online e,
+ * se presente, del relativo negozio fisico.
+ */
 @WebServlet(name = "EditShopInfoServlet", urlPatterns = {"/restricted/vendor/editshopinfo"})
 public class EditShopInfoServlet extends HttpServlet {
 

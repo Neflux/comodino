@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Gestisce l'invio di email di reset password.
+ */
 @WebServlet(name = "PasswordRequestServlet", urlPatterns = {"/passwordRequest"})
 public class PasswordRequestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

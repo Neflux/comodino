@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+/**
+ * Riceve i dati di pagamento e controlla la loro validità, inoltre controlla che i prodotti
+ * nel carrello siano effettivamente disponibili prima di confermare l'ordine e aggiornare le varie disponibilità.
+ */
 @WebServlet(name = "CompleteOrderServlet", urlPatterns = "/restricted/completeorder")
 public class CompleteOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

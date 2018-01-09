@@ -16,6 +16,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Ricevendo il nome di un prodotto controlla se esiste già in negozio oppure se è esistito in passato
+ * ed è stato rimosso. Se è così prevede il reinserimento immediato in inventario, altrimenti procede
+ * all'aggiunta di un nuovo prodotto.
+ */
 @WebServlet(name = "AddProductServlet", urlPatterns = {"/restricted/vendor/addproduct"})
 public class AddProductServlet extends HttpServlet {
 

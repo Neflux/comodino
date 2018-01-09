@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
+
+/**
+ * Data una query di ricerca si occupa di recuperare e visualizzare i prodotti più similim
+ * gestendo eventuali filtri di ricerca.
+ */
 @WebServlet(name = "Search", urlPatterns = {"/search"})
 public class Search extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

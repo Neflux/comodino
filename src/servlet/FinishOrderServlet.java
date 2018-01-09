@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Si occupa di gestire la conferma di avvenuta ricezione dell'ordine.
+ */
 @WebServlet(name = "FinishOrderServlet", urlPatterns = {"/restricted/finishorder"})
 public class FinishOrderServlet extends HttpServlet {
 

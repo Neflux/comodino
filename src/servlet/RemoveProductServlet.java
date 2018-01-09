@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Permette al venditore di rimuovere un prodotto.
+ */
 @WebServlet(name = "RemoveProductServlet", urlPatterns = {"/restricted/vendor/removeproduct"})
 public class RemoveProductServlet extends HttpServlet {
 

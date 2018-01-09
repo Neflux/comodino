@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * Recupera le notifiche disponibili per l'utente.
+ */
 @WebServlet(name = "ReadNotificationsServlet", urlPatterns = {"/restricted/readnotifications"})
 public class ReadNotificationsServlet extends HttpServlet {
 

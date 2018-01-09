@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * Modifica una quantità di un prodotto presente nel carrello.
+ */
 @WebServlet(name = "setCartItem", urlPatterns = {"/restricted/setcartitem"})
 public class SetCartItemServlet extends HttpServlet {
 

@@ -13,6 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Recupera i venditori che vendono un determinato prodotto e si occupa di stamparli
+ */
 @WebServlet(name = "GetVendorServlet", urlPatterns = {"/getVendorServlet"})
 public class GetVendorsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

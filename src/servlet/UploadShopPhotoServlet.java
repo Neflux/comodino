@@ -17,6 +17,9 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.Blob;
 
+/**
+ * Permette di aggiungere una foto al negozio da parte dell'utente o del venditore stesso.
+ */
 @MultipartConfig
 @WebServlet(name = "UploadShopPhotoServlet", urlPatterns = {"/restricted/uploadshopphoto"})
 public class UploadShopPhotoServlet extends HttpServlet {

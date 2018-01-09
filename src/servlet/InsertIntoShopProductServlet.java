@@ -14,6 +14,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Se un prodotto è già venduto da altri negozi questo servlet si occupa
+ * di includerlo in un nuovo negozio.
+ */
 @WebServlet(name = "InsertIntoShopProductServlet", urlPatterns = {"/restricted/vendor/insertintoshopproduct"})
 public class InsertIntoShopProductServlet extends HttpServlet {
 

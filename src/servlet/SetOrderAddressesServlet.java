@@ -14,7 +14,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * Imposta l'indirizzo di spedizione per un determinato prodotto durante la conferma dell'ordine.
+ */
 @WebServlet(name = "SetOrderAddressesServlet", urlPatterns = {"/restricted/setorderaddresses"})
 public class SetOrderAddressesServlet extends HttpServlet {
 

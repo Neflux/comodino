@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Per un determinato utente si occupa di recuperare i prodotti aggiunti al carrello dal database.
+ */
 @WebServlet(name = "GetCartServlet", urlPatterns = {"/getcart"})
 public class GetCartServlet extends HttpServlet {
 

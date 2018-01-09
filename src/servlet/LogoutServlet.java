@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Invalida la sessione ed effettua il logout.
+ */
 @WebServlet(name = "LogoutServlet", urlPatterns = {"/restricted/logout"})
 public class LogoutServlet extends HttpServlet {
 

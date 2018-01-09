@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Si occupa di cambiare la password per l'utente loggato
+ */
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/restricted/changepassword"})
 public class ChangePasswordServlet extends HttpServlet {
 

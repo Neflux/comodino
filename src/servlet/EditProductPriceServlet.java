@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Permette di modificare il prezzo di un prodotto in vendita aggiungendo un eventuale sconto.
+ */
 @WebServlet(name = "EditProductPriceServlet", urlPatterns = {"/restricted/vendor/editproductprice"})
 public class EditProductPriceServlet extends HttpServlet {
 

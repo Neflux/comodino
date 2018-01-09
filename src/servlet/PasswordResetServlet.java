@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Objects;
 
+/**
+ * Gestisce il reset della password.
+ */
 @WebServlet(name = "PasswordResetServlet", urlPatterns = {"/passwordReset"})
 public class PasswordResetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

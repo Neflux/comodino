@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Permette a un utente "standard" di aprire un negozio online e diventare venditore.
+ * Prevede inoltre di includere un negozio fisico.
+ */
 @WebServlet(name = "CreateShopServlet", urlPatterns = "/restricted/createshop")
 public class CreateShopServlet extends HttpServlet {
 
