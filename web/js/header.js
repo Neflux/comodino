@@ -95,6 +95,8 @@ function show_forgot(vel)
     $('#card_forgot_button').animate({opacity:0},vel, function () {
         $('#card_forgot_button').css("display","none");
     });
+
+    $('#form').attr('action','/passwordRequest');
 }
 
 function show_login_from_forgot(vel)
