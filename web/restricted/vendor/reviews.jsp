@@ -50,7 +50,7 @@
                                                             <img class="media-object img-rounded img-responsive image-centre" src="${product.imgBase64[0]}" alt="product image" height="" width="200px"> </figure>
                                                     </div>
                                                     <div class="col-xs-12 col-md-7">
-                                                        <h3>Recensione prodotto: <a style="color:#2c3e50" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}">${product.productName}</a></h3>
+                                                        <h3><a style="color:#2c3e50" href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}">${product.productName}</a></h3>
                                                         <p>
                                                             <c:set var="author" value="${reviewDao.getReviewAuthor(review.userID)}"
                                                                    scope="page"/>

@@ -293,6 +293,10 @@ public class UserDaoImpl implements UserDao {
             System.out.println("[ERROR] Si è verificato un errore con la connessione SMTP ai server Google");
             return -3;
         }
+        if(emailToken.equals("invalid")){
+            System.out.println("[ERROR] L'email non segue il modello RFC-5321");
+            return -4;
+        }
         try {
             // TODO: Da aggiungere un campo al db con un tempo per fare scadere il token dopo un tot
             PreparedStatement stm = this.con.prepareStatement("INSERT INTO user (UserID,FirstName,LastName,Email,Password,Type,Privacy,EmailConfirm) VALUES (NULL,?,?,?,?,0,0,?)");

@@ -168,9 +168,6 @@
                                                                                     <c:when test="${po.dispute.status == 2}">
                                                                                         <span class="badge badge-danger">Declinata</span>
                                                                                     </c:when>
-                                                                                    <c:when test="${po.dispute.status == 3}">
-                                                                                        <span class="badge badge-danger">Declinata con Segnalazione</span>
-                                                                                    </c:when>
                                                                                     <c:otherwise>
                                                                                         <span class="badge badge-warning">In attesa</span>
                                                                                     </c:otherwise>

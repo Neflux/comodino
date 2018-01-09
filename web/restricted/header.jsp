@@ -154,7 +154,10 @@
                                 <c:if test="${fn:length(admin_notifications) le 4}">
                                     <a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Vedi nel dettaglio</a>
                                 </c:if>
-                                <c:if test="${fn:length(admin_notifications) gt 4}">
+                                <c:if test="${fn:length(admin_notifications) eq 5}">
+                                    <a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Vedi tutte (c'è n'è una quinta)</a>
+                                </c:if>
+                                <c:if test="${fn:length(admin_notifications) gt 5}">
                                     <a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Vedi tutte (altre ${fn:length(admin_notifications)-4})</a>
                                 </c:if>
                             </li><!-- TODO: sistemare formattazione notifiche -->
