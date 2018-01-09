@@ -20,13 +20,24 @@
                     <span id="headertitle">Comodino.it</span>
                 </c:if>
             </a>
+
+            <div id="searchWrapper" class="searchWrapperClass">
+                <div class="input-group">
+                    <input id="searchMobile" name="q" class="form-control" type="text" placeholder="Cerca" autofocus>
+                    <div class="input-group-btn">
+                        <button class="btn btn-search btn-default" onclick="doSearchMobile()">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
                 <c:if test="${user.hasShop()}">
                     <c:set var="vendor_notifications" value="${notificationdao.getVendorNotifications(user)}" scope="page"/>
                     <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle mobilecenter" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="badge">
                                 ${fn:length(vendor_notifications)}&nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i>
                             </span>
@@ -108,7 +119,7 @@
                 <c:if test="${user.type == 1}">
                     <c:set var="admin_notifications" value="${notificationdao.getAdminNotifications()}" scope="page"/>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle mobilecenter" data-toggle="dropdown" onclick="readNotifications()" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class="badge">
                                 ${fn:length(admin_notifications)}&nbsp;&nbsp;<i class="fa fa-hand-o-up" aria-hidden="true"></i>
                             </span>
@@ -151,7 +162,7 @@
                     </li>
                 </c:if>
             </ul>
-            <div class="nav navbar-nav navbar-center">
+            <div class="nav navbar-nav navbar-center" id="searchFullWidth">
                 <form class="navbar-form navbar-search" role="search" type="GET" action="${pageContext.request.contextPath}/search">
                     <div class="input-group">
 

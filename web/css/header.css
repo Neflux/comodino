@@ -117,9 +117,12 @@ li.notificationBlock:last-child { border-bottom: none; }*/
 
 @media only screen and (max-width: 768px) {
     #searchFullWidth { display: none; }
+    .mobilecenter {
+        text-align: center;
+    }
+
 
 }
 @media only screen and (min-width: 768px) {
     #searchWrapper { display: none; }
-
 }
