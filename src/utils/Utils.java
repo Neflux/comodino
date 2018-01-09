@@ -98,7 +98,7 @@ public class Utils {
             System.out.println("[INFO] Link di verifica http://localhost:8080/emailConfirm?token="+verificationToken);
 
         }
-        catch (SMTPAddressFailedException e){
+        catch (SendFailedException e){
             return "invalid";
         }
         catch (Exception e) {
