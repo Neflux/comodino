@@ -49,16 +49,32 @@ function check_pws() {
     var pwa = $("#pwda").val();
     var pwb = $("#pwdb").val();
 
+    var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$"); // minimo 6 caratteri, una maiuscola, una minuscola e un numero
+
     if ( pwa !== "" && pwb !== "" && pwa !== pwb )
     {
         $("#error_message").css("display","initial");
-        $("#error_message").animate({opacity:1},500);
+        $("#error_message").text("Le password non coincidono");
+        $("#error_message").removeClass("animated fadeOut");
+        $("#error_message").addClass("animated fadeIn");
+        $("#doButtonReset").css('pointer-events',"none");
     }
     else if ( pwa !== "" && pwb !== "" && pwa === pwb )
     {
-        $("#error_message").animate({opacity:0},500, function () {
-            $("#error_message").css("display","none");
-        });
+        $("#error_message").addClass("animated fadeOut");
+        setTimeout(function(){ $("#error_message").css("display", "none"); }, 500);
+        $("#doButtonReset").css('pointer-events',"initial");
+    }
+    else if (!re.test(pwa) || !re.test(pwb)) {
+        $("#error_message").css("display","initial");
+        $("#error_message").text("La password deve contere almeno 6 caratteri, una maiuscola e una minuscola");
+        $("#error_message").removeClass("animated fadeOut");
+        $("#error_message").addClass("animated fadeIn");
+        $("#doButtonReset").css('pointer-events',"none");
+    } else {
+        $("#error_message").addClass("animated fadeOut");
+        setTimeout(function(){ $("#error_message").css("display", "none"); }, 500);
+        $("#doButtonReset").css('pointer-events',"initial");
     }
 
 }

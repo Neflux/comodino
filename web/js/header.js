@@ -58,10 +58,13 @@ function show_login(vel)
     $('#card_forgot_button').animate({opacity:1},vel);
     $('#form').attr('action','/login');
     $("#doButton").text("Entra");
+
+    $( "#pw" ).unbind("keyup");
 }
 
 function show_signup(vel)
 {
+    $("#doButton").css('pointer-events',"none");
     $(".nologin").css("visibility","initial");
     $('.noforgot').each(function () {
         var v = $(this);
@@ -85,6 +88,23 @@ function show_signup(vel)
     });
     $('#form').attr('action','/register');
     $("#doButton").text("Registrati");
+
+    $( "#pw" ).bind( "keyup", function () {
+        var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$"); // minimo 6 caratteri, una maiuscola, una minuscola e un numero
+        var v = $('#pw').val();
+        if (!re.test(v)) {
+            $("#card_forgot_button").css("display","initial");
+            $("#card_forgot_button").text("La password deve contere almeno 6 caratteri, una maiuscola e una minuscola");
+            $("#card_forgot_button").removeClass("animated fadeOut");
+            $("#card_forgot_button").addClass("animated fadeIn");
+            $("#doButton").css('pointer-events',"none");
+        } else {
+            $("#card_forgot_button").addClass("animated fadeOut");
+            setTimeout(function(){ $("#card_forgot_button").css("display", "none"); }, 500);
+            $("#doButton").css('pointer-events',"initial");
+        }
+
+    });
 }
 
 function show_forgot(vel)
@@ -106,6 +126,7 @@ function show_forgot(vel)
 
     $('#form').attr('action','/passwordRequest');
     $("#doButton").text("Invia");
+    $( "#pw" ).unbind("keyup");
 }
 
 function show_login_from_forgot(vel)
@@ -122,6 +143,7 @@ function show_login_from_forgot(vel)
     $('#card_forgot_button').animate({opacity:1},vel);
     $('#form').attr('action','/login');
     $("#doButton").text("Entra");
+    $( "#pw" ).unbind("keyup");
 }
 
 function openCart() {
