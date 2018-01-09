@@ -28,7 +28,7 @@ public class OpenReviewServlet extends HttpServlet {
         String stitle = request.getParameter("stitle");
         String sdescription = request.getParameter("sdescription");
         System.out.println(sdescription);
-        int srating = 0;
+        int srating = 1;
         try {
             srating = Integer.parseInt(request.getParameter("srating"));
         }
@@ -70,7 +70,7 @@ public class OpenReviewServlet extends HttpServlet {
         String ptitle = request.getParameter("ptitle");
         String pdescription = request.getParameter("pdescription");
         System.out.println(pdescription);
-        int prating = 0;
+        int prating = 1;
         try {
             prating = Integer.parseInt(request.getParameter("prating"));
         }

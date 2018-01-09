@@ -1,5 +1,5 @@
-var sstelle = 0;
-var pstelle = 0;
+var sstelle = 1;
+var pstelle = 1;
 
 function openDisputeModal(orderID, productID, shopID) {
     //alert("Order: " + orderID + " Product: " + productID + " Shop: " + shopID);

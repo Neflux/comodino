@@ -39,6 +39,10 @@ body>.container-fluid {
 }
 
 @media only screen and (max-width: 768px) {
+    #popup { /* notifiche pop up*/
+        top: 105px !important;
+    }
+
     body>div.container {
         margin-top: 120px;
     }

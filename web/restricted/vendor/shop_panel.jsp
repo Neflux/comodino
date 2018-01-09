@@ -162,19 +162,15 @@
                                     <c:otherwise>
                                         <c:forEach items="${shop.expiringProducts}" var="product">
                                             <div class="row productRow">
-                                                <div class="col-md-10">
-                                                    <div class="row">
-                                                        <div class="productNameDiv col-md-6">
-                                                            <h5 class="productName text-left">${product.productName}</h5>
+                                                        <div class="productNameDiv col-md-5 col-sm-6 col-xs-12">
+                                                            <h5 class="productName text-center">${product.productName}</h5>
                                                         </div>
-                                                        <div class="itemsLeftDiv col-md-6">
-                                                            <h5 class="itemsLeft text-right">Prodotti rimanenti: ${product.quantity}</h5>
+                                                        <div class="itemsLeftDiv col-md-5 col-sm-6 col-xs-12">
+                                                            <h5 class="itemsLeft text-center">Prodotti rimanenti: ${product.quantity}</h5>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 text-center">
-                                                    <a href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}" class="showProduct btn-sm btn-default">Vedi</a>
-                                                </div>
+                                                        <div class="btnSee col-md-2 col-xs-12 text-center">
+                                                            <a href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}" class="showProduct btn-sm btn-default">Vedi</a>
+                                                        </div>
                                             </div>
                                         </c:forEach>
                                     </c:otherwise>

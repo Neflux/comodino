@@ -110,16 +110,15 @@ h4 {
         background-color: #156486;
         border-radius: 4px;
         color: white;
-        height: 40px;
         position:relative;
     }
     
-    .productRow > .col-md-10 >.row {
+    /*.productRow > .col-md-10 >.row {
         position: relative;
     }
     .productRow > .col-md-10 >.row >.col-md-6 {
         position: absolute;
-    }
+    }*/
     
     .itemsLeftDiv {
         right: 0 !important;
@@ -251,12 +250,21 @@ h4 {
         background-color: #156486;
         border-radius: 4px;
         color: white;
-
         position:relative;
     }
-    
-    .productRow >.col-md-2 {
-        margin-top: 8px;
+
+    .btnSee {
+        padding-top: 7px;
+    }
+
+}
+
+@media screen and (max-width:767px) {
+    .btnSee {
+        padding: 0; !important;
+    }
+    .productRow {
+        padding-bottom: 10px; !important;
     }
 }
 
@@ -268,38 +276,6 @@ h4 {
 .addphyshop {
     margin-top: 20px;
 }
- /* disperato tentativo di fixare il range 992-1200
-@media screen and (min-width: 1200px){
-    
-   
-    #photoPanel {
-        min-width: 300px;
-    }
-    
-    #buttonPanel {
-        min-width: 400px !important;
-    }
-    
-    #mySpace { 
-     width: 0px;
-    }
-    
-    body > .container > .row {
-        margin-left: -45px;
-        width: 90%;
-    }
-    
-    #navbar > .col-md-12{
-        padding-left: 0px;
-    }
-    
-    #mainContent {
-        width: 100%;
-    }
-   
-    
-}
- */
 
 .btn-success {
     text-align: center;
