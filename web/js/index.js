@@ -38,4 +38,10 @@ $( document ).ready(function() {
         window.location.href = "/search?cat=Camera+da+Letto&q=";
     });
 
+    var url = window.location.href;
+    if (url.indexOf("?passwordResetToken=") >= 0)
+    {
+        $('#resetpasswordmodal').modal('show');
+    }
+
 });

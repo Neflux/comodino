@@ -28,6 +28,7 @@ public class ProductDaoImpl implements ProductDao {
     private final static String vendorKeyword = "vendor";
     private final static String geolocalizationKeyword = "geo";
     private Connection con;
+
     public ProductDaoImpl() {
         this.con = DBManager.getCon();
     }
@@ -77,80 +78,84 @@ public class ProductDaoImpl implements ProductDao {
         return products;
     }
 
-    private Product extractProductFromResultSet(ResultSet rs) throws SQLException {
-        if (!rs.next()) {
-            return null;
+    private Product extractProductFromResultSet(ResultSet rs) {
+        try {
+            if (!rs.next()) {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         Product prod = new Product();
 
-        //invece che tutti questi try catch non si potrebbe studiare la casistica di sottogruppi possibili e farne solo 2-3?
-
+        //TODO: invece che tutti questi try catch non si potrebbe studiare la casistica di sottogruppi possibili e farne solo 2-3?
         try {
             prod.setProductID(rs.getInt("ProductID"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setProductName(rs.getString("Name"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setShopID(rs.getInt("ShopID"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setShopName(rs.getString("ShopName"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setDescription(rs.getString("Description"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setImgBase64(getImages(prod.getProductID()));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setPrice(rs.getFloat("Price"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setQuantity(rs.getInt("Quantity"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setDiscount(rs.getFloat("Discount"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setActualPrice(prod.getPrice() * (1 - prod.getDiscount()));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setCategoryName(rs.getString("CategoryName"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         try {
             prod.setRating(rs.getFloat("Rating"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         return prod;
     }
 
     @Override
-    public List<Map.Entry<String, ProductGroup>> getProducts(Map params) throws SQLException {
+    public List<Map.Entry<String, ProductGroup>> getProducts(Map params) {
         Map<String, ProductGroup> products = new HashMap<>();
 
         //Search query parameter
@@ -273,21 +278,19 @@ public class ProductDaoImpl implements ProductDao {
         }
 
         //Final query PreparedStatement
-        PreparedStatement stm = con.prepareStatement(
+        //System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
+
+        //Final query execute
+        try (PreparedStatement stm = con.prepareStatement(
                 "SELECT DISTINCT P.ProductID, P.Name as ProductName, P.CategoryName, P.Rating, " +
                         "SP.ShopID, SP.Price, SP.Discount, SP.Quantity, S.Name as ShopName, " +
                         " round(SP.Price * (1-SP.Discount),2) as ActualPrice " +
                         "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
                         "WHERE P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 " +
                         region.toString() + category.toString() + vendor.toString() + minRating +
-                        priceRange +            //HAVING
-                        orderBySql              //ORDER BY
-        );
-        //System.out.println("MAIN PRODUCT QUERY: " + stm.toString().substring(45));
-
-        Map<ProductGroup, Double> mymap;
-        //Final query execute
-        try {
+                        priceRange +
+                        orderBySql
+        )) {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     //JaroWinkler implementation
@@ -319,8 +322,8 @@ public class ProductDaoImpl implements ProductDao {
                     }
                 }
             }
-        } finally {
-            stm.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //ProductGroup extra fetching
@@ -329,88 +332,88 @@ public class ProductDaoImpl implements ProductDao {
             //System.out.println("\nPRODUCT: " + pair.getKey().toString());
 
             //Review count info
-            stm = con.prepareStatement(
+
+            try (PreparedStatement stm = con.prepareStatement(
                     "SELECT COUNT(*) AS conto\n" +
                             "FROM productreview\n" +
-                            "WHERE ProductID = ?"
-            );
-            stm.setInt(1, gp.getList().get(0).getProductID());
-
-            try {
+                            "WHERE ProductID = ?")) {
+                stm.setInt(1, gp.getList().get(0).getProductID());
                 try (ResultSet rs = stm.executeQuery()) {
                     rs.next();
                     //System.out.println("REVIEW COUNT: " + rs.getInt("conto"));
                     gp.setReviewCount(rs.getInt("conto"));
                 }
-            } finally {
-                stm.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             //Decode image from first product
             Product p = gp.getList().get(0);
-            stm = con.prepareStatement("SELECT * FROM productphoto WHERE ProductID = ?");
-            stm.setInt(1, p.getProductID());
-            //System.out.println("DECODE PRODUCT IMAGE: " + stm.toString().substring(45));
-            try (ResultSet rs = stm.executeQuery()) {
-                if (rs.next()) {
-                    gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
-                }
-                else{
-                    gp.setImageData("/ImageNotFound.png");
+            try (PreparedStatement stm = con.prepareStatement("SELECT * FROM productphoto WHERE ProductID = ?")) {
+                stm.setInt(1, p.getProductID());
+                //System.out.println("DECODE PRODUCT IMAGE: " + stm.toString().substring(45));
+                try (ResultSet rs = stm.executeQuery()) {
+                    if (rs.next()) {
+                        gp.setImageData(Utils.getStringfromBlob(rs.getBlob("Image")));
+                    } else {
+                        gp.setImageData("/ImageNotFound.png");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                stm.close();
             }
 
+
             //Fetch shop list related to this ProductGroup
-            stm = con.prepareStatement("SELECT shop.*, shopproduct.Price, shopproduct.Discount, " +
+            try (PreparedStatement stm = con.prepareStatement("SELECT shop.*, shopproduct.Price, shopproduct.Discount, " +
                     "shopproduct.Quantity, round(shopproduct.Price * (1-shopproduct.Discount),2) AS ActualPrice " +
                     "FROM product, shopproduct, shop " +
                     "WHERE product.name = ? AND shopproduct.Quantity > 0 " +
                     "AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID " +
-                    "ORDER BY ActualPrice ASC, Rating DESC"
-            );
-            stm.setString(1, pair.getKey().toString());
-            //System.out.println("FETCH SHOP LIST: " + stm.toString().substring(45));
-            try (ResultSet rs = stm.executeQuery()) {
-                while (rs.next()) {
-                    //Shop crafting
-                    Shop s = new Shop();
-                    s.setShopID(rs.getInt("ShopID"));
-                    s.setName(rs.getString("Name"));
-                    s.setDescription(rs.getString("Description"));
-                    s.setWebsite(rs.getString("Website"));
-                    s.setRating(rs.getFloat("Rating"));
-                    s.setSampleActualPrice(rs.getFloat("ActualPrice"));
+                    "ORDER BY ActualPrice ASC, Rating DESC")) {
+                stm.setString(1, pair.getKey().toString());
+                //System.out.println("FETCH SHOP LIST: " + stm.toString().substring(45));
+                try (ResultSet rs = stm.executeQuery()) {
+                    while (rs.next()) {
+                        //Shop crafting
+                        Shop s = new Shop();
+                        s.setShopID(rs.getInt("ShopID"));
+                        s.setName(rs.getString("Name"));
+                        s.setDescription(rs.getString("Description"));
+                        s.setWebsite(rs.getString("Website"));
+                        s.setRating(rs.getFloat("Rating"));
+                        s.setSampleActualPrice(rs.getFloat("ActualPrice"));
 
-                    //Actual insertion
-                    gp.getVendors().add(s);
+                        //Actual insertion
+                        gp.getVendors().add(s);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                stm.close();
             }
 
             //Fetch geozone list related to this ProductGroup
-            stm = con.prepareStatement(
+            try (PreparedStatement stm = con.prepareStatement(
                     "SELECT DISTINCT SI.State " +
                             "FROM Product P, ShopProduct SP, Shop S, ShopInfo SI " +
                             "WHERE P.Name = ? AND P.ProductID = SP.ProductID AND SP.ShopID = S.ShopID AND SP.Quantity > 0 "
-            );
-            stm.setString(1, pair.getKey().toString());
+            )) {
+                stm.setString(1, pair.getKey().toString());
 
-            //Execution
-            try (ResultSet rs = stm.executeQuery()) {
-                while (rs.next()) {
-                    gp.getGeo().add(rs.getString("State"));
+                //Execution
+                try (ResultSet rs = stm.executeQuery()) {
+                    while (rs.next()) {
+                        gp.getGeo().add(rs.getString("State"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                stm.close();
             }
         }
 
@@ -418,22 +421,11 @@ public class ProductDaoImpl implements ProductDao {
         List<Map.Entry<String, ProductGroup>> list = new ArrayList<>(set);
         list.sort(Comparator.comparingDouble((Map.Entry<String, ProductGroup> o) -> o.getValue().getLastDistance()).reversed());
 
-        for(Map.Entry<String, ProductGroup> entry:list){
-            System.out.println(entry.getKey()+" ==== "+entry.getValue().getLastDistance());
+        for (Map.Entry<String, ProductGroup> entry : list) {
+            System.out.println(entry.getKey() + " ==== " + entry.getValue().getLastDistance());
         }
 
         return list;
-/*
-
-        for (Map.Entry<String, ProductGroup> entry : products.entrySet())
-        {
-            System.out.println(entry.getKey() + " - " + entry.getValue().getLastDistance());
-        }
-
-        return (List<String,ProductGroup>) products.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(
-                        Comparator.comparingDouble(ProductGroup::getLastDistance)))
-                .collect(Collectors.toList());*/
     }
 
     @Override
@@ -475,7 +467,7 @@ public class ProductDaoImpl implements ProductDao {
     public boolean updateProductRating(int productID) {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE product P \n" +
-                    "SET Rating = (SELECT avg(Rating) as ratingreview \n" +
+                    "SET Rating = (SELECT avg(Rating) AS ratingreview \n" +
                     "              FROM productreview \n" +
                     "              WHERE ProductID = P.ProductID) \n" +
                     "WHERE ProductID = ?");
@@ -488,11 +480,11 @@ public class ProductDaoImpl implements ProductDao {
         return false;
     }
 
-    public ArrayList<String> getImages(int productID){
+    public ArrayList<String> getImages(int productID) {
 
         ArrayList<String> imgBase64 = new ArrayList<>();
 
-        try{
+        try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM productphoto WHERE ProductID = ?");
             stm.setInt(1, productID);
             ResultSet rs = stm.executeQuery();
@@ -500,7 +492,7 @@ public class ProductDaoImpl implements ProductDao {
             while (rs.next()) {
                 imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
             }
-            if (imgBase64.size()==0){
+            if (imgBase64.size() == 0) {
                 imgBase64.add("/ImageNotFound.png");
             }
         } catch (SQLException e) {
@@ -513,11 +505,11 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public String getAutocompleteProducts(String term) {
         StringBuilder products = new StringBuilder("[");
-        try{
+        try {
             PreparedStatement stm = con.prepareStatement("SELECT Name FROM product");
             JaroWinkler jw = new JaroWinkler();
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 double distance = jw.similarity(rs.getString("Name").toLowerCase(), term.toLowerCase());
                 if (term.equals("") || distance >= 0.7) {
                     products.append("\"").append(rs.getString("Name")).append("\",");
@@ -533,6 +525,7 @@ public class ProductDaoImpl implements ProductDao {
         //.out.println(list);
         return list;
     }
+
     private String removeLastChar(String str) {
         if (str.equals("["))
             return str;
@@ -543,17 +536,15 @@ public class ProductDaoImpl implements ProductDao {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT P.Name, SP.ShopID, P.ProductID FROM product P, shopproduct SP WHERE P.ProductID = SP.ProductID AND P.Name LIKE ? AND SP.ShopID = ?");
             stm.setString(1, productName);
-            stm.setInt(2,shopID);
+            stm.setInt(2, shopID);
             ResultSet rs = stm.executeQuery();
-            if (!rs.isBeforeFirst() ) {
+            if (!rs.isBeforeFirst()) {
                 return 0;
-            }
-            else {
+            } else {
                 rs.next();
                 return rs.getInt("ProductID");
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return -1;
@@ -566,8 +557,7 @@ public class ProductDaoImpl implements ProductDao {
             stm.setInt(2, shopID);
             stm.executeUpdate();
             return true;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -579,7 +569,7 @@ public class ProductDaoImpl implements ProductDao {
             JaroWinkler jw = new JaroWinkler();
             ResultSet rs = stm.executeQuery();
             Product tmp;
-            while(rs.next()) {
+            while (rs.next()) {
                 double distance = jw.similarity(rs.getString("Name").toLowerCase(), productName.toLowerCase());
                 if (distance >= 0.7) {
                     tmp = new Product();
@@ -590,8 +580,7 @@ public class ProductDaoImpl implements ProductDao {
                     products.add(tmp);
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -599,8 +588,8 @@ public class ProductDaoImpl implements ProductDao {
     public boolean addShopProduct(int shopID, int productID, int quantity, float price, float discount) {
         try {
             PreparedStatement rst = con.prepareStatement("SELECT * FROM shopproduct WHERE ProductID = ? AND ShopID = ?");
-            rst.setInt(1,productID);
-            rst.setInt(2,shopID);
+            rst.setInt(1, productID);
+            rst.setInt(2, shopID);
             ResultSet rs = rst.executeQuery();
             PreparedStatement stm;
             if (!rs.isBeforeFirst()) {
@@ -612,18 +601,16 @@ public class ProductDaoImpl implements ProductDao {
                 stm.setInt(5, shopID);
                 stm.executeUpdate();
                 return true;
-            }
-            else
+            } else
                 stm = con.prepareStatement("UPDATE shopproduct SET Price = ?, Discount = ?, Quantity = ? WHERE ShopID = ? AND ProductID = ?");
-                stm.setFloat(1,price);
-                stm.setFloat(2,discount);
-                stm.setInt(3,quantity);
-                stm.setInt(4,shopID);
-                stm.setInt(5,productID);
-                stm.executeUpdate();
-                return true;
-        }
-        catch (SQLException e) {
+            stm.setFloat(1, price);
+            stm.setFloat(2, discount);
+            stm.setInt(3, quantity);
+            stm.setInt(4, shopID);
+            stm.setInt(5, productID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -636,12 +623,11 @@ public class ProductDaoImpl implements ProductDao {
             ResultSet rs = stm.executeQuery();
             if (rs.isBeforeFirst()) {
                 return false;
-            }
-            else {
+            } else {
                 PreparedStatement stm1 = con.prepareStatement("INSERT INTO product VALUES (NULL, ?, ?, -1, ?)");
-                stm1.setString(1,name);
-                stm1.setString(2,description);
-                stm1.setString(3,category);
+                stm1.setString(1, name);
+                stm1.setString(2, description);
+                stm1.setString(3, category);
                 stm1.executeUpdate();
                 PreparedStatement stm2 = con.prepareStatement("SELECT productID FROM product WHERE Name = ?");
                 stm2.setString(1, name);
@@ -649,20 +635,19 @@ public class ProductDaoImpl implements ProductDao {
                 rs.next();
                 int productID = rs.getInt("productID");
                 PreparedStatement stm3 = con.prepareStatement("INSERT INTO shopproduct VALUES (?,?,?,?,?)");
-                stm3.setFloat(1,price);
-                stm3.setInt(2,quantity);
-                stm3.setFloat(3,discount);
-                stm3.setInt(4,productID);
-                stm3.setInt(5,shopID);
+                stm3.setFloat(1, price);
+                stm3.setInt(2, quantity);
+                stm3.setFloat(3, discount);
+                stm3.setInt(4, productID);
+                stm3.setInt(5, shopID);
                 stm3.executeUpdate();
                 PreparedStatement stm4 = con.prepareStatement("INSERT INTO productphoto VALUES (NULL ,?,?)");
-                stm4.setBinaryStream(1,productPhoto.getInputStream(), (int) productPhoto.getSize());
-                stm4.setInt(2,productID);
+                stm4.setBinaryStream(1, productPhoto.getInputStream(), (int) productPhoto.getSize());
+                stm4.setInt(2, productID);
                 stm4.executeUpdate();
                 return true;
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } catch (IOException e) {
@@ -671,17 +656,17 @@ public class ProductDaoImpl implements ProductDao {
         }
     }
 
-    public void setAutoCommit(boolean b){
-        try{
+    public void setAutoCommit(boolean b) {
+        try {
             con.setAutoCommit(b);
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
     }
 
-    public void rollback(){
-        try{
+    public void rollback() {
+        try {
             con.rollback();
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
     }
 }

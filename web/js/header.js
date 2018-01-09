@@ -53,6 +53,7 @@ function show_login(vel)
     $('#card_forgot_button').css("display","initial");
     $('#card_forgot_button').animate({opacity:1},vel);
     $('#form').attr('action','/login');
+    $("#doButton").text("Entra");
 }
 
 function show_signup(vel)
@@ -78,6 +79,7 @@ function show_signup(vel)
         $('#card_forgot_button').css("display","none");
     });
     $('#form').attr('action','/register');
+    $("#doButton").text("Registrati");
 }
 
 function show_forgot(vel)
@@ -95,6 +97,9 @@ function show_forgot(vel)
     $('#card_forgot_button').animate({opacity:0},vel, function () {
         $('#card_forgot_button').css("display","none");
     });
+
+    $('#form').attr('action','/passwordRequest');
+    $("#doButton").text("Invia");
 }
 
 function show_login_from_forgot(vel)
@@ -109,6 +114,7 @@ function show_login_from_forgot(vel)
     $('#card_forgot_button').css("display","initial");
     $('#card_forgot_button').animate({opacity:1},vel);
     $('#form').attr('action','/login');
+    $("#doButton").text("Entra");
 }
 
 function openCart() {
@@ -163,4 +169,18 @@ $(document).ready(function() {
 
 function doSearchMobile() {
     window.location.href = "/search?q=" + ($("#searchMobile").val());
+}
+
+function createNotificationURL(reviewType, contextPath){
+    var URL="#";
+
+    if (reviewType == 'NotificationProductReview'){
+        URL = contextPath + "/restricted/vendor/reviews.jsp";
+    } else if (reviewType == 'NotificationShopReview'){
+        URL = contextPath + "/shop.jsp?id=${n.shopId}";
+    } else if (reviewType == 'NotificationDispute'){
+        URL = contextPath + "/restricted/vendor/dispute_list.jsp";
+    }
+
+    return URL;
 }

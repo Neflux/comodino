@@ -1,5 +1,4 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.lang.Math" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ page import="utils.Utils" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
@@ -9,7 +8,9 @@
 <jsp:useBean id="shop" class="main.Shop" scope="request"/>
 <jsp:useBean id="shopproducts" class="java.util.HashMap" scope="request"/>
 <jsp:useBean id="reviewDao" class="daos.impl.ReviewDaoImpl"/>
+<jsp:useBean id="shopDao" class="daos.impl.ShopDaoImpl"/>
 <c:set var="reviewList" value="${reviewDao.getShopReviews(shop.shopID)}" scope="page"/>
+<c:set var="badReportsCount" value="${shopDao.countBadReports(shop.shopID)}" scope="page"/>
 
 <t:genericpage>
     <jsp:attribute name="pagetitle">
@@ -26,6 +27,7 @@
         <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
             <script>
                 var map, infoWindow;
+
                 function initMap() {
                     map = new google.maps.Map(document.getElementById('map'), {
                         center: {lat: ${shop.latitude}, lng:  ${shop.longitude}},
@@ -49,7 +51,8 @@
                     infoWindow.open(map);
                 }
             </script>
-            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap"></script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNMIz_QgiWP6ayg3icP3ZmLXt6OE_Qync&callback=initMap"></script>
         </c:if>
     </jsp:attribute>
     <jsp:body>
@@ -73,18 +76,22 @@
                                     <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                                         <span class="glyphicon glyphicon-chevron-left"></span>
                                     </a>
-                                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                    <a class="right carousel-control" href="#carousel-example-generic"
+                                       data-slide="next">
                                         <span class="glyphicon glyphicon-chevron-right"></span>
                                     </a>
                                 </div>
                             </section>
                         </c:when>
                         <c:otherwise>
-                            <img src='http://via.placeholder.com/300x400' alt='Shop Photo Placeholder' width="300" height="400"/>
+                            <img src='http://via.placeholder.com/300x400' alt='Shop Photo Placeholder' width="300"
+                                 height="400"/>
                         </c:otherwise>
                     </c:choose>
                     <h1 id="shopTitle" class="text-center">${shop.name}</h1>
-                    <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue" href="${shop.website}">${shop.website.toLowerCase()}</a></h4>
+                    <h4 id="shopEmailWebsite" class="text-center text-info"><a style="color:dodgerblue"
+                                                                               href="${shop.website}">${shop.website.toLowerCase()}</a>
+                    </h4>
                     <p class="text-center">${shop.description}</p>
                     <div class="row text-center">
                         <c:choose>
@@ -92,6 +99,14 @@
                                 Nessuna recensione
                             </c:when>
                             <c:otherwise>
+                                <c:if test="${badReportsCount eq 1}">
+                                    <h6><span class="label label-danger">${badReportsCount} segnalazione negativa</span>
+                                    </h6>
+                                </c:if>
+                                <c:if test="${badReportsCount gt 1}">
+                                    <h6><span class="label label-danger">${badReportsCount} segnalazioni negative</span>
+                                    </h6>
+                                </c:if>
                                 <c:if test="${Math.round(shop.rating) > 0}">
                                     <c:forEach begin="0" end="${Math.round(shop.rating) - 1}" varStatus="loop">
                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -113,11 +128,11 @@
                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                 </c:forEach>
                                             </c:if>
-                                                <c:if test="${review.rating < 5}">
-                                                    <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
-                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    </c:forEach>
-                                                </c:if>
+                                            <c:if test="${review.rating < 5}">
+                                                <c:forEach begin="0" end="${4 - review.rating}" varStatus="loop">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </c:forEach>
+                                            </c:if>
                                             </p>
                                             <p>${review.description}</p>
                                         </li>
@@ -126,24 +141,28 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                        <div class="row text-center">
-                            <c:if test="${not empty user && !user.hasReviewedShop(shop.shopID)}">
-                            <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal" data-target="#openreviewmodal">Lascia una recensione</button>
-                            </c:if>
-                            <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal" data-target="#uploadShopPhoto">Carica una foto</button>
-                        </div>
-                    <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
-                            <div id="addShopDiv" class="row" style="margin-bottom: 15px">
-                                <div class="col-md-10">
-                                    <h2 id="realShop">Negozio fisico</h2>
-                                </div>
-                            </div>
-                            <p>Indirizzo: ${shop.address}</p>
-                            <p>Città: ${shop.city}</p>
-                            <p>ZIP: ${shop.zip}</p>
-                            <p>Orari: ${shop.openinghours}</p>
-                            <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
+                    <div class="row text-center">
+                        <c:if test="${not empty user && !user.hasReviewedShop(shop.shopID)}">
+                            <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal"
+                                    data-target="#openreviewmodal">Lascia una recensione
+                            </button>
                         </c:if>
+                        <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal"
+                                data-target="#uploadShopPhoto">Carica una foto
+                        </button>
+                    </div>
+                    <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
+                        <div id="addShopDiv" class="row" style="margin-bottom: 15px">
+                            <div class="col-md-10">
+                                <h2 id="realShop">Negozio fisico</h2>
+                            </div>
+                        </div>
+                        <p>Indirizzo: ${shop.address}</p>
+                        <p>Città: ${shop.city}</p>
+                        <p>ZIP: ${shop.zip}</p>
+                        <p>Orari: ${shop.openinghours}</p>
+                        <div id="map" style="margin: 15px auto; height:250px; width:100%"></div>
+                    </c:if>
                 </div>
                 <div class="col-md-8 col-xs-12" id="shopProducts">
                     <c:choose>
@@ -154,7 +173,8 @@
                                         <div class="row">
                                             <div class="col-lg-2 col-md-2 col-xs-12">
                                                 <a href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">
-                                                    <img class="img-rounded img-responsive" src="${prod.value.getImageData()}" alt="product image">
+                                                    <img class="img-rounded img-responsive"
+                                                         src="${prod.value.getImageData()}" alt="product image">
                                                 </a>
                                             </div>
                                             <div class="col-lg-7 col-md-5 col-xs-12">
@@ -170,23 +190,29 @@
                                             </div>
                                             <div class="col-lg-3 col-md-5 col-xs-12 text-center">
                                                 <div class="row rating-field">
-                                                    <c:set var="rating" value="${prod.value.getList().get(0).getRating()}" scope="page"/>
+                                                    <c:set var="rating"
+                                                           value="${prod.value.getList().get(0).getRating()}"
+                                                           scope="page"/>
                                                     <c:choose>
                                                         <c:when test="${Math.round(rating) == -1}">
                                                             Nessuna recensione
                                                         </c:when>
                                                         <c:otherwise>
                                                             <c:if test="${Math.round(rating) > 0}">
-                                                                <c:forEach begin="0" end="${Math.round(rating) - 1}" varStatus="loop">
+                                                                <c:forEach begin="0" end="${Math.round(rating) - 1}"
+                                                                           varStatus="loop">
                                                                     <i class="fa fa-star" aria-hidden="true"></i>
                                                                 </c:forEach>
                                                             </c:if>
                                                             <c:if test="${Math.round(rating) < 5}">
-                                                                <c:forEach begin="0" end="${4 - Math.round(rating)}" varStatus="loop">
+                                                                <c:forEach begin="0" end="${4 - Math.round(rating)}"
+                                                                           varStatus="loop">
                                                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                                                 </c:forEach>
                                                             </c:if>
-                                                            <fmt:formatNumber var="rc" groupingUsed = "false" maxFractionDigits = "0" value="${prod.value.getReviewCount()}"/>
+                                                            <fmt:formatNumber var="rc" groupingUsed="false"
+                                                                              maxFractionDigits="0"
+                                                                              value="${prod.value.getReviewCount()}"/>
                                                             <!-- da testare i due primi when -->
                                                             <c:choose>
                                                                 <c:when test="${rc == 0}">
@@ -202,8 +228,10 @@
                                                     </c:choose>
                                                 </div>
                                                 <div class="row">
-                                                    <button class="btn btn-default" onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">
-                                                        Aggiungi al carrello&nbsp&nbsp<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                    <button class="btn btn-default"
+                                                            onclick="addToCart('${prod.value.getList().get(0).getProductID()}','${prod.value.getList().get(0).getShopID()}');">
+                                                        Aggiungi al carrello&nbsp&nbsp<i
+                                                            class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -213,7 +241,7 @@
                             </ul>
                         </c:when>
                         <c:otherwise>
-                            <div class="container" >
+                            <div class="container">
                                 <div class="jumbotron" style="margin-top:10%; background-color: transparent">
                                     <h2>Nessun prodotto nell'inventario del negozio</h2>
                                     <p>Il proprietario deve ancora caricare i primi articoli</p>
@@ -227,42 +255,54 @@
         <div class="modal fade" id="openreviewmodal" tabindex="-1" role="dialog">
             <div class="row">
                 <div id="openreviewcard" class="card card-signup centerize" data-background-color="orange">
-                    <form id="openreviewform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/openshopreview">
+                    <form id="openreviewform" class="form" method="POST"
+                          action="${pageContext.request.contextPath}/restricted/openshopreview">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up" style="margin-bottom: 30px">Nuova Recensione</h4>
                         </div>
                         <div class="content">
-                            <input id="shopIdReviewModal" type="text" class="hidden" name="shopID" placeholder="" value="${shop.shopID}">
+                            <input id="shopIdReviewModal" type="text" class="hidden" name="shopID" placeholder=""
+                                   value="${shop.shopID}">
 
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-star-o green" aria-hidden="true"></i>
                           </span>
-                                <input id="titleReviewModal" type="text" class="form-control" name="title" placeholder="Titolo...">
+                                <input id="titleReviewModal" type="text" class="form-control" name="title"
+                                       placeholder="Titolo...">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-bars green" aria-hidden="true"></i>
                           </span>
-                                <input id="descriptionReviewModal" type="text" class="form-control" name="description" placeholder="Descrivi prodotto...">
+                                <input id="descriptionReviewModal" type="text" class="form-control" name="description"
+                                       placeholder="Descrivi prodotto...">
                             </div>
                             <div class="col-md-12 text-center stelle">
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
-                                    style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)"
-                                    style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)"
-                                    style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)"
-                                    style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_5" onmouseover="setStar(this)"
-                                    style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1"
+                                   onmouseover="setStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2"
+                                   onmouseover="setStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3"
+                                   onmouseover="setStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4"
+                                   onmouseover="setStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_5"
+                                   onmouseover="setStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
                                 <input type="text" name="rating" hidden>
                             </div>
                         </div>
                         <div class="footer text-center" style="margin-top: 15px;">
-                            <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#openreviewform').submit();">Invia</a>
-                            <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;" onclick="$(function(){$('#openreviewmodal').modal('toggle');});">Chiudi</a>
+                            <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;"
+                               onclick="$('#openreviewform').submit();">Invia</a>
+                            <a class="btn btn-default"
+                               style="margin-left: 20px; padding-left: 25px; padding-right: 25px;"
+                               onclick="$(function(){$('#openreviewmodal').modal('toggle');});">Chiudi</a>
                         </div>
                     </form>
                 </div>
@@ -273,7 +313,8 @@
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
                         <%--TODO:Auto-populate previous values--%>
-                    <form id="uploadShopPhotoForm" class="form" method="POST" enctype = "multipart/form-data" action="${pageContext.request.contextPath}/restricted/uploadshopphoto">
+                    <form id="uploadShopPhotoForm" class="form" method="POST" enctype="multipart/form-data"
+                          action="${pageContext.request.contextPath}/restricted/uploadshopphoto">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Carica foto</h4>
                         </div>
@@ -284,7 +325,9 @@
                                     i<input required id="upload" type="file" name="shopPhoto" accept="image/*">
                                 </div>
                                 <div class="col">
-                                    <input readonly type="text" style="background:transparent; border: none; color: white; margin-top: 5px" id="filename">
+                                    <input readonly type="text"
+                                           style="background:transparent; border: none; color: white; margin-top: 5px"
+                                           id="filename">
                                     <input hidden type="text" name="shopID" value="${shop.shopID}">
                                 </div>
                             </div>
