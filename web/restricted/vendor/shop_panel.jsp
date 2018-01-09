@@ -556,7 +556,7 @@
                             <p style="color: white">Dimensioni ideali: 400x300px</p>
                             <div class="form-row">
                                 <div class="col">
-                                    i<input required id="upload" type="file" name="shopPhoto" accept="image/*">
+                                    <input required id="upload" type="file" name="shopPhoto" accept="image/*">
                                 </div>
                                 <div class="col">
                                     <input readonly type="text" style="background:transparent; border: none; color: white; margin-top: 5px" id="filename">
