@@ -562,9 +562,9 @@
         <div class="modal fade" id="openreviewmodal" tabindex="-1" role="dialog">
             <div class="row">
                 <div id="openreviewcard" class="card card-signup centerize" data-background-color="orange">
-                    <form id="openreviewform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/openproductreview">
+                    <form id="openreviewform" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/openreview">
                         <div class="header header-primary text-center">
-                            <h4 class="title title-up" >Nuova Recensione</h4>
+                            <h4 class="title title-up" >Recensione Prodotto</h4>
                         </div>
                         <div class="content">
                             <input id="orderIdReviewModal" type="text" class="hidden" name="orderID" placeholder="">
@@ -575,26 +575,54 @@
                           <span class="input-group-addon">
                               <i class="fa fa-star-o green" aria-hidden="true"></i>
                           </span>
-                                <input id="titleReviewModal" type="text" class="form-control" name="title" placeholder="Titolo...">
+                                <input id="titleProductReviewModal" type="text" class="form-control" name="ptitle" placeholder="Titolo...">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-bars green" aria-hidden="true"></i>
                           </span>
-                                <input id="descriptionReviewModal" type="text" class="form-control" name="description" placeholder="Descrivi prodotto...">
+                                <input id="descriptionProductReviewModal" type="text" class="form-control" name="pdescription" placeholder="Descrivi prodotto...">
                             </div>
                             <div class="col-md-12 text-center stelle">
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1" onmouseover="setStar(this)"
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="pstella_1" onmouseover="setPStar(this)"
                                     style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2" onmouseover="setStar(this)"
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="pstella_2" onmouseover="setPStar(this)"
                                     style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3" onmouseover="setStar(this)"
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="pstella_3" onmouseover="setPStar(this)"
                                     style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4" onmouseover="setStar(this)"
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="pstella_4" onmouseover="setPStar(this)"
                                     style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_5" onmouseover="setStar(this)"
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="pstella_5" onmouseover="setPStar(this)"
                                     style="cursor:pointer"></i>&nbsp;
-                                <input type="text" name="rating" hidden>
+                                <input type="text" name="prating" hidden>
+                            </div>
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up" >Recensione Negozio</h4>
+                        </div>
+                            <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-star-o green" aria-hidden="true"></i>
+                          </span>
+                                <input id="titleShopReviewModal" type="text" class="form-control" name="stitle" placeholder="Titolo...">
+                            </div>
+                            <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-bars green" aria-hidden="true"></i>
+                          </span>
+                                <input id="descriptionShopReviewModal" type="text" class="form-control" name="sdescription" placeholder="Descrivi negozio...">
+                            </div>
+                            <div class="col-md-12 text-center stelle">
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="sstella_1" onmouseover="setSStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="sstella_2" onmouseover="setSStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="sstella_3" onmouseover="setSStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="sstella_4" onmouseover="setSStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
+                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="sstella_5" onmouseover="setSStar(this)"
+                                   style="cursor:pointer"></i>&nbsp;
+                                <input type="text" name="srating" hidden>
                             </div>
                         </div>
                         <div class="footer text-center" style="margin-top: 15px;">

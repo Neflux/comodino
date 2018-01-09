@@ -141,16 +141,9 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div class="row text-center">
-                        <c:if test="${not empty user && !user.hasReviewedShop(shop.shopID)}">
-                            <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal"
-                                    data-target="#openreviewmodal">Lascia una recensione
-                            </button>
-                        </c:if>
-                        <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal"
-                                data-target="#uploadShopPhoto">Carica una foto
-                        </button>
-                    </div>
+                        <div class="row text-center">
+                            <button class="btn btn-primary" style="margin-top: 15px" data-toggle="modal" data-target="#uploadShopPhoto">Carica una foto</button>
+                        </div>
                     <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
                         <div id="addShopDiv" class="row" style="margin-bottom: 15px">
                             <div class="col-md-10">
@@ -249,62 +242,6 @@
                             </div>
                         </c:otherwise>
                     </c:choose>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="openreviewmodal" tabindex="-1" role="dialog">
-            <div class="row">
-                <div id="openreviewcard" class="card card-signup centerize" data-background-color="orange">
-                    <form id="openreviewform" class="form" method="POST"
-                          action="${pageContext.request.contextPath}/restricted/openshopreview">
-                        <div class="header header-primary text-center">
-                            <h4 class="title title-up" style="margin-bottom: 30px">Nuova Recensione</h4>
-                        </div>
-                        <div class="content">
-                            <input id="shopIdReviewModal" type="text" class="hidden" name="shopID" placeholder=""
-                                   value="${shop.shopID}">
-
-                            <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-star-o green" aria-hidden="true"></i>
-                          </span>
-                                <input id="titleReviewModal" type="text" class="form-control" name="title"
-                                       placeholder="Titolo...">
-                            </div>
-                            <div class="input-group form-group-no-border">
-                          <span class="input-group-addon">
-                              <i class="fa fa-bars green" aria-hidden="true"></i>
-                          </span>
-                                <input id="descriptionReviewModal" type="text" class="form-control" name="description"
-                                       placeholder="Descrivi prodotto...">
-                            </div>
-                            <div class="col-md-12 text-center stelle">
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_1"
-                                   onmouseover="setStar(this)"
-                                   style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_2"
-                                   onmouseover="setStar(this)"
-                                   style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_3"
-                                   onmouseover="setStar(this)"
-                                   style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_4"
-                                   onmouseover="setStar(this)"
-                                   style="cursor:pointer"></i>&nbsp;
-                                <i class="fa fa-star-o rating_star" aria-hidden="true" id="stella_5"
-                                   onmouseover="setStar(this)"
-                                   style="cursor:pointer"></i>&nbsp;
-                                <input type="text" name="rating" hidden>
-                            </div>
-                        </div>
-                        <div class="footer text-center" style="margin-top: 15px;">
-                            <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;"
-                               onclick="$('#openreviewform').submit();">Invia</a>
-                            <a class="btn btn-default"
-                               style="margin-left: 20px; padding-left: 25px; padding-right: 25px;"
-                               onclick="$(function(){$('#openreviewmodal').modal('toggle');});">Chiudi</a>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
