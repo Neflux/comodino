@@ -215,7 +215,11 @@ public class Utils {
             //System.out.println("[INFO] Email di conferma inviata con successo a '"+email+"'");
             System.out.println("[INFO] Token di verifica http://localhost:8080/index.jsp?token="+verificationToken+"&email="+email);
 
-        } catch (MessagingException e) {
+        }
+        catch (SendFailedException e){
+            return "invalid";
+        }
+        catch (Exception e) {
             //throw new RuntimeException(e);
             e.printStackTrace();
             return null;
