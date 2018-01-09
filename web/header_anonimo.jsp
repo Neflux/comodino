@@ -130,7 +130,7 @@
                           <span class="input-group-addon">
                               <i class="fa fa-envelope-o green" aria-hidden="true"></i>
                           </span>
-                        <input type="text" class="form-control" name="email" placeholder="Email..." autofocus>
+                        <input type="email" class="form-control" name="email" placeholder="Email..." autofocus>
                     </div>
                     <div class="input-group form-group-no-border noforgot yeslogin">
                           <span class="input-group-addon">
@@ -142,8 +142,7 @@
                         <span class="white" id="card_change_button">Non hai ancora un account? <a
                                 onclick="show_signup();" style="cursor:pointer">Registrati</a></span>
                         <br>
-                        <span class="white" id="card_forgot_button">Hai dimenticato la <a onclick="show_forgot();"
-                                                                                          style="cursor:pointer">password</a>?</span>
+                        <span class="white" id="card_forgot_button">Hai dimenticato la <a onclick="show_forgot();" style="cursor:pointer">password</a>?</span>
                         <br>
                     </div>
                 </div>

@@ -232,7 +232,7 @@
                                                     <img class="img-rounded img-responsive" src="${prod.value.getImageData()}" alt="product image">
                                                 </a>
                                             </div>
-                                            <div class="col-lg-7 col-md-5 col-xs-6">
+                                            <div class="col-lg-7 col-md-5 col-xs-12">
                                                 <h2 class="list-group-item-heading"><a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${prod.value.getList().get(0).getProductID()}&shop=${prod.value.getList().get(0).getShopID()}">${prod.value.getList().get(0).getProductName()}</a></h2>
                                                 <ul class="list-unstyled list-group-item-text">
                                                     <li>Venduto da: <a href="${pageContext.request.contextPath}/shop.jsp?id=${prod.value.getList().get(0).getShopID()}"><b>${prod.value.getList().get(0).getShopName()}</b></a>
@@ -246,7 +246,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div class="col-lg-3 col-md-5 col-xs-6 text-center">
+                                            <div class="col-lg-3 col-md-5 col-xs-12 text-center">
                                                 <div class="row rating-field">
                                                     <c:set var="rating" value="${prod.value.getList().get(0).getRating()}" scope="page"/>
                                                     <c:choose>

@@ -32,9 +32,15 @@ li.notificationBlock:last-child { border-bottom: none; }*/
     font-size: 14px;
 }
 
-@media (min-width: 992px){
+@media (min-width: 1200px){
     .nav .form-control{
         min-width: 350px;
+    }
+}
+
+@media (max-width: 1024px){
+    .nav .form-control{
+        min-width: 225px;
     }
 }
 
