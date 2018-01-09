@@ -215,14 +215,19 @@
                           <span class="input-group-addon">
                               <i class="fa fa-key green" aria-hidden="true"></i>
                           </span>
-                                <input id="pwda" type="text" class="form-control" name="pwda" placeholder="Password">
+                                <input id="pwda" type="password" class="form-control" name="pwda" placeholder="Password" onkeyup="check_pws();">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-key green" aria-hidden="true"></i>
                           </span>
-                                <input id="pwdb" type="text" class="form-control" name="pwdb" placeholder="Ripeti password">
+                                <input id="pwdb" type="password" class="form-control" name="pwdb" placeholder="Ripeti password" onkeyup="check_pws();">
                             </div>
+
+                            <div class="row text-center">
+                                <span class="white" style="opacity:0;display:none" id="error_message">Le password non coincidono</span>
+                            </div>
+
                         </div>
                         <div class="footer text-center" style="margin-top: 15px;">
                             <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#resetpasswordform').submit();">Invia</a>

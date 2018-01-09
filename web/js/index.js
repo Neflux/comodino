@@ -44,6 +44,25 @@ $( document ).ready(function() {
         $('#resetpasswordmodal').modal('show');
     }
 });
+
+function check_pws() {
+    var pwa = $("#pwda").val();
+    var pwb = $("#pwdb").val();
+
+    if ( pwa !== "" && pwb !== "" && pwa !== pwb )
+    {
+        $("#error_message").css("display","initial");
+        $("#error_message").animate({opacity:1},500);
+    }
+    else if ( pwa !== "" && pwb !== "" && pwa === pwb )
+    {
+        $("#error_message").animate({opacity:0},500, function () {
+            $("#error_message").css("display","none");
+        });
+    }
+
+}
+
 /*
 $("#resetpasswordform").validate({
     rules: {
