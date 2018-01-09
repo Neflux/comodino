@@ -1,6 +1,6 @@
 search.css 120 // DONE
 vendor_reviews 8
-vendor 1
+vendor 1 // DONE
 vendor_orders 8
 vendor stock 8
 vendor public 95
