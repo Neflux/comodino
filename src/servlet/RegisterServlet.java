@@ -28,20 +28,23 @@ public class RegisterServlet extends HttpServlet {
 
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         switch(new UserDaoImpl().register(firstname, lastname, email, password)) {
+            case -4:
+                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Inserisci una email corretta (RFC-5321)");
+                break;
             case -3:
-                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Errore: connessione SMPT fallita");
+                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Connessione SMPT fallita");
                 break;
             case -2:
-                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Errore: alcuni campi sono rimasti vuoti");
+                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Alcuni campi sono rimasti vuoti");
                 break;
             case -1: case 0:
-                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Errore: email gia' in uso");
+                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Email gia' in uso");
                 break;
             case 1:
                 response.sendRedirect(request.getContextPath() + "/index.jsp?success=Registrazione effettuata! Controlla la mail "+email);
                 break;
             default:
-                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Errore interno del server");
+                response.sendRedirect(request.getContextPath() + "/index.jsp?error=Server-Side error");
                 break;
         }
     }

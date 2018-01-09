@@ -1,6 +1,7 @@
 package utils;
 
 import com.google.gson.Gson;
+import com.sun.mail.smtp.SMTPAddressFailedException;
 import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
 import main.PhysicalShop;
@@ -93,11 +94,16 @@ public class Utils {
 
             Transport.send(message);
 
-            System.out.println("[INFO] Email di conferma inviata con successo a '"+email+"'");
-            System.out.println("[INFO] Token di verifica '"+verificationToken+"'");
+            //System.out.println("[INFO] Email di conferma inviata con successo a '"+email+"'");
+            System.out.println("[INFO] Link di verifica http://localhost:8080/emailConfirm?token="+verificationToken);
 
-        } catch (MessagingException e) {
+        }
+        catch (SendFailedException e){
+            return "invalid";
+        }
+        catch (Exception e) {
             //throw new RuntimeException(e);
+            e.printStackTrace();
             return null;
         }
 
@@ -206,8 +212,8 @@ public class Utils {
 
             Transport.send(message);
 
-            System.out.println("[INFO] Email di conferma inviata con successo a '"+email+"'");
-            System.out.println("[INFO] Token di verifica '"+verificationToken+"'");
+            //System.out.println("[INFO] Email di conferma inviata con successo a '"+email+"'");
+            System.out.println("[INFO] Token di verifica http://localhost:8080/index.jsp?token="+verificationToken+"&email="+email);
 
         } catch (MessagingException e) {
             //throw new RuntimeException(e);
