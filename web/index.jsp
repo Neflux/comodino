@@ -12,6 +12,8 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
+        <%--<script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/validate/additional-methods.min.js"></script>--%>
         <script src="${pageContext.request.contextPath}/js/index.js"></script>
     </jsp:attribute>
     <jsp:body>
@@ -202,8 +204,8 @@
             <div class="row">
                 <div id="resetpasswordcard" class="card card-signup centerize" data-background-color="orange">
                     <form id="resetpasswordform" class="form" method="POST" action="${pageContext.request.contextPath}/passwordReset">
-                        <input type="text" class="hidden" name="passwordResetToken" placeholder="" value="${param.passwordResetToken}">
-                        <input type="text" class="hidden" name="email" placeholder="" value="${param.email}">
+                        <input type="password" class="hidden" name="token" placeholder="" value="${param.token}">
+                        <input type="password" class="hidden" name="email" placeholder="" value="${param.email}">
 
                         <div class="header header-primary text-center">
                             <h4 class="title title-up" >Reset della password</h4>

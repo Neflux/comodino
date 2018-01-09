@@ -39,9 +39,27 @@ $( document ).ready(function() {
     });
 
     var url = window.location.href;
-    if (url.indexOf("?passwordResetToken=") >= 0)
+    if (url.indexOf("?token=") >= 0)
     {
         $('#resetpasswordmodal').modal('show');
     }
-
 });
+/*
+$("#resetpasswordform").validate({
+    rules: {
+        pwda: "required",
+        pwdb: {
+            equalTo: "#password"
+        }
+    }
+});
+jQuery.validator.setDefaults({
+    debug: true,
+    success: "valid"
+});
+
+jQuery.extend(jQuery.validator.messages, {
+    equalTo: jQuery.validator.format("Le password non combaciano")
+});
+*/
+

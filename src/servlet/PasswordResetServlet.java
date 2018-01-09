@@ -28,7 +28,7 @@ public class PasswordResetServlet extends HttpServlet {
                     pwda = request.getParameter("pwda"),
                     pwdb = request.getParameter("pwdb");
             if(!Objects.equals(pwda, pwdb)){
-                response.sendRedirect("/index.jspindex.jsp?passwordResetToken="+token+"&email="+email);
+            System.out.println(token+","+email+","+pwda+","+pwdb);
             }
             else if(new UserDaoImpl().resetPassword(token,email,pwda)){
                 response.sendRedirect("/index.jsp?success="+ URLEncoder.encode("La password è stata ripristinata con successo","UTF-8"));
