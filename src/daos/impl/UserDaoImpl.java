@@ -10,6 +10,8 @@ import main.User;
 import utils.Utils;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 
 public class UserDaoImpl implements UserDao {
     private Connection con;
+
+    private String placeholderUrl = "../placeholderuser.png";
 
     public UserDaoImpl() {
         this.con = DBManager.getCon();
@@ -255,8 +259,31 @@ public class UserDaoImpl implements UserDao {
         user.setType(rs.getInt("Type"));
         user.updateShopID();
         user.updateCart();
+        user.setProfilePhoto(this.getUserPhoto(user));
         user.setPrivacy(rs.getInt("Privacy"));
         return user;
+    }
+
+    public String getUserPhoto(User user) {
+        String imgBase64;
+        try {
+            PreparedStatement stm = con.prepareStatement("SELECT *\n" +
+                    "FROM userphoto\n" +
+                    "WHERE UserID = ?");
+            stm.setInt(1, user.getUserID());
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                imgBase64 = Utils.getStringfromBlob(rs.getBlob("Image"));
+            }
+            else {
+                imgBase64 = placeholderUrl;
+            }
+        } catch (SQLException e) {
+            imgBase64 = placeholderUrl;
+            e.printStackTrace();
+        }
+        return imgBase64;
     }
 
     private CartItem extractCartItemFromResultSet(ResultSet rs) throws SQLException {
@@ -461,6 +488,33 @@ public class UserDaoImpl implements UserDao {
             return result != 0;
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addUserPhoto(User user, Part userPhoto) {
+        if(user.getProfilePhoto().equals(placeholderUrl)) {
+            try {
+                PreparedStatement stm = con.prepareStatement("INSERT INTO userphoto(UserID, Image) VALUE (?,?)");
+                stm.setInt(1, user.getUserID());
+                stm.setBinaryStream(2, userPhoto.getInputStream(), (int) userPhoto.getSize());
+                stm.executeUpdate();
+                return true;
+            } catch (SQLException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                PreparedStatement stm = con.prepareStatement("UPDATE userphoto SET Image = ? WHERE UserID = ?");
+                stm.setBinaryStream(1, userPhoto.getInputStream(), (int) userPhoto.getSize());
+                stm.setInt(2, user.getUserID());
+                stm.executeUpdate();
+                return true;
+            } catch (SQLException | IOException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }

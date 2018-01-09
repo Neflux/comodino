@@ -1,9 +1,9 @@
 package servlet;
 
 
-import daos.ShopDao;
-import daos.impl.ShopDaoImpl;
-import main.Shop;
+import daos.UserDao;
+import daos.impl.UserDaoImpl;
+import main.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,32 +11,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.file.Paths;
-import java.sql.Blob;
 
-/**
- * Permette di aggiungere una foto al negozio da parte dell'utente o del venditore stesso.
- */
 @MultipartConfig
-@WebServlet(name = "UploadShopPhotoServlet", urlPatterns = {"/restricted/uploadshopphoto"})
-public class UploadShopPhotoServlet extends HttpServlet {
+@WebServlet(name = "UploadUserPhotoServlet", urlPatterns = {"/restricted/uploaduserphoto"})
+public class UploadUserPhotoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Part shopPhoto = request.getPart("shopPhoto");
-        int shopID = Integer.parseInt(request.getParameter("shopID"));
-        if (shopPhoto.getSize() > 0) {
+        Part userPhoto = request.getPart("userPhoto");
+        if (userPhoto.getSize() > 0) {
             HttpSession session = request.getSession(false);
-            Shop shop = (Shop) session.getAttribute("shop");
-            ShopDao shopDao = new ShopDaoImpl();
-            if (shopDao.addShopPhoto(shopID, shopPhoto)) {
-                response.sendRedirect(request.getHeader("referer"));
+            User user = (User) session.getAttribute("user");
+            UserDao userDao = new UserDaoImpl();
+            if (userDao.addUserPhoto(user, userPhoto)) {
+                user.setProfilePhoto(userDao.getUserPhoto(user));
+                response.sendRedirect("/restricted/profile.jsp?success=Foto caricata con successo!");
             } else
-                response.sendRedirect("index.jsp?error=Upload non riuscito");
+                response.sendRedirect("/restricted/profile.jsp?error=Upload non riuscito");
         }
-        else response.sendRedirect("index.jsp?warning=Nessuna foto selezionata");
+        else response.sendRedirect("/restricted/profile.jsp?warning=Nessuna foto selezionata");
     }
 
 

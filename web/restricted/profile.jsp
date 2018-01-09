@@ -20,7 +20,12 @@
         <div class="container">
             <div class="row" style="margin: 0 0 10px 0;">
                 <div class="col-md-12 text-center">
-                    <img id="profile_pic" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/512/user-male-icon.png" class="center-block img-circle img-responsive">
+
+                    <input id="profile_pic" type="image" class="center-block img-circle img-responsive" src="${user.profilePhoto}"/>
+                    <form id="userPhotoForm" class="form" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/restricted/uploaduserphoto">
+                        <input id="userPhoto" type="file" name="userPhoto" style="display: none;" accept="image/*"/>
+                    </form>
+                    <!--img id="profile_pic" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/512/user-male-icon.png" class="center-block img-circle img-responsive"-->
                     <h1 class="text-center text-uppercase">
                             ${user.firstName} ${user.lastName}<br>
                         <small class="text-capitalize">

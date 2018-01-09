@@ -15,6 +15,7 @@ public class User implements Serializable {
     private int shopID; // 0 se non è venditore, shopID se è venditore
     private int privacy;
     private Cart cart;
+    private String profilePhoto;
 
     public User() {
         updateShopID();
@@ -105,5 +106,13 @@ public class User implements Serializable {
     public boolean hasReviewedShop(int shopID) {
         UserDao userDao = new UserDaoImpl();
         return userDao.checkIfReviewExists(this.userID, shopID);
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 }

@@ -4,6 +4,7 @@ import main.Cart;
 import main.User;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.Part;
 import java.io.Serializable;
 
 public interface UserDao extends Serializable {
@@ -89,6 +90,13 @@ public interface UserDao extends Serializable {
     void removeCartItem(User user, int productID, int shopID);
 
     /**
+     * Ottiene la foto profilo dell'utente
+     *
+     * @param user      Oggetto User che rappresenta uno specifico utente
+     * @return          Stringa codificata in base 64 che rappresenta l'immagine
+     */
+    String getUserPhoto(User user);
+    /**
      * Registra un utente con nome, cognome, email, password
      *
      * @param firstname Nome dell'utente
@@ -144,4 +152,6 @@ public interface UserDao extends Serializable {
     boolean updateResetToken(String email, String passwordResetToken);
 
     boolean resetPassword(String token, String email, String pwda);
+
+    boolean addUserPhoto(User user, Part userPhoto);
 }
