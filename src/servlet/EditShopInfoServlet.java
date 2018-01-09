@@ -22,6 +22,7 @@ import java.net.URL;
 public class EditShopInfoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String shopName = request.getParameter("ShopName");
         String shopDescription = request.getParameter("ShopDescription");
         String shopWebsite = request.getParameter("ShopWebsite");

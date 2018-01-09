@@ -15,6 +15,7 @@ import java.io.IOException;
 public class InsertNewProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            request.setCharacterEncoding("UTF-8");
             String name = request.getParameter("Name");
             String description = request.getParameter("Description");
             String category = request.getParameter("Category");
