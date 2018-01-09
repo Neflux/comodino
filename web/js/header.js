@@ -194,6 +194,12 @@ $(document).ready(function() {
         if(key === 13)  // invio
             $('#form').submit();
     });
+
+    $('#searchMobile').keypress(function (e) {
+        var key = e.which;
+        if(key === 13)  // invio
+            doSearchMobile();
+    });
 });
 
 function doSearchMobile() {
