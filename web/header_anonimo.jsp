@@ -82,7 +82,7 @@
                         <i class="fa fa-key" aria-hidden="true"></i>&nbsp;&nbsp;Login
                     </a>
                     <a href="#" onclick="openSignupModal();" class="login_singup_link">
-                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;Sign Up
+                        <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;Iscriviti
                     </a>
                 </li>
                 <li class="dropdown text-center">
