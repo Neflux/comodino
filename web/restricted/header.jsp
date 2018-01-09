@@ -51,7 +51,7 @@
                                 <c:otherwise>
                                     <c:forEach items="${vendor_notifications}" var="n">
                                         <li class="header-notification">
-                                            <a href="javascript:window.location=createNotificationURL('${n.getClass().simpleName}', '${pageContext.request.contextPath}');">
+                                            <a href="javascript:window.location=createNotificationURL('${n.getClass().simpleName}', '${pageContext.request.contextPath}', '${n.shopId}');">
                                                 <c:if test="${n.shopStatus == 0}"><b>NEW </b></c:if>
                                                 <c:choose>
                                                     <c:when test="${n.getClass().simpleName == 'NotificationProductReview'}">
