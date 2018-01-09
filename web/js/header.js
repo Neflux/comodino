@@ -186,7 +186,25 @@ $("#search").autocomplete({
             }
         });
     },
-    minLength: 3,
+    minLength: 2,
+    select: function (event, ui) {
+    }
+});
+
+$("#searchMobile").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            url: "/searchautocomplete",
+            dataType: "json",
+            data: {
+                term: request.term
+            },
+            success: function (data) {
+                response(data);
+            }
+        });
+    },
+    minLength: 2,
     select: function (event, ui) {
     }
 });
