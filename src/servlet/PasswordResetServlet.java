@@ -27,8 +27,9 @@ public class PasswordResetServlet extends HttpServlet {
                     email = request.getParameter("email"),
                     pwda = request.getParameter("pwda"),
                     pwdb = request.getParameter("pwdb");
-            if(!Objects.equals(pwda, pwdb)){
             System.out.println(token+","+email+","+pwda+","+pwdb);
+            if(!Objects.equals(pwda, pwdb)){
+                response.sendRedirect("/index.jsp?token="+token+"&email="+email+"&error=Le password non combaciano");
             }
             else if(new UserDaoImpl().resetPassword(token,email,pwda)){
                 response.sendRedirect("/index.jsp?success="+ URLEncoder.encode("La password è stata ripristinata con successo","UTF-8"));
