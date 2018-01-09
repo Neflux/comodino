@@ -7,7 +7,6 @@ import utils.Utils;
 
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,11 +60,11 @@ public class ShopDaoImpl implements ShopDao {
         ArrayList<Product> expProducts = new ArrayList<>();
         try {
             PreparedStatement stm = con.prepareStatement(
-            "SELECT DISTINCT P.ProductID, P.Name AS ProductName, SP.Quantity \n" +
-                    "FROM Product P, ShopProduct SP \n" +
-                    "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND Sp.Quantity <= 20 AND Sp.Quantity >= 0\n" +
-                    "ORDER BY SP.Quantity \n" +
-                    "LIMIT 10"
+                    "SELECT DISTINCT P.ProductID, P.Name AS ProductName, SP.Quantity \n" +
+                            "FROM Product P, ShopProduct SP \n" +
+                            "WHERE P.ProductID = SP.ProductID AND SP.ShopID = ? AND Sp.Quantity <= 20 AND Sp.Quantity >= 0\n" +
+                            "ORDER BY SP.Quantity \n" +
+                            "LIMIT 10"
             );
             stm.setInt(1, shopID);
 
@@ -178,16 +177,16 @@ public class ShopDaoImpl implements ShopDao {
     }
 
     @Override
-    public int hasOtherShops(int productID){
+    public int hasOtherShops(int productID) {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT DISTINCT COUNT(*) AS shopcount\n" +
                     "FROM shopproduct sp\n" +
                     "WHERE sp.ProductID = ? AND sp.Quantity > '0'");
             stm.setInt(1, productID);
             ResultSet rs = stm.executeQuery();
-                rs.next();
-                int res = rs.getInt("shopcount");
-                return res;
+            rs.next();
+            int res = rs.getInt("shopcount");
+            return res;
 
 
         } catch (SQLException e) {
@@ -215,6 +214,7 @@ public class ShopDaoImpl implements ShopDao {
         }
         return shops;
     }
+
     private ArrayList<Shop> extractSimpleShopsFromResultSet(ResultSet rs) {
         ArrayList<Shop> shopList = new ArrayList<>();
 
@@ -324,14 +324,13 @@ public class ShopDaoImpl implements ShopDao {
     public boolean editInfo(Shop shop) {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE shop SET Name = ?, Description = ?, Website = ? WHERE ShopID= ?");
-            stm.setString(1,shop.getName());
-            stm.setString(2,shop.getDescription());
-            stm.setString(3,shop.getWebsite());
-            stm.setInt(4,shop.getShopID());
+            stm.setString(1, shop.getName());
+            stm.setString(2, shop.getDescription());
+            stm.setString(3, shop.getWebsite());
+            stm.setInt(4, shop.getShopID());
             stm.executeUpdate();
             return true;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -340,22 +339,21 @@ public class ShopDaoImpl implements ShopDao {
     public boolean editPhysicalInfo(PhysicalShop shop) {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE shop S, shopinfo I SET S.Name = ?, S.Description = ?, S.Website = ?, I.Address = ?, I.City = ?, I.ZIP = ?, I.Latitude = ?, I.Longitude = ?, I.OpeningHours = ? WHERE S.ShopID= ? AND I.ShopID = ?");
-            stm.setString(1,shop.getName());
-            stm.setString(2,shop.getDescription());
-            stm.setString(3,shop.getWebsite());
-            stm.setString(4,shop.getAddress());
-            stm.setString(5,shop.getCity());
-            stm.setString(6,shop.getZip());
+            stm.setString(1, shop.getName());
+            stm.setString(2, shop.getDescription());
+            stm.setString(3, shop.getWebsite());
+            stm.setString(4, shop.getAddress());
+            stm.setString(5, shop.getCity());
+            stm.setString(6, shop.getZip());
             stm.setFloat(7, shop.getLatitude());
             stm.setFloat(8, shop.getLongitude());
             stm.setString(9, shop.getOpeninghours());
-            stm.setInt(10,shop.getShopID());
-            stm.setInt(11,shop.getShopID());
+            stm.setInt(10, shop.getShopID());
+            stm.setInt(11, shop.getShopID());
             stm.executeUpdate();
             return true;
 
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -468,22 +466,21 @@ public class ShopDaoImpl implements ShopDao {
         try {
             PreparedStatement stm = con.prepareStatement("INSERT INTO shopphoto VALUES (NULL, ?, ?)");
             stm.setBinaryStream(1, shopPhoto.getInputStream(), (int) shopPhoto.getSize());
-            stm.setInt(2,shopID);
+            stm.setInt(2, shopID);
             stm.executeUpdate();
             return true;
-        }
-        catch (SQLException | IOException e){
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
         return false;
     }
 
 
-    public ArrayList<String> getImages(int shopID){
+    public ArrayList<String> getImages(int shopID) {
 
         ArrayList<String> imgBase64 = new ArrayList<>();
 
-        try{
+        try {
             PreparedStatement stm = con.prepareStatement("SELECT *\n" +
                     "FROM shopphoto sp\n" +
                     "WHERE sp.ShopID = ?");
@@ -493,7 +490,7 @@ public class ShopDaoImpl implements ShopDao {
             while (rs.next()) {
                 imgBase64.add(Utils.getStringfromBlob(rs.getBlob("Image")));
             }
-            if (imgBase64.size()==0){
+            if (imgBase64.size() == 0) {
                 imgBase64.add("/placeholdershop.jpg");
             }
         } catch (SQLException e) {
@@ -503,7 +500,7 @@ public class ShopDaoImpl implements ShopDao {
         return imgBase64;
     }
 
-    public ArrayList<Shop> allShops(){
+    public ArrayList<Shop> allShops() {
         ArrayList<Shop> shops = new ArrayList<>();
         try {
             PreparedStatement stm = con.prepareStatement("SELECT *\n" +
@@ -523,8 +520,7 @@ public class ShopDaoImpl implements ShopDao {
             PreparedStatement stm = con.prepareStatement("UPDATE shop S SET Rating = (SELECT AVG(Rating) FROM shopreview WHERE S.ShopID = shopreview.ShopID);");
             stm.executeUpdate();
             return true;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -533,27 +529,25 @@ public class ShopDaoImpl implements ShopDao {
     public void updateLatLong(int shopID, float latitude, float longitude) {
         try {
             PreparedStatement stm = con.prepareStatement("UPDATE shopinfo SET Latitude = ?, Longitude = ? WHERE ShopID = ?");
-            stm.setFloat(1,latitude);
-            stm.setFloat(2,longitude);
-            stm.setInt(3,shopID);
+            stm.setFloat(1, latitude);
+            stm.setFloat(2, longitude);
+            stm.setInt(3, shopID);
             stm.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public int countBadReports(int shopID){
+    public int countBadReports(int shopID) {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT *\n" +
                     "FROM shop s, dispute d " +
-                    "WHERE s.ShopID = ? AND s.ShopID = d.ShopID AND d.Status = 3");
-            stm.setInt(1,shopID);
+                    "WHERE s.ShopID = ? AND s.ShopID = d.ShopID AND d.Status = 1");
+            stm.setInt(1, shopID);
             System.out.println(stm.toString());
             ResultSet rs = stm.executeQuery();
-            if (rs != null)
-            {
+            if (rs != null) {
                 rs.beforeFirst();
                 rs.last();
                 return rs.getRow();

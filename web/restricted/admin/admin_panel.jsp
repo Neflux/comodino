@@ -1,5 +1,4 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.lang.Math" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -43,7 +42,8 @@
                                     <h3 style="margin-top: 0">Dispute</h3>
                                 </div>
                                 <div class="col-xs-6">
-                                    <button id="filtrodispute" type="button" class="btn btn-primary pull-right" onclick="filtraInAttesa()">
+                                    <button id="filtrodispute" type="button" class="btn btn-primary pull-right"
+                                            onclick="filtraInAttesa()">
                                         Vedi solo dispute aperte
                                     </button>
                                         <%-- TODO: se c'è tempo facciamo ste due robette
@@ -87,10 +87,12 @@
                                                 <span>${dispute.description}</span>
                                             </td>
                                             <td>
-                                                <c:set var="dateParts" value="${fn:split(dispute.creationDate, ' ')}" scope="page"/>
+                                                <c:set var="dateParts" value="${fn:split(dispute.creationDate, ' ')}"
+                                                       scope="page"/>
                                                 <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
                                                 <c:set var="time" value="${fn:split(dateParts[1], ':')}" scope="page"/>
-                                                    ${date[2]}/${date[1]} &nbsp;<span style="font-size: small">h: ${time[0]}:${time[1]}</span>
+                                                    ${date[2]}/${date[1]} &nbsp;<span
+                                                    style="font-size: small">h: ${time[0]}:${time[1]}</span>
                                             </td>
                                             <td style="text-align: center">
                                                     ${dispute.orderID} - ${dispute.productID} - ${dispute.shopID}
@@ -98,41 +100,43 @@
                                             <td style="text-align: center">
                                                 <c:choose>
                                                     <c:when test="${dispute.status == 1}">
-                                                        Prodotto Rimborsato
+                                                        Prodotto Rimborsato e Venditore Segnalato
                                                     </c:when>
                                                     <c:when test="${dispute.status == 2}">
                                                         Disputa Declinata
                                                     </c:when>
-                                                    <c:when test="${dispute.status == 3}">
-                                                        Prodotto Rimborsato e Venditore Segnalato
-                                                    </c:when>
                                                     <c:otherwise>
-                                                        <form action="${pageContext.request.contextPath}/restricted/admin/updatedispute" method="POST">
+                                                        <form action="${pageContext.request.contextPath}/restricted/admin/updatedispute"
+                                                              method="POST">
                                                             <div class="btn-group">
 
-                                                                <input name="orderID" value="${dispute.orderID}" type="text" hidden>
-                                                                <input name="productID" value="${dispute.productID}" type="text" hidden>
-                                                                <input name="shopID" value="${dispute.shopID}" type="text" hidden>
+                                                                <input name="orderID" value="${dispute.orderID}"
+                                                                       type="text" hidden>
+                                                                <input name="productID" value="${dispute.productID}"
+                                                                       type="text" hidden>
+                                                                <input name="shopID" value="${dispute.shopID}"
+                                                                       type="text" hidden>
 
-                                                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                                    Seleziona azione &nbsp;&nbsp;<span class="caret"></span>
+                                                                <button class="btn btn-default dropdown-toggle"
+                                                                        data-toggle="dropdown">
+                                                                    Seleziona azione &nbsp;&nbsp;<span
+                                                                        class="caret"></span>
                                                                 </button>
-                                                                <button class="btn btn-success" data-toggle="salva" style="display: none;" type="submit">
+                                                                <button class="btn btn-success" data-toggle="salva"
+                                                                        style="display: none;" type="submit">
                                                                     Salva
                                                                 </button>
                                                                 <ul class="dropdown-menu">
                                                                     <li>
-                                                                        <a href="#">Rimborsa</a>
-                                                                        <input name="status" value="1" type="radio" hidden>
+                                                                        <a href="#">Rimborsa e Segnala</a>
+                                                                        <input name="status" value="1" type="radio"
+                                                                               hidden>
                                                                     </li>
                                                                     <li class="divider">
                                                                     <li>
                                                                         <a href="#">Declina</a>
-                                                                        <input name="status" value="2" type="radio" hidden>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">Segnala</a>
-                                                                        <input name="status" value="3" type="radio" hidden>
+                                                                        <input name="status" value="2" type="radio"
+                                                                               hidden>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -174,7 +178,7 @@
                                             <b>${shop.shopID}</b>
                                         </td>
                                         <td>
-                                            ${shop.name}
+                                                ${shop.name}
                                         </td>
                                         <td class="text hidden-xs hidden-sm">
                                             <span>${shop.description}</span>
@@ -186,20 +190,23 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:if test="${Math.round(shop.rating) > 0}">
-                                                        <c:forEach begin="0" end="${Math.round(shop.rating) - 1}" varStatus="loop">
+                                                        <c:forEach begin="0" end="${Math.round(shop.rating) - 1}"
+                                                                   varStatus="loop">
                                                             <i class="fa fa-star" aria-hidden="true"></i>
                                                         </c:forEach>
                                                     </c:if>
                                                     <c:if test="${Math.round(shop.rating) < 5}">
-                                                        <c:forEach begin="0" end="${4 - Math.round(shop.rating)}" varStatus="loop">
+                                                        <c:forEach begin="0" end="${4 - Math.round(shop.rating)}"
+                                                                   varStatus="loop">
                                                             <i class="fa fa-star-o" aria-hidden="true"></i>
                                                         </c:forEach>
                                                     </c:if>
                                                 </c:otherwise>
                                             </c:choose>
                                         </td>
-                                        <td  style="text-align: center">
-                                            <a style="text-decoration: none" href="${pageContext.request.contextPath}/shop.jsp?id=${shop.shopID}">
+                                        <td style="text-align: center">
+                                            <a style="text-decoration: none"
+                                               href="${pageContext.request.contextPath}/shop.jsp?id=${shop.shopID}">
                                                 Vedi >>
                                             </a>
                                         </td>
@@ -248,20 +255,23 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:if test="${Math.round(prod.rating) > 0}">
-                                                        <c:forEach begin="0" end="${Math.round(prod.rating) - 1}" varStatus="loop">
+                                                        <c:forEach begin="0" end="${Math.round(prod.rating) - 1}"
+                                                                   varStatus="loop">
                                                             <i class="fa fa-star" aria-hidden="true"></i>
                                                         </c:forEach>
                                                     </c:if>
                                                     <c:if test="${Math.round(prod.rating) < 5}">
-                                                        <c:forEach begin="0" end="${4 - Math.round(prod.rating)}" varStatus="loop">
+                                                        <c:forEach begin="0" end="${4 - Math.round(prod.rating)}"
+                                                                   varStatus="loop">
                                                             <i class="fa fa-star-o" aria-hidden="true"></i>
                                                         </c:forEach>
                                                     </c:if>
                                                 </c:otherwise>
                                             </c:choose>
                                         </td>
-                                        <td  style="text-align: center">
-                                            <a style="text-decoration: none" href="${pageContext.request.contextPath}/product.jsp?product=${prod.productID}&shop=${prod.shopID}">
+                                        <td style="text-align: center">
+                                            <a style="text-decoration: none"
+                                               href="${pageContext.request.contextPath}/product.jsp?product=${prod.productID}&shop=${prod.shopID}">
                                                 Vedi >>
                                             </a>
                                         </td>

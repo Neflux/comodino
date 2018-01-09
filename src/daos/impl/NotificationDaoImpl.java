@@ -30,7 +30,7 @@ public class NotificationDaoImpl implements NotificationDao {
                     "WHERE ReviewID = ?");
             stm.setInt(1, reviewID);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 shops.add(rs.getInt("ShopID"));
             }
         } catch (SQLException e) {
@@ -38,14 +38,14 @@ public class NotificationDaoImpl implements NotificationDao {
             return false;
         }
         try {
-            for (int shopID:shops) {
+            for (int shopID : shops) {
                 PreparedStatement stm = con.prepareStatement("INSERT INTO productreviewnotification (ReviewID, ShopID, Title, Rating) VALUES (?,?,?,?)");
                 stm.setInt(1, reviewID);
                 stm.setInt(2, shopID);
                 stm.setString(3, title);
                 stm.setInt(4, rating);
                 int result = stm.executeUpdate();
-                if (result == 0){
+                if (result == 0) {
                     return false;
                 }
             }
@@ -90,7 +90,7 @@ public class NotificationDaoImpl implements NotificationDao {
     @Override
     public ArrayList<Notification> getAdminNotifications() {
         try {
-            PreparedStatement stm = con.prepareStatement("SELECT *, p.Name as ProductName, s.Name as ShopName " +
+            PreparedStatement stm = con.prepareStatement("SELECT *, p.Name AS ProductName, s.Name AS ShopName " +
                     "FROM disputenotification d, product p, shop s " +
                     "WHERE d.ShopID = s.ShopID AND d.ProductID = p.ProductID " +
                     "ORDER BY CreationDate DESC");
@@ -105,7 +105,7 @@ public class NotificationDaoImpl implements NotificationDao {
     }
 
     @Override
-    public ArrayList<Notification> getProductReviewNotifications(int shopID){
+    public ArrayList<Notification> getProductReviewNotifications(int shopID) {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM productreviewnotification WHERE ShopID = ? ORDER BY CreationDate DESC");
             stm.setInt(1, shopID);
@@ -137,7 +137,7 @@ public class NotificationDaoImpl implements NotificationDao {
     }
 
     @Override
-    public ArrayList<Notification> getDisputeNotifications(int shopID){
+    public ArrayList<Notification> getDisputeNotifications(int shopID) {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT * FROM disputenotification WHERE ShopID = ? ORDER BY CreationDate DESC");
             stm.setInt(1, shopID);
@@ -155,7 +155,7 @@ public class NotificationDaoImpl implements NotificationDao {
     @Override
     public boolean readNotifications(User user) {
         boolean result = true;
-        if (user.getType() == 1){ // user is admin
+        if (user.getType() == 1) { // user is admin
             try {
                 PreparedStatement stm = con.prepareStatement("UPDATE disputenotification\n" +
                         "SET AdminStatus = 1");
@@ -166,7 +166,7 @@ public class NotificationDaoImpl implements NotificationDao {
                 result = false;
             }
         }
-        if (user.hasShop() && result){ // user is vendor and if he is admin the part before has succeed
+        if (user.hasShop() && result) { // user is vendor and if he is admin the part before has succeed
             try {
                 PreparedStatement stm = con.prepareStatement("UPDATE productreviewnotification\n" +
                         "SET ShopStatus = 1\n" +
@@ -199,7 +199,7 @@ public class NotificationDaoImpl implements NotificationDao {
         ArrayList<Notification> notifications = new ArrayList<>();
 
         try {
-            while (rs.next()){
+            while (rs.next()) {
                 NotificationProductReview n = new NotificationProductReview();
                 n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
@@ -219,7 +219,7 @@ public class NotificationDaoImpl implements NotificationDao {
         ArrayList<Notification> notifications = new ArrayList<>();
 
         try {
-            while (rs.next()){
+            while (rs.next()) {
                 NotificationShopReview n = new NotificationShopReview();
                 n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
@@ -240,12 +240,16 @@ public class NotificationDaoImpl implements NotificationDao {
         ArrayList<Notification> notifications = new ArrayList<>();
 
         try {
-            while (rs.next()){
+            while (rs.next()) {
                 NotificationDispute n = new NotificationDispute();
                 n.setTitle(rs.getString("Title"));
                 n.setShopId(rs.getInt("ShopID"));
-                n.setShopName(rs.getString("ShopName"));
-                n.setProductName(rs.getString("ProductName"));
+                try {
+                    n.setShopName(rs.getString("ShopName"));
+                    n.setProductName(rs.getString("ProductName"));
+                } catch (Exception e) {
+
+                }
                 n.setCreationDate(rs.getTimestamp("CreationDate"));
                 n.setShopStatus(rs.getInt("ShopStatus"));
                 n.setAdminStatus(rs.getInt("AdminStatus"));
@@ -260,10 +264,10 @@ public class NotificationDaoImpl implements NotificationDao {
         return notifications;
     }
 
-    private void printNotifications(ArrayList<Notification> a, boolean DEBUG){
+    private void printNotifications(ArrayList<Notification> a, boolean DEBUG) {
         if (!DEBUG)
             return;
-        for (Notification n: a){
+        for (Notification n : a) {
             System.out.println("Notification:");
             System.out.println("    Creation date: " + n.getCreationDate());
             System.out.println("    Shop ID: " + n.getShopId());
@@ -275,14 +279,14 @@ public class NotificationDaoImpl implements NotificationDao {
     public boolean createShopReviewNotification(int userID, int shopID, String title, int rating) {
 
         try {
-                PreparedStatement stm = con.prepareStatement("INSERT INTO shopreviewnotification (ShopID, UserID, Title, Rating) VALUES (?,?,?,?)");
-                stm.setInt(1, shopID);
-                stm.setInt(2, userID);
-                stm.setString(3, title);
-                stm.setInt(4, rating);
-                int result = stm.executeUpdate();
-                if (result == 0){
-                    return false;
+            PreparedStatement stm = con.prepareStatement("INSERT INTO shopreviewnotification (ShopID, UserID, Title, Rating) VALUES (?,?,?,?)");
+            stm.setInt(1, shopID);
+            stm.setInt(2, userID);
+            stm.setString(3, title);
+            stm.setInt(4, rating);
+            int result = stm.executeUpdate();
+            if (result == 0) {
+                return false;
             }
             return true;
 
