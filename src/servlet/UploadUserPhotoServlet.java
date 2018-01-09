@@ -25,7 +25,7 @@ public class UploadUserPhotoServlet extends HttpServlet {
                 user.setProfilePhoto(userDao.getUserPhoto(user));
                 response.sendRedirect("/restricted/profile.jsp?success=Foto caricata con successo!");
             } else
-                response.sendRedirect("/restricted/profile.jsp?error=Upload non riuscito");
+                response.sendRedirect("/restricted/profile.jsp?error=File troppo grande");
         }
         else response.sendRedirect("/restricted/profile.jsp?warning=Nessuna foto selezionata");
     }
