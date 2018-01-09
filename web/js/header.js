@@ -53,6 +53,7 @@ function show_login(vel)
     $('#card_forgot_button').css("display","initial");
     $('#card_forgot_button').animate({opacity:1},vel);
     $('#form').attr('action','/login');
+    $("#doButton").text("Entra");
 }
 
 function show_signup(vel)
@@ -78,6 +79,7 @@ function show_signup(vel)
         $('#card_forgot_button').css("display","none");
     });
     $('#form').attr('action','/register');
+    $("#doButton").text("Registrati");
 }
 
 function show_forgot(vel)
@@ -97,6 +99,7 @@ function show_forgot(vel)
     });
 
     $('#form').attr('action','/passwordRequest');
+    $("#doButton").text("Invia");
 }
 
 function show_login_from_forgot(vel)
@@ -111,6 +114,7 @@ function show_login_from_forgot(vel)
     $('#card_forgot_button').css("display","initial");
     $('#card_forgot_button').animate({opacity:1},vel);
     $('#form').attr('action','/login');
+    $("#doButton").text("Entra");
 }
 
 function openCart() {

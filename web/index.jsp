@@ -223,7 +223,7 @@
                             </div>
                         </div>
                         <div class="footer text-center" style="margin-top: 15px;">
-                            <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#resetpasswordmodal').submit();">Invia</a>
+                            <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#resetpasswordform').submit();">Invia</a>
                         </div>
                     </form>
                 </div>
