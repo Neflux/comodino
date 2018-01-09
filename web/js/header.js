@@ -102,8 +102,7 @@ function show_signup(vel)
             $("#card_forgot_button").addClass("animated fadeOut");
             setTimeout(function(){ $("#card_forgot_button").css("display", "none"); }, 500);
             $("#doButton").css('pointer-events',"initial");
-        }
-
+        }   
     });
 }
 
