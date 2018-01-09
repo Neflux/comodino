@@ -58,6 +58,7 @@ function show_login(vel)
     $('#card_forgot_button').animate({opacity:1},vel);
     $('#form').attr('action','/login');
     $("#doButton").text("Entra");
+    $("#card_forgot_button").html('Hai dimenticato la <a onclick="show_forgot();" style="cursor:pointer">password</a>?');
 
     $( "#pw" ).unbind("keyup");
 }
@@ -83,27 +84,35 @@ function show_signup(vel)
         //$('#card_titolo').animate({marginBottom:'50px'}, 500);
     });
     $('#card_change_button').html('Hai già un account? <a href="#" onclick="show_login(500);">Loggati</a>');
+    /*
     $('#card_forgot_button').animate({opacity:0},vel, function () {
         $('#card_forgot_button').css("display","none");
     });
+    */
     $('#form').attr('action','/register');
     $("#doButton").text("Registrati");
 
+    checkre()
     $( "#pw" ).bind( "keyup", function () {
-        var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$"); // minimo 6 caratteri, una maiuscola, una minuscola e un numero
-        var v = $('#pw').val();
-        if (!re.test(v)) {
-            $("#card_forgot_button").css("display","initial");
-            $("#card_forgot_button").text("La password deve contere almeno 6 caratteri, una maiuscola e una minuscola");
-            $("#card_forgot_button").removeClass("animated fadeOut");
-            $("#card_forgot_button").addClass("animated fadeIn");
-            $("#doButton").css('pointer-events',"none");
-        } else {
-            $("#card_forgot_button").addClass("animated fadeOut");
-            setTimeout(function(){ $("#card_forgot_button").css("display", "none"); }, 500);
-            $("#doButton").css('pointer-events',"initial");
-        }   
+        checkre();
     });
+}
+
+function checkre()
+{
+    var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$"); // minimo 6 caratteri, una maiuscola, una minuscola e un numero
+    var v = $('#pw').val();
+    if (!re.test(v)) {
+        $("#card_forgot_button").css("display","initial");
+        $("#card_forgot_button").text("La password deve contere almeno 6 caratteri, una maiuscola e una minuscola");
+        $("#card_forgot_button").removeClass("animated fadeOut");
+        $("#card_forgot_button").addClass("animated fadeIn");
+        $("#doButton").css('pointer-events',"none");
+    } else {
+        $("#card_forgot_button").addClass("animated fadeOut");
+        setTimeout(function(){ $("#card_forgot_button").css("display", "none"); }, 500);
+        $("#doButton").css('pointer-events',"initial");
+    }
 }
 
 function show_forgot(vel)
