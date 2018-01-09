@@ -197,7 +197,7 @@ public class Utils {
 
                     "Clicca il seguente link per ripristinare la password:\n"+
 
-                    "<a href='http://localhost:8080/passwordReset?token="+verificationToken+"&email="+email+"'>Ripristino password</a>\n" +
+                    "<a href='http://localhost:8080/index.jsp?token="+verificationToken+"&email="+email+"'>Ripristino password</a>\n" +
 
                     "Se non avessi richiesto il ripristino, ignora semplicemente questa mail.\n\n"+
 

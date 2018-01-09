@@ -1,3 +1,12 @@
+
+
+@media only screen and (max-width: 991px) {
+
+    #shopProducts {
+        margin-top: 20px;
+    }
+}
+
 #shopReviews li.list-group-item{
     margin-right: 10px;
     margin-left: 10px;

@@ -1,0 +1,8 @@
+search.css 120 // DONE
+vendor_reviews 8
+vendor 1
+vendor_orders 8
+vendor stock 8
+vendor public 95
+index 26  // DONE
+vendor disputes 8

@@ -12,6 +12,8 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
+        <%--<script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/validate/additional-methods.min.js"></script>--%>
         <script src="${pageContext.request.contextPath}/js/index.js"></script>
     </jsp:attribute>
     <jsp:body>
@@ -195,6 +197,43 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <div class="modal fade" id="resetpasswordmodal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+            <div class="row">
+                <div id="resetpasswordcard" class="card card-signup centerize" data-background-color="orange">
+                    <form id="resetpasswordform" class="form" method="POST" action="${pageContext.request.contextPath}/passwordReset">
+                        <input type="password" class="hidden" name="token" placeholder="" value="${param.token}">
+                        <input type="password" class="hidden" name="email" placeholder="" value="${param.email}">
+
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up" >Reset della password</h4>
+                        </div>
+                        <div class="content">
+                            <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-key green" aria-hidden="true"></i>
+                          </span>
+                                <input id="pwda" type="password" class="form-control" name="pwda" placeholder="Password" onkeyup="check_pws();">
+                            </div>
+                            <div class="input-group form-group-no-border">
+                          <span class="input-group-addon">
+                              <i class="fa fa-key green" aria-hidden="true"></i>
+                          </span>
+                                <input id="pwdb" type="password" class="form-control" name="pwdb" placeholder="Ripeti password" onkeyup="check_pws();">
+                            </div>
+
+                            <div class="row text-center">
+                                <span class="white" style="opacity:0;display:none" id="error_message">Le password non coincidono</span>
+                            </div>
+
+                        </div>
+                        <div class="footer text-center" style="margin-top: 15px;">
+                            <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#resetpasswordform').submit();">Invia</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </jsp:body>

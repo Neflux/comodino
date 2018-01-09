@@ -14,7 +14,6 @@
     </jsp:attribute>
     <jsp:attribute name="pagecss">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/vendor.css" >
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/my.css}">
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">

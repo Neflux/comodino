@@ -38,4 +38,47 @@ $( document ).ready(function() {
         window.location.href = "/search?cat=Camera+da+Letto&q=";
     });
 
+    var url = window.location.href;
+    if (url.indexOf("?token=") >= 0)
+    {
+        $('#resetpasswordmodal').modal('show');
+    }
 });
+
+function check_pws() {
+    var pwa = $("#pwda").val();
+    var pwb = $("#pwdb").val();
+
+    if ( pwa !== "" && pwb !== "" && pwa !== pwb )
+    {
+        $("#error_message").css("display","initial");
+        $("#error_message").animate({opacity:1},500);
+    }
+    else if ( pwa !== "" && pwb !== "" && pwa === pwb )
+    {
+        $("#error_message").animate({opacity:0},500, function () {
+            $("#error_message").css("display","none");
+        });
+    }
+
+}
+
+/*
+$("#resetpasswordform").validate({
+    rules: {
+        pwda: "required",
+        pwdb: {
+            equalTo: "#password"
+        }
+    }
+});
+jQuery.validator.setDefaults({
+    debug: true,
+    success: "valid"
+});
+
+jQuery.extend(jQuery.validator.messages, {
+    equalTo: jQuery.validator.format("Le password non combaciano")
+});
+*/
+

@@ -102,3 +102,24 @@ li.notificationBlock:last-child { border-bottom: none; }*/
     border-color: #FF3636;
     color: #FF3636;
 }
+
+.searchWrapperClass {
+    display: inline-block;
+    margin-bottom:5px;
+    padding-right:10px;
+    padding-left:10px;
+    width: 100%;
+}
+
+.searchWrapperClass>.input-group{
+    margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+    #searchFullWidth { display: none; }
+
+}
+@media only screen and (min-width: 768px) {
+    #searchWrapper { display: none; }
+
+}
