@@ -12,7 +12,7 @@
 <html lang="it">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
     <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/apple-touch-icon.png">
@@ -72,7 +72,20 @@
         openCart();
         window.scrollTo(0,0);
         $('#overlay').fadeOut(100);
+
+        var ua = navigator.userAgent,
+            iOS = /iPad|iPhone|iPod/.test(ua),
+            iOS11 = /OS 11_0_1|OS 11_0_2|OS 11_0_3|OS 11_1|OS 11_1_1|OS 11_1_2|OS 11_2|OS 11_2_1/.test(ua);
+
+        // ios 11 bug caret position
+        if ( iOS && iOS11 ) {
+
+            // Add CSS class to body
+            $("body").addClass("iosBugFixCaret");
+
+        }
     });
+
 </script>
 
 </body>

@@ -22,8 +22,15 @@ public class InsertNewProductServlet extends HttpServlet {
             float discount;
             if (request.getParameter("Discount").isEmpty())
                 discount = 0;
-            else
-                discount = Float.parseFloat(request.getParameter("Discount"));
+            else {
+                discount = Float.parseFloat(request.getParameter("Discount").replace(",","."));
+                if (discount < 1)
+                    discount = discount;
+                else if (discount >= 1 && discount <= 100)
+                    discount = discount/100;
+                else
+                    discount = 0;
+            }
             int quantity = Integer.parseInt(request.getParameter("Quantity"));
             Part productPhoto = request.getPart("productPhoto");
             HttpSession session = request.getSession(false);

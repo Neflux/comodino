@@ -37,8 +37,13 @@ public class EditProductPriceServlet extends HttpServlet {
                             product.setPrice(pr);
                         }
                         if (!discount.isEmpty()) {
-                            ds = Float.parseFloat(discount);
-                            product.setDiscount(ds);
+                            ds = Float.parseFloat(discount.replace(",","."));
+                            if (ds < 1)
+                                product.setDiscount(ds);
+                            else if (ds >= 1 && ds <= 100)
+                                product.setDiscount(ds/100);
+                            else
+                                product.setDiscount(0);
                         }
                         shopDao.editShopProduct(product, shop.getShopID());
                     }

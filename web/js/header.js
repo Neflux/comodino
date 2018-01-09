@@ -23,6 +23,7 @@ $(function(){
 
 function openLoginModal()
 {
+    $(".nologin").css("visibility","hidden");
     $('#LoginSignup').modal('show');
     if (first === false)
         show_login(0);
@@ -41,8 +42,11 @@ function show_login(vel)
 {
     $('.nologin').each(function () {
         var v = $(this);
-        v.animate({opacity: 0}, vel);
+        v.animate({opacity: 0}, vel, function () {
+            $(".nologin").css("visibility","hidden");
+        });
     });
+
     $(".yeslogin").animate({opacity:1},vel);
     $('.login').animate({marginTop:'-100px'}, vel);
     $('#card_titolo').animate({opacity: 0}, vel, function () {
@@ -58,6 +62,7 @@ function show_login(vel)
 
 function show_signup(vel)
 {
+    $(".nologin").css("visibility","initial");
     $('.noforgot').each(function () {
         var v = $(this);
         v.css("display","table");
@@ -84,6 +89,7 @@ function show_signup(vel)
 
 function show_forgot(vel)
 {
+    $(".nologin").css("visibility","hidden");
     $(".yeslogin").animate({opacity:0,marginTop:"-40px"},vel, function () {
         $(".noforgot").css("margin-right","10000px");
     });
@@ -104,6 +110,7 @@ function show_forgot(vel)
 
 function show_login_from_forgot(vel)
 {
+    $(".nologin").css("pointer-events","none");
     $(".noforgot").css("margin-right","0px");
     $(".yeslogin").animate({marginTop:"0px",opacity:1},vel);
     $('#card_titolo').animate({opacity: 0}, vel/2, function () {

@@ -377,3 +377,5 @@ input.form-control {
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+body.iosBugFixCaret.modal-open { position: fixed; width: 100%; }
