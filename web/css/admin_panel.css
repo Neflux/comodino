@@ -29,3 +29,13 @@ body>.container{
     padding-bottom: 30px !important;
     border-radius: 4px;
 }
+
+.resetcolor{
+    color: #2c3e50;
+}
+.resetcolor:hover{
+    color: #2c3e50;
+}
+.resetcolor:focus{
+    color: #2c3e50;
+}
