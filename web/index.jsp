@@ -12,8 +12,8 @@
     </jsp:attribute>
 
     <jsp:attribute name="pagejavascript">
-        <%--<script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/validate/additional-methods.min.js"></script>--%>
+        <script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/validate/additional-methods.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/index.js"></script>
     </jsp:attribute>
     <jsp:body>
