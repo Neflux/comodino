@@ -60,7 +60,7 @@ public interface AddressDao extends Serializable {
      * @param zip       Stringa contenente lo ZIP code
      * @param state     Stringa contenente lo stato
      * @param phone     Stringa contenente il numero di telefono
-     * @return
+     * @return True se l'operazione va a buon fine, False altrimenti
      */
     boolean editAddress(User user, String addressID, String firstName, String lastName, String address, String city, String zip, String state, String phone);
 }
