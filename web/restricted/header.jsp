@@ -133,7 +133,7 @@
                                 <c:otherwise>
                                     <c:forEach items="${admin_notifications}" var="n" varStatus="i" end="3">
                                         <li class="notificationBlock">
-                                            <a href="${pageContext.request.contextPath}/product.jsp?product=${n.productId}&shop=${n.shopId}">
+                                            <a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">
                                                 <c:if test="${n.adminStatus == 0}"><b>NEW </b></c:if>Disputa:
                                                 <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
                                                 <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
