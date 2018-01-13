@@ -121,17 +121,41 @@ public interface ShopDao extends Serializable {
      * Aggiunge una foto al negozio
      *
      * @param shopID ID di tipo 'int' del negozio
-     * @param fileName TODO: DELSY IL FILE PART COS'E'
+     * @param fileName Oggetto di tipo 'Part' contenente l'immagine
      * @return 'true' se l'operazione è andata a buon fine, 'false' altrimenti
      */
     boolean addShopPhoto(int shopID, Part fileName);
 
+    /**
+     * Ottiene le immagini dello shop
+     *
+     * @param shopID ID di tipo 'int' del negozio
+     * @return Array di stringhe che contengono le varie immagini in formato base64
+     */
     ArrayList<String> getImages(int shopID);
 
+    /**
+     * Forza il ricalcolo della valutazione di uno shop
+     *
+     * @param shopID ID di tipo 'int' del negozio
+     * @return 'true' se l'operazione è andata a buon fine, 'false' altrimenti
+     */
     boolean updateShopRating(int shopID);
 
+    /**
+     * Aggiorna latitudine e longitudine di un determinato negozio
+     *
+     * @param shopID ID di tipo 'int' del negozio
+     * @param latitude 'float' che specifica la latitudine
+     * @param longitude 'float' che specifica la longitudine
+     */
     void updateLatLong(int shopID, float latitude, float longitude);
 
-
+    /**
+     * Conteggia i report negativi di un determinato negozio
+     *
+     * @param shopID shopID ID di tipo 'int' del negozio
+     * @return Il numero intero di reports
+     */
     int countBadReports(int shopID);
 }

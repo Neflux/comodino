@@ -27,7 +27,6 @@ public class PaymentFilter implements Filter {
         else if(req.getHeader("Referer") == null){
             res.sendRedirect("/index.jsp");
         }
-        //TODO: trovare una condizione più sensata per controllare che arrivi da checkout?
         else if(!req.getHeader("Referer").contains("/restricted/checkout.jsp")){
             res.sendRedirect("/restricted/checkout.jsp?warning="+URLEncoder.encode("Conferma le modalità di spedizione prima di procedere al pagamento","UTF-8"));
         }

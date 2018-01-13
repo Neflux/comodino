@@ -53,7 +53,6 @@ public class Utils {
 
     public static String sendVerificationEmail(String firstname, String lastname, String email) {
 
-        // TODO: tokenGenerator da staticizzare e globalizzare all'avvio del server
         String easy = RandomString.digits + "ACEFGHJKLMNPQRUVWXYabcdefhijkprstuvwx";
         RandomString tokenGenerator = new RandomString(23, new SecureRandom(), easy);
 
@@ -170,7 +169,7 @@ public class Utils {
     }
 
     public static String sendResetEmail(String email) {
-        // TODO: tokenGenerator da staticizzare e globalizzare all'avvio del server
+
         String easy = RandomString.digits + "ACEFGHJKLMNPQRUVWXYabcdefhijkprstuvwx";
         RandomString tokenGenerator = new RandomString(23, new SecureRandom(), easy);
 
