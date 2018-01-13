@@ -109,7 +109,6 @@
                         <div class="col-md-4" id="photoPanel">
                             <div class="col-md-12">
                                 <c:if test="${!empty shop.shopphoto}">
-                                    <%--TODO: AUTO SIZE CAROUSEL--%>
                                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner">
@@ -185,7 +184,6 @@
         <div class="modal fade" id="editShopInfo" tabindex="-1" role="dialog" aria-labelledby="editShopInfoLabel">
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
-                        <%--TODO:Auto-populate previous values--%>
                     <form id="editShopInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/vendor/editshopinfo">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Modifica dati</h4>

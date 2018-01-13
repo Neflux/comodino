@@ -158,7 +158,7 @@ public class ProductDaoImpl implements ProductDao {
     public List<Map.Entry<String, ProductGroup>> getProducts(Map params) {
         Map<String, ProductGroup> products = new HashMap<>();
 
-        //Search query parameter
+        //SearchServlet query parameter
         String searchQuery;
         if ((searchQuery = checkSMP(params.get("q"))) == null) {
             return null;

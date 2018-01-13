@@ -62,7 +62,6 @@
 
                                                             <b>${author.firstName} ${author.lastName}</b> - <span
                                                                 style="font-size: small;">${date[2]}/${date[1]} &nbsp;h: ${time[0]}:${time[1]}</span>
-                                                            <!-- TODO fai funzione che restituisce array di autori-->
                                                         </p>
                                                         <p>
                                                             <c:if test="${review.rating > 0}">

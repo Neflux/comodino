@@ -13,7 +13,7 @@ icons:
     categories:
       - Web Application Icons
 
-  - name:       Search
+  - name:       SearchServlet
     id:         search
     unicode:    f002
     created:    1.0
@@ -97,7 +97,7 @@ icons:
     categories:
       - Web Application Icons
 
-  - name:       Search Plus
+  - name:       SearchServlet Plus
     id:         search-plus
     unicode:    f00e
     created:    1.0
@@ -105,7 +105,7 @@ icons:
       - Web Application Icons
 
 
-  - name:       Search Minus
+  - name:       SearchServlet Minus
     id:         search-minus
     unicode:    f010
     created:    1.0

@@ -58,23 +58,27 @@ function check_pws() {
         $("#error_message").removeClass("animated fadeOut");
         $("#error_message").addClass("animated fadeIn");
         $("#doButtonReset").css('pointer-events',"none");
+        $("#doButton").addClass("disabled");
     }
     else if ( pwa !== "" && pwb !== "" && pwa === pwb )
     {
         $("#error_message").addClass("animated fadeOut");
         setTimeout(function(){ $("#error_message").css("display", "none"); }, 500);
         $("#doButtonReset").css('pointer-events',"initial");
+        $("#doButton").removeClass("disabled");
     }
     else if (!re.test(pwa) || !re.test(pwb)) {
         $("#error_message").css("display","initial");
-        $("#error_message").text("La password deve contere almeno 6 caratteri, una maiuscola e una minuscola");
+        $("#error_message").text("La password deve contere almeno 6 caratteri, una maiuscola, una minuscola e un numero");
         $("#error_message").removeClass("animated fadeOut");
         $("#error_message").addClass("animated fadeIn");
         $("#doButtonReset").css('pointer-events',"none");
+        $("#doButton").addClass("disabled");
     } else {
         $("#error_message").addClass("animated fadeOut");
         setTimeout(function(){ $("#error_message").css("display", "none"); }, 500);
         $("#doButtonReset").css('pointer-events',"initial");
+        $("#doButton").removeClass("disabled");
     }
 
 }
