@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 import daos.UserDao;
 import daos.impl.UserDaoImpl;
@@ -27,8 +27,7 @@ public class AcceptPrivacyServlet extends HttpServlet {
         if (result) {
             user.setPrivacy(1);
             response.sendRedirect("/restricted/profile.jsp?success=Privacy accettata");
-        }
-        else{
+        } else {
             response.sendRedirect("/restricted/profile.jsp?warning=Privacy non modificata");
         }
     }

@@ -1,10 +1,9 @@
-package servlet;
+package servlet.user;
 
 import daos.UserDao;
 import daos.impl.UserDaoImpl;
 import main.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,21 +26,20 @@ public class EditInfoServlet extends HttpServlet {
         //System.out.println("Parametri: " + firstName + " " + lastName + " " + email);
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
-        if (!firstName.isEmpty()){
+        if (!firstName.isEmpty()) {
             user.setFirstName(firstName);
         }
-        if (!lastName.isEmpty()){
+        if (!lastName.isEmpty()) {
             user.setLastName(lastName);
         }
-        if (!email.isEmpty()){
+        if (!email.isEmpty()) {
             user.setEmail(email);
         }
         UserDao userDao = new UserDaoImpl();
-        if (userDao.editInfo(user)){
+        if (userDao.editInfo(user)) {
             System.out.println("[ " + user.getFirstName() + " ] Info modificate");
             response.sendRedirect("/restricted/profile.jsp?success=Info aggiornate");
-        }
-        else {
+        } else {
             response.sendRedirect("/restricted/profile.jsp?warning=Info non aggiornate");
         }
     }

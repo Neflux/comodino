@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 import daos.ProductDao;
 import daos.ReviewDao;
@@ -24,7 +24,7 @@ public class OpenReviewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         System.out.println("[INFO] OpenReview Servlet: Entered");
-        if(request.getParameter("stitle") == null || request.getParameter("sdescription") == null || request.getParameter("srating") == null || request.getParameter("shopID") == null ){
+        if (request.getParameter("stitle") == null || request.getParameter("sdescription") == null || request.getParameter("srating") == null || request.getParameter("shopID") == null) {
             response.sendRedirect("/index.jsp?error=Parametri Negozio Mancanti");
             return;
         }
@@ -34,11 +34,11 @@ public class OpenReviewServlet extends HttpServlet {
         int srating = 1;
         try {
             srating = Integer.parseInt(request.getParameter("srating"));
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
 
         int shopID = Integer.parseInt(request.getParameter("shopID"));
-        int userID = ((User)request.getSession(false).getAttribute("user")).getUserID();
+        int userID = ((User) request.getSession(false).getAttribute("user")).getUserID();
 
         System.out.println("\tDispute ProductID: " + shopID + " UserID: " + userID +
                 "\n\tTitle: " + stitle +
@@ -49,16 +49,15 @@ public class OpenReviewServlet extends HttpServlet {
         ReviewDao reviewDao = new ReviewDaoImpl();
         boolean result;
         int newReviewID = reviewDao.createShopReview(stitle, sdescription, srating, shopID, userID);
-        if (newReviewID != 0){
+        if (newReviewID != 0) {
             result = new NotificationDaoImpl().createShopReviewNotification(userID, shopID, stitle, srating);
             ShopDao pd = new ShopDaoImpl();
             result = result && pd.updateShopRating(shopID);
-        }
-        else{ // la creazione della recensione è fallita
+        } else { // la creazione della recensione è fallita
             response.sendRedirect("/restricted/orderhistory.jsp?error=Errore Creazione Recensione Negozio");
             return;
         }
-        if(!result){ // la creazione della notifica della disputa è fallita
+        if (!result) { // la creazione della notifica della disputa è fallita
             response.sendRedirect("/restricted/orderhistory.jsp?error=Errore Creazione Notifica Recensione Negozio");
             return;
         }
@@ -66,7 +65,7 @@ public class OpenReviewServlet extends HttpServlet {
 
         //INIZIO PRODUCT REVIEW
 
-        if(request.getParameter("ptitle") == null || request.getParameter("pdescription") == null || request.getParameter("prating") == null || request.getParameter("productID") == null ){
+        if (request.getParameter("ptitle") == null || request.getParameter("pdescription") == null || request.getParameter("prating") == null || request.getParameter("productID") == null) {
             response.sendRedirect("/restricted/orderhistory.jsp?error=Parametri Prodotto Mancanti");
             return;
         }
@@ -76,8 +75,8 @@ public class OpenReviewServlet extends HttpServlet {
         int prating = 1;
         try {
             prating = Integer.parseInt(request.getParameter("prating"));
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
 
         int productID = Integer.parseInt(request.getParameter("productID"));
 
@@ -89,16 +88,15 @@ public class OpenReviewServlet extends HttpServlet {
         boolean result2;
         ReviewDao reviewDao2 = new ReviewDaoImpl();
         int newReviewID2 = reviewDao2.createProductReview(ptitle, pdescription, prating, productID, userID);
-        if (newReviewID2 != 0){
+        if (newReviewID2 != 0) {
             result2 = new NotificationDaoImpl().createProductReviewNotification(newReviewID2, ptitle, prating);
             ProductDao pd = new ProductDaoImpl();
             result2 = result2 && pd.updateProductRating(productID);
-        }
-        else{ // la creazione della recensione è fallita
+        } else { // la creazione della recensione è fallita
             response.sendRedirect("/restricted/orderhistory.jsp?error=Errore Creazione Recensione Prodotto");
             return;
         }
-        if(!result2){ // la creazione della notifica della disputa è fallita
+        if (!result2) { // la creazione della notifica della disputa è fallita
             response.sendRedirect("/restricted/orderhistory.jsp?error=Errore Creazione Notifica Recensione Prodotto");
             return;
         }

@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 import daos.impl.UserDaoImpl;
 import main.User;

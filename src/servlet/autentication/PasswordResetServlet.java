@@ -1,4 +1,4 @@
-package servlet;
+package servlet.autentication;
 
 import daos.impl.UserDaoImpl;
 import utils.Utils;
@@ -19,25 +19,23 @@ import java.util.Objects;
 public class PasswordResetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        if(Utils.isNullOrEmpty(request.getParameter("token"))
-                || Utils.isNullOrEmpty(request.getParameter("email"))){
+        if (Utils.isNullOrEmpty(request.getParameter("token"))
+                || Utils.isNullOrEmpty(request.getParameter("email"))) {
             response.sendRedirect("/index.jsp");
             return;
         }
 
-        if(!Utils.isNullOrEmpty(request.getParameter("pwda")) && !Utils.isNullOrEmpty(request.getParameter("pwdb"))){
+        if (!Utils.isNullOrEmpty(request.getParameter("pwda")) && !Utils.isNullOrEmpty(request.getParameter("pwdb"))) {
             String token = request.getParameter("token"),
                     email = request.getParameter("email"),
                     pwda = request.getParameter("pwda"),
                     pwdb = request.getParameter("pwdb");
-            System.out.println(token+","+email+","+pwda+","+pwdb);
-            if(!Objects.equals(pwda, pwdb)){
-                response.sendRedirect("/index.jsp?token="+token+"&email="+email+"&error=Le password non combaciano");
-            }
-            else if(new UserDaoImpl().resetPassword(token,email,pwda)){
-                response.sendRedirect("/index.jsp?success="+ URLEncoder.encode("La password è stata ripristinata con successo","UTF-8"));
-            }
-            else{
+            System.out.println(token + "," + email + "," + pwda + "," + pwdb);
+            if (!Objects.equals(pwda, pwdb)) {
+                response.sendRedirect("/index.jsp?token=" + token + "&email=" + email + "&error=Le password non combaciano");
+            } else if (new UserDaoImpl().resetPassword(token, email, pwda)) {
+                response.sendRedirect("/index.jsp?success=" + URLEncoder.encode("La password è stata ripristinata con successo", "UTF-8"));
+            } else {
                 response.sendRedirect("/index.jsp");
             }
         }

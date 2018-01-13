@@ -1,4 +1,4 @@
-package servlet;
+package servlet.cart;
 
 import main.Cart;
 import main.CartItem;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Per un determinato utente si occupa di recuperare i prodotti aggiunti al carrello dal database.
@@ -23,26 +22,25 @@ public class GetCartServlet extends HttpServlet {
         StringBuilder ret = new StringBuilder();
         String size;
 
-        if (request.getSession(false).getAttribute("user") == null){
+        if (request.getSession(false).getAttribute("user") == null) {
             Cookie[] cookies = request.getCookies();
             Cookie prodCookie = null;
-            for (Cookie c: cookies){
-                if (c.getName().equals("cartproducts")){
+            for (Cookie c : cookies) {
+                if (c.getName().equals("cartproducts")) {
                     prodCookie = c;
                 }
             }
-            if (prodCookie == null){
+            if (prodCookie == null) {
                 ret = new StringBuilder("<li class=\"text-center\"><a>Carrello vuoto...</a></li>");
                 size = "<span class=\"badge\">\n" +
                         "                            <i class=\"fa fa-shopping-cart\" aria-hidden=\"true\"></i> 0\n" +
                         "                        </span>\n" +
                         "                        &nbsp;&nbsp;Carrello <span class=\"caret\"></span>";
 
-            }
-            else {
+            } else {
                 String[] cartproducts = prodCookie.getValue().split("\\|");
                 int totalSize = 0;
-                for (String prod: cartproducts){
+                for (String prod : cartproducts) {
                     String[] prod_infos = prod.split("_");
                     totalSize += Integer.parseInt(prod_infos[3]);
                 }
@@ -66,11 +64,6 @@ public class GetCartServlet extends HttpServlet {
                 response.getWriter().write(ret.toString());
             return;
         }
-
-
-
-
-
 
 
         Cart cart;

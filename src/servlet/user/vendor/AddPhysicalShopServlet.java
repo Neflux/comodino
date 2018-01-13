@@ -1,5 +1,4 @@
-package servlet;
-
+package servlet.user.vendor;
 
 import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
@@ -34,10 +33,9 @@ public class AddPhysicalShopServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         Shop shop = (Shop) session.getAttribute("shop");
         ShopDao shopDao = new ShopDaoImpl();
-        if(shopDao.addPhysicalShop(shop.getShopID(), physhop)) {
+        if (shopDao.addPhysicalShop(shop.getShopID(), physhop)) {
             response.sendRedirect("/restricted/vendor/shop_panel.jsp?success=Negozio fisico creato con successo");
-        }
-        else {
+        } else {
             response.sendRedirect("/restricted/profile.jsp?warning=Creazione negozio fisico non riuscita");
         }
     }

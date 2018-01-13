@@ -1,4 +1,4 @@
-package servlet;
+package servlet.cart;
 
 import daos.impl.ProductDaoImpl;
 import daos.impl.UserDaoImpl;
@@ -24,16 +24,15 @@ public class addCartItem extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession(false).getAttribute("user");
-        int productID =  Integer.parseInt(request.getParameter("productID"));
-        int shopID =  Integer.parseInt(request.getParameter("shopID"));
-        if(user != null){
+        int productID = Integer.parseInt(request.getParameter("productID"));
+        int shopID = Integer.parseInt(request.getParameter("shopID"));
+        if (user != null) {
             new UserDaoImpl().addCartItem(user, productID, shopID);
-        }
-        else{ // se l'utente è anonimo
+        } else { // se l'utente è anonimo
             Cookie products = null;
             Cookie[] cookies = request.getCookies();
-            for (Cookie c:cookies) {
-                if (c.getName().equals("cartproducts")){
+            for (Cookie c : cookies) {
+                if (c.getName().equals("cartproducts")) {
                     products = c;
                 }
             }
@@ -41,13 +40,12 @@ public class addCartItem extends HttpServlet {
             if (products == null) {
                 Product p = new ProductDaoImpl().getProduct(productID, shopID);
                 // format: 51_Tavolo della nonna_3_1,25_Lampada ad olio_8_2
-                products = new Cookie("cartproducts",p.getProductID() + "_" + p.getProductName().replace(" ","-") + "_" + p.getShopID() + "_1");
+                products = new Cookie("cartproducts", p.getProductID() + "_" + p.getProductName().replace(" ", "-") + "_" + p.getShopID() + "_1");
                 response.addCookie(products);
-            }
-            else {
+            } else {
                 String res = products.getValue();
                 Product prod = new ProductDaoImpl().getProduct(productID, shopID);
-                String regex = "(?<="+prod.getProductID()+"_"+prod.getProductName().replace(" ","-")+"_"+prod.getShopID() +"_)\\d+";
+                String regex = "(?<=" + prod.getProductID() + "_" + prod.getProductName().replace(" ", "-") + "_" + prod.getShopID() + "_)\\d+";
                 Pattern p = Pattern.compile(regex);
                 Matcher m = p.matcher(res);
                 if (m.find()) { // il prodotto è già nel carrello
@@ -56,12 +54,11 @@ public class addCartItem extends HttpServlet {
                     System.out.println("Trovata quantità: " + theGroup);
                     theGroup = Integer.toString(Integer.parseInt(theGroup) + 1);
                     System.out.println("Aumentata quantità: " + theGroup);
-                    res = res.replaceAll(regex,theGroup);
+                    res = res.replaceAll(regex, theGroup);
+                } else {
+                    res = res.concat("|" + prod.getProductID() + "_" + prod.getProductName().replace(" ", "-") + "_" + prod.getShopID() + "_1");
                 }
-                else {
-                    res = res.concat("|"+prod.getProductID()+"_"+prod.getProductName().replace(" ", "-")+"_"+prod.getShopID()+"_1");
-                }
-                res = res.replace(" ","-");
+                res = res.replace(" ", "-");
                 System.out.println(res);
                 products.setValue(res);
                 response.addCookie(products);

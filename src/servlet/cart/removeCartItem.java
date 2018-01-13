@@ -1,4 +1,4 @@
-package servlet;
+package servlet.cart;
 
 import daos.impl.UserDaoImpl;
 import main.User;
@@ -18,8 +18,8 @@ public class removeCartItem extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession(false).getAttribute("user");
-        int productID =  Integer.parseInt(request.getParameter("productID"));
-        int shopID =  Integer.parseInt(request.getParameter("shopID"));
+        int productID = Integer.parseInt(request.getParameter("productID"));
+        int shopID = Integer.parseInt(request.getParameter("shopID"));
         new UserDaoImpl().removeCartItem(user, productID, shopID);
     }
 

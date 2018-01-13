@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 import daos.impl.ShopDaoImpl;
 import main.User;
@@ -23,55 +23,54 @@ public class CreateShopServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         User user = (User) request.getSession(false).getAttribute("user");
-        if(user.hasShop()){
+        if (user.hasShop()) {
             System.out.println("[INFO] Redirect to private shop panel");
             response.sendRedirect("/index.jsp?warning=Impossibile aprire piu' di un negozio per utente");
             return;
         }
 
         String shopName, shopDescription, shopWebsite,
-                shopAddress,shopState,shopOpeningHours,shopZIP,shopCity;
+                shopAddress, shopState, shopOpeningHours, shopZIP, shopCity;
 
-        if(
-            Utils.isNullOrEmpty(shopName = request.getParameter("shop-name")) ||
-            Utils.isNullOrEmpty(shopDescription = request.getParameter("shop-description")) ||
-            Utils.isNullOrEmpty(shopWebsite = request.getParameter("shop-website"))
-            ){
+        if (
+                Utils.isNullOrEmpty(shopName = request.getParameter("shop-name")) ||
+                        Utils.isNullOrEmpty(shopDescription = request.getParameter("shop-description")) ||
+                        Utils.isNullOrEmpty(shopWebsite = request.getParameter("shop-website"))
+                ) {
             response.sendRedirect("createshop.jsp?error=Campi non compilati nella Sezione Negozio");
             return;
         }
 
         if ( // tutti i campi del negozio fisico sono riempiti (creo negozio fisico)
-            !Utils.isNullOrEmpty(shopAddress = request.getParameter("shop-address")) &
-            !Utils.isNullOrEmpty(shopCity = request.getParameter("shop-city")) &
-            !Utils.isNullOrEmpty(shopState = request.getParameter("shop-state")) &
-            !Utils.isNullOrEmpty(shopZIP = request.getParameter("shop-ZIP")) &
-            !Utils.isNullOrEmpty(shopOpeningHours = request.getParameter("shop-openingHours"))
-                ){
+                !Utils.isNullOrEmpty(shopAddress = request.getParameter("shop-address")) &
+                        !Utils.isNullOrEmpty(shopCity = request.getParameter("shop-city")) &
+                        !Utils.isNullOrEmpty(shopState = request.getParameter("shop-state")) &
+                        !Utils.isNullOrEmpty(shopZIP = request.getParameter("shop-ZIP")) &
+                        !Utils.isNullOrEmpty(shopOpeningHours = request.getParameter("shop-openingHours"))
+                ) {
             System.out.println("[INFO] Tutti i campi del negozio fisico sono riempiti (ora creo negozio fisico)");
-            ArrayList<Float> latlong = Utils.updateGPSCoords(shopAddress,shopCity,shopZIP);
+            ArrayList<Float> latlong = Utils.updateGPSCoords(shopAddress, shopCity, shopZIP);
             Float shopLatitude = latlong.get(0);
             Float shopLongitude = latlong.get(1);
             boolean result = new ShopDaoImpl().createNewPhysicalShop(
-                    user,shopName,shopDescription,
-                    shopWebsite,shopAddress,shopCity,shopState,shopZIP,shopOpeningHours,shopLatitude,shopLongitude);
-            if(result)
+                    user, shopName, shopDescription,
+                    shopWebsite, shopAddress, shopCity, shopState, shopZIP, shopOpeningHours, shopLatitude, shopLongitude);
+            if (result)
                 response.sendRedirect("vendor/shop_panel.jsp");
             else
                 response.sendRedirect("createshop.jsp?error=Errore creazione negozio fisico");
             return;
-        }
-        else if (!Utils.isNullOrEmpty(shopAddress) ||
+        } else if (!Utils.isNullOrEmpty(shopAddress) ||
                 !Utils.isNullOrEmpty(shopCity) ||
                 !Utils.isNullOrEmpty(shopState) ||
                 !Utils.isNullOrEmpty(shopZIP) ||
-                !Utils.isNullOrEmpty(shopOpeningHours)){
+                !Utils.isNullOrEmpty(shopOpeningHours)) {
             response.sendRedirect("createshop.jsp?error=Campi non compilati nella sezione negozio fisico");
             return;
         }
-        int result = new ShopDaoImpl().createNewShop(user,shopName, shopDescription,shopWebsite);
+        int result = new ShopDaoImpl().createNewShop(user, shopName, shopDescription, shopWebsite);
 
-        if(result != 0)
+        if (result != 0)
             response.sendRedirect("vendor/shop_panel.jsp");
         else
             response.sendRedirect("createshop.jsp?error=Errore creazione negozio online");

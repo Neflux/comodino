@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 import daos.DisputeDao;
 import daos.NotificationDao;
@@ -21,7 +21,7 @@ public class OpenDisputeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[INFO] OpenDispute Servlet: Entered");
         request.setCharacterEncoding("UTF-8");
-        if(request.getParameter("title") == null || request.getParameter("description") == null || request.getParameter("orderID") == null || request.getParameter("productID") == null || request.getParameter("shopID") == null ){
+        if (request.getParameter("title") == null || request.getParameter("description") == null || request.getParameter("orderID") == null || request.getParameter("productID") == null || request.getParameter("shopID") == null) {
             response.sendRedirect("/index.jsp?error=Parametri Mancanti");
             return;
         }
@@ -37,15 +37,14 @@ public class OpenDisputeServlet extends HttpServlet {
 
         DisputeDao disputeDao = new DisputeDaoImpl();
         boolean result = disputeDao.createDispute(orderID, productID, shopID, title, description);
-        if (result){
+        if (result) {
             NotificationDao notificationDao = new NotificationDaoImpl();
             result = notificationDao.createDisputeNotification(title, orderID, productID, shopID);
-        }
-        else{ // la creazione della disputa è fallita
+        } else { // la creazione della disputa è fallita
             response.sendRedirect("/index.jsp?error=Errore Creazione Disputa");
             return;
         }
-        if(!result){ // la creazione della notifica della disputa è fallita
+        if (!result) { // la creazione della notifica della disputa è fallita
             response.sendRedirect("/index.jsp?error=Errore Creazione Notifica Disputa");
             return;
         }

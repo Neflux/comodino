@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user.admin;
 
 import daos.DisputeDao;
 import daos.impl.DisputeDaoImpl;
@@ -18,7 +18,7 @@ public class UpdateDisputeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[INFO] UpdateDispute Servlet: Entered");
-        if(request.getParameter("orderID") == null || request.getParameter("productID") == null || request.getParameter("shopID") == null || request.getParameter("status") == null){
+        if (request.getParameter("orderID") == null || request.getParameter("productID") == null || request.getParameter("shopID") == null || request.getParameter("status") == null) {
             response.sendRedirect("/index.jsp?error=Parametri Mancanti");
             return;
         }
@@ -31,7 +31,7 @@ public class UpdateDisputeServlet extends HttpServlet {
 
         DisputeDao disputeDao = new DisputeDaoImpl();
         boolean result = disputeDao.updateDispute(orderID, productID, shopID, status);
-        if (!result){ // la modifica della disputa è fallita
+        if (!result) { // la modifica della disputa è fallita
             response.sendRedirect("admin_panel.jsp?error=Errore modifica disputa");
             return;
         }

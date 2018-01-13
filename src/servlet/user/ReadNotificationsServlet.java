@@ -1,6 +1,5 @@
-package servlet;
+package servlet.user;
 
-import daos.impl.AddressDaoImpl;
 import daos.impl.NotificationDaoImpl;
 import main.User;
 
@@ -20,7 +19,7 @@ public class ReadNotificationsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession(false).getAttribute("user");
         boolean result = new NotificationDaoImpl().readNotifications(user);
-        if (!result){
+        if (!result) {
             response.sendRedirect("addresses.jsp?error=Errore in fase di inserimento, riprova.");
             return;
         }

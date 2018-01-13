@@ -1,8 +1,7 @@
-package servlet;
+package servlet.user.vendor;
 
 import daos.ProductDao;
 import daos.impl.ProductDaoImpl;
-import main.Product;
 import main.Shop;
 
 import javax.servlet.ServletException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Se un prodotto è già venduto da altri negozi questo servlet si occupa
@@ -39,8 +37,7 @@ public class InsertIntoShopProductServlet extends HttpServlet {
                 response.sendRedirect("inventory.jsp?success=Prodotto aggiunto con successo");
             else
                 response.sendRedirect("inventory.jsp?error=Prodotto non aggiunto");
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             response.sendRedirect("inventory.jsp?error=Errore inserimento dati");
         }
 

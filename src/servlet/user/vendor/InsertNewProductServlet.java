@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user.vendor;
 
 import daos.ProductDao;
 import daos.impl.ProductDaoImpl;
@@ -27,11 +27,11 @@ public class InsertNewProductServlet extends HttpServlet {
             if (request.getParameter("Discount").isEmpty())
                 discount = 0;
             else {
-                discount = Float.parseFloat(request.getParameter("Discount").replace(",","."));
+                discount = Float.parseFloat(request.getParameter("Discount").replace(",", "."));
                 if (discount < 1)
                     discount = discount;
                 else if (discount >= 1 && discount <= 100)
-                    discount = discount/100;
+                    discount = discount / 100;
                 else
                     discount = 0;
             }
@@ -43,16 +43,14 @@ public class InsertNewProductServlet extends HttpServlet {
             ProductDao productDao = new ProductDaoImpl();
             if (name.isEmpty() || description.isEmpty() || category.isEmpty()) {
                 response.sendRedirect("inventory.jsp?error=Tutti i campi sono richiesti");
-            }
-            else {
-                if(productDao.addNewProduct(shopID,name,description,category,price,discount,quantity, productPhoto))
+            } else {
+                if (productDao.addNewProduct(shopID, name, description, category, price, discount, quantity, productPhoto))
                     response.sendRedirect("inventory.jsp?success=Prodotto aggiunto all'inventario");
                 else {
                     response.sendRedirect("inventory.jsp?warning=Prodotto già presente in altri negozi. Trova un nome diverso o aggiungi quello.");
                 }
             }
-        }
-        catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             response.sendRedirect("inventory.jsp?error=Errore inserimento dati.");
         }
     }

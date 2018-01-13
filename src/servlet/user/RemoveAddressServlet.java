@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 import daos.impl.AddressDaoImpl;
 import main.User;
@@ -19,7 +19,7 @@ public class RemoveAddressServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession(false).getAttribute("user");
         int addressID = Integer.parseInt(request.getParameter("addressID"));
-        if(request.getParameter("addressID") == null){
+        if (request.getParameter("addressID") == null) {
             return;
         }
         boolean result = new AddressDaoImpl().removeAddress(addressID, user.getUserID());

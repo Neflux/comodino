@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user.vendor;
 
 import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
@@ -40,11 +40,11 @@ public class EditProductPriceServlet extends HttpServlet {
                             product.setPrice(pr);
                         }
                         if (!discount.isEmpty()) {
-                            ds = Float.parseFloat(discount.replace(",","."));
+                            ds = Float.parseFloat(discount.replace(",", "."));
                             if (ds < 1)
                                 product.setDiscount(ds);
                             else if (ds >= 1 && ds <= 100)
-                                product.setDiscount(ds/100);
+                                product.setDiscount(ds / 100);
                             else
                                 product.setDiscount(0);
                         }
@@ -55,8 +55,7 @@ public class EditProductPriceServlet extends HttpServlet {
                 response.sendRedirect("inventory.jsp?success=Prezzo aggiornato");
             } else
                 response.sendRedirect("inventory.jsp?success=Nessuna modifica effettuata");
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             response.sendRedirect("inventory.jsp?error=Errore inserimento dati");
         }
     }

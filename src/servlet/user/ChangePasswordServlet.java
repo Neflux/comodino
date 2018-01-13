@@ -1,10 +1,9 @@
-package servlet;
+package servlet.user;
 
 import daos.UserDao;
 import daos.impl.UserDaoImpl;
 import main.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,19 +26,17 @@ public class ChangePasswordServlet extends HttpServlet {
         String newPwd = request.getParameter("NewPassword");
         String repeatPwd = request.getParameter("RepeatPassword");
         System.out.println("Parametri: " + curPwd + " " + newPwd + " " + repeatPwd);
-        if (Objects.equals(newPwd, repeatPwd)){
+        if (Objects.equals(newPwd, repeatPwd)) {
             HttpSession session = request.getSession(false);
             User user = (User) session.getAttribute("user");
             UserDao userDao = new UserDaoImpl();
-            if (userDao.changePwd(user,curPwd,newPwd)){
+            if (userDao.changePwd(user, curPwd, newPwd)) {
                 System.out.println("[ " + user.getFirstName() + " ] Password modificata");
                 response.sendRedirect("/restricted/profile.jsp?success=Password modificata");
-            }
-            else {
+            } else {
                 response.sendRedirect("/restricted/profile.jsp?error=Password attuale errata");
             }
-        }
-        else{
+        } else {
             response.sendRedirect("/restricted/profile.jsp?error=Le nuove password non corrispondono");
         }
 

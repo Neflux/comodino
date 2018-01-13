@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 
 import daos.ShopDao;
@@ -11,11 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.file.Paths;
-import java.sql.Blob;
 
 /**
  * Permette di aggiungere una foto al negozio da parte dell'utente o del venditore stesso.
@@ -23,23 +20,6 @@ import java.sql.Blob;
 @MultipartConfig
 @WebServlet(name = "UploadShopPhotoServlet", urlPatterns = {"/restricted/uploadshopphoto"})
 public class UploadShopPhotoServlet extends HttpServlet {
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Part shopPhoto = request.getPart("shopPhoto");
-        int shopID = Integer.parseInt(request.getParameter("shopID"));
-        if (shopPhoto.getSize() > 0) {
-            HttpSession session = request.getSession(false);
-            Shop shop = (Shop) session.getAttribute("shop");
-            ShopDao shopDao = new ShopDaoImpl();
-            if (shopDao.addShopPhoto(shopID, shopPhoto)) {
-                response.sendRedirect(request.getHeader("referer"));
-            } else
-                response.sendRedirect("index.jsp?error=Upload non riuscito");
-        }
-        else response.sendRedirect("index.jsp?warning=Nessuna foto selezionata");
-    }
-
-
 
     private static String readUrl(String urlString) throws Exception {
         BufferedReader reader = null;
@@ -57,6 +37,20 @@ public class UploadShopPhotoServlet extends HttpServlet {
             if (reader != null)
                 reader.close();
         }
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Part shopPhoto = request.getPart("shopPhoto");
+        int shopID = Integer.parseInt(request.getParameter("shopID"));
+        if (shopPhoto.getSize() > 0) {
+            HttpSession session = request.getSession(false);
+            Shop shop = (Shop) session.getAttribute("shop");
+            ShopDao shopDao = new ShopDaoImpl();
+            if (shopDao.addShopPhoto(shopID, shopPhoto)) {
+                response.sendRedirect(request.getHeader("referer"));
+            } else
+                response.sendRedirect("index.jsp?error=Upload non riuscito");
+        } else response.sendRedirect("index.jsp?warning=Nessuna foto selezionata");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

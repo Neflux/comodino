@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 import daos.OrderDao;
 import daos.ProductDao;
@@ -27,11 +27,11 @@ public class CompleteOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
 
-        if(request.getParameter("card-holder-name").isEmpty() ||
-            request.getParameter("card-number").isEmpty() ||
-            request.getParameter("expiry-month").isEmpty() ||
-            request.getParameter("expiry-year").isEmpty() ||
-            request.getParameter("cvv").isEmpty()){
+        if (request.getParameter("card-holder-name").isEmpty() ||
+                request.getParameter("card-number").isEmpty() ||
+                request.getParameter("expiry-month").isEmpty() ||
+                request.getParameter("expiry-year").isEmpty() ||
+                request.getParameter("cvv").isEmpty()) {
             response.sendRedirect("/payment.jsp?error=Campi mancanti");
             return;
         }
@@ -43,7 +43,7 @@ public class CompleteOrderServlet extends HttpServlet {
         String expityYear = request.getParameter("expiry-year");
         int cvv = Integer.parseInt(request.getParameter("cvv"));
 
-        if(cvv < 100 || cvv > 999){
+        if (cvv < 100 || cvv > 999) {
             response.sendRedirect("/payment.jps?error=Cvv non valido (devono essere 3 cifre)");
             return;
         }
@@ -56,14 +56,14 @@ public class CompleteOrderServlet extends HttpServlet {
         ProductDao pd = new ProductDaoImpl();
         System.out.println("[INFO] CompleteOrder: Controllo disponibilità");
         ArrayList<String> outOfStockProducts = new ArrayList<>();
-        for (CartItem item: cart){
+        for (CartItem item : cart) {
             boolean result = pd.checkAvailability(item.getProduct().getProductID(), item.getProduct().getShopID(), item.getQuantity());
-            if(!result) {
-                System.out.println("[WARNING] CompleteOrder: Non sono soddisfatte le disponibilità di: " + item.getProduct().getProductID() +" shop: " + item.getProduct().getShopID());
+            if (!result) {
+                System.out.println("[WARNING] CompleteOrder: Non sono soddisfatte le disponibilità di: " + item.getProduct().getProductID() + " shop: " + item.getProduct().getShopID());
                 outOfStockProducts.add(item.getProduct().getProductName());
             }
         }
-        if(outOfStockProducts.size() > 0){
+        if (outOfStockProducts.size() > 0) {
             String prefix = "Non c′è più disponibilità di ";
             StringBuilder message = new StringBuilder();
             for (String outOfStockProduct : outOfStockProducts) {
@@ -71,7 +71,7 @@ public class CompleteOrderServlet extends HttpServlet {
                 prefix = ", ";
                 message.append(outOfStockProduct);
             }
-            response.sendRedirect("cart.jsp?error="+ URLEncoder.encode(message.toString(), "UTF-8"));
+            response.sendRedirect("cart.jsp?error=" + URLEncoder.encode(message.toString(), "UTF-8"));
             return;
         }
         System.out.println("[INFO] CompleteOrder: Controllo Superato");
@@ -80,7 +80,7 @@ public class CompleteOrderServlet extends HttpServlet {
 
         // TODO controllo sulla data della carta di credito che sia maggiore della data attuale
         System.out.println("[INFO] CompleteOrder: Creazione pagamento");
-        int paymentID = new PaymentDaoImpl().createPayment(user, cardHolderName, cardNumber, expiryMonth+"_"+expityYear, cvv);
+        int paymentID = new PaymentDaoImpl().createPayment(user, cardHolderName, cardNumber, expiryMonth + "_" + expityYear, cvv);
 
         // DOPO:
 
@@ -88,9 +88,9 @@ public class CompleteOrderServlet extends HttpServlet {
 
         System.out.println("[INFO] CompleteOrder: Diminuzione disponibilità");
         pd.setAutoCommit(false);
-        for (CartItem item: cart){
+        for (CartItem item : cart) {
             boolean result = pd.reduceAvailability(item.getProduct().getProductID(), item.getProduct().getShopID(), item.getQuantity());
-            if(!result) {
+            if (!result) {
                 System.out.println("[ERROR] CompleteOrder: Impossibile diminuire il prodotto: " + item.getProduct().getProductID() + " (" + item.getProduct().getProductName() + ")");
                 response.sendRedirect("cart.jsp?error=Errore riduzione quantità");
                 pd.rollback();
@@ -104,7 +104,7 @@ public class CompleteOrderServlet extends HttpServlet {
 
         OrderDao od = new OrderDaoImpl();
         int orderID = od.createOrder(user, paymentID);
-        if (orderID == 0){
+        if (orderID == 0) {
             response.sendRedirect("cart.jsp?error=Errore grave creazione ordine");
             return;
         }
@@ -113,7 +113,7 @@ public class CompleteOrderServlet extends HttpServlet {
 
         boolean result = od.cleanCart(user);
 
-        if (!result){
+        if (!result) {
             response.sendRedirect("cart.jsp?error=Il carrello non è stato liberato");
             return;
         }

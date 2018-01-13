@@ -1,7 +1,6 @@
-package servlet;
+package servlet.autentication;
 
 import daos.impl.UserDaoImpl;
-import main.User;
 import utils.Utils;
 
 import javax.servlet.ServletException;
@@ -24,16 +23,15 @@ public class EmailConfirm extends HttpServlet {
         String token;
 
         //Quick check
-        if(Utils.isNullOrEmpty(token = request.getParameter("token"))){
+        if (Utils.isNullOrEmpty(token = request.getParameter("token"))) {
             return;
         }
 
         boolean confirmed = new UserDaoImpl().confirm(request.getParameter("token"));
 
-        if(confirmed){
+        if (confirmed) {
             response.sendRedirect("/index.jsp?success=Email verificata con successo, ora puoi effettuare il login");
-        }
-        else {
+        } else {
             response.sendRedirect("/index.jsp?error=Errore nella verifica mail");
         }
     }

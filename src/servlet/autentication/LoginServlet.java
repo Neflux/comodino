@@ -1,9 +1,9 @@
-package servlet;
+package servlet.autentication;
 
 import daos.impl.ShopDaoImpl;
 import daos.impl.UserDaoImpl;
-import main.User;
 import main.Shop;
+import main.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        if(request.getParameter("email") == null || request.getParameter("password") == null){
+        if (request.getParameter("email") == null || request.getParameter("password") == null) {
             response.sendRedirect("/index.jsp?error=Parametri Mancanti");
             return;
         }
@@ -29,13 +29,12 @@ public class LoginServlet extends HttpServlet {
         System.out.println("Parametri: " + email + " " + password);
 
         // controllo nel DB se esiste un utente con lo stesso username + password
-        User user = new UserDaoImpl().authUser(email,password);
+        User user = new UserDaoImpl().authUser(email, password);
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
         if (user == null) {
             // TODO: bruttissimo che non sappia la differenza tra username/password errati e email ancora da verificare
             response.sendRedirect("/index.jsp?error=Username o password errati");
-        }
-        else {
+        } else {
             // imposto l'utente connesso come attributo di sessione
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
@@ -49,13 +48,13 @@ public class LoginServlet extends HttpServlet {
 
             Cookie cartproducts = null;
             int productsAdded = 0;
-            switch((productsAdded = new UserDaoImpl().cookieToCart(user, request.getCookies()))) {
+            switch ((productsAdded = new UserDaoImpl().cookieToCart(user, request.getCookies()))) {
                 case -1:
                     response.sendRedirect("/index.jsp");
                     break;
                 case 0:
                     response.setContentType("text/html");
-                    cartproducts = new Cookie("cartproducts","");
+                    cartproducts = new Cookie("cartproducts", "");
                     cartproducts.setMaxAge(0);
                     cartproducts.setPath("/");
                     response.addCookie(cartproducts);
@@ -63,13 +62,13 @@ public class LoginServlet extends HttpServlet {
                     break;
                 default:
                     response.setContentType("text/html");
-                    cartproducts = new Cookie("cartproducts","");
+                    cartproducts = new Cookie("cartproducts", "");
                     cartproducts.setMaxAge(0);
                     cartproducts.setPath("/");
                     response.addCookie(cartproducts);
 
-                    response.sendRedirect("/index.jsp?success="+
-                            (productsAdded==1?"Il nuovo articolo e' stato aggiunto":productsAdded+" nuovi articoli sono stati aggiunti")+
+                    response.sendRedirect("/index.jsp?success=" +
+                            (productsAdded == 1 ? "Il nuovo articolo e' stato aggiunto" : productsAdded + " nuovi articoli sono stati aggiunti") +
                             " al carrello");
                     break;
             }

@@ -1,4 +1,4 @@
-package servlet;
+package servlet.autentication;
 
 import daos.UserDao;
 import daos.impl.UserDaoImpl;
@@ -18,7 +18,7 @@ import java.io.IOException;
 public class PasswordRequestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if(Utils.isNullOrEmpty(request.getParameter("email"))){
+        if (Utils.isNullOrEmpty(request.getParameter("email"))) {
             response.sendRedirect("/index.jsp");
             return;
         }
@@ -26,21 +26,18 @@ public class PasswordRequestServlet extends HttpServlet {
         String email = request.getParameter("email");
 
         UserDao user = new UserDaoImpl();
-        if(user.checkEmail(email)){
+        if (user.checkEmail(email)) {
             String passwordResetToken = Utils.sendResetEmail(email);
-            if(passwordResetToken != null){
-                if(user.updateResetToken(email, passwordResetToken)){
+            if (passwordResetToken != null) {
+                if (user.updateResetToken(email, passwordResetToken)) {
                     response.sendRedirect("/index.jsp?success=Email di recupero password inviata con successo");
-                }
-                else{
+                } else {
                     response.sendRedirect("/index.jsp?error=Errore: impossibile generare il token di recupero");
                 }
-            }
-            else{
+            } else {
                 response.sendRedirect("/index.jsp?error=Errore: connessione SMPT fallita");
             }
-        }
-        else{
+        } else {
             System.out.println("[SECURITY WARNING] Tentativo di recupero password per una mail non associata a nessun account " +
                     "IP: " + request.getRemoteAddr());
             response.sendRedirect("/index.jsp?success=Email di recupero password inviata con successo");

@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user.vendor;
 
 import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
@@ -28,7 +28,7 @@ public class RemoveProductServlet extends HttpServlet {
         Shop shop = (Shop) session.getAttribute("shop");
         ShopDao shopDao = new ShopDaoImpl();
         ArrayList<Product> products = shopDao.obtainProducts(shop.getShopID());
-        for (Product product:products) {
+        for (Product product : products) {
             if (product.getProductID() == id) {
                 product.setQuantity(-1);
                 shopDao.editShopProduct(product, shop.getShopID());

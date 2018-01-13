@@ -1,9 +1,7 @@
-package servlet;
+package servlet.user.vendor;
 
 import daos.ProductDao;
-import daos.ShopDao;
 import daos.impl.ProductDaoImpl;
-import daos.impl.ShopDaoImpl;
 import main.Product;
 import main.Shop;
 
@@ -46,13 +44,12 @@ public class AddProductServlet extends HttpServlet {
             if (productID > 0) {
                 productDao.restoreProduct(shop.getShopID(), productID);
                 response.sendRedirect("inventory.jsp?success=Prodotto gia' presente in passato. Reinserito in inventario.");
-            }
-            else {
+            } else {
                 ArrayList<Product> products = new ArrayList<>();
                 productDao.getSimilarProducts(products, productName);
                 request.setAttribute("products", products);
                 request.setAttribute("productName", productName);
-                request.getRequestDispatcher("add_product.jsp").forward(request,response);
+                request.getRequestDispatcher("add_product.jsp").forward(request, response);
             }
         }
     }

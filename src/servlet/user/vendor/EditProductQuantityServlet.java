@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user.vendor;
 
 import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
@@ -42,8 +42,7 @@ public class EditProductQuantityServlet extends HttpServlet {
                 response.sendRedirect("inventory.jsp?success=Quantita' aggiornata");
             } else
                 response.sendRedirect("inventory.jsp?warning=Nessuna modifica effettuata");
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             response.sendRedirect("inventory.jsp?error=Errore inserimento dati");
         }
     }

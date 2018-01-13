@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user.vendor;
 
 import daos.ReviewDao;
 import daos.impl.ReviewDaoImpl;
@@ -20,7 +20,7 @@ public class OpenReviewReplyServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         System.out.println("[INFO] OpenReviewReply Servlet: Entered");
-        if(request.getParameter("description") == null || request.getParameter("reviewID") == null ){
+        if (request.getParameter("description") == null || request.getParameter("reviewID") == null) {
             response.sendRedirect("/index.jsp?error=Parametri Mancanti");
             return;
         }
@@ -33,7 +33,7 @@ public class OpenReviewReplyServlet extends HttpServlet {
 
         ReviewDao reviewDao = new ReviewDaoImpl();
         int newReviewReply = reviewDao.createProductReviewReply(description, reviewID);
-        if (newReviewReply == 0){    // la creazione della risposte è fallita
+        if (newReviewReply == 0) {    // la creazione della risposte è fallita
             response.sendRedirect("/index.jsp?error=Errore Creazione Recensione");
             return;
         }

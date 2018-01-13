@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user.vendor;
 
 import daos.ShopDao;
 import daos.impl.ShopDaoImpl;
@@ -24,6 +24,24 @@ import java.net.URL;
 @WebServlet(name = "EditShopInfoServlet", urlPatterns = {"/restricted/vendor/editshopinfo"})
 public class EditShopInfoServlet extends HttpServlet {
 
+    private static String readUrl(String urlString) throws Exception {
+        BufferedReader reader = null;
+        try {
+            URL url = new URL(urlString);
+            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            StringBuffer buffer = new StringBuffer();
+            int read;
+            char[] chars = new char[1024];
+            while ((read = reader.read(chars)) != -1)
+                buffer.append(chars, 0, read);
+
+            return buffer.toString();
+        } finally {
+            if (reader != null)
+                reader.close();
+        }
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String shopName = request.getParameter("ShopName");
@@ -38,10 +56,10 @@ public class EditShopInfoServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         Shop shop = (Shop) session.getAttribute("shop");
         boolean isPhysical = false;
-        if (!shopName.isEmpty()){
+        if (!shopName.isEmpty()) {
             shop.setName(shopName);
         }
-        if (!shopDescription.isEmpty()){
+        if (!shopDescription.isEmpty()) {
             shop.setDescription(shopDescription);
         }
         if (!shopWebsite.isEmpty()) {
@@ -58,7 +76,7 @@ public class EditShopInfoServlet extends HttpServlet {
             if (!shopCAP.isEmpty()) {
                 ((PhysicalShop) shop).setZip(shopCAP);
             }
-            if (!shopState.isEmpty()){
+            if (!shopState.isEmpty()) {
                 ((PhysicalShop) shop).setState(shopState);
             }
             if (!shopHours.isEmpty()) {
@@ -74,34 +92,13 @@ public class EditShopInfoServlet extends HttpServlet {
             } else {
                 response.sendRedirect("shop_panel.jsp?warning=Info non aggiornate");
             }
-        }
-        else {
+        } else {
             if (shopDao.editInfo(shop)) {
                 System.out.println("[ " + shop.getName() + " ] Info modificate");
                 response.sendRedirect("shop_panel.jsp?success=Info aggiornate");
             } else {
                 response.sendRedirect("shop_panel.jsp?warning=Info non aggiornate");
             }
-        }
-    }
-
-
-
-    private static String readUrl(String urlString) throws Exception {
-        BufferedReader reader = null;
-        try {
-            URL url = new URL(urlString);
-            reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            StringBuffer buffer = new StringBuffer();
-            int read;
-            char[] chars = new char[1024];
-            while ((read = reader.read(chars)) != -1)
-                buffer.append(chars, 0, read);
-
-            return buffer.toString();
-        } finally {
-            if (reader != null)
-                reader.close();
         }
     }
 

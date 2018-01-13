@@ -21,38 +21,33 @@ public class GetVendorsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection con = DBManager.getCon();
 
-        if (request.getParameter("getQuantity").equals("1"))
-        {
+        if (request.getParameter("getQuantity").equals("1")) {
             PreparedStatement stm;
             try {
-                stm = con.prepareStatement("SELECT COUNT(*) as Conto FROM product, shopproduct, shop WHERE product.name = ? AND shopproduct.Quantity > 0 AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID ");
+                stm = con.prepareStatement("SELECT COUNT(*) AS Conto FROM product, shopproduct, shop WHERE product.name = ? AND shopproduct.Quantity > 0 AND product.ProductID = shopproduct.ProductID AND shopproduct.ShopID = shop.ShopID ");
 
                 String ret = "";
                 stm.setString(1, request.getParameter("nome_prodotto"));
-                try (ResultSet rs = stm.executeQuery()){
+                try (ResultSet rs = stm.executeQuery()) {
                     System.out.println(stm.toString());
-                    while(rs.next()) {
+                    while (rs.next()) {
                         ret += rs.getInt("Conto");
                     }
 
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(ret);
-                } catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
-                }
-                finally {
+                } finally {
                     stm.close();
                 }
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        else
-        {
-            if (request.getParameter("nome_prodotto") != null)
-            {
+        } else {
+            if (request.getParameter("nome_prodotto") != null) {
                 PreparedStatement stm;
                 try {
                     stm = con.prepareStatement("SELECT product.ProductID, shop.*, shopproduct.Price, shopproduct.Discount, shopproduct.Quantity, round(shopproduct.Price * (1-shopproduct.Discount),2) as ActualPrice \n" +
@@ -64,10 +59,10 @@ public class GetVendorsServlet extends HttpServlet {
 
                     String ret = "";
                     stm.setString(1, request.getParameter("nome_prodotto"));
-                    try (ResultSet rs = stm.executeQuery()){
+                    try (ResultSet rs = stm.executeQuery()) {
                         System.out.println(stm.toString());
-                        while(rs.next()) {
-                            ret += "<div class=\"col-md-8 col-xs-8 mod\"><a href=\"/product.jsp?product="+rs.getInt("ProductID")+"&shop="+rs.getInt("ShopID")+"\">" + rs.getString("Name") + "</a></div>\n" +
+                        while (rs.next()) {
+                            ret += "<div class=\"col-md-8 col-xs-8 mod\"><a href=\"/product.jsp?product=" + rs.getInt("ProductID") + "&shop=" + rs.getInt("ShopID") + "\">" + rs.getString("Name") + "</a></div>\n" +
                                     "                                    <div class=\"col-md-4 col-xs-4 mod text-left\">\n" +
                                     "                                        <span class=\"white valign\">da " + rs.getFloat("ActualPrice") + " €</span>\n" +
                                     "                                        <span class=\"float-right\"><a href=\"/product.jsp?product=" + rs.getString("ProductID") + "&shop=" + rs.getString("ShopID") + "\"><i class=\"fa fa-angle-double-right white valign\" aria-hidden=\"true\"></i></a></span>\n" +
@@ -77,10 +72,9 @@ public class GetVendorsServlet extends HttpServlet {
                         response.setContentType("text/plain");
                         response.setCharacterEncoding("UTF-8");
                         response.getWriter().write(ret);
-                    } catch(Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }
-                    finally {
+                    } finally {
                         stm.close();
                     }
 

@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 
 import daos.UserDao;
@@ -29,8 +29,7 @@ public class UploadUserPhotoServlet extends HttpServlet {
                 response.sendRedirect("/restricted/profile.jsp?success=Foto caricata con successo!");
             } else
                 response.sendRedirect("/restricted/profile.jsp?error=File troppo grande (Max 4 MB)");
-        }
-        else response.sendRedirect("/restricted/profile.jsp?warning=Nessuna foto selezionata");
+        } else response.sendRedirect("/restricted/profile.jsp?warning=Nessuna foto selezionata");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,14 +1,12 @@
-package servlet;
+package servlet.autentication;
 
 import daos.impl.UserDaoImpl;
-import main.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -27,7 +25,7 @@ public class RegisterServlet extends HttpServlet {
         System.out.println("[INFO] Registrazione: " + firstname + " " + lastname + ", " + email + " " + password);
 
         // se non esiste, ridirigo verso pagina di login con messaggio di errore
-        switch(new UserDaoImpl().register(firstname, lastname, email, password)) {
+        switch (new UserDaoImpl().register(firstname, lastname, email, password)) {
             case -4:
                 response.sendRedirect(request.getContextPath() + "/index.jsp?error=Inserisci una email corretta (RFC-5321)");
                 break;
@@ -37,11 +35,12 @@ public class RegisterServlet extends HttpServlet {
             case -2:
                 response.sendRedirect(request.getContextPath() + "/index.jsp?error=Alcuni campi sono rimasti vuoti");
                 break;
-            case -1: case 0:
+            case -1:
+            case 0:
                 response.sendRedirect(request.getContextPath() + "/index.jsp?error=Email gia' in uso");
                 break;
             case 1:
-                response.sendRedirect(request.getContextPath() + "/index.jsp?success=Registrazione effettuata! Controlla la mail "+email);
+                response.sendRedirect(request.getContextPath() + "/index.jsp?success=Registrazione effettuata! Controlla la mail " + email);
                 break;
             default:
                 response.sendRedirect(request.getContextPath() + "/index.jsp?error=Server-Side error");

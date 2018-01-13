@@ -1,4 +1,4 @@
-package servlet;
+package servlet.search;
 
 import daos.impl.ProductDaoImpl;
 

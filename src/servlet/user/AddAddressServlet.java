@@ -1,4 +1,4 @@
-package servlet;
+package servlet.user;
 
 import daos.impl.AddressDaoImpl;
 import main.User;
@@ -27,16 +27,16 @@ public class AddAddressServlet extends HttpServlet {
         String zip = request.getParameter("zip");
         String state = request.getParameter("state");
         String phonenumber = request.getParameter("phonenumber");
-        if(firstname == null || lastname == null || address == null || city == null || zip == null || state == null || phonenumber == null){
+        if (firstname == null || lastname == null || address == null || city == null || zip == null || state == null || phonenumber == null) {
             response.sendRedirect("addresses.jsp?error=Completa tutti i campi");
         }
-        boolean result = new AddressDaoImpl().addAddress(user.getUserID(),firstname,lastname,address,city,zip,state,phonenumber);
-        if (!result){
+        boolean result = new AddressDaoImpl().addAddress(user.getUserID(), firstname, lastname, address, city, zip, state, phonenumber);
+        if (!result) {
             response.sendRedirect("addresses.jsp?error=Errore in fase di inserimento, riprova.");
             return;
         }
-        if(!Utils.isNullOrEmpty(request.getParameter("from"))){
-            response.sendRedirect("addresses.jsp?success=Indirizzo aggiunto!&from="+request.getParameter("from"));
+        if (!Utils.isNullOrEmpty(request.getParameter("from"))) {
+            response.sendRedirect("addresses.jsp?success=Indirizzo aggiunto!&from=" + request.getParameter("from"));
             return;
         }
         response.sendRedirect("addresses.jsp?success=Indirizzo aggiunto!");
