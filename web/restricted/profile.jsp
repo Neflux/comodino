@@ -118,7 +118,6 @@
         <div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="editInfoLabel">
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
-                    <%--TODO:Auto-populate previous values--%>
                     <form id="editInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editinfo">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Modifica dati</h4>
@@ -128,19 +127,19 @@
                           <span class="input-group-addon">
                               <i class="fa fa-lock green" aria-hidden="true"></i>
                           </span>
-                                <input name="FirstName" type="text" class="form-control"  placeholder="Nome...">
+                                <input name="FirstName" type="text" class="form-control"  placeholder="${user.firstName}" value="${user.firstName}">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-key green" aria-hidden="true"></i>
                           </span>
-                                <input name="LastName" type="text" class="form-control" placeholder="Cognome..."/>
+                                <input name="LastName" type="text" class="form-control" placeholder="${user.lastName}" value="${user.lastName}"/>
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-repeat green" aria-hidden="true"></i>
                           </span>
-                                <input name="Email" type="email" class="form-control" placeholder="Email..."/>
+                                <input name="Email" type="email" class="form-control" placeholder="${user.email}" value="${user.email}"/>
                             </div>
                         </div>
                         <div class="footer text-center">
@@ -154,25 +153,22 @@
         <div class="modal fade" id="showPrivacy" tabindex="-1" role="dialog" aria-labelledby="editInfoLabel">
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
-                        <%--TODO:Auto-populate previous values--%>
-                    <form id="editInfoForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/editinfo">
-                        <div class="header header-primary text-center">
-                            <h4 class="title title-up">Dichiarazione sulla Privacy</h4>
+                    <div class="header header-primary text-center">
+                        <h4 class="title title-up">Dichiarazione sulla Privacy</h4>
+                    </div>
+                    <div class="content">
+                        <div class="input-group form-group-no-border nologin" style="color:#ffffff">
+                            La disciplina relativa all’uso dei c.d. “<b>cookie</b>” e di altri strumenti analoghi nei terminali (personal computer, notebook, tablet pc, smartphone, ecc.) utilizzati dagli utenti, è stata <b>modificata</b> a seguito dell’attuazione della Direttiva CEE 2009/136/CE che ha modificato la Direttiva “e-Privacy” 2002/58/CE.
+                            <br>
+                            <br>
+                            Il <b>recepimento</b> della nuova Direttiva è avvenuto in Italia con il Decreto legislativo 28 maggio 2012, n. 69 che ha apportato modifiche al decreto legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali”.
+                            <br>
+                            <b>Salviamo</b> anche i dati che il tuo <b>browser</b> ogni volta che fa una richiesta (ad esempio: indirizzi IP, headers) da usare a fini statistici.
                         </div>
-                        <div class="content">
-                            <div class="input-group form-group-no-border nologin" style="color:#ffffff">
-                                La disciplina relativa all’uso dei c.d. “<b>cookie</b>” e di altri strumenti analoghi nei terminali (personal computer, notebook, tablet pc, smartphone, ecc.) utilizzati dagli utenti, è stata <b>modificata</b> a seguito dell’attuazione della Direttiva CEE 2009/136/CE che ha modificato la Direttiva “e-Privacy” 2002/58/CE.
-                                <br>
-                                <br>
-                                Il <b>recepimento</b> della nuova Direttiva è avvenuto in Italia con il Decreto legislativo 28 maggio 2012, n. 69 che ha apportato modifiche al decreto legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali”.
-                                <br>
-                                <b>Salviamo</b> anche i dati che il tuo <b>browser</b> ogni volta che fa una richiesta (ad esempio: indirizzi IP, headers) da usare a fini statistici.
-                            </div>
-                        </div>
-                        <div class="footer text-center">
-                            <a class="btn btn-default" href="${pageContext.request.contextPath}/restricted/acceptprivacy">Accetta</a>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="footer text-center">
+                        <a class="btn btn-default" href="${pageContext.request.contextPath}/restricted/acceptprivacy">Accetta</a>
+                    </div>
                 </div>
             </div>
         </div>

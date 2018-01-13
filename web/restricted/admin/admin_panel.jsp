@@ -46,14 +46,6 @@
                                             onclick="filtraInAttesa()">
                                         Vedi solo dispute aperte
                                     </button>
-                                        <%-- TODO: se c'è tempo facciamo ste due robette
-                                        <button type="button" class="btn btn-block btn-success">
-                                            Rimborsa ogni disputa aperta
-                                        </button>
-                                        <button type="button" class="btn btn-block btn-danger">
-                                            Declina ogni disputa aperta
-                                        </button>
-                                        --%>
                                 </div>
                             </div>
                             <div class="col-xs-12">

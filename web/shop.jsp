@@ -249,7 +249,6 @@
         <div class="modal fade" id="uploadShopPhoto" tabindex="-1" role="dialog" aria-labelledby="uploadShopPhotoLabel">
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
-                        <%--TODO:Auto-populate previous values--%>
                     <form id="uploadShopPhotoForm" class="form" method="POST" enctype="multipart/form-data"
                           action="${pageContext.request.contextPath}/restricted/uploadshopphoto">
                         <div class="header header-primary text-center">

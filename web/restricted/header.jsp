@@ -134,7 +134,6 @@
                                     <c:forEach items="${admin_notifications}" var="n" varStatus="i" end="3">
                                         <li class="notificationBlock">
                                             <a href="${pageContext.request.contextPath}/product.jsp?product=${n.productId}&shop=${n.shopId}">
-                                                <%-- TODO: fare più bella la notifica nuova --%>
                                                 <c:if test="${n.adminStatus == 0}"><b>NEW </b></c:if>Disputa:
                                                 <c:set var="dateParts" value="${fn:split(n.creationDate, ' ')}" scope="page"/>
                                                 <c:set var="date" value="${fn:split(dateParts[0], '-')}" scope="page"/>
@@ -160,7 +159,7 @@
                                 <c:if test="${fn:length(admin_notifications) gt 5}">
                                     <a href="${pageContext.request.contextPath}/restricted/admin/admin_panel.jsp">Vedi tutte (altre ${fn:length(admin_notifications)-4})</a>
                                 </c:if>
-                            </li><!-- TODO: sistemare formattazione notifiche -->
+                            </li>
                         </ul>
                     </li>
                 </c:if>
@@ -193,23 +192,6 @@
                         </div>
                     </div>
                 </form>
-                <!--form class="navbar-form" type="GET" action="${pageContext.request.contextPath}/search">
-                        <div class="btn btn-default btn-left dropdown">
-                            <a href="#" class="dropdown-toggle navbar-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorie&nbsp;&nbsp;<span class="caret"></span></a>
-
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Tutte le Categorie</a></li>
-                                <c:forEach items="${allcategories}" var="cat">
-                                    <li><a href="#">${cat.categoryName}</a></li>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control no-border" name="q" placeholder="Cerca" required>
-                        </div>
-                        <button type="submit" class="btn btn-default btn-right"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form-->
-
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
