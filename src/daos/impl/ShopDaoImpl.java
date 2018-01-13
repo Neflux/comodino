@@ -396,14 +396,13 @@ public class ShopDaoImpl implements ShopDao {
             }
 
         }
-        // TODO: Settare shopID nell'user con id userID e updatare
+
         return 0;
     }
 
     @Override
     public boolean createNewPhysicalShop(User user, String shopName, String shopDescription, String shopWebsite, String shopAddress, String shopCity, String shopState, String shopZIP, String shopOpeningHours, Float shopLatitude, Float shopLongitude) {
         int shopID = createNewShop(user, shopName, shopDescription, shopWebsite);
-        // TODO: Aggiungere la posizione da indirizzo @delsi del sale
         if (shopID != 0) {
             try {
                 PreparedStatement stm = con.prepareStatement("INSERT INTO shopinfo (ShopID, Latitude, Longitude, Address, City, State, ZIP, OpeningHours) VALUES (?,?,?,?,?,?,?,?)");

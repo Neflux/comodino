@@ -129,7 +129,7 @@ public interface ProductDao extends Serializable {
      * @param price Prezzo 'float' del prodotto
      * @param discount Sconto 'float' del prodotto
      * @param quantity Quantità 'int' del prodotto
-     * @param productPhoto TODO: DELSY COS'E' IL FILE PART
+     * @param productPhoto Oggetto di tipo 'Part' contenente l'immagine
      * @return
      */
     boolean addNewProduct(int shopID, String name, String description, String category, float price, float discount, int quantity, Part productPhoto);

@@ -89,7 +89,6 @@ public class ProductDaoImpl implements ProductDao {
 
         Product prod = new Product();
 
-        //TODO: invece che tutti questi try catch non si potrebbe studiare la casistica di sottogruppi possibili e farne solo 2-3?
         try {
             prod.setProductID(rs.getInt("ProductID"));
         } catch (Exception e) {
