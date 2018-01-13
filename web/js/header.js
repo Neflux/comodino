@@ -23,6 +23,24 @@ $(function(){
 
 function openLoginModal()
 {
+    $('#form').data('validator', null);
+    $("#form").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: "required"
+        },
+        messages: {
+            email: {
+                required: "Questo campo è obbligatorio",
+                email: "Inserisci un'email valida"
+            },
+            password: "Questo campo è obbligatorio"
+        }
+    });
+
     $(".nologin").css("visibility","hidden");
     $('#LoginSignup').modal('show');
     if (first === false)
@@ -37,9 +55,35 @@ function openSignupModal()
 }
 
 
+$.validator.methods.email = function( value, element ) {
+    return this.optional( element ) || /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test( value );
+}
+
+jQuery.validator.setDefaults({
+    debug: true,
+    success: "valid"
+});
 
 function show_login(vel)
 {
+    $('#form').data('validator', null);
+    $("#form").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: "required"
+        },
+        messages: {
+            email: {
+                required: "Questo campo è obbligatorio",
+                email: "Inserisci un'email valida"
+            },
+            password: "Questo campo è obbligatorio"
+        }
+    });
+
     $('.nologin').each(function () {
         var v = $(this);
         v.animate({opacity: 0}, vel, function () {
@@ -56,15 +100,40 @@ function show_login(vel)
     $('#card_change_button').html('Non hai ancora un account? <a href="#" onclick="show_signup(500);">Registrati</a>');
     $('#card_forgot_button').css("display","initial");
     $('#card_forgot_button').animate({opacity:1},vel);
+    $('#card_forgot_button').removeClass('fadeOut');
     $('#form').attr('action','/login');
     $("#doButton").text("Entra");
     $("#card_forgot_button").html('Hai dimenticato la <a onclick="show_forgot();" style="cursor:pointer">password</a>?');
+    $("#doButton").css('pointer-events',"initial");
+    $("#doButton").removeClass("disabled");
 
     $( "#pw" ).unbind("keyup");
 }
 
 function show_signup(vel)
 {
+    $('#form').data('validator', null);
+    $("#form").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: "required",
+            firstname: "required",
+            lastname: "required"
+        },
+        messages: {
+            email: {
+                required: "Questo campo è obbligatorio",
+                email: "Inserisci un'email valida"
+            },
+            password: "Questo campo è obbligatorio",
+            firstname: "Inserisci il tuo nome",
+            lastname: "Inserisci il tuo cognome"
+        }
+    });
+
     $("#doButton").css('pointer-events',"none");
     $(".nologin").css("visibility","initial");
     $('.noforgot').each(function () {
@@ -119,6 +188,22 @@ function checkre()
 
 function show_forgot(vel)
 {
+    $('#form').data('validator', null);
+    $("#form").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            email: {
+                required: "Questo campo è obbligatorio",
+                email: "Inserisci un'email valida"
+            }
+        }
+    });
+
     $(".nologin").css("visibility","hidden");
     $(".yeslogin").animate({opacity:0,marginTop:"-40px"},vel, function () {
         $(".noforgot").css("margin-right","10000px");
@@ -141,6 +226,24 @@ function show_forgot(vel)
 
 function show_login_from_forgot(vel)
 {
+    $('#form').data('validator', null);
+    $("#form").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: "required"
+        },
+        messages: {
+            email: {
+                required: "Questo campo è obbligatorio",
+                email: "Inserisci un'email valida"
+            },
+            password: "Questo campo è obbligatorio"
+        }
+    });
+
     $(".nologin").css("pointer-events","none");
     $(".noforgot").css("margin-right","0px");
     $(".yeslogin").animate({marginTop:"0px",opacity:1},vel);

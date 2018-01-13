@@ -82,9 +82,9 @@ function check_pws() {
     }
 }
 
-$.validator.methods.email = function( value, element ) {
-    return this.optional( element ) || /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test( value );
-}
+
+
+/*
 $("#form").validate({
     rules: {
         email: {
@@ -130,7 +130,7 @@ jQuery.validator.setDefaults({
 jQuery.extend(jQuery.validator.messages, {
     email: jQuery.validator.format("Inserisci una mail valida")
 });
-
+*/
 /*
 
 
