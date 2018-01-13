@@ -50,6 +50,10 @@ public class CreateShopServlet extends HttpServlet {
                 ) {
             System.out.println("[INFO] Tutti i campi del negozio fisico sono riempiti (ora creo negozio fisico)");
             ArrayList<Float> latlong = Utils.updateGPSCoords(shopAddress, shopCity, shopZIP);
+            if(latlong == null){
+                response.sendRedirect("vendor/shop_panel.jsp?error=Inserisci un indirizzo valido");
+                return;
+            }
             Float shopLatitude = latlong.get(0);
             Float shopLongitude = latlong.get(1);
             boolean result = new ShopDaoImpl().createNewPhysicalShop(

@@ -99,7 +99,12 @@ public interface ProductDao extends Serializable {
      */
     boolean restoreProduct(int shopID, int productID);
 
-    //TODO: DELSY COMMENTA STA ROBA NON CAPISCO
+    /**
+     * Ottiene i prodotti dal nome simile al prodotto cercato dall'utente
+     *
+     * @param products Array di oggetti "Product" che viene caricata per riferimento
+     * @param productName Stringa che definisce il prodotto cercato dall'utente
+     */
     void getSimilarProducts(ArrayList<Product> products, String productName);
 
     /**
@@ -124,12 +129,20 @@ public interface ProductDao extends Serializable {
      * @param price Prezzo 'float' del prodotto
      * @param discount Sconto 'float' del prodotto
      * @param quantity Quantità 'int' del prodotto
-     * @param productPhoto TODO: DELSY COS'E' IL FILE PART
+     * @param productPhoto Oggetto di tipo 'Part' contenente l'immagine
      * @return
      */
     boolean addNewProduct(int shopID, String name, String description, String category, float price, float discount, int quantity, Part productPhoto);
 
+    /**
+     * Utile per disattivare momentaneamente il commit automatico per gli update molteplici
+     *
+     * @param b 'True' lo attiva, 'false' lo disattiva
+     */
     void setAutoCommit(boolean b);
 
+    /**
+     * Annulla i parziali cambiamenti al database
+     */
     void rollback();
 }

@@ -220,7 +220,6 @@
                             <h4 class="title title-up">Aggiungi Nuovo Prodotto</h4>
                         </div>
                         <div class="content">
-                            // TODO - testo justificato meglio come vuole bonny
                             <p style="color: #ffffff; padding-bottom: 20px; text-align: justify">Se vuoi aggiungere un prodotto già venduto da altri venditori puoi cercarlo utilizzando l'apposita barra, altrimenti clicca su "Aggiungi".</p>
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">

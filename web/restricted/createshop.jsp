@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="shop-address">Indirizzo</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="shop-address" id="shop-address" placeholder="via Brombei">
+                                <input type="text" class="form-control" name="shop-address" id="shop-address" placeholder="via Brombeis">
                             </div>
                         </div>
                         <div class="form-group">
