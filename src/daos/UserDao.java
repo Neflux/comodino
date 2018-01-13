@@ -141,7 +141,7 @@ public interface UserDao extends Serializable {
      * @param cookies Array di 'Cookie' attualmente esistente per l'utente
      * @return -1: cookie vuoto o assente, situazione invariata
      *          0: errore nel parsing del cookie
- *            x>0: quantità di prodotti successivamente integrati
+     *        x>0: quantità di prodotti successivamente integrati
      */
     int cookieToCart(User user, Cookie[] cookies);
 
@@ -153,5 +153,12 @@ public interface UserDao extends Serializable {
 
     boolean resetPassword(String token, String email, String pwda);
 
+    /**
+     * Aggiunge foto all'utente
+     *
+     * @param user          Oggetto User che rappresenta uno specifico utente
+     * @param userPhoto     Foto da aggiungere
+     * @return              true se ha successo false altrimenti
+     */
     boolean addUserPhoto(User user, Part userPhoto);
 }
