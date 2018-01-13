@@ -325,7 +325,6 @@ public class UserDaoImpl implements UserDao {
             return -4;
         }
         try {
-            // TODO: Da aggiungere un campo al db con un tempo per fare scadere il token dopo un tot
             PreparedStatement stm = this.con.prepareStatement("INSERT INTO user (UserID,FirstName,LastName,Email,Password,Type,Privacy,EmailConfirm) VALUES (NULL,?,?,?,?,0,0,?)");
             stm.setString(1, firstname);
             stm.setString(2, lastname);
