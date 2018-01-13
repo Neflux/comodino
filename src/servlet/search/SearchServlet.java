@@ -20,8 +20,8 @@ import java.util.Map;
  * Data una query di ricerca si occupa di recuperare e visualizzare i prodotti più similim
  * gestendo eventuali filtri di ricerca.
  */
-@WebServlet(name = "Search", urlPatterns = {"/search"})
-public class Search extends HttpServlet {
+@WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
+public class SearchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }

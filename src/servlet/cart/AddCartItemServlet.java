@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
  * Si occupa di aggiungere il prodotto selezionato al carrello,
  * se l'utente non è loggato crea un carrello temporaneo tramite cookies
  */
-@WebServlet(name = "addCartItem", urlPatterns = {"/addcartitem"})
-public class addCartItem extends HttpServlet {
+@WebServlet(name = "AddCartItemServlet", urlPatterns = {"/addcartitem"})
+public class AddCartItemServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession(false).getAttribute("user");

@@ -13,8 +13,8 @@ import java.io.IOException;
 /**
  * Si occupa di inviare un email di conferma all'indirizzo email fornito in fase di registrazione.
  */
-@WebServlet(name = "EmailConfirm", urlPatterns = {"/emailConfirm"})
-public class EmailConfirm extends HttpServlet {
+@WebServlet(name = "EmailConfirmServlet", urlPatterns = {"/emailConfirm"})
+public class EmailConfirmServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
