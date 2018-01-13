@@ -80,10 +80,79 @@ function check_pws() {
         $("#doButtonReset").css('pointer-events',"initial");
         $("#doButton").removeClass("disabled");
     }
-
 }
 
+
+
 /*
+$("#form").validate({
+    rules: {
+        email: {
+            required: true,
+            email: true
+        },
+        password: {
+            required: {
+                depends: function () {
+                    return $("#form").attr("action") !== "/passwordRequest";
+                }
+            }
+        },
+        firstname: {
+            required: {
+                depends: function () {
+                    return $("#form").attr("action") === "/register";
+                }
+            }
+        },
+        lastname: {
+            required: {
+                depends: function () {
+                    return $("#form").attr("action") === "/register";
+                }
+            }
+        }
+    },
+    messages: {
+        email: {
+            required: "Questo campo è obbligatorio",
+            email: "Inserisci un'email valida"
+        },
+        password: "Questo campo è obbligatorio",
+        firstname: "Inserisci il tuo nome",
+        lastname: "Inserisci il tuo cognome"
+    }
+});
+jQuery.validator.setDefaults({
+    debug: true,
+    success: "valid"
+});
+jQuery.extend(jQuery.validator.messages, {
+    email: jQuery.validator.format("Inserisci una mail valida")
+});
+*/
+/*
+
+
+
+$("#signupform")
+    .validate({
+        rules: {
+            password: "required",
+            postcode: {
+                required: true,
+                minlength: 3
+            }
+        },
+        messages: {
+            password: "Field Password is required",
+            postcode: {
+                required: "Field PostCode is required",
+                minlength: "Field PostCode must contain at least 3 characters"
+            }
+    });
+
+
 $("#resetpasswordform").validate({
     rules: {
         pwda: "required",
@@ -96,7 +165,6 @@ jQuery.validator.setDefaults({
     debug: true,
     success: "valid"
 });
-
 jQuery.extend(jQuery.validator.messages, {
     equalTo: jQuery.validator.format("Le password non combaciano")
 });

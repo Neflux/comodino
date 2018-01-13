@@ -87,7 +87,9 @@
                                                     style="font-size: small">h: ${time[0]}:${time[1]}</span>
                                             </td>
                                             <td style="text-align: center">
-                                                    ${dispute.orderID} - ${dispute.productID} - ${dispute.shopID}
+                                                    ${dispute.orderID} -
+                                                        <a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${dispute.productID}&shop=${dispute.shopID}">${dispute.productID}</a> -
+                                                        <a class="resetcolor" href="${pageContext.request.contextPath}/shop.jsp?id=${dispute.shopID}">${dispute.shopID}</a>
                                             </td>
                                             <td style="text-align: center">
                                                 <c:choose>

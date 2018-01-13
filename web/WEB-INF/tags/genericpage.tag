@@ -63,6 +63,8 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/custom.js"></script>
 <script src="${pageContext.request.contextPath}/js/now-ui-kit.js"></script>
+<script src="${pageContext.request.contextPath}/js/validate/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/validate/additional-methods.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/header.js"></script>
 
 <jsp:invoke fragment="pagejavascript"/>
