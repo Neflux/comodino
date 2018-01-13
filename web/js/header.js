@@ -104,14 +104,16 @@ function checkre()
     var v = $('#pw').val();
     if (!re.test(v)) {
         $("#card_forgot_button").css("display","initial");
-        $("#card_forgot_button").text("La password deve contere almeno 6 caratteri, una maiuscola e una minuscola");
+        $("#card_forgot_button").text("La password deve contere almeno 6 caratteri, una maiuscola, una minuscola e un numero");
         $("#card_forgot_button").removeClass("animated fadeOut");
         $("#card_forgot_button").addClass("animated fadeIn");
         $("#doButton").css('pointer-events',"none");
+        $("#doButton").addClass("disabled");
     } else {
         $("#card_forgot_button").addClass("animated fadeOut");
         setTimeout(function(){ $("#card_forgot_button").css("display", "none"); }, 500);
         $("#doButton").css('pointer-events',"initial");
+        $("#doButton").removeClass("disabled");
     }
 }
 
