@@ -10,6 +10,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 /**
  * Permette di aggiungere la foto profilo dell'utente.
@@ -28,7 +29,7 @@ public class UploadUserPhotoServlet extends HttpServlet {
                 user.setProfilePhoto(userDao.getUserPhoto(user));
                 response.sendRedirect("/restricted/profile.jsp?success=Foto caricata con successo!");
             } else
-                response.sendRedirect("/restricted/profile.jsp?error=File troppo grande (Max 4 MB)");
+                response.sendRedirect("/restricted/profile.jsp?error="+ URLEncoder.encode("File troppo grande [Max 4 MB]","UTF-8"));
         } else response.sendRedirect("/restricted/profile.jsp?warning=Nessuna foto selezionata");
     }
 
