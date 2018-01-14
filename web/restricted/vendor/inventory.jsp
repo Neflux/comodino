@@ -81,8 +81,13 @@
                                             <div class="row">
                                                 <button type="button" class="btn btn-default btn-block margin-btn"
                                                         onclick="editQuantityModal(${product.productID})"><i
-                                                        class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica
-                                                    Disponibilità
+                                                        class="fa fa-hashtag fa-fw fa-lg pull-left"></i>Modifica Disponibilità
+                                                </button>
+                                            </div>
+                                            <div class="row">
+                                                <button type="button" class="btn btn-default btn-block margin-btn"
+                                                onclick="addProductPhotoModal(${product.productID})"><i
+                                                        class="fa fa-camera fa-fw fa-lg pull-left"></i>Aggiungi foto prodotto
                                                 </button>
                                             </div>
                                         </div>
@@ -140,6 +145,37 @@
                                 <a class="btn btn-default"
                                    style="margin-left: 20px; padding-left: 25px; padding-right: 25px;"
                                    onclick="$(function(){$('#editquantitymodal').modal('toggle');});">Chiudi</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addproductphotomodal" tabindex="-1" role="dialog">
+            <div class="row">
+                <div id="addproductphotocard" class="card card-signup centerize" data-background-color="orange">
+                    <form id="addproductphotoform" enctype = "multipart/form-data" class="form" method="POST"
+                          action="${pageContext.request.contextPath}/restricted/vendor/uploadproductphoto">
+                        <div class="header header-primary text-center">
+                            <h4 class="title title-up">Aggiungi foto</h4>
+                        </div>
+                        <div class="content">
+
+                            <input id="productIDPhotoModal" type="text" name="productID" class="hidden" value="">
+
+                            <div class="input-group form-group-no-border nologin">
+                          <span class="input-group-addon">
+                              <i class="fa fa-camera green" aria-hidden="true"></i>
+                          </span>
+                                <input required id="productPhoto" type="file" name="productPhoto" accept="image/*">
+                            </div>
+                            <div class="footer text-center" style="margin-top: 15px;">
+                                <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;"
+                                   onclick="$('#addproductphotoform').submit();">Invia</a>
+                                <a class="btn btn-default"
+                                   style="margin-left: 20px; padding-left: 25px; padding-right: 25px;"
+                                   onclick="$(function(){$('#addproductphotomodal').modal('toggle');});">Chiudi</a>
                             </div>
                         </div>
                     </form>
