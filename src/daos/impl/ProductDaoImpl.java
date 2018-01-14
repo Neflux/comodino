@@ -439,7 +439,8 @@ public class ProductDaoImpl implements ProductDao {
             Product p = extractProductFromResultSet(rs);
             return p.getQuantity() > quantity;
         } catch (SQLException e) {
-            //e.printStackTrace();
+            System.out.println("[ERROR] Forse non esiste il prodotto in shop product (pid:"+productID+", sid:"+shopID+", qty:"+quantity+")");
+            e.printStackTrace();
         }
         return false;
     }
