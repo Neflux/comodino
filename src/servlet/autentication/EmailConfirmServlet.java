@@ -32,7 +32,7 @@ public class EmailConfirmServlet extends HttpServlet {
         if (confirmed) {
             response.sendRedirect("/index.jsp?success=Email verificata con successo, ora puoi effettuare il login");
         } else {
-            response.sendRedirect("/index.jsp?error=Errore nella verifica mail");
+            response.sendRedirect("/index.jsp");
         }
     }
 }

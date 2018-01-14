@@ -12,10 +12,10 @@ public class Shop implements Serializable {
     private float rating = -1;
     private float sampleActualPrice = 0; //ovviamente uno shop non ha un prezzo singolo, ma ci serve per il modal nella ricerca
 
-    private ArrayList<String> shopphoto;
+    private ArrayList<String> shopphoto = new ArrayList<>();
 
-    private ArrayList<Product> expiringProducts;
-    private ArrayList<Product> products;
+    private ArrayList<Product> expiringProducts = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
 
     public int getShopID() {
         return shopID;
@@ -74,13 +74,17 @@ public class Shop implements Serializable {
         this.shopphoto = shopphoto;
     }
 
-    public ArrayList<Product> getExpiringProducts() { return expiringProducts; }
+    public ArrayList<Product> getExpiringProducts() {
+        return expiringProducts;
+    }
 
     public void setExpiringProducts(ArrayList<Product> expiringProducts) {
         this.expiringProducts = expiringProducts;
     }
 
-    public ArrayList<Product> getProducts() { return products;}
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
