@@ -156,7 +156,7 @@
             <div class="row">
                 <div id="addproductphotocard" class="card card-signup centerize" data-background-color="orange">
                     <form id="addproductphotoform" enctype = "multipart/form-data" class="form" method="POST"
-                          action="${pageContext.request.contextPath}/restricted/vendor/uploadproductphoto">
+                          action="/restricted/vendor/uploadproductphoto">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Aggiungi foto</h4>
                         </div>

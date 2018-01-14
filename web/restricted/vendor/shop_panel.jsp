@@ -168,7 +168,7 @@
                                                             <h5 class="itemsLeft text-center">Prodotti rimanenti: ${product.quantity}</h5>
                                                         </div>
                                                         <div class="btnSee col-md-2 col-xs-12 text-center">
-                                                            <a href="${pageContext.request.contextPath}/product.jsp?product=${product.productID}&shop=${shop.shopID}" class="showProduct btn-sm btn-default">Vedi</a>
+                                                            <a href="${pageContext.request.contextPath}/restricted/vendor/inventory.jsp" class="showProduct btn-sm btn-default">Vedi</a>
                                                         </div>
                                             </div>
                                         </c:forEach>
