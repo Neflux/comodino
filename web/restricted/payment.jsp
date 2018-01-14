@@ -70,7 +70,6 @@
                                     </div>
                                     <div class="col-xs-6">
                                         <select class="form-control minimal" name="expiry-year">
-                                            <option value="2017">2017</option>
                                             <option value="2018">2018</option>
                                             <option value="2019">2019</option>
                                             <option value="2020">2020</option>
