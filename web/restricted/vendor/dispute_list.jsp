@@ -60,10 +60,10 @@
                                                             <b>Stato:</b>&nbsp;&nbsp;
                                                             <c:choose>
                                                                 <c:when test="${dispute.status == 1}">
-                                                                    <span class="badge badge-success">Approvata</span>
+                                                                    <span class="badge badge-danger">Approvata</span>
                                                                 </c:when>
                                                                 <c:when test="${dispute.status == 2}">
-                                                                    <span class="badge badge-danger">Declinata</span>
+                                                                    <span class="badge badge-success">Declinata</span>
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <span class="badge badge-warning">In attesa</span>
