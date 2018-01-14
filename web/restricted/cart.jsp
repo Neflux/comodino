@@ -42,7 +42,7 @@
                                                 <div class="col-md-8">
                                                     <a class="resetcolor" href="${pageContext.request.contextPath}/product.jsp?product=${item.getProduct().productID}&shop=${item.getProduct().shopID}"><h3 class="itemtitle">${item.getProduct().getProductName()}</h3></a>
                                                     <p id="c_lead" class="lead pi-draggable itemseller" draggable="true">Venduto da:&nbsp;
-                                                        <a href="#" style="font-size: 18px">${item.getProduct().getShopName()}</a>
+                                                        <a href="${pageContext.request.contextPath}/shop.jsp?id=${item.getProduct().shopID}" style="font-size: 18px">${item.getProduct().getShopName()}</a>
                                                     </p>
                                                     <h2 class="itemprice" id="price_${item.getProduct().getProductID()}_${item.getProduct().getShopID()}">${Utils.getNDecPrice(item.getProduct().getActualPrice(),2)}&euro;</h2>
                                                 </div>
