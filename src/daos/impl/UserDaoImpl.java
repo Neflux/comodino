@@ -321,7 +321,7 @@ public class UserDaoImpl implements UserDao {
             return -3;
         }
         if(emailToken.equals("invalid")){
-            System.out.println("[ERROR] L'email non segue il modello RFC-5321");
+            System.out.println("[ERROR] L′ email non segue il modello RFC-5321");
             return -4;
         }
         try {
