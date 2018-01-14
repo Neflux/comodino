@@ -45,13 +45,13 @@ public class InsertNewProductServlet extends HttpServlet {
                 response.sendRedirect("inventory.jsp?error=Tutti i campi sono richiesti");
             } else {
                 if (productDao.addNewProduct(shopID, name, description, category, price, discount, quantity, productPhoto))
-                    response.sendRedirect("inventory.jsp?success=Prodotto aggiunto all'inventario");
+                    response.sendRedirect("inventory.jsp?success=Prodotto aggiunto all′ inventario");
                 else {
-                    response.sendRedirect("inventory.jsp?warning=Prodotto già presente in altri negozi. Trova un nome diverso o aggiungi quello.");
+                    response.sendRedirect("inventory.jsp?warning=Prodotto già presente in altri negozi. Trova un nome diverso o aggiungi quello");
                 }
             }
         } catch (NumberFormatException e) {
-            response.sendRedirect("inventory.jsp?error=Errore inserimento dati.");
+            response.sendRedirect("inventory.jsp?error=Errore inserimento dati");
         }
     }
 
