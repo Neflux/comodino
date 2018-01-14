@@ -241,7 +241,7 @@
                                        scope="page"/>
                                 <div class="row prodreviewreply">
                                     <div class="col-md-2 text-right">
-                                        <h4><b>Risposta del venditore:</b></h4>
+                                        <h5><b>Risposta del venditore:</b></h5>
                                     </div>
                                     <div class="col-md-8">
                                         <p>${reviewReply.description}</p>
