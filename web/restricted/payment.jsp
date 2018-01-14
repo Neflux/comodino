@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="card-holder-name">Intestatario Carta</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="card-holder-name" id="card-holder-name" placeholder="Nome e Cognome" required>
+                                <input type="text" class="form-control" name="card-holder-name" id="card-holder-name" placeholder="Nome e Cognome" required maxlength="50">
                             </div>
                         </div>
                         <div class="form-group">

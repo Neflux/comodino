@@ -77,20 +77,20 @@
                           <span class="input-group-addon">
                               <i class="fa fa-eur green" aria-hidden="true"></i>
                           </span>
-                                <input name="Price" type="text" class="form-control"  placeholder="Prezzo...">
+                                <input name="Price" type="text" class="form-control"  placeholder="Prezzo..." maxlength="9">
                             </div>
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
                               <i class="fa fa-percent green" aria-hidden="true"></i>
                           </span>
-                                <input name="Discount" type="text" class="form-control"  placeholder="Sconto...">
+                                <input name="Discount" type="text" class="form-control"  placeholder="Sconto..." maxlength="3">
                             </div>
 
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
                               <i class="fa fa-hashtag green" aria-hidden="true"></i>
                           </span>
-                                <input name="Quantity" type="text" class="form-control"  placeholder="Quantità...">
+                                <input name="Quantity" type="text" class="form-control"  placeholder="Quantità..." maxlength="9">
                             </div>
                             <div class="footer text-center" style="margin-top: 15px;">
                                 <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;" onclick="$('#addproductform').submit();">Invia</a>
@@ -114,13 +114,13 @@
                           <span class="input-group-addon">
                               <i class="fa fa-shopping-cart green" aria-hidden="true"></i>
                           </span>
-                                <input name="Name" type="text" class="form-control"  placeholder="Nome...">
+                                <input name="Name" type="text" class="form-control"  placeholder="Nome..." maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
                               <i class="fa fa-pencil green" aria-hidden="true"></i>
                           </span>
-                                <input name="Description" type="text" class="form-control"  placeholder="Descrizione...">
+                                <input name="Description" type="text" class="form-control"  placeholder="Descrizione..." maxlength="50">
                             </div>
                             <div class="form-group">
                                 <select class="form-control minimal" name="Category" id="Category">
@@ -138,20 +138,20 @@
                           <span class="input-group-addon">
                               <i class="fa fa-eur green" aria-hidden="true"></i>
                           </span>
-                                <input name="Price" type="text" class="form-control"  placeholder="Prezzo...">
+                                <input name="Price" type="text" class="form-control"  placeholder="Prezzo..." maxlength="9">
                             </div>
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
                               <i class="fa fa-percent green" aria-hidden="true"></i>
                           </span>
-                                <input name="Discount" type="text" class="form-control"  placeholder="Sconto...">
+                                <input name="Discount" type="text" class="form-control"  placeholder="Sconto..." maxlength="3">
                             </div>
 
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">
                               <i class="fa fa-hashtag green" aria-hidden="true"></i>
                           </span>
-                                <input name="Quantity" type="text" class="form-control"  placeholder="Quantità...">
+                                <input name="Quantity" type="text" class="form-control"  placeholder="Quantità..." maxlength="9">
                             </div>
                             <div class="input-group form-group-no-border nologin">
                           <span class="input-group-addon">

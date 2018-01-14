@@ -539,13 +539,13 @@
                           <span class="input-group-addon">
                               <i class="fa fa-thumbs-o-down green" aria-hidden="true"></i>
                           </span>
-                                <input id="titleDisputeModal" type="text" class="form-control required" name="title" placeholder="Titolo...">
+                                <input id="titleDisputeModal" type="text" class="form-control required" name="title" placeholder="Titolo..." maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-bars green" aria-hidden="true"></i>
                           </span>
-                                <input id="descriptionDisputeModal" type="text" class="form-control required" name="description" placeholder="Descrivi anomalia...">
+                                <input id="descriptionDisputeModal" type="text" class="form-control required" name="description" placeholder="Descrivi anomalia..." maxlength="100">
                             </div>
                         </div>
                         <div class="footer text-center" style="margin-top: 15px;">
@@ -572,13 +572,13 @@
                           <span class="input-group-addon">
                               <i class="fa fa-star-o green" aria-hidden="true"></i>
                           </span>
-                                <input id="titleProductReviewModal" type="text" class="form-control required" name="ptitle" placeholder="Titolo...">
+                                <input id="titleProductReviewModal" type="text" class="form-control required" name="ptitle" placeholder="Titolo..." maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-bars green" aria-hidden="true"></i>
                           </span>
-                                <input id="descriptionProductReviewModal" type="text" class="form-control required" name="pdescription" placeholder="Descrivi prodotto...">
+                                <input id="descriptionProductReviewModal" type="text" class="form-control required" name="pdescription" placeholder="Descrivi prodotto..." maxlength="150">
                             </div>
                             <div class="col-md-12 text-center stelle">
                                 <i class="fa fa-star rating_star" aria-hidden="true" id="pstella_1" onmouseover="setPStar(this)"
@@ -600,13 +600,13 @@
                           <span class="input-group-addon">
                               <i class="fa fa-star-o green" aria-hidden="true"></i>
                           </span>
-                                <input id="titleShopReviewModal" type="text" class="form-control required" name="stitle" placeholder="Titolo...">
+                                <input id="titleShopReviewModal" type="text" class="form-control required" name="stitle" placeholder="Titolo..." maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-bars green" aria-hidden="true"></i>
                           </span>
-                                <input id="descriptionShopReviewModal" type="text" class="form-control required" name="sdescription" placeholder="Descrivi negozio...">
+                                <input id="descriptionShopReviewModal" type="text" class="form-control required" name="sdescription" placeholder="Descrivi negozio..." maxlength="150">
                             </div>
                             <div class="col-md-12 text-center stelle">
                                 <i class="fa fa-star rating_star" aria-hidden="true" id="sstella_1" onmouseover="setSStar(this)"

@@ -50,13 +50,13 @@
                                                 <div class="col-md-10 col-sm-9">
                                                     <input type="text" name="AddressID" value="${address.addressID}" hidden required>
                                                     <h3 data-address="address" class="address-name">${address.firstName} ${address.lastName}</h3>
-                                                    <p data-address="input" class="hidden">Nome: <input type="text" name="FirstName" value="${address.firstName}" required> Cognome:<input type="text" name="LastName" value="${address.lastName}" required></p>
+                                                    <p data-address="input" class="hidden">Nome: <input type="text" name="FirstName" value="${address.firstName}" required maxlength="50"> Cognome:<input type="text" name="LastName" value="${address.lastName}" required maxlength="50"></p>
                                                     <p data-address="address">${address.address}</p>
-                                                    <p data-address="input" class="hidden">Indirizzo: <input type="text" name="Address" value="${address.address}" required></p>
+                                                    <p data-address="input" class="hidden">Indirizzo: <input type="text" name="Address" value="${address.address}" required maxlength="50"></p>
                                                     <p data-address="address">${address.city} (${address.zip}) ${address.state}</p>
                                                     <p data-address="input" class="hidden">
-                                                        Città: <input type="text" name="City" value="${address.city}" required>
-                                                        ZIP: <input type="text" name="Zip" value="${address.zip}" required>
+                                                        Città: <input type="text" name="City" value="${address.city}" required maxlength="50">
+                                                        ZIP: <input type="text" name="Zip" value="${address.zip}" required maxlength="50">
                                                         Nazione: <select name="State" required>
                                                         <option value="Italy" selected="selected">Italia</option>
                                                         <option value="United States">United States</option>
@@ -302,7 +302,7 @@
                                                     </select>
                                                     </p>
                                                     <p data-address="address">Tel: ${address.telephoneNumber}</p>
-                                                    <p data-address="input" class="hidden">Tel: <input type="text" name="Phone" value="${address.telephoneNumber}" required></p>
+                                                    <p data-address="input" class="hidden">Tel: <input type="text" name="Phone" value="${address.telephoneNumber}" required maxlength="50"></p>
                                                 </div>
                                                 <div class="col-md-2 col-sm-3 address-buttons">
                                                     <a data-id="editAddress" class="btn btn-default" onclick="editAddress(${address.addressID})">
@@ -329,7 +329,7 @@
             <div class="row">
                 <div class="card card-signup centerize" data-background-color="orange">
                     <form id="addAddressForm" class="form" method="POST" action="${pageContext.request.contextPath}/restricted/addaddress">
-                        <input name="from" type="text" value="${param.from}" hidden>
+                        <input name="from" type="text" value="${param.from}" hidden maxlength="50">
                         <div class="header header-primary text-center">
                             <h4 class="title title-up">Aggiungi Indirizzo</h4>
                         </div>
@@ -338,31 +338,31 @@
                         <span class="input-group-addon">
                           <i class="fa fa-id-card green" aria-hidden="true"></i>
                         </span>
-                                <input id="FirstName" name="firstname" type="text" class="form-control" placeholder="Nome" required>
+                                <input id="FirstName" name="firstname" type="text" class="form-control" placeholder="Nome" required maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">
                           <i class="fa fa-id-card green" aria-hidden="true"></i>
                         </span>
-                                <input id="LastName" name="lastname" type="text" class="form-control" placeholder="Cognome" required>
+                                <input id="LastName" name="lastname" type="text" class="form-control" placeholder="Cognome" required maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">
                           <i class="fa fa-map-marker green" aria-hidden="true"></i>
                         </span>
-                                <input id="Address" name="address" type="text" class="form-control" placeholder="Indirizzo" required>
+                                <input id="Address" name="address" type="text" class="form-control" placeholder="Indirizzo" required maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">
                           <i class="fa fa-home green" aria-hidden="true"></i>
                         </span>
-                                <input id="City" name="city" type="text" class="form-control" placeholder="Città" required>
+                                <input id="City" name="city" type="text" class="form-control" placeholder="Città" required maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">
                           <i class="fa fa-hashtag green" aria-hidden="true"></i>
                         </span>
-                                <input id="ZIP" name="zip" type="text" class="form-control" placeholder="CAP" required>
+                                <input id="ZIP" name="zip" type="text" class="form-control" placeholder="CAP" required maxlength="10">
                             </div>
                             <div class="input-group form-group-no-border nologin">
                         <span class="input-group-addon">

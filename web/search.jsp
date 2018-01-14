@@ -160,21 +160,21 @@
                                 <c:choose>
                                     <c:when test="${not empty param.minPrice}">
                                         <input id="PriceMin" class="form-control no-border input_prezzo" type="text"
-                                               onkeyup="showApply();" value="${param.minPrice}">
+                                               onkeyup="showApply();" value="${param.minPrice}" maxlength="9">
                                     </c:when>
                                     <c:otherwise>
                                         <input id="PriceMin" class="form-control no-border input_prezzo" type="text"
-                                               onkeyup="showApply();" value="">
+                                               onkeyup="showApply();" value="" maxlength="9">
                                     </c:otherwise>
                                 </c:choose>
                                 <c:choose>
                                     <c:when test="${not empty param.maxPrice}">
                                         <input id="PriceMax" class="form-control no-border input_prezzo" type="text"
-                                               onkeyup="showApply();" value="${param.maxPrice}">
+                                               onkeyup="showApply();" value="${param.maxPrice}" maxlength="9">
                                     </c:when>
                                     <c:otherwise>
                                         <input id="PriceMax" class="form-control no-border input_prezzo" type="text"
-                                               onkeyup="showApply();" value="">
+                                               onkeyup="showApply();" value="" maxlength="9">
                                     </c:otherwise>
                                 </c:choose>
                             </div>

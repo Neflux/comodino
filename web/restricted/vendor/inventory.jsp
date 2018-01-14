@@ -137,7 +137,7 @@
                           <span class="input-group-addon">
                               <i class="fa fa-user green" aria-hidden="true"></i>
                           </span>
-                                <input name="Quantity" type="text" class="form-control" placeholder="Quantità...">
+                                <input name="Quantity" type="text" class="form-control" placeholder="Quantità..." maxlength="9">
                             </div>
                             <div class="footer text-center" style="margin-top: 15px;">
                                 <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;"
@@ -199,7 +199,7 @@
                           <span class="input-group-addon">
                               <i class="fa fa-eur green" aria-hidden="true"></i>
                           </span>
-                                <input name="Price" type="text" class="form-control" placeholder="Prezzo...">
+                                <input name="Price" type="text" class="form-control" placeholder="Prezzo..." maxlength="9">
                             </div>
 
                             <div class="input-group form-group-no-border nologin">
@@ -207,7 +207,7 @@
                               <i class="fa fa-percent green" aria-hidden="true"></i>
                           </span>
                                 <input name="Discount" type="text" class="form-control"
-                                       placeholder="Sconto (in decimali)...">
+                                       placeholder="Sconto (in decimali)..." maxlength="3">
                             </div>
                             <div class="footer text-center" style="margin-top: 15px;">
                                 <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;"
@@ -262,7 +262,7 @@
                               <i class="fa fa-search green" aria-hidden="true"></i>
                           </span>
                                 <input id="addproduct" name="productName" type="text" class="form-control"
-                                       placeholder="Nome prodotto...">
+                                       placeholder="Nome prodotto..." maxlength="50">
                             </div>
                             <div class="footer text-center" style="margin-top: 15px;">
                                 <a class="btn btn-default" style="padding-left: 29px; padding-right: 29px;"

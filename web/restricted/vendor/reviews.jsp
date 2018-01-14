@@ -169,7 +169,7 @@
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
                                 <input type="text" class="form-control" name="description" rows="5"
-                                       placeholder="Risposta...">
+                                       placeholder="Risposta..." maxlength="250">
                             </div>
                         </div>
                         <div class="footer text-center" style="margin-top: 15px;">

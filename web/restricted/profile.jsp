@@ -95,19 +95,19 @@
                           <span class="input-group-addon">
                               <i class="fa fa-lock green" aria-hidden="true"></i>
                           </span>
-                                <input id="CurrentPassword" name="CurrentPassword" type="password" class="form-control"  placeholder="Password attuale...">
+                                <input id="CurrentPassword" name="CurrentPassword" type="password" class="form-control"  placeholder="Password attuale..." maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-key green" aria-hidden="true"></i>
                           </span>
-                                <input id="NewPassword" name="NewPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Nuova password..."/>
+                                <input id="NewPassword" name="NewPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Nuova password..." maxlength="50"/>
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i id="PwdCheck" class="fa fa-repeat green" aria-hidden="true"></i>
                           </span>
-                                <input id="RepeatPassword" name="RepeatPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Ripeti password..."/>
+                                <input id="RepeatPassword" name="RepeatPassword" type="password" onkeyup="checkPass();return false;" class="form-control" placeholder="Ripeti password..." maxlength="50"/>
                             </div>
                         </div>
                         <div class="footer text-center">
@@ -131,19 +131,19 @@
                           <span class="input-group-addon">
                               <i class="fa fa-lock green" aria-hidden="true"></i>
                           </span>
-                                <input name="FirstName" type="text" class="form-control"  placeholder="${user.firstName}" value="${user.firstName}">
+                                <input name="FirstName" type="text" class="form-control"  placeholder="${user.firstName}" value="${user.firstName}" maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-key green" aria-hidden="true"></i>
                           </span>
-                                <input name="LastName" type="text" class="form-control" placeholder="${user.lastName}" value="${user.lastName}"/>
+                                <input name="LastName" type="text" class="form-control" placeholder="${user.lastName}" value="${user.lastName}" maxlength="50"/>
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-repeat green" aria-hidden="true"></i>
                           </span>
-                                <input name="Email" type="email" class="form-control" placeholder="${user.email}" value="${user.email}"/>
+                                <input name="Email" type="email" class="form-control" placeholder="${user.email}" value="${user.email}" maxlength="50"/>
                             </div>
                         </div>
                         <div class="footer text-center">

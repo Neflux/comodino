@@ -118,25 +118,25 @@
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
-                        <input type="text" class="form-control" name="firstname" placeholder="Nome...">
+                        <input type="text" class="form-control" name="firstname" placeholder="Nome..." maxlength="50">
                     </div>
                     <div class="input-group form-group-no-border nologin noforgot" style="opacity: 0; ">
                           <span class="input-group-addon">
                               <i class="fa fa-user-o green" aria-hidden="true"></i>
                           </span>
-                        <input type="text" class="form-control" name="lastname" placeholder="Cognome...">
+                        <input type="text" class="form-control" name="lastname" placeholder="Cognome..." maxlength="50">
                     </div>
                     <div class="input-group form-group-no-border login forgot">
                           <span class="input-group-addon">
                               <i class="fa fa-envelope-o green" aria-hidden="true"></i>
                           </span>
-                        <input type="email" class="form-control" name="email" placeholder="Email..." autofocus>
+                        <input type="email" class="form-control" name="email" placeholder="Email..." autofocus maxlength="50">
                     </div>
                     <div class="input-group form-group-no-border noforgot yeslogin">
                           <span class="input-group-addon">
                               <i class="fa fa-key green" aria-hidden="true"></i>
                           </span>
-                        <input type="password" id="pw" placeholder="Password..." name="password" class="form-control">
+                        <input type="password" id="pw" placeholder="Password..." name="password" class="form-control" maxlength="50">
                     </div>
                     <div class="row text-center" style="margin-top: 15px">
                         <span class="white" id="card_change_button">Non hai ancora un account? <a
