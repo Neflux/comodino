@@ -18,7 +18,7 @@ import java.net.URL;
  * Permette di aggiungere una foto al prodotto da parte del venditore.
  */
 @MultipartConfig
-@WebServlet(name = "UploadShopPhotoServlet", urlPatterns = {"/restricted/vendor/uploadproductphoto"})
+@WebServlet(name = "UploadProductPhotoServlet", urlPatterns = {"/restricted/vendor/uploadproductphoto"})
 public class UploadProductPhotoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
