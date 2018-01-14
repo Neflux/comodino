@@ -148,7 +148,7 @@
                 </div>
                 <div class="footer text-center" style="margin-top: 15px;">
                     <a class="btn btn-default" id="doButton" style="padding-left: 29px; padding-right: 29px;"
-                       onclick="$('#form').submit();">Entra</a>
+                       onclick="$('#loginsignupforgotheader').submit();">Entra</a>
                     <a class="btn btn-default" style="margin-left: 20px; padding-left: 25px; padding-right: 25px;"
                        onclick="$(function(){$('#LoginSignup').modal('toggle');});">Chiudi</a>
                 </div>
