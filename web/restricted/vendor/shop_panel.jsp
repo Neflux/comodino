@@ -193,38 +193,38 @@
                           <span class="input-group-addon">
                               <i class="fa fa-user green" aria-hidden="true"></i>
                           </span>
-                                <input name="ShopName" type="text" class="form-control"  value="${shop.name}">
+                                <input name="ShopName" type="text" class="form-control"  value="${shop.name}" maxlength="50">
                             </div>
                             <div class="input-group form-group-no-border">
                                 <span class="input-group-addon">
                                     <i class="fa fa-book green" aria-hidden="true"></i>
                                 </span>
-                                <input name="ShopDescription" type="text" class="form-control" value="${shop.description}"/>
+                                <input name="ShopDescription" type="text" class="form-control" value="${shop.description}" maxlength="50"/>
                             </div>
                             <div class="input-group form-group-no-border">
                                 <span class="input-group-addon">
                                     <i class="fa fa-globe green" aria-hidden="true"></i>
                                 </span>
-                                <input name="ShopWebsite" type="text" class="form-control" value="${shop.website}"/>
+                                <input name="ShopWebsite" type="text" class="form-control" value="${shop.website}" maxlength="50"/>
                             </div>
                             <c:if test="${shop.getClass().simpleName == 'PhysicalShop'}">
                                 <div class="input-group form-group-no-border nologin">
                               <span class="input-group-addon">
                                   <i class="fa fa-building green" aria-hidden="true"></i>
                               </span>
-                                    <input name="ShopAddress" type="text" class="form-control" value="${shop.address}"/>
+                                    <input name="ShopAddress" type="text" class="form-control" value="${shop.address}" maxlength="50"/>
                                 </div>
                                 <div class="input-group form-group-no-border nologin">
                                 <span class="input-group-addon">
                                     <i class="fa fa-map-marker green" aria-hidden="true"></i>
                                 </span>
-                                    <input name="ShopCity" type="text" class="form-control" value="${shop.city}"/>
+                                    <input name="ShopCity" type="text" class="form-control" value="${shop.city}" maxlength="50"/>
                                 </div>
                                 <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-envelope green" aria-hidden="true"></i>
                           </span>
-                                    <input name="ShopCAP" type="text" class="form-control" value="${shop.zip}"/>
+                                    <input name="ShopCAP" type="text" class="form-control" value="${shop.zip}" maxlength="10"/>
                                 </div>
                                 <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
@@ -236,7 +236,7 @@
                           <span class="input-group-addon">
                               <i class="fa fa-clock-o green" aria-hidden="true"></i>
                           </span>
-                                    <input name="ShopHours" type="text" class="form-control" value="${shop.openinghours}"/>
+                                    <input name="ShopHours" type="text" class="form-control" value="${shop.openinghours}" maxlength="150"/>
                                 </div>
                             </c:if>
                             <div class="footer text-center">
@@ -263,19 +263,19 @@
                               <span class="input-group-addon">
                                   <i class="fa fa-map-marker green" aria-hidden="true"></i>
                               </span>
-                                <input name="ShopAddress" type="text" class="form-control" placeholder="Indirizzo..."/>
+                                <input name="ShopAddress" type="text" class="form-control" placeholder="Indirizzo..." maxlength="50"/>
                             </div>
                             <div class="input-group form-group-no-border nologin">
                                 <span class="input-group-addon">
                                     <i class="fa fa-building green" aria-hidden="true"></i>
                                 </span>
-                                <input name="ShopCity" type="text" class="form-control" placeholder="Citta'..."/>
+                                <input name="ShopCity" type="text" class="form-control" placeholder="Citta'..." maxlength="50"/>
                             </div>
                             <div class="input-group form-group-no-border">
                           <span class="input-group-addon">
                               <i class="fa fa-envelope green" aria-hidden="true"></i>
                           </span>
-                                <input name="ShopCAP" type="text" class="form-control" placeholder="CAP..."/>
+                                <input name="ShopCAP" type="text" class="form-control" placeholder="CAP..." maxlength="10"/>
                             </div>
                             <div class="input-group form-group-no-border">
                                 <span class="input-group-addon">
@@ -529,7 +529,7 @@
                         <span class="input-group-addon">
                               <i class="fa fa-clock-o green" aria-hidden="true"></i>
                           </span>
-                                <input name="ShopHours" type="text" class="form-control" placeholder="Orario di apertura..."/>
+                                <input name="ShopHours" type="text" class="form-control" placeholder="Orario di apertura..." maxlength="150"/>
                             </div>
 
                             <div class="footer text-center">
