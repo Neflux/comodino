@@ -59,7 +59,7 @@ public class CompleteOrderServlet extends HttpServlet {
         for (CartItem item : cart) {
             boolean result = pd.checkAvailability(item.getProduct().getProductID(), item.getProduct().getShopID(), item.getQuantity());
             if (!result) {
-                System.out.println("[WARNING] CompleteOrder: Non sono soddisfatte le disponibilità di: " + item.getProduct().getProductID() + " shop: " + item.getProduct().getShopID());
+                System.out.println("[WARNING] CompleteOrder: Non c'è disponibilità("+item.getQuantity()+") di: " + item.getProduct().getProductID() + " shop: " + item.getProduct().getShopID());
                 outOfStockProducts.add(item.getProduct().getProductName());
             }
         }

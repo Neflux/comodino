@@ -45,7 +45,7 @@ public interface ProductDao extends Serializable {
      * @param quantity Quantità 'int' del prodotto specificato
      * @return 'true' se c'è disponibilità, 'false' altrimenti
      */
-    boolean checkAvailability(int productID, int shopID, Integer quantity);
+    boolean checkAvailability(int productID, int shopID, int quantity);
 
     /**
      * Aggiorna il database riducendo di una determinata quantità la disponibilità di uno specifico prodotto,

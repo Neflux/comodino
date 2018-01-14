@@ -428,7 +428,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public boolean checkAvailability(int productID, int shopID, Integer quantity) {
+    public boolean checkAvailability(int productID, int shopID, int quantity) {
         try {
             PreparedStatement stm = con.prepareStatement("SELECT *\n" +
                     "FROM shopproduct\n" +
