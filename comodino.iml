@@ -56,5 +56,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="javax.mail" level="project" />
+    <orderEntry type="library" name="javax.activation" level="project" />
   </component>
 </module>

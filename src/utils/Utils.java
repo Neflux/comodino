@@ -7,6 +7,7 @@ import daos.impl.ShopDaoImpl;
 import main.PhysicalShop;
 import utils.json.GoogleLocationJson;
 
+import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
