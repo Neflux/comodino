@@ -107,7 +107,7 @@
 <div class="modal fade" id="LoginSignup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="row">
         <div class="card card-signup centerize" data-background-color="orange" id="signup_login_card">
-            <form class="form" method="POST" action="${pageContext.request.contextPath}/login" id="form">
+            <form class="form" method="POST" action="${pageContext.request.contextPath}/login" id="loginsignupforgotheader">
                 <div class="header header-primary text-center">
                     <h4 class="title title-up" id="card_titolo" style="margin-bottom: -40px; margin-top: 20px;">
                         Login</h4>

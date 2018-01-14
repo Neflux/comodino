@@ -23,8 +23,8 @@ $(function(){
 
 function openLoginModal()
 {
-    $('#form').data('validator', null);
-    $("#form").validate({
+    $('#loginsignupforgotheader').data('validator', null);
+    $("#loginsignupforgotheader").validate({
         rules: {
             email: {
                 required: true,
@@ -59,15 +59,10 @@ $.validator.methods.email = function( value, element ) {
     return this.optional( element ) || /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test( value );
 }
 
-jQuery.validator.setDefaults({
-    debug: true,
-    success: "valid"
-});
-
 function show_login(vel)
 {
-    $('#form').data('validator', null);
-    $("#form").validate({
+    $('#loginsignupforgotheader').data('validator', null);
+    $("#loginsignupforgotheader").validate({
         rules: {
             email: {
                 required: true,
@@ -101,7 +96,7 @@ function show_login(vel)
     $('#card_forgot_button').css("display","initial");
     $('#card_forgot_button').animate({opacity:1},vel);
     $('#card_forgot_button').removeClass('fadeOut');
-    $('#form').attr('action','/login');
+    $('#loginsignupforgotheader').attr('action','/login');
     $("#doButton").text("Entra");
     $("#card_forgot_button").html('Hai dimenticato la <a onclick="show_forgot();" style="cursor:pointer">password</a>?');
     $("#doButton").css('pointer-events',"initial");
@@ -112,8 +107,8 @@ function show_login(vel)
 
 function show_signup(vel)
 {
-    $('#form').data('validator', null);
-    $("#form").validate({
+    $('#loginsignupforgotheader').data('validator', null);
+    $("#loginsignupforgotheader").validate({
         rules: {
             email: {
                 required: true,
@@ -158,7 +153,7 @@ function show_signup(vel)
         $('#card_forgot_button').css("display","none");
     });
     */
-    $('#form').attr('action','/register');
+    $('#loginsignupforgotheader').attr('action','/register');
     $("#doButton").text("Registrati");
 
     checkre()
@@ -188,8 +183,8 @@ function checkre()
 
 function show_forgot(vel)
 {
-    $('#form').data('validator', null);
-    $("#form").validate({
+    $('#loginsignupforgotheader').data('validator', null);
+    $("#loginsignupforgotheader").validate({
         rules: {
             email: {
                 required: true,
@@ -219,15 +214,15 @@ function show_forgot(vel)
         $('#card_forgot_button').css("display","none");
     });
 
-    $('#form').attr('action','/passwordRequest');
+    $('#loginsignupforgotheader').attr('action','/passwordRequest');
     $("#doButton").text("Invia");
     $( "#pw" ).unbind("keyup");
 }
 
 function show_login_from_forgot(vel)
 {
-    $('#form').data('validator', null);
-    $("#form").validate({
+    $('#loginsignupforgotheader').data('validator', null);
+    $("#loginsignupforgotheader").validate({
         rules: {
             email: {
                 required: true,
@@ -254,7 +249,7 @@ function show_login_from_forgot(vel)
     $('#card_change_button').html('Non hai ancora un account? <a href="#" onclick="show_signup(500);">Registrati</a>');
     $('#card_forgot_button').css("display","initial");
     $('#card_forgot_button').animate({opacity:1},vel);
-    $('#form').attr('action','/login');
+    $('#loginsignupforgotheader').attr('action','/login');
     $("#doButton").text("Entra");
     $( "#pw" ).unbind("keyup");
 }
@@ -323,7 +318,7 @@ $(document).ready(function() {
     $('#signup_login_card').keypress(function (e) {
         var key = e.which;
         if(key === 13)  // invio
-            $('#form').submit();
+            $('#loginsignupforgotheader').submit();
     });
 
     $('#searchMobile').keypress(function (e) {
