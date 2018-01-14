@@ -59,6 +59,9 @@ public class CreateShopServlet extends HttpServlet {
             boolean result = new ShopDaoImpl().createNewPhysicalShop(
                     user, shopName, shopDescription,
                     shopWebsite, shopAddress, shopCity, shopState, shopZIP, shopOpeningHours, shopLatitude, shopLongitude);
+            if (result){ // due if per dare sincronia alle operazioni
+                request.getSession().setAttribute("shop", new ShopDaoImpl().getShop(user.getShopID()));
+            }
             if (result)
                 response.sendRedirect("vendor/shop_panel.jsp");
             else
@@ -73,7 +76,9 @@ public class CreateShopServlet extends HttpServlet {
             return;
         }
         int result = new ShopDaoImpl().createNewShop(user, shopName, shopDescription, shopWebsite);
-
+        if (result != 0){ // due if per dare sincronia alle operazioni
+            request.getSession().setAttribute("shop", new ShopDaoImpl().getShop(user.getShopID()));
+        }
         if (result != 0)
             response.sendRedirect("vendor/shop_panel.jsp");
         else
