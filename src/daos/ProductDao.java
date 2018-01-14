@@ -145,4 +145,12 @@ public interface ProductDao extends Serializable {
      * Annulla i parziali cambiamenti al database
      */
     void rollback();
+
+    /**
+     * Aggiunge una foto prodotto al database
+     * @param productID ID prodotto per il quale è necessario aggiungere la foto
+     * @param productPhoto Foto caricata
+     * @return True se il caricamento va a buon fine, false altrimenti.
+     */
+    boolean addProductPhoto(int productID, Part productPhoto);
 }

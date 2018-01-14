@@ -656,6 +656,19 @@ public class ProductDaoImpl implements ProductDao {
         }
     }
 
+    public boolean addProductPhoto(int productID, Part productPhoto) {
+        try {
+            PreparedStatement stm = con.prepareStatement("INSERT INTO productphoto VALUES (NULL,?,?)");
+            stm.setBinaryStream(1, productPhoto.getInputStream(), (int) productPhoto.getSize());
+            stm.setInt(2, productID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void setAutoCommit(boolean b) {
         try {
             con.setAutoCommit(b);

@@ -19,6 +19,13 @@ function removeProductModal(productID) {
     });
 }
 
+function addProductPhotoModal(productID) {
+    $('#productIDPhotoModal').val(productID);
+    $(function () {
+        $('#addproductphotomodal').modal('toggle');
+    });
+}
+
 $("#addproduct").autocomplete({
     source: function (request, response) {
         $.ajax({
