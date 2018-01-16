@@ -6,6 +6,8 @@ public class NotificationDispute extends Notification {
     private int adminStatus;
     private int orderId;
     private int productId;
+    private String shopName;
+    private String productName;
 
     public int getAdminStatus() {
         return adminStatus;
@@ -33,4 +35,20 @@ public class NotificationDispute extends Notification {
         this.productId = productId;
     }
 
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 }

@@ -8,7 +8,7 @@ public class Order implements Serializable {
     private int orderID = 0;
     private int userID = 0;
     private Date date = null;
-    private int paymentStatus = 0;
+    private int paymentID = 0;
     private ArrayList<ProdOrder> productList = new ArrayList<>();
 
     public int getOrderID() {
@@ -35,12 +35,12 @@ public class Order implements Serializable {
         this.date = date;
     }
 
-    public int getPaymentStatus() {
-        return paymentStatus;
+    public int getPaymentID() {
+        return paymentID;
     }
 
-    public void setPaymentStatus(int paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setPaymentID(int paymentID) {
+        this.paymentID = paymentID;
     }
 
     public ArrayList<ProdOrder> getProductList() {
@@ -59,6 +59,24 @@ public class Order implements Serializable {
             total += quantity*price;
         }
         return total;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderID=" + orderID +
+                ", userID=" + userID +
+                ", date=" + date +
+                ", paymentID=" + paymentID +
+                ", productList=" + productList +
+                '}';
+    }
+
+    public boolean isFinalized() {
+        for (ProdOrder product : productList) {
+            if (product.getStatus() == 0) return false;
+        }
+        return true;
     }
 }
 

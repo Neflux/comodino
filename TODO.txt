@@ -1,5 +1,0 @@
-Roba varia da fare (cerchiamo di tenere ordine di priorità crescente):
-	- da capire cosa c'è di sbagliato sulla tabella in search.jsp in quanto spawna sotto all'header_anonimo.jsp (quindi serve un margin-top provvisorio di 75px sul container bs)
-	- testare il logout in qualche modo? dovrebbe funzionare comunque
-	- fixare i warning WARNING [RMI TCP Connection(27)-127.0.0.1] e INFO [Abandoned connection cleanup thread], dovrebbe c'entrare il webappcontextlistener e la chiusura del db
-	- readme con il remember delle info del file di configurazione

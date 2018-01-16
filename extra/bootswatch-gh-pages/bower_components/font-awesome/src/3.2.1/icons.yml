@@ -13,7 +13,7 @@ icons:
     categories:
       - Web Application Icons
 
-  - name:       Search
+  - name:       SearchServlet
     id:         search
     unicode:    f002
     created:    1.0

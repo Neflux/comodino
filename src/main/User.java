@@ -1,10 +1,9 @@
 package main;
 
+import daos.UserDao;
 import daos.impl.UserDaoImpl;
-import javafx.util.Pair;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class User implements Serializable {
 
@@ -13,12 +12,13 @@ public class User implements Serializable {
     private String lastName;
     private String email;
     private int type; // 0 normale o venditore, 1 admin
-    private boolean hasShop; // true se è venditore
+    private int shopID; // 0 se non è venditore, shopID se è venditore
     private int privacy;
-    private ArrayList<Pair<Product,Integer>> cart;
+    private Cart cart;
+    private String profilePhoto;
 
     public User() {
-        updateHasShop();
+        updateShopID();
         updateCart();
     }
 
@@ -63,26 +63,34 @@ public class User implements Serializable {
     }
 
     public boolean hasShop() {
-        return hasShop;
+        return this.shopID != 0;
     }
 
-    public void updateHasShop() {
-        this.hasShop = new UserDaoImpl().hasShop(this);
+    public int getShopID() {
+        return this.shopID;
     }
 
-    public ArrayList<Pair<Product, Integer>> getCart() {
+    public void updateShopID() {
+        this.shopID = new UserDaoImpl().getShopID(this);
+    }
+
+    public void setShopID(int shopID) {
+        this.shopID = shopID;
+    }
+
+    public Cart getCart() {
         this.updateCart();
         return cart;
     }
 
-    public ArrayList<Pair<Product, Integer>> getCart(boolean update) {
+    public Cart getCart(boolean update) {
         if(update)
             this.updateCart();
         return cart;
     }
 
     public void updateCart() {
-        System.out.println("[INFO] Cart Updated");
+        //System.out.println("[INFO] Cart Updated");
         System.out.flush();
         this.cart = new UserDaoImpl().getCart(this);
     }
@@ -95,4 +103,16 @@ public class User implements Serializable {
         this.privacy = privacy;
     }
 
+    public boolean hasReviewedShop(int shopID) {
+        UserDao userDao = new UserDaoImpl();
+        return userDao.checkIfReviewExists(this.userID, shopID);
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
 }

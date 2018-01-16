@@ -6,6 +6,8 @@ public class ProdOrder{
     private float finalPrice = 0;
     private Address address;
     private int status = 0;
+    private ProductReview review = null;
+    private Dispute dispute = null;
 
     public Product getProduct() {
         return product;
@@ -45,5 +47,21 @@ public class ProdOrder{
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public ProductReview getReview() {
+        return review;
+    }
+
+    public void setReview(ProductReview review) {
+        this.review = review;
+    }
+
+    public Dispute getDispute() {
+        return dispute;
+    }
+
+    public void setDispute(Dispute dispute) {
+        this.dispute = dispute;
     }
 }

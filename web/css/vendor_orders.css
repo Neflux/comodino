@@ -5,11 +5,6 @@ body{
     width:350px;*/
 }
 
-body > .container {
-    margin-top: 0px !important;
-    background-color: transparent;
-}
-
 @media screen and (max-width: 992px){
     #orderRows {
         margin: 0 20px 0 20px;

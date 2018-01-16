@@ -5,11 +5,6 @@ body{
     width:350px;*/
 }
 
-body > .container {
-    margin-top: 0px !important;
-    background-color: transparent;
-}
-
 .review {
     margin-bottom: 10px;
 }

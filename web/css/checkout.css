@@ -1,17 +1,23 @@
-.container{
-    width: auto;
-    background-color: #FFF;
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 4px;
-    margin: 40px 70px;
+h4{
+    font-size: 19px;
+}
+
+.main {
+    padding: 0 25px;
+    padding-bottom: 15px;
+    margin-top: 35px !important;
+    margin-bottom: 25px;
 }
 
 .display-1 {
-    margin-top: 0px !important;
-    margin-bottom: 20px !important;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+body>.container{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
 }
 
 html{
@@ -19,13 +25,11 @@ html{
 }
 body{
     background-color: #F3F3F4 !important;
+    /*margin-top: 80px;*/
 }
 
 .list-group-item {
-    margin: 10px;
-    border-radius: 8px !important;
-    border-width: 1px;
-    border-color: #CAD2D2;
+    box-shadow: 2px 2px 4px rgba(0,0,0,.05);
 }
 
 .cart-item {
@@ -33,28 +37,17 @@ body{
 }
 
 .itemtitle {
-    font-size: 28px;
     margin-top: 0;
     margin-bottom: 0;
 }
 
 .itemseller {
-    font-size: 18px;
     margin-bottom: 5px;
 }
 
 .radio {
-	padding: 5px 0px;
-	margin: 10px 0px;
-	font-size: 20px;
-	border: 1px;
-	border-color: #CAD2D2;
-	border-style: solid;
-	border-radius: 8px;
-}
-
-input[type=radio]:not(old) {
-	margin-top: 8px;
+	padding: 5px 0;
+	margin: 10px 0;
 }
 
 h3 {

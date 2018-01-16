@@ -1,7 +1,6 @@
 body>.container{
-    padding-top: 30px !important;
     padding-bottom: 30px !important;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: transparent; 
 }
 html{
@@ -13,6 +12,15 @@ body{
     min-width:350px; /* suppose you want minimun width of 1000px */
     width: auto !important;  /* Firefox will set width as auto */
     width:350px;             /* As IE ignores !important it will set width as 1000px; */
+}
+
+#buttonPanel{
+    padding-bottom: 15px;
+}
+
+#navbar {
+    border-radius: 4px !important;
+    box-shadow: 0 2px 2px rgba(0,0,0,.15);
 }
 
 /* override my.css */
@@ -27,21 +35,11 @@ h4 {
 /* sotto i 992 pixel */
 
 @media screen and (max-width: 992px){
-    
-   /* my.css fix */
-    body>.container{
-        margin-top: -30px !important;
-    }
-    
-    body > .container > .row  {
-        margin: 0 15px 0 15px;
-    } 
-    
+
     /* navbar */
     
     body > .container > .row > #navbar  {
         background-color: white;
-        border-radius: 8px;
         padding-top: 20px;
     } 
     
@@ -76,7 +74,7 @@ h4 {
     
     body > .container > .row > #mainContent > #panelContainer {
         padding-top: 20px;
-        border-radius: 8px;
+        border-radius: 4px;
         background-color: white;
     }
     
@@ -98,7 +96,7 @@ h4 {
     body > .container > .row > #mainContent > #productsLeftContainer  { /* ma se togliessi sta colonna? */
         margin-top: 25px;
         background-color: white;
-        border-radius: 8px;
+        border-radius: 4px;
         padding: 0 40px 15px 40px;
     }
 
@@ -110,18 +108,17 @@ h4 {
     .productRow {
         margin-bottom: 10px;
         background-color: #156486;
-        border-radius: 8px;
+        border-radius: 4px;
         color: white;
-        height: 40px;
         position:relative;
     }
     
-    .productRow > .col-md-10 >.row {
+    /*.productRow > .col-md-10 >.row {
         position: relative;
     }
     .productRow > .col-md-10 >.row >.col-md-6 {
         position: absolute;
-    }
+    }*/
     
     .itemsLeftDiv {
         right: 0 !important;
@@ -153,10 +150,7 @@ h4 {
 /*sopra i 992 pixel */
 
 @media screen and (min-width: 992px){
-    body > .container  {
-        margin-top: -20px !important;
-        padding: 0px !important;
-    }
+
     body > .container > .row {
         margin-left: -20px;
     }
@@ -183,13 +177,15 @@ h4 {
         background-color: white;
         /*border-radius: 8px;*/
        /* height: 720px;*/
-        padding-left: 30px;
+        padding-left: 15px;
     } 
     
     #navbar >.col-md-12  {
         text-align: justify;
         text-justify: inter-word;
+
     }
+
     #shopPhoto > img {
         max-height: 150px;
         margin: auto;
@@ -207,16 +203,13 @@ h4 {
     }
     
     /* Pannello foto e modifica */
-    
-    body > .container > .row > #mainContent > #panelContainer {
-        margin-top: 30px;
-    }
-    
+
     #photoPanel {
         background-color: white;
-        border-radius: 8px;
+        border-radius: 4px;
         vertical-align: middle !important;
         min-width: 200px;
+        box-shadow: 0 2px 2px rgba(0,0,0,.15);
     }
     
     #photoPanel > .col-md-12 > a  {
@@ -233,20 +226,9 @@ h4 {
     body > .container > .row > #mainContent > #panelContainer > #buttonPanel {
         background-color: white;
         padding: 30px;
-        border-radius: 8px;
+        border-radius: 4px;
         vertical-align: middle;
-    }
-
-    .btnUpper {
-        margin-bottom: 35px;
-    }
-    .btnLower {
-        margin-top: 35px;
-    }
-
-    #btnReviews, #btnInventario {
-        padding-left: 7%;
-        padding-right: 0;
+        box-shadow: 0 2px 2px rgba(0,0,0,.15);
     }
 
     /* Prodotti in esaurimento */
@@ -254,8 +236,9 @@ h4 {
     body > .container > .row > #mainContent > #productsLeftContainer  { /* ma se togliessi sta colonna? */
         margin-top: 35px;
         background-color: white;
-        border-radius: 8px;
+        border-radius: 4px;
         padding: 0 40px 15px 40px;
+        box-shadow: 0 2px 2px rgba(0,0,0,.15);
     }
 
     #productsLeftContainer >.col-md-12 >.row > #shopTitle {
@@ -265,45 +248,39 @@ h4 {
     .productRow {
         margin-bottom: 10px;
         background-color: #156486;
-        border-radius: 8px;
+        border-radius: 4px;
         color: white;
-
         position:relative;
     }
-    
-    .productRow >.col-md-2 {
-        margin-top: 8px;
+
+    .btnSee {
+        padding-top: 7px;
+    }
+
+}
+
+@media screen and (max-width:767px) {
+    .btnSee {
+        padding: 0; !important;
+    }
+    .productRow {
+        padding-bottom: 10px; !important;
     }
 }
- /* disperato tentativo di fixare il range 992-1200
-@media screen and (min-width: 1200px){
-    
-   
-    #photoPanel {
-        min-width: 300px;
-    }
-    
-    #buttonPanel {
-        min-width: 400px !important;
-    }
-    
-    #mySpace { 
-     width: 0px;
-    }
-    
-    body > .container > .row {
-        margin-left: -45px;
-        width: 90%;
-    }
-    
-    #navbar > .col-md-12{
-        padding-left: 0px;
-    }
-    
-    #mainContent {
-        width: 100%;
-    }
-   
-    
+
+.carousel {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
 }
- */
+
+.addphyshop {
+    margin-top: 20px;
+}
+
+.btn-success {
+    text-align: center;
+}
+
+.pull-left {
+    margin-top: 1px;
+}
